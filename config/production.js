@@ -21,6 +21,10 @@ module.exports = {
         password: envData.DB_Password,
       },
     },
+    redisCache: {
+      host: envData.Redis_Host,
+      port: envData.Redis_Port,
+    },
     WebAuth: {
       retainedUserData: retainedUserData,
       accountTableOptions: {
