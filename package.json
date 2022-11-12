@@ -52,7 +52,7 @@
     "@fangcha/account-frontend": "^0.1.1",
     "@fangcha/eslint": "^0.3.2",
     "@fangcha/generator": "^0.1.1",
-    "@fangcha/vue": "^0.51.0",
+    "@fangcha/vue": "^0.52.0",
     "@fangcha/webpack": "^0.9.1",
     "@types/ali-oss": "^6.0.10",
     "@types/assert": "^1.4.6",
