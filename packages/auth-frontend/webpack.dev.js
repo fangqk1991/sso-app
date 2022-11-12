@@ -1,14 +1,13 @@
 const { WebpackBuilder } = require('@fangcha/webpack')
-
-const config = require('fc-config').GlobalAppConfig
+const { GlobalAppConfig } = require('fc-config')
 
 module.exports = new WebpackBuilder()
   .setDevMode(true)
-  .setPort(config.FangchaAuthDev.webFrontendPort)
+  .setPort(GlobalAppConfig.FangchaAuth.webPort_frontend)
   .setExtras({
     devServer: {
       proxy: {
-        '/api': `http://localhost:${config.FangchaAuth.webPort}`,
+        '/api': `http://localhost:${GlobalAppConfig.FangchaAuth.webPort}`,
       },
     },
   })

@@ -9,8 +9,8 @@ export const MySsoServer = new SsoServer({
   webBaseURL: AuthConfig.webBaseURL,
   webJwtKey: AuthConfig.webJwtKey,
   webJwtSecret: AuthConfig.webJwtSecret,
-  tableName_SsoClient: 'sso_client',
-  tableName_UserAuth: 'user_auth',
+  tableName_SsoClient: AuthConfig.ssoTableOptions.tableName_SsoClient,
+  tableName_UserAuth: AuthConfig.ssoTableOptions.tableName_UserAuth,
   accountServer: new AccountServer({
     database: MyDatabase.ssoDB,
     tableName_Account: AuthConfig.WebAuth.accountTableOptions.tableName_Account,
