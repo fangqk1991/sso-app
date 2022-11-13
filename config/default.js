@@ -24,8 +24,8 @@ module.exports = {
       port: 30100,
     },
     ssoTableOptions: {
-      tableName_SsoClient: 'sso_client',
-      tableName_UserAuth: 'user_auth',
+      tableName_SsoClient: 'fc_sso_client',
+      tableName_UserAuth: 'fc_user_auth',
     },
     WebAuth: {
       retainedUserData: {
