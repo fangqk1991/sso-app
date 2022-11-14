@@ -993,10 +993,10 @@
   dependencies:
     "@fangcha/app-error" "^1.1.0"
 
-"@fangcha/backend-kit@^0.36.0":
-  version "0.36.0"
-  resolved "https://registry.yarnpkg.com/@fangcha/backend-kit/-/backend-kit-0.36.0.tgz#bab5cb91cdd3650753a0dba9c4432d3b72401466"
-  integrity sha512-4/2d4fOhm/QlrRI3LNAMuHLLnxEje6nE/KJOLZphVBm/sA6LmAzHbgEn5ps5PLTcruD/1cydZDM6L7uGQSr71w==
+"@fangcha/backend-kit@^0.41.0":
+  version "0.41.0"
+  resolved "https://registry.yarnpkg.com/@fangcha/backend-kit/-/backend-kit-0.41.0.tgz#369f73e730acfe8c0695723102953daad8417da4"
+  integrity sha512-EHtQoajxlovWbhzZnnJoB4X9Jaj8wm15Ca07INgXRIQHLm/G5J0YrZuMBGCiRO6GmVPAdJqxKFHbiOBoQNacqw==
 
 "@fangcha/eslint@^0.3.2":
   version "0.3.2"
@@ -1033,15 +1033,15 @@
     lodash "^4.17.15"
     tslib "^2.3.1"
 
-"@fangcha/router@^0.19.0":
-  version "0.19.0"
-  resolved "https://registry.yarnpkg.com/@fangcha/router/-/router-0.19.0.tgz#2eab2a6f9238b83b83e97aae305d8c883295a988"
-  integrity sha512-gww5foS1fIGYKu8IilklDouRuDlYdkt6PZKW/8uXo7uatG4BI15Fnjl98vCpE0F7+cOIeLpj9AlU9ZIkQkML1g==
+"@fangcha/router@^0.20.0":
+  version "0.20.0"
+  resolved "https://registry.yarnpkg.com/@fangcha/router/-/router-0.20.0.tgz#0ddda2693db3615ff6569fde9bd3506630e1c0c9"
+  integrity sha512-jPZeogxgv0GB37jiXJUK4XZUvN6aPO0e6x+LOpoAZ8iITb/JdQLzIK9irAnmV56z1VkKC6Ixo+Aiea+PFnDqkA==
 
-"@fangcha/sso-server@^0.14.0":
-  version "0.14.0"
-  resolved "https://registry.yarnpkg.com/@fangcha/sso-server/-/sso-server-0.14.0.tgz#02f0bad7d6239f0a97fc91342afccbb2ac43aabf"
-  integrity sha512-pLBb+BIBj0XFa46Tzr+HWO7b1mvVuV8lW2l8uO1u5F2ArTy1XBovVZWU7dwepyVMM9hfzJmEQRUnOk6ihm2OSQ==
+"@fangcha/sso-server@^0.16.0":
+  version "0.16.0"
+  resolved "https://registry.yarnpkg.com/@fangcha/sso-server/-/sso-server-0.16.0.tgz#30ed4e1c425aca6f97ba5b9efe34533255b2400f"
+  integrity sha512-pX09n2IKxv1nt8Z6B6LZApDULVGaoOvv/LebXSx6uCDYbQv9pq7gVPR3Oy5OiIzdyKmCOLvsi8FqaSxbXsDfTw==
   dependencies:
     oauth2-server "^3.1.1"
 
