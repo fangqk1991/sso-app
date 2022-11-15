@@ -1,11 +1,18 @@
 # sso-app
+### Demo
+* SSO 登录页: <https://sso-demo.fangcha.net/>
+
+---
+
 ### 准备
-* MySQL 数据库、[账号数据表](https://github.com/fangqk1991/account-service/blob/master/schemas/account-service.sql)、[客户端数据表](https://github.com/fangqk1991/sso-server/blob/master/schemas/sso-server.sql) 创建
+* MySQL 数据库、[数据表](https://github.com/fangqk1991/sso-app/blob/master/config/schemas.sql)
 * Redis 服务启动
 
-### 数据表创建
+### 数据表初始化
+通过 Docker 使用 `prepare` 命令可以创建 SSO 服务依赖的[数据表](https://github.com/fangqk1991/sso-app/blob/master/config/schemas.sql)，默认情况下为 `fc_account`、`fc_account_carrier`、`fc_account_carrier_extras`、`fc_sso_client`、`fc_user_auth`，也可以通过环境变量指定表名
+
 ```
-docker run -it --rm \
+docker run --rm \
   -e DB_Host=${DB_Host} \
   -e DB_Port=${DB_Port} \
   -e DB_Name=${DB_Name} \
@@ -15,7 +22,6 @@ docker run -it --rm \
 ```
 
 ### 使用 Docker 启动
-
 ```
 docker pull fangqk1991/sso-app
 
@@ -34,6 +40,15 @@ docker run -d --restart=unless-stopped \
   -p 2699:2699 \
   fangqk1991/sso-app
 ```
+
+### SSO 客户端、用户维护
+* SSO Admin: <https://github.com/fangqk1991/sso-admin>
+* SSO Admin Demo: <https://sso-admin-demo.fangcha.net/>
+* Demo 账号: sso-admin-demo@fangcha.net
+* Demo 密码: sVUhtonaLp4N0M2EKIm5nLbtoxSwDdBN
+
+![](https://image.fangqk.com/2022-11-15/sso-demo-client.png)
+![](https://image.fangqk.com/2022-11-15/sso-demo-user.png)
 
 ### 环境变量说明
 | 环境变量 | 缺省值                         | 说明 |
