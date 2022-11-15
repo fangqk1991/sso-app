@@ -14,7 +14,7 @@ module.exports = {
         host: '127.0.0.1',
         port: 3306,
         dialect: 'mysql',
-        database: 'fangcha_sso',
+        database: 'demo_db',
         username: 'root',
         password: '',
       },
@@ -27,14 +27,14 @@ module.exports = {
       tableName_SsoClient: 'fc_sso_client',
       tableName_UserAuth: 'fc_user_auth',
     },
+    accountTableOptions: {
+      tableName_Account: 'fc_account',
+      tableName_AccountCarrier: 'fc_account_carrier',
+      tableName_AccountCarrierExtras: 'fc_account_carrier_extras',
+    },
     WebAuth: {
       retainedUserData: {
         // 'admin@example.com': 'admin',
-      },
-      accountTableOptions: {
-        tableName_Account: 'fc_account',
-        tableName_AccountCarrier: 'fc_account_carrier',
-        tableName_AccountCarrierExtras: 'fc_account_carrier_extras',
       },
     },
   },
