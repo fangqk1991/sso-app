@@ -1,6 +1,7 @@
 # sso-app
 ### Demo
 * SSO 登录页: <https://sso-demo.fangcha.net/>
+* 客户端 Demo: <https://app-demo.fangcha.net/>
 
 ---
 
