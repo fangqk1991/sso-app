@@ -67,7 +67,8 @@ RUN cd ${PRE_BUILD_DIR} && yarn workspace auth-frontend run build
 RUN cp -r ${PRE_BUILD_DIR}/config ${BUILD_DIR} \
     && cp -r ${PRE_BUILD_DIR}/packages/auth-backend/dist ${BUILD_DIR}/packages/auth-backend \
     && cp -r ${PRE_BUILD_DIR}/packages/auth-frontend/dist ${BUILD_DIR}/packages/auth-frontend \
-    && cp ${PRE_BUILD_DIR}/packages/auth-backend/ecosystem.config.js ${BUILD_DIR}/packages/auth-backend
+    && cp ${PRE_BUILD_DIR}/packages/auth-backend/ecosystem.config.js ${BUILD_DIR}/packages/auth-backend \
+    && cp ${PRE_BUILD_DIR}/prepare.js ${BUILD_DIR}
 ###### MODULES_CACHE 阶段个性化代码 END ######
 
 ########################################
