@@ -4409,10 +4409,10 @@ faye-websocket@^0.11.3:
   dependencies:
     websocket-driver ">=0.5.1"
 
-fc-config@^0.12.0:
-  version "0.12.0"
-  resolved "https://registry.yarnpkg.com/fc-config/-/fc-config-0.12.0.tgz#02f6853382e526aecba507c3e02c194ced3e2233"
-  integrity sha512-IN6fkt6OiPymfk5OFHOSfpHHj6MfORoCY5MFvybC7WHe63IUY/3lblx4756MKZ1ZtYUkJ1fuHMg6n5HylZ86eQ==
+fc-config@^0.13.0:
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/fc-config/-/fc-config-0.13.0.tgz#b59f4e83f5fc84285adfad29f6cf00abcc70fed9"
+  integrity sha512-Jxy2Uda1v69eja0d4oyT7UNAML6Yxi7VmNreW2WR5W8ApLM52Q3pOfNl0IlPZRKRYDVXTIHVrbzFsCjaGb1SMg==
   dependencies:
     lodash "^4.17.21"
 

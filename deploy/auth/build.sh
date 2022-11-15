@@ -7,7 +7,7 @@ __DIR__=`cd "$(dirname "$0")"; pwd`
 ROOT_DIR="${__DIR__}/../.."
 cd "${ROOT_DIR}"
 
-imageName=fangcha.app/auth
+imageName=fangqk1991/sso-app
 containerName=my-auth
 env=development
 # 静态资源会根据 Refer 判断防盗链，本地环境不能正常访问，故传递参数构建特殊镜像

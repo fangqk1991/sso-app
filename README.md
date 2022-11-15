@@ -6,8 +6,6 @@
 ### 数据表创建
 ```
 docker run -it --rm \
-  --name sso-app \
-  -e ENV=production \
   -e DB_Host=${DB_Host} \
   -e DB_Port=${DB_Port} \
   -e DB_Name=${DB_Name} \
