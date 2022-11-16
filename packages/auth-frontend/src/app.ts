@@ -9,6 +9,6 @@ const app = new BasicApp({
       path: '/',
       redirect: '/login',
     },
-  ]
+  ],
 })
 app.launch()
