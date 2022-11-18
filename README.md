@@ -52,19 +52,22 @@ docker run -d --restart=unless-stopped \
 ![](https://image.fangqk.com/2022-11-15/sso-demo-user.png)
 
 ### 环境变量说明
-| 环境变量 | 缺省值                         | 说明 |
-|:-------|:----------------------------|:---|
-| `webBaseURL` | `http://localhost:2699`     | 网站 baseURL |
-| `webJwtSecret` | `<TmplDemo Random 32>`      | JWT Secret |
-| `DB_Host` | `127.0.0.1`                 | MySQL Host |
-| `DB_Port` | `3306`                      | MySQL 端口 |
-| `DB_Name` | `demo_db`               | MySQL 数据库名 |
-| `DB_User` | `root`                      | MySQL 用户名 |
-| `DB_Password` |                             | MySQL 用户密码 |
-| `Redis_Host` | `127.0.0.1`                 | Redis Host |
-| `Redis_Port` | `30100`                     | Redis 端口 |
-| `DB_Table_SsoClient` | `fc_sso_client`             | SsoClient 表名 |
-| `DB_Table_UserAuth` | `fc_user_auth`              | UserAuth 表名 |
-| `DB_Table_Account` | `fc_account`                | Account 表名 |
-| `DB_Table_AccountCarrier` | `fc_account_carrier`        | AccountCarrier 表名 |
+| 环境变量 | 缺省值                         | 说明                      |
+|:-------|:----------------------------|:------------------------|
+| `webBaseURL` | `http://localhost:2699`     | 网站 baseURL              |
+| `webJwtSecret` | `<TmplDemo Random 32>`      | JWT Secret              |
+| `DB_Host` | `127.0.0.1`                 | MySQL Host              |
+| `DB_Port` | `3306`                      | MySQL 端口                |
+| `DB_Name` | `demo_db`                   | MySQL 数据库名              |
+| `DB_User` | `root`                      | MySQL 用户名               |
+| `DB_Password` |                             | MySQL 用户密码              |
+| `Redis_Host` | `127.0.0.1`                 | Redis Host              |
+| `Redis_Port` | `30100`                     | Redis 端口                |
+| `DB_Table_SsoClient` | `fc_sso_client`             | SsoClient 表名            |
+| `DB_Table_UserAuth` | `fc_user_auth`              | UserAuth 表名             |
+| `DB_Table_Account` | `fc_account`                | Account 表名              |
+| `DB_Table_AccountCarrier` | `fc_account_carrier`        | AccountCarrier 表名       |
 | `DB_Table_AccountCarrierExtras` | `fc_account_carrier_extras` | AccountCarrierExtras 表名 |
+| `FE_appName` | `Fangcha SSO`                   | 页面应用名                   |
+| `FE_background` | `#f5f5f5`                         | 页面背景                    |
+| `FE_logoCss` | `linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%)` | 页面 Logo 样式              |

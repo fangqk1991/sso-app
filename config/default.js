@@ -38,7 +38,7 @@ module.exports = {
       },
     },
     frontendConfig: {
-      appName: 'Fangcha',
+      appName: 'Fangcha SSO',
       background: '#f5f5f5',
       logoCss: 'linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%)',
     },
