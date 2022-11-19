@@ -988,10 +988,10 @@
   dependencies:
     "@fangcha/app-error" "^1.1.0"
 
-"@fangcha/backend-kit@^0.45.0":
-  version "0.45.0"
-  resolved "https://registry.yarnpkg.com/@fangcha/backend-kit/-/backend-kit-0.45.0.tgz#0b0ec9b1ad537d706fdc114df45c21c0bdf079ba"
-  integrity sha512-EzEZ44BKt8RZo1IJJaCNeKEQDReuTXm4rY30dbRiURj0voRp+FB37l6I7+N4gZQ9HQKVpmfLx3P/VXoLeDXIJA==
+"@fangcha/backend-kit@^0.45.1":
+  version "0.45.1"
+  resolved "https://registry.yarnpkg.com/@fangcha/backend-kit/-/backend-kit-0.45.1.tgz#cec37f65571f7a1e0304d03b26455b08243d07fe"
+  integrity sha512-RL81i3Fbuz6aR6n9WgCkzQkFIRlEAJeT2IGF6fsKIR0Xbi59mSGsfaxY2p3Gpb/ingtpgZA1nH3n4rOLpGiGwQ==
 
 "@fangcha/eslint@^0.3.2":
   version "0.3.2"
@@ -1033,10 +1033,10 @@
   resolved "https://registry.yarnpkg.com/@fangcha/router/-/router-0.22.0.tgz#b73cc28574f6a0a821c202c9a2fb4cd99995b752"
   integrity sha512-039Gb1V+RvodTEpYOiAb8QXO0rE1vEz5CEGxMOOTMOC+Ss1d+XqmlBaf7Ijn5vWidLfFnIZIkG/aQAZKIZSBZw==
 
-"@fangcha/sso-server@^0.18.0":
-  version "0.18.0"
-  resolved "https://registry.yarnpkg.com/@fangcha/sso-server/-/sso-server-0.18.0.tgz#c9bc45a56f1056c3fd9b9a3e9d9a73a5b47ae68e"
-  integrity sha512-RX6OLA9Im5OdRPjAuo4kUWWDp3HaoeFxB56wmpBzfZT026Kpu2gmKmVvSgH2Ht8qjp5d09+fYFlrevXWtTAERw==
+"@fangcha/sso-server@^0.19.0":
+  version "0.19.0"
+  resolved "https://registry.yarnpkg.com/@fangcha/sso-server/-/sso-server-0.19.0.tgz#5aa8a27d98eee623cfd76da929bc219cef106639"
+  integrity sha512-s9EtB863byFo5KFJ6ZwFkT75wYca55QfAUdENNviaWn2uOblJ7kE9LMoWgBMBVQOZk0qZNqRWoPMxaLTFsRaAQ==
   dependencies:
     oauth2-server "^3.1.1"
 
@@ -1054,10 +1054,10 @@
     tslib "^2.3.1"
     uuid "^3.3.3"
 
-"@fangcha/vue@^0.58.0":
-  version "0.58.0"
-  resolved "https://registry.yarnpkg.com/@fangcha/vue/-/vue-0.58.0.tgz#1c31b3859b9de37a7b2fa432baea2f8f03ce4351"
-  integrity sha512-FjoekZ87XHve1km86uLClIGd+4ydTpm1v/BrKG0IaooBqIx23bzOBhZg1gNNkzZUBRO6yvlXyK7WN1mNkEzaGQ==
+"@fangcha/vue@^0.60.0":
+  version "0.60.0"
+  resolved "https://registry.yarnpkg.com/@fangcha/vue/-/vue-0.60.0.tgz#58dfeea2c38d8793b776457026058be65748c891"
+  integrity sha512-9ZtklimcAp/jM5HoTW2pxB4KIjryGL9IY4ZngHYwEAZhfJBt6XbOQ7fkqRDc00jHAe1wEwvHvamSocYrtxzOow==
   dependencies:
     "@popperjs/core" "^2.11.5"
     bootstrap "^5.1.3"

@@ -41,6 +41,7 @@ module.exports = {
       appName: envData.FE_appName,
       background: envData.FE_background,
       logoCss: envData.FE_logoCss,
+      signupAble: envData.FE_signupAble,
     },
   },
 }

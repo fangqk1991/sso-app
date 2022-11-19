@@ -68,6 +68,7 @@ docker run -d --restart=unless-stopped \
 | `DB_Table_Account` | `fc_account`                | Account 表名              |
 | `DB_Table_AccountCarrier` | `fc_account_carrier`        | AccountCarrier 表名       |
 | `DB_Table_AccountCarrierExtras` | `fc_account_carrier_extras` | AccountCarrierExtras 表名 |
-| `FE_appName` | `Fangcha SSO`                   | 页面应用名                   |
-| `FE_background` | `#f5f5f5`                         | 页面背景                    |
-| `FE_logoCss` | `linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%)` | 页面 Logo 样式              |
+| `FE_appName` | `Fangcha SSO` | 页面应用名 |
+| `FE_background` | `#f5f5f5` | 页面背景 |
+| `FE_logoCss` | `linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%)` | 页面 Logo 样式 |
+| `FE_signupAble` | false | 开启注册功能 |

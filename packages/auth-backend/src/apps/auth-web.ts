@@ -22,6 +22,7 @@ const app = new WebApp({
   },
   plugins: [
     SsoWebPlugin({
+      signupAble: AuthConfig.frontendConfig.signupAble,
       ssoServer: MySsoServer,
     }),
     SsoClientsAutoReloadPlugin(MySsoServer),
