@@ -15,7 +15,7 @@
     "@fangcha/app-error": "^1.5.0",
     "@fangcha/app-request": "^1.6.0",
     "@fangcha/assert": "^1.1.0",
-    "@fangcha/backend-kit": "^0.45.1",
+    "@fangcha/backend-kit": "^0.47.0",
     "@fangcha/logger": "^0.4.0",
     "@fangcha/router": "^0.22.0",
     "@fangcha/sso-server": "^0.20.1",
@@ -50,7 +50,7 @@
   "devDependencies": {
     "@fangcha/eslint": "^0.3.2",
     "@fangcha/generator": "^0.1.1",
-    "@fangcha/vue": "^0.64.0",
+    "@fangcha/vue": "^0.65.2",
     "@fangcha/webpack": "^0.9.1",
     "@types/ali-oss": "^6.0.10",
     "@types/assert": "^1.4.6",
