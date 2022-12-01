@@ -60,9 +60,9 @@ docker run -d --restart=unless-stopped \
 | `DB_Name` | `demo_db`                   | MySQL 数据库名              |
 | `DB_User` | `root`                      | MySQL 用户名               |
 | `DB_Password` |                             | MySQL 用户密码              |
+| `DB_tableNamePrefix` | | 数据表前缀 |
 | `Redis_Host` | `127.0.0.1`                 | Redis Host              |
 | `Redis_Port` | `30100`                     | Redis 端口                |
-| `DB_tableNamePrefix` | | 数据表前缀            |
 | `FE_appName` | `Fangcha SSO` | 页面应用名 |
 | `FE_background` | `#f5f5f5` | 页面背景 |
 | `FE_logoCss` | `linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%)` | 页面 Logo 样式 |

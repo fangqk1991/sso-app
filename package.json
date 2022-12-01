@@ -40,7 +40,7 @@
   "devDependencies": {
     "@fangcha/eslint": "^0.3.2",
     "@fangcha/generator": "^0.1.1",
-    "@fangcha/vue": "^0.73.1",
+    "@fangcha/vue": "^0.74.0",
     "@fangcha/webpack": "^0.10.0",
     "@types/ali-oss": "^6.0.10",
     "@types/assert": "^1.4.6",
