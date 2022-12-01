@@ -10,8 +10,7 @@
 * Redis 服务启动
 
 ### 数据表初始化
-通过 Docker 使用 `prepare` 命令可以创建 SSO 服务依赖的[数据表](https://github.com/fangqk1991/sso-app/blob/master/config/schemas.sql)，默认情况下为 `fc_account`、`fc_account_carrier`、`fc_account_carrier_extras`、`fc_sso_client`、`fc_user_auth`，也可以通过环境变量指定表名
-
+通过 Docker 使用 `prepare` 命令可以创建 SSO 服务依赖的[数据表](https://github.com/fangqk1991/sso-app/blob/master/config/schemas.sql)
 ```
 docker run --rm \
   -e DB_Host=${DB_Host} \
@@ -63,11 +62,7 @@ docker run -d --restart=unless-stopped \
 | `DB_Password` |                             | MySQL 用户密码              |
 | `Redis_Host` | `127.0.0.1`                 | Redis Host              |
 | `Redis_Port` | `30100`                     | Redis 端口                |
-| `DB_Table_SsoClient` | `fc_sso_client`             | SsoClient 表名            |
-| `DB_Table_UserAuth` | `fc_user_auth`              | UserAuth 表名             |
-| `DB_Table_Account` | `fc_account`                | Account 表名              |
-| `DB_Table_AccountCarrier` | `fc_account_carrier`        | AccountCarrier 表名       |
-| `DB_Table_AccountCarrierExtras` | `fc_account_carrier_extras` | AccountCarrierExtras 表名 |
+| `DB_tableNamePrefix` | | 数据表前缀            |
 | `FE_appName` | `Fangcha SSO` | 页面应用名 |
 | `FE_background` | `#f5f5f5` | 页面背景 |
 | `FE_logoCss` | `linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%)` | 页面 Logo 样式 |

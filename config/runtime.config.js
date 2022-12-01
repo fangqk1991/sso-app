@@ -25,15 +25,7 @@ module.exports = {
       host: envData.Redis_Host,
       port: envData.Redis_Port,
     },
-    ssoTableOptions: {
-      tableName_SsoClient: envData.DB_Table_SsoClient,
-      tableName_UserAuth: envData.DB_Table_UserAuth,
-    },
-    accountTableOptions: {
-      tableName_Account: envData.DB_Table_Account,
-      tableName_AccountCarrier: envData.DB_Table_AccountCarrier,
-      tableName_AccountCarrierExtras: envData.DB_Table_AccountCarrierExtras,
-    },
+    sqlTablePrefix: envData.DB_tableNamePrefix,
     WebAuth: {
       retainedUserData: retainedUserData,
     },
