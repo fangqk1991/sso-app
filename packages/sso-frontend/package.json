@@ -1,0 +1,20 @@
+{
+  "name": "sso-frontend",
+  "version": "1.0.0",
+  "license": "UNLICENSED",
+  "scripts": {
+    "start": "webpack-dev-server --config webpack.dev.js",
+    "build": "rm -rf dist && webpack --config webpack.prod.js",
+    "build:dev": "rm -rf dist && webpack --config webpack.staging.js"
+  },
+  "devDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "@types/react-dom": "^18.0.9",
+    "antd": "^5.0.7",
+    "react-router-dom": "^6.5.0",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "bootstrap": "^5.1.3"
+  }
+}
