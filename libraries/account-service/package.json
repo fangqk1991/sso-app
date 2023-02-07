@@ -1,6 +1,6 @@
 {
   "name": "@fangcha/account",
-  "version": "0.16.0",
+  "version": "0.17.0",
   "description": "Account Server.",
   "main": "src/index.ts",
   "publishConfig": {
