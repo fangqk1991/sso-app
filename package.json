@@ -1,14 +1,9 @@
 {
   "private": true,
-  "workspaces": [
-    "packages/*",
-    "libraries/*",
-    "services/*",
-    "kits/*"
-  ],
   "scripts": {
-    "prepare": "husky install",
-    "preinstall": "npx only-allow pnpm"
+    "init-husky": "husky install",
+    "preinstall": "npx only-allow pnpm",
+    "build": "pnpm --filter \"./packages/**\" build"
   },
   "dependencies": {
     "@fangcha/account": "^0.15.0",
