@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "@fangcha/account-models": "workspace:^*",
+    "@fangcha/sso-models": "workspace:^*",
     "@fangcha/account": "workspace:^*"
   },
   "files": [

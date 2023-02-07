@@ -1,5 +1,5 @@
 import { __UserAuth } from '../auto-build/__UserAuth'
-import { UserAuthModel } from '../../common/models'
+import { UserAuthModel } from '@fangcha/sso-models'
 
 export class _UserAuth extends __UserAuth {
   public constructor() {

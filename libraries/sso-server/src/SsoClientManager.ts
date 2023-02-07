@@ -2,7 +2,7 @@ import { FCDatabase } from 'fc-sql'
 import { _SsoClient } from './models/extensions/_SsoClient'
 import { _UserAuth } from './models/extensions/_UserAuth'
 import assert from '@fangcha/assert'
-import { SsoClientParams, SsoValidateUtils } from './common/models'
+import { SsoClientParams, SsoValidateUtils } from '@fangcha/sso-models'
 import { makeRandomStr } from '@fangcha/tools'
 import { SsoClientCenter } from './services/SsoClientCenter'
 

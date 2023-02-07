@@ -1,6 +1,6 @@
 import { __SsoClient } from '../auto-build/__SsoClient'
 import { FilterOptions } from 'fc-feed'
-import { SsoClientFromOAuth, SsoClientModel, SsoClientParams, SsoValidateUtils } from '../../common/models'
+import { SsoClientFromOAuth, SsoClientModel, SsoClientParams, SsoValidateUtils } from '@fangcha/sso-models'
 
 export class _SsoClient extends __SsoClient {
   public constructor() {

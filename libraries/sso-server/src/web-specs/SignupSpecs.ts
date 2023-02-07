@@ -1,5 +1,5 @@
 import { SpecFactory } from '@fangcha/router'
-import { SignupApis } from '../common/web-api'
+import { SignupApis } from '@fangcha/sso-models'
 import { LoginService } from '../services/web/LoginService'
 import { SsoServer } from '../SsoServer'
 import assert from '@fangcha/assert'

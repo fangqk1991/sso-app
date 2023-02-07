@@ -1,7 +1,7 @@
 import { makeUUID } from '@fangcha/tools'
 import { Context } from 'koa'
 import { AppException } from '@fangcha/app-error'
-import { SsoErrorPhrase } from '../../common/models'
+import { SsoErrorPhrase } from '@fangcha/sso-models'
 import { RedisCache } from '@fangcha/tools/lib/redis'
 
 export interface JointStateParams {

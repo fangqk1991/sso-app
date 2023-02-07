@@ -1,6 +1,6 @@
 import * as OAuth2Server from 'oauth2-server'
 import { VisitorCoreInfo } from '@fangcha/account-models'
-import { SsoClientFromOAuth } from '../../common/models'
+import { SsoClientFromOAuth } from '@fangcha/sso-models'
 import { RedisCache } from '@fangcha/tools/lib/redis'
 
 export interface AccessTokenData extends OAuth2Server.Token {

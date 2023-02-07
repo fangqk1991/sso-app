@@ -152,16 +152,24 @@ importers:
       '@types/bcrypt': 5.0.0
       bcrypt: 5.1.0
 
+  libraries/sso-models:
+    specifiers:
+      '@fangcha/account-models': workspace:^*
+    dependencies:
+      '@fangcha/account-models': link:../account-models
+
   libraries/sso-server:
     specifiers:
       '@fangcha/account': workspace:^*
       '@fangcha/account-models': workspace:^*
+      '@fangcha/sso-models': workspace:^*
       oauth2-server: ^3.1.1
     dependencies:
       oauth2-server: 3.1.1
     devDependencies:
       '@fangcha/account': link:../account-service
       '@fangcha/account-models': link:../account-models
+      '@fangcha/sso-models': link:../sso-models
 
   packages/auth-backend:
     specifiers:

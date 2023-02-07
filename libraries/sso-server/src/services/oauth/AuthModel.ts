@@ -3,7 +3,7 @@ import { AccessTokenData, AuthorizationCodeData, AuthStorage } from './AuthStora
 import { SsoClientCenter } from '../SsoClientCenter'
 import { AppException } from '@fangcha/app-error'
 import { VisitorCoreInfo } from '@fangcha/account-models'
-import { AuthScopeDescriptor, SsoClientFromOAuth, SsoErrorPhrase } from '../../common/models'
+import { AuthScopeDescriptor, SsoClientFromOAuth, SsoErrorPhrase } from '@fangcha/sso-models'
 
 /**
  * @description

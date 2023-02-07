@@ -1,4 +1,4 @@
-import { SsoClientFromOAuth } from '../common/models'
+import { SsoClientFromOAuth } from '@fangcha/sso-models'
 import { _SsoClient } from '../models/extensions/_SsoClient'
 
 export class SsoClientCenter {

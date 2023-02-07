@@ -1,5 +1,5 @@
 import { LoginSpecs } from './LoginSpecs'
-import { AuthSwaggerModelList } from '../common/models'
+import { AuthSwaggerModelList } from '@fangcha/sso-models'
 import { SignupSpecs } from './SignupSpecs'
 import { OAuthSpecs } from './OAuthSpecs'
 import { SwaggerDocItem } from '@fangcha/router'

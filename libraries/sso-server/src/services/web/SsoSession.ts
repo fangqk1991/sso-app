@@ -4,7 +4,7 @@ import assert from '@fangcha/assert'
 import { _SessionApp, FangchaSession } from '@fangcha/router/lib/session'
 import { AppException } from '@fangcha/app-error'
 import { VisitorCoreInfo } from '@fangcha/account-models'
-import { SsoConstants, SsoErrorPhrase } from '../../common/models'
+import { SsoConstants, SsoErrorPhrase } from '@fangcha/sso-models'
 import { SsoServer } from '../../SsoServer'
 import { CookieAttr } from 'cookies'
 

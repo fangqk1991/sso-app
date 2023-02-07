@@ -3,7 +3,7 @@ import { URL } from 'url'
 import assert from '@fangcha/assert'
 import { FangchaSession } from '@fangcha/router/lib/session'
 import { AppException } from '@fangcha/app-error'
-import { OAuthApis } from '../common/web-api'
+import { OAuthApis } from '@fangcha/sso-models'
 import { OAuthHandler } from '../services/web/OAuthHandler'
 import { SsoServer } from '../SsoServer'
 
