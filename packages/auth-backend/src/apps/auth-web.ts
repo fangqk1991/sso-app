@@ -1,10 +1,9 @@
 import { AuthConfig } from '../AuthConfig'
 import { GlobalAppConfig } from 'fc-config'
-import { SsoWebPlugin } from '@fangcha/sso-server/src/web-sdk'
-import { SsoClientsAutoReloadPlugin } from '@fangcha/sso-server/src/sdk'
 import { MySsoServer } from '../services/MySsoServer'
 import { WebApp } from '@fangcha/backend-kit/lib/router'
 import { _FangchaState } from '@fangcha/backend-kit'
+import { SsoClientsAutoReloadPlugin, SsoWebPlugin } from '@fangcha/sso-server-sdk'
 
 const app = new WebApp({
   env: GlobalAppConfig.Env,

@@ -70,7 +70,7 @@ export class OAuthHandler {
   public async handleTokenRequest(handler: (codeData: OAuthToken) => Promise<void>) {
     const context = this.ctx
     const ssoServer = context.ssoServer as SsoServer
-    const bodyData = context.request.body as any
+    const bodyData = context.request['body'] as any
     if (bodyData.grant_type === 'authorization_code' && !bodyData.redirect_uri) {
       const codeData = await ssoServer.authStorage.getAuthorizationCodeData(bodyData.code)
       bodyData.redirect_uri = codeData?.redirectUri || ''

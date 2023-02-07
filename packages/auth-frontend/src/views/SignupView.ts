@@ -2,7 +2,7 @@ import { Component } from 'vue-property-decorator'
 import { MySession } from '../services/MySession'
 import { ViewController } from '@fangcha/vue'
 import './signin.scss'
-import { SignupApis } from '@fangcha/sso-server/src/common/web-api'
+import { SignupApis } from '@fangcha/sso-models'
 import { MyAxios } from '@fangcha/vue/basic'
 
 @Component({

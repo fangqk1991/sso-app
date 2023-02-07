@@ -8,7 +8,7 @@ import { LoginLayout } from './views/LoginLayout'
 import { LoginView } from './views/LoginView'
 import { SignupView } from './views/SignupView'
 import { ProfileView } from './views/ProfileView'
-import { LoginApis } from '@fangcha/sso-server/src/common/web-api'
+import { LoginApis } from '@fangcha/sso-models'
 
 Vue.prototype.$session = MySession
 AxiosSettings.loginUrl = '/login'

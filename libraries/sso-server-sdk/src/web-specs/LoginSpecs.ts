@@ -1,7 +1,7 @@
 import { SpecFactory } from '@fangcha/router'
 import { LoginApis } from '@fangcha/sso-models'
-import { LoginService } from '../services/web/LoginService'
-import { SsoSession } from '../services/web/SsoSession'
+import { LoginService } from '@fangcha/sso-server/src/services/web/LoginService'
+import { SsoSession } from '@fangcha/sso-server'
 
 const factory = new SpecFactory('注册')
 

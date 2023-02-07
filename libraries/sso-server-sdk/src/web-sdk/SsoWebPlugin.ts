@@ -1,10 +1,9 @@
 import { SsoServerDocItem } from '../web-specs'
-import { SsoSession } from '../services/web/SsoSession'
 import { AppPluginProtocol } from '@fangcha/backend-kit/lib/basic'
-import { SsoServer } from '../SsoServer'
 import { _RouterState } from '@fangcha/backend-kit/lib/router'
 import assert from '@fangcha/assert'
 import { _FangchaState } from '@fangcha/backend-kit'
+import { SsoServer, SsoSession } from '@fangcha/sso-server'
 
 export interface SsoWebOptions {
   signupAble?: boolean

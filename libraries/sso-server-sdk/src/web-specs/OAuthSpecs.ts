@@ -4,8 +4,7 @@ import assert from '@fangcha/assert'
 import { FangchaSession } from '@fangcha/router/lib/session'
 import { AppException } from '@fangcha/app-error'
 import { OAuthApis } from '@fangcha/sso-models'
-import { OAuthHandler } from '../services/web/OAuthHandler'
-import { SsoServer } from '../SsoServer'
+import { OAuthHandler, SsoServer } from '@fangcha/sso-server'
 
 const factory = new SpecFactory('OAuth 相关')
 

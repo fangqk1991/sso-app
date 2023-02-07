@@ -1,10 +1,8 @@
 import { SpecFactory } from '@fangcha/router'
 import { SignupApis } from '@fangcha/sso-models'
-import { LoginService } from '../services/web/LoginService'
-import { SsoServer } from '../SsoServer'
 import assert from '@fangcha/assert'
 import { _FangchaState } from '@fangcha/backend-kit'
-import { SsoSession } from '../services/web/SsoSession'
+import { LoginService, SsoServer, SsoSession } from '@fangcha/sso-server'
 
 const factory = new SpecFactory('注册')
 

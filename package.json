@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "@fangcha/account-models": "workspace:^*",
+    "@fangcha/sso-models": "workspace:^*",
     "@fangcha/app-error": "^1.6.0",
     "@fangcha/assert": "^1.2.0",
     "@fangcha/tools": "^1.23.1",
@@ -49,7 +50,7 @@
     "@fangcha/eslint": "^0.5.0",
     "@fangcha/generator": "^0.2.0",
     "@fangcha/vue": "^0.75.0",
-    "@fangcha/webpack": "^0.10.0",
+    "@fangcha/webpack": "^0.11.0",
     "@types/ali-oss": "^6.0.10",
     "@types/assert": "^1.4.6",
     "@types/bcryptjs": "^2.4.2",

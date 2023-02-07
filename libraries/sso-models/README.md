@@ -1,10 +1,10 @@
-# account-models
+# sso-models
 
 ## Installation
 ```
 # Use npm
-npm install @fangcha/account-models
+npm install @fangcha/sso-models
 
 # Or use yarn
-yarn add @fangcha/account-models
+yarn add @fangcha/sso-models
 ```
