@@ -1,7 +1,7 @@
 {
-  "name": "@fangcha/account",
-  "version": "0.16.0",
-  "description": "Account Server.",
+  "name": "@fangcha/account-models",
+  "version": "0.1.0",
+  "description": "Account Models.",
   "main": "src/index.ts",
   "publishConfig": {
     "main": "lib/index.js",
@@ -9,21 +9,14 @@
   },
   "repository": "https://github.com/fangqk1991/sso-app.git",
   "scripts": {
-    "test": "nyc mocha --exit",
     "build": "rm -rf ./lib/ && tsc",
-    "prepublish": "pnpm build",
-    "rebuild-models": "ts-node ./tools/rebuild-models.ts"
+    "prepublish": "pnpm build"
   },
   "keywords": [
     "SSO"
   ],
   "author": "fang <me@fangqk.com>",
   "license": "MIT",
-  "dependencies": {
-    "@fangcha/account-models": "workspace:^*",
-    "bcrypt": "^5.1.0",
-    "@types/bcrypt": "^5.0.0"
-  },
   "files": [
     "lib/*",
     "src/*"

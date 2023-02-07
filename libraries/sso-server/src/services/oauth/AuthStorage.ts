@@ -1,5 +1,5 @@
 import * as OAuth2Server from 'oauth2-server'
-import { VisitorCoreInfo } from '@fangcha/account/lib/common/models'
+import { VisitorCoreInfo } from '@fangcha/account-models'
 import { SsoClientFromOAuth } from '../../common/models'
 import { RedisCache } from '@fangcha/tools/lib/redis'
 

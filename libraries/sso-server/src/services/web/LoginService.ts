@@ -1,7 +1,7 @@
 import { Context } from 'koa'
 import { SsoSession } from './SsoSession'
 import { _Account } from '@fangcha/account'
-import { AccountErrorPhrase, AccountSimpleParams, CarrierType } from '@fangcha/account/lib/common/models'
+import { AccountErrorPhrase, AccountSimpleParams, CarrierType } from '@fangcha/account-models'
 import { AppException } from '@fangcha/app-error'
 import { SsoServer } from '../../SsoServer'
 

@@ -25,6 +25,7 @@
     "oauth2-server": "^3.1.1"
   },
   "devDependencies": {
+    "@fangcha/account-models": "workspace:^*",
     "@fangcha/account": "workspace:^*"
   },
   "files": [

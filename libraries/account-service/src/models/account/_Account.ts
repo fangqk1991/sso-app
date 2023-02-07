@@ -1,7 +1,7 @@
 import { __Account } from '../auto-build/__Account'
 import * as bcrypt from 'bcrypt'
 import { AppException } from '@fangcha/app-error'
-import { AccountErrorPhrase, AccountModel, CarrierType, VisitorCoreInfo } from '../../common/models'
+import { AccountErrorPhrase, AccountModel, CarrierType, VisitorCoreInfo } from '@fangcha/account-models'
 import { _AccountCarrier } from './_AccountCarrier'
 
 export class _Account extends __Account {

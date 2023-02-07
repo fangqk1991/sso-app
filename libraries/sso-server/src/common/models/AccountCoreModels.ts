@@ -1,4 +1,4 @@
-import { VisitorCoreInfo } from '@fangcha/account/lib/common/models'
+import { VisitorCoreInfo } from '@fangcha/account-models'
 
 export interface SsoSessionInfo {
   userInfo: VisitorCoreInfo | null

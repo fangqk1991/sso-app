@@ -2,7 +2,7 @@ import * as OAuth2Server from 'oauth2-server'
 import { AccessTokenData, AuthorizationCodeData, AuthStorage } from './AuthStorage'
 import { SsoClientCenter } from '../SsoClientCenter'
 import { AppException } from '@fangcha/app-error'
-import { VisitorCoreInfo } from '@fangcha/account/lib/common/models'
+import { VisitorCoreInfo } from '@fangcha/account-models'
 import { AuthScopeDescriptor, SsoClientFromOAuth, SsoErrorPhrase } from '../../common/models'
 
 /**

@@ -1,6 +1,6 @@
 import { FCDatabase } from 'fc-sql'
 import { FeedBase } from 'fc-feed'
-import { FullAccountModel } from '../../common/models'
+import { FullAccountModel } from '@fangcha/account-models'
 
 export class _FullAccount extends FeedBase {
   public accountUid!: string

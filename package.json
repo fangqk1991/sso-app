@@ -6,6 +6,7 @@
     "build": "pnpm --filter \"./packages/**\" build"
   },
   "dependencies": {
+    "@fangcha/account-models": "workspace:^*",
     "@fangcha/app-error": "^1.6.0",
     "@fangcha/assert": "^1.2.0",
     "@fangcha/tools": "^1.23.1",
@@ -47,7 +48,7 @@
   "devDependencies": {
     "@fangcha/eslint": "^0.5.0",
     "@fangcha/generator": "^0.2.0",
-    "@fangcha/vue": "^0.74.0",
+    "@fangcha/vue": "^0.75.0",
     "@fangcha/webpack": "^0.10.0",
     "@types/ali-oss": "^6.0.10",
     "@types/assert": "^1.4.6",
@@ -58,7 +59,6 @@
     "@types/lodash": "^4.14.154",
     "@types/mocha": "^10.0.0",
     "@types/tunnel": "^0.0.2",
-    "@types/uuid": "^8.3.0",
     "@types/validator": "^12.0.1",
     "@vue/composition-api": "^1.6.1",
     "ali-oss-lazy-upload": "^0.4.0",
