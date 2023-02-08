@@ -18,7 +18,7 @@ importers:
       '@fangcha/swagger': ^0.1.1
       '@fangcha/tools': ^1.23.1
       '@fangcha/vue': ^0.75.0
-      '@fangcha/webpack': ^0.11.0
+      '@fangcha/webpack': ^0.11.1
       '@koa/router': ^12.0.0
       '@types/ali-oss': ^6.0.10
       '@types/assert': ^1.5.4
@@ -115,7 +115,7 @@ importers:
       '@fangcha/eslint': 0.5.0_typescript@4.9.5
       '@fangcha/generator': 0.2.0
       '@fangcha/vue': 0.75.0
-      '@fangcha/webpack': 0.11.0_fvb3eha3htfbbehlemkzqjpy4m
+      '@fangcha/webpack': 0.11.1_fvb3eha3htfbbehlemkzqjpy4m
       '@types/ali-oss': 6.16.7
       '@types/bcryptjs': 2.4.2
       '@types/crypto-js': 4.1.1
@@ -181,7 +181,7 @@ importers:
 
   packages/auth-backend:
     specifiers:
-      '@fangcha/account': workspace:*
+      '@fangcha/account': workspace:^*
       '@fangcha/sso-server': workspace:^*
       '@fangcha/sso-server-sdk': workspace:^*
       '@types/oauth2-server': ^3.0.13
@@ -1533,8 +1533,8 @@ packages:
       vue-router: 3.6.5_vue@2.7.14
     dev: true
 
-  /@fangcha/webpack/0.11.0_fvb3eha3htfbbehlemkzqjpy4m:
-    resolution: {integrity: sha512-qAZ/C9L7HIPb5UPiCUE4c9wnclbZqylABA2uQxLCYh3mYr0igxVbJzkgTtH/y+LyQDM+b8eS6IwCZTK7pGSMYw==}
+  /@fangcha/webpack/0.11.1_fvb3eha3htfbbehlemkzqjpy4m:
+    resolution: {integrity: sha512-eeKN0b/CcMY91c+fUPy25MMz5gz++rg+eVpRH3d4R51DdZdb8zGhrPxx7ButM7OJVubsxo4OthX24zdJ5+4CGQ==}
     dependencies:
       '@babel/core': 7.20.12
       '@babel/plugin-proposal-decorators': 7.20.13_@babel+core@7.20.12
