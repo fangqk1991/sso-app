@@ -184,7 +184,7 @@ importers:
     dependencies:
       '@fangcha/sso-server': link:../sso-server
 
-  packages/auth-backend:
+  packages/app-backend:
     specifiers:
       '@fangcha/account': workspace:^*
       '@fangcha/sso-server': workspace:^*
@@ -199,7 +199,7 @@ importers:
     devDependencies:
       '@types/oauth2-server': 3.0.13
 
-  packages/auth-frontend:
+  packages/app-frontend:
     specifiers: {}
 
 packages:

@@ -4,7 +4,7 @@ const rootDir = path.resolve(__dirname, '../..')
 const appList = [
   {
     name: 'auth-web',
-    script: `${rootDir}/packages/auth-backend/dist/auth-web.js`,
+    script: `${rootDir}/packages/app-backend/dist/auth-web.js`,
     error_file: '/data/logs/auth/auth-web-err.log',
     out_file: '/data/logs/auth/auth-web-out.log',
     exec_mode: 'fork',

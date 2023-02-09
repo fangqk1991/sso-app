@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "auth-frontend",
+  "name": "app-frontend",
   "version": "1.0.0",
   "license": "UNLICENSED",
   "scripts": {
