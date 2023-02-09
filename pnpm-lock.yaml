@@ -9,6 +9,7 @@ importers:
       '@fangcha/app-error': ^1.6.0
       '@fangcha/app-request': ^1.6.0
       '@fangcha/assert': ^1.2.0
+      '@fangcha/auth-vue': workspace:*
       '@fangcha/backend-kit': ^0.52.0
       '@fangcha/eslint': ^0.5.0
       '@fangcha/generator': ^0.2.0
@@ -112,6 +113,7 @@ importers:
       typescript: 4.9.5
       validator: 13.9.0
     devDependencies:
+      '@fangcha/auth-vue': link:libraries/auth-vue
       '@fangcha/eslint': 0.5.0_typescript@4.9.5
       '@fangcha/generator': 0.2.0
       '@fangcha/vue': 0.75.0
@@ -153,6 +155,9 @@ importers:
       '@fangcha/account-models': link:../account-models
       '@types/bcrypt': 5.0.0
       bcrypt: 5.1.0
+
+  libraries/auth-vue:
+    specifiers: {}
 
   libraries/sso-models:
     specifiers:

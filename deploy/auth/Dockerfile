@@ -1,8 +1,6 @@
 ########################################
 FROM node:19-alpine AS FILES_CACHE
 
-# /data/source-files: 构建所需的完整源代码
-# /data/meta-files 相关的内容变更频率低，可大幅提升构建过程的缓存命中率
 WORKDIR /data/source-files
 COPY . .
 
@@ -18,16 +16,6 @@ RUN mkdir -p /data/meta-files \
 
 # 格式化 package.json
 RUN node ./deploy/deps/purify-package-json.js /data/meta-files
-
-####### FILES_CACHE 阶段个性化代码 START ######
-## 复制本次构建项目的 package.json 到 /data/prod-meta-files
-#RUN cp -r /data/meta-files/packages/auth-backend /data/meta-files/packages/auth-frontend /data/prod-meta-files/packages
-## 移除 /data/source-files/packages 与本次构建无关的 packages 目录其他工程
-#RUN find /data/source-files/packages \! -name "auth-*" -mindepth 1 -maxdepth 1 -print | xargs rm -rf
-## 移除 /data/source-files/deploy 下与本次构建无关的文件
-#RUN find /data/source-files/deploy \! -name "*deps*" \! -name "auth" -mindepth 1 -maxdepth 1 -print | xargs rm -rf
-#RUN find /data/source-files/deploy/auth \! -name "deps" -mindepth 1 -maxdepth 1 -print | xargs rm -rf
-####### FILES_CACHE 阶段个性化代码 END ######
 
 ########################################
 # 准备仅包含 package.json 和 yarn.lock 的最小构建依赖文件
