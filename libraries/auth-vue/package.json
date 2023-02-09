@@ -12,9 +12,9 @@
     "src/*"
   ],
   "peerDependencies": {
-    "@fangcha/vue": "workspace:*",
-    "@fangcha/backend-kit": "workspace:*",
-    "@fangcha/account-models": "workspace:*",
-    "@fangcha/sso-models": "workspace:*"
+    "@fangcha/vue": "*",
+    "@fangcha/backend-kit": "*",
+    "@fangcha/account-models": "*",
+    "@fangcha/sso-models": "*"
   }
 }
