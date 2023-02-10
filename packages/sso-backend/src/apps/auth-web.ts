@@ -1,4 +1,4 @@
-import { AuthConfig } from '../AuthConfig'
+import { SsoAppConfig } from '../SsoConfig'
 import { GlobalAppConfig } from 'fc-config'
 import { MySsoServer } from '../services/MySsoServer'
 import { WebApp } from '@fangcha/backend-kit/lib/router'
@@ -9,26 +9,26 @@ const app = new WebApp({
   env: GlobalAppConfig.Env,
   tags: GlobalAppConfig.Tags,
   appName: 'sso-web',
-  wecomBotKey: AuthConfig.wecomBotKey,
+  wecomBotKey: SsoAppConfig.wecomBotKey,
   useJwtSpecs: true,
   routerOptions: {
-    backendPort: AuthConfig.webPort,
-    baseURL: AuthConfig.webBaseURL,
+    backendPort: SsoAppConfig.webPort,
+    baseURL: SsoAppConfig.webBaseURL,
     jwtProtocol: {
-      jwtKey: AuthConfig.webJwtKey,
-      jwtSecret: AuthConfig.webJwtSecret,
+      jwtKey: SsoAppConfig.webJwtKey,
+      jwtSecret: SsoAppConfig.webJwtSecret,
     },
   },
   plugins: [
     SsoWebPlugin({
-      signupAble: AuthConfig.frontendConfig.signupAble,
+      signupAble: SsoAppConfig.frontendConfig.signupAble,
       ssoServer: MySsoServer,
     }),
     SsoClientsAutoReloadPlugin(MySsoServer),
   ],
 
   appDidLoad: async () => {
-    _FangchaState.frontendConfig = AuthConfig.frontendConfig
+    _FangchaState.frontendConfig = SsoAppConfig.frontendConfig
   },
   checkHealth: async () => {},
 })

@@ -1,1 +1,1 @@
-require('./packages/app-backend/dist/scripts/init-tables.js')
+require('./packages/sso-backend/dist/scripts/init-tables.js')

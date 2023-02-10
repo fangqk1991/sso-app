@@ -1,14 +1,16 @@
 {
-  "name": "admin-backend",
+  "private": true,
+  "name": "sso-backend",
   "version": "1.0.0",
   "license": "UNLICENSED",
   "scripts": {
-    "start": "concurrently --raw 'pnpm start:typecheck' 'pnpm admin:compile'",
+    "start": "concurrently --raw 'pnpm start:typecheck' 'pnpm web:compile' 'pnpm admin:compile'",
     "admin:compile": "ts-node-dev --no-notify --ignore-watch node_modules src/apps/auth-admin.ts",
+    "web:compile": "ts-node-dev --no-notify --ignore-watch node_modules src/apps/auth-web.ts",
     "start:typecheck": "tsc -w --noEmit",
     "build": "rm -rf dist && webpack --config ./webpack.config.js",
     "rebuild-models": "ts-node ./tools/rebuild-models.ts",
-    "test": "nyc mocha --require ts-node/register tests/**/*.test.ts --timeout 1000000 --exit"
+    "test": "nyc mocha --exit"
   },
   "dependencies": {
     "oauth2-server": "^3.1.1"

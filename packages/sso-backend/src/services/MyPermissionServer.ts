@@ -1,6 +1,6 @@
-import { PermissionServer } from '../core/PermissionServer'
 import { MyDatabase } from './MyDatabase'
 import { MyTableManager } from './MyTableManager'
+import { PermissionServer } from '../core/PermissionServer'
 
 export const MyPermissionServer = new PermissionServer({
   database: MyDatabase.ssoDB,

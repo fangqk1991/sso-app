@@ -1,4 +1,4 @@
-import { AuthConfig } from '../AuthConfig'
+import { SsoAppConfig } from '../SsoConfig'
 
 export class TableManager {
   public prefix = ''
@@ -52,4 +52,4 @@ export class TableManager {
   }
 }
 
-export const MyTableManager = new TableManager(AuthConfig.sqlTablePrefix)
+export const MyTableManager = new TableManager(SsoAppConfig.sqlTablePrefix)

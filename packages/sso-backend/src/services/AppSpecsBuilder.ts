@@ -4,10 +4,10 @@ import { FangchaSession } from '@fangcha/router/lib/session'
 import assert from '@fangcha/assert'
 import { AppSpecHandlerProtocol, CommonAppSpecHandler } from './CommonAppSpecHandler'
 import { CommonAppApis, CommonSearchApis } from '@web/auth-common/core-api'
-import { AuthConfig } from '../AuthConfig'
 import { AppHandler } from './AppHandler'
 import { MyPermissionServer } from './MyPermissionServer'
 import { MyAccountServer } from './MyAccountServer'
+import { SsoAdminConfig } from '../SsoConfig'
 
 export class AppSpecsBuilder {
   public readonly protocol: AppSpecHandlerProtocol
@@ -38,7 +38,7 @@ export class AppSpecsBuilder {
     factory.prepare(CommonAppApis.AppInfoGet, async (ctx) => {
       const app = await this.makeHandler(ctx).prepareApp()
       const data = app.modelForClient()
-      data.swaggerPageUrl = `${AuthConfig.openBaseURL}/api-docs/v1/app`
+      data.swaggerPageUrl = `${SsoAdminConfig.openBaseURL}/api-docs/v1/app`
       ctx.body = data
     })
 

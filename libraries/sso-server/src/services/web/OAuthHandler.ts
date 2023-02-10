@@ -49,7 +49,7 @@ export class OAuthHandler {
     }
     // const userAuth = await UserAuth.findUserAuth(clientId, userUid)
     // if (!userAuth || !userAuth.isEnabled || !userAuth.checkScopeAccessible(...scopeList)) {
-    //   const authViewUrl = `${AuthConfig.webBaseURL}${RetainPagePath.OAuthAuthorizeView}?${context.request.querystring}`
+    //   const authViewUrl = `${SsoAdminConfig.webBaseURL}${RetainPagePath.OAuthAuthorizeView}?${context.request.querystring}`
     //   throw RedirectBreak.breakWithRedirectUri(authViewUrl)
     // }
 
