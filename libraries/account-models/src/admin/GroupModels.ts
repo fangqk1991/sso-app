@@ -32,24 +32,6 @@ export interface P_GroupDetail extends P_GroupInfo {
   fullMemberEmails: string[]
 }
 
-export interface GroupImportParams extends P_GroupParams {
-  groupId: string
-  name: string
-  remarks: string
-  groupAlias: string
-  departmentId: number | null
-  isFullDepartment: number
-  isRetained: number
-  permissionKeys: string[]
-  members: P_MemberParams[]
-  author?: string
-}
-
-export interface GroupExportInfo extends P_GroupDetail {
-  permissionKeys: string[]
-  members: P_MemberInfo[]
-}
-
 export interface FullGroupInfo extends P_GroupDetail {
   permissionKeys: string[]
   memberEmails: string[]

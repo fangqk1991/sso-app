@@ -1,5 +1,5 @@
 import { PermissionMeta } from './PermissionModels'
-import { FullGroupInfo, GroupExportInfo, GroupImportParams } from './GroupModels'
+import { FullGroupInfo } from './GroupModels'
 import { AppType } from './AppType'
 
 export interface P_AppParams {
@@ -35,12 +35,4 @@ export interface P_AccessInfo {
   appSecret: string
   createTime: string
   updateTime: string
-}
-
-export interface AppImportParams extends P_AppParams {
-  groupList: GroupImportParams[]
-}
-
-export interface AppExportInfo extends P_AppInfo {
-  groupList: GroupExportInfo[]
 }
