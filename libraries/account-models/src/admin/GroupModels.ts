@@ -32,12 +32,6 @@ export interface P_GroupDetail extends P_GroupInfo {
   fullMemberEmails: string[]
 }
 
-export interface FullGroupInfo extends P_GroupDetail {
-  permissionKeys: string[]
-  memberEmails: string[]
-  groupSecrets: string[]
-}
-
 export interface P_MemberParams {
   member: string
   isAdmin: number

@@ -26,3 +26,13 @@ export interface AppImportParams extends P_AppParams {
 export interface AppExportInfo extends P_AppInfo {
   groupList: GroupExportInfo[]
 }
+
+export interface FullGroupInfo extends P_GroupDetail {
+  permissionKeys: string[]
+  memberEmails: string[]
+  groupSecrets: string[]
+}
+
+export interface AppFullInfo extends P_AppInfo {
+  groups: FullGroupInfo[]
+}

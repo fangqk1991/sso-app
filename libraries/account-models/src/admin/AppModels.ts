@@ -1,5 +1,4 @@
 import { PermissionMeta } from './PermissionModels'
-import { FullGroupInfo } from './GroupModels'
 import { AppType } from './AppType'
 
 export interface P_AppParams {
@@ -23,10 +22,6 @@ export interface P_AppInfo extends P_AppParams {
   powerUserList: string[]
   version: number
   swaggerPageUrl?: string
-}
-
-export interface AppFullInfo extends P_AppInfo {
-  groups: FullGroupInfo[]
 }
 
 export interface P_AccessInfo {
