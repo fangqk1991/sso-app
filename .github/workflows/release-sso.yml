@@ -2,7 +2,7 @@ name: release-sso
 
 on:
   push:
-    branches: [release/release-sso]
+    branches: [release/docker-push]
 
 env:
   _appName: sso-app
