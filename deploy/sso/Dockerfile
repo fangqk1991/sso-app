@@ -57,20 +57,21 @@ FROM node:19-alpine
 RUN apk add --no-cache curl openssl nginx>=1.20.1 && yarn global add pm2 && pm2 install pm2-logrotate && mkdir -p /run/nginx/
 
 LABEL maintainer="work@fangqk.com"
-WORKDIR /data/auth
+WORKDIR /data/sso
 
 COPY --from=MODULES_CACHE /data/build .
 COPY ./deploy/deps/*.sh /data/deps/
 
-COPY ./deploy/sso-admin/deps/docker.extras.config.js /data/auth/config/docker.extras.config.js
-COPY ./deploy/sso-admin/deps/sso-admin.nginx.conf /etc/nginx/http.d/sso-admin.nginx.conf
+COPY ./deploy/sso/deps/docker.extras.config.js /data/sso/config/docker.extras.config.js
+COPY ./deploy/sso/deps/sso.nginx.conf /etc/nginx/http.d/sso.nginx.conf
 
 # 此步骤会使文件发生改变，应放在后方避免影响缓存命中
 ARG commitSHA=Unknown
-RUN sed -i 's/COMMIT_SHA/'${commitSHA}'/g' /etc/nginx/http.d/sso-admin.nginx.conf
-RUN sed -i 's/COMMIT_SHA/'${commitSHA}'/g' ./packages/admin-backend/ecosystem.config.js
+RUN sed -i 's/COMMIT_SHA/'${commitSHA}'/g' /etc/nginx/http.d/sso.nginx.conf
+RUN sed -i 's/COMMIT_SHA/'${commitSHA}'/g' ./packages/sso-backend/ecosystem.config.js
+RUN sed -i 's/COMMIT_SHA/'${commitSHA}'/g' ./packages/app-frontend/dist/index.html
 RUN sed -i 's/COMMIT_SHA/'${commitSHA}'/g' ./packages/admin-frontend/dist/index.html
 LABEL commitSHA="${commitSHA}"
 
-CMD nginx && /data/deps/on-container-start.sh && pm2-runtime ./packages/admin-backend/ecosystem.config.js --env ${ENV}
+CMD nginx && /data/deps/on-container-start.sh && pm2-runtime ./packages/sso-backend/ecosystem.config.js --env ${ENV}
 #HEALTHCHECK CMD curl --fail http://localhost:2500/api/health/ping && curl --fail http://localhost:2699/api/health/ping || exit 1

@@ -1,9 +1,9 @@
 import { GlobalAppConfig } from 'fc-config'
-import { WebAuthSdkPlugin } from '@fangcha/backend-kit/lib/auth'
 import { WebApp } from '@fangcha/backend-kit/lib/router'
 import { _FangchaState } from '@fangcha/backend-kit'
 import { SsoAdminSpecDocItems } from './admin/SsoAdminSpecDocItems'
 import { SsoConfig } from '../SsoConfig'
+import { WebAuthSdkPlugin } from '@fangcha/web-auth-sdk'
 
 const app = new WebApp({
   env: GlobalAppConfig.Env,

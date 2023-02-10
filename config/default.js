@@ -52,11 +52,6 @@ module.exports = {
       port: 30100,
     },
     sqlTablePrefix: '',
-    WebAuth: {
-      retainedUserData: {
-        // 'admin@example.com': 'admin',
-      },
-    },
     frontendConfig: {
       appName: 'Fangcha SSO',
       background: '#f5f5f5',

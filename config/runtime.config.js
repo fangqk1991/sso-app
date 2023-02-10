@@ -11,6 +11,9 @@ module.exports = {
     webBaseURL: envData.webBaseURL,
     webJwtKey: envData.webJwtKey,
     webJwtSecret: envData.webJwtSecret,
+    adminBaseURL: envData.adminBaseURL,
+    adminJwtKey: envData.adminJwtKey,
+    adminJwtSecret: envData.adminJwtSecret,
     mysql: {
       ssoDB: {
         host: envData.DB_Host,
@@ -26,33 +29,13 @@ module.exports = {
       port: envData.Redis_Port,
     },
     sqlTablePrefix: envData.DB_tableNamePrefix,
-    WebAuth: {
-      retainedUserData: retainedUserData,
-    },
     frontendConfig: {
       appName: envData.FE_appName,
       background: envData.FE_background,
       logoCss: envData.FE_logoCss,
       signupAble: envData.FE_signupAble,
     },
-  },
-  SsoAdmin: {
-    configVersion: envData.configVersion,
-    wecomBotKey: envData.wecomBotKey,
-    adminBaseURL: envData.adminBaseURL,
-    adminJwtKey: envData.adminJwtKey,
-    adminJwtSecret: envData.adminJwtSecret,
-    mysql: {
-      ssoDB: {
-        host: envData.DB_Host,
-        port: envData.DB_Port,
-        database: envData.DB_Name,
-        username: envData.DB_User,
-        password: envData.DB_Password,
-      },
-    },
-    sqlTablePrefix: envData.DB_tableNamePrefix,
-    WebAuth: {
+    adminAuth: {
       authMode: envData.authMode,
       retainedUserData: retainedUserData,
       oauthConfig: {
@@ -67,11 +50,11 @@ module.exports = {
         userInfoURL: envData.adminSSO_userInfoURL,
       },
     },
-    frontendConfig: {
-      appName: envData.FE_appName,
-      background: envData.FE_background,
-      logoCss: envData.FE_logoCss,
-      navBackground: envData.FE_navBackground,
+    adminFrontendConfig: {
+      appName: envData.adminFE_appName,
+      background: envData.adminFE_background,
+      logoCss: envData.adminFE_logoCss,
+      navBackground: envData.adminFE_navBackground,
     },
   },
 }
