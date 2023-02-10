@@ -62,12 +62,12 @@ WORKDIR /data/auth
 COPY --from=MODULES_CACHE /data/build .
 COPY ./deploy/deps/*.sh /data/deps/
 
-COPY ./deploy/auth/deps/docker.extras.config.js /data/auth/config/docker.extras.config.js
-COPY ./deploy/auth/deps/auth.nginx.conf /etc/nginx/http.d/auth.nginx.conf
+COPY ./deploy/sso-app/deps/docker.extras.config.js /data/auth/config/docker.extras.config.js
+COPY ./deploy/sso-app/deps/sso-app.nginx.conf /etc/nginx/http.d/sso-app.nginx.conf
 
 # 此步骤会使文件发生改变，应放在后方避免影响缓存命中
 ARG commitSHA=Unknown
-RUN sed -i 's/COMMIT_SHA/'${commitSHA}'/g' /etc/nginx/http.d/auth.nginx.conf
+RUN sed -i 's/COMMIT_SHA/'${commitSHA}'/g' /etc/nginx/http.d/sso-app.nginx.conf
 RUN sed -i 's/COMMIT_SHA/'${commitSHA}'/g' ./packages/app-backend/ecosystem.config.js
 RUN sed -i 's/COMMIT_SHA/'${commitSHA}'/g' ./packages/app-frontend/dist/index.html
 LABEL commitSHA="${commitSHA}"

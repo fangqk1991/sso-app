@@ -1,13 +1,13 @@
-name: docker-push
+name: release-sso-app
 
 on:
   push:
-    branches: [release/docker-push]
+    branches: [release/release-sso-app]
 
 env:
   _appName: sso-app
   _repoName: fangqk1991/sso-app
-  _dockerFile: ./deploy/auth/Dockerfile
+  _dockerFile: ./deploy/sso-app/Dockerfile
 
 jobs:
   build:
