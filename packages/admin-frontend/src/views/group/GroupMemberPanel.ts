@@ -2,7 +2,7 @@ import { Component, ConfirmDialog, Prop, SimpleInputDialog, SimplePickerDialog, 
 import { Watch } from 'vue-property-decorator'
 import { MyAxios } from '@fangcha/vue/basic'
 import { CommonAPI } from '@fangcha/app-request'
-import { P_MemberInfo } from '@web/auth-common/models'
+import { P_MemberInfo } from '@fangcha/account-models'
 import { CommonAppApis } from '@web/auth-common/core-api'
 
 @Component({

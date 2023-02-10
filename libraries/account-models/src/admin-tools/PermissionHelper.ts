@@ -1,5 +1,5 @@
 import assert from '@fangcha/assert'
-import { PermissionMeta } from './PermissionModels'
+import { PermissionMeta } from '../admin/PermissionModels'
 
 export class PermissionHelper {
   public static defaultPermissionMeta(): PermissionMeta {

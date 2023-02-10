@@ -1,7 +1,7 @@
 import { Component, GridView, JsonImportDialog, MyTableView, TableViewProtocol, ViewController, } from '@fangcha/vue'
 import { CommonAPI } from '@fangcha/app-request'
 import { MyAxios } from '@fangcha/vue/basic'
-import { AppImportParams, P_AppInfo } from '@web/auth-common/models'
+import { AppImportParams, P_AppInfo } from '@fangcha/account-models'
 import { Admin_AppApis } from '@web/auth-common/admin-api'
 import { AppCard } from './AppCard'
 import { AppInfoDialog } from './AppInfoDialog'

@@ -8,7 +8,7 @@ import {
   TableViewProtocol,
   ViewController,
 } from '@fangcha/vue'
-import { P_GroupAccessInfo } from '@web/auth-common/models'
+import { P_GroupAccessInfo } from '@fangcha/account-models'
 import { MyAxios } from '@fangcha/vue/basic'
 import { CommonAPI } from '@fangcha/app-request'
 import { CommonAppApis } from '@web/auth-common/core-api'

@@ -8,7 +8,7 @@ import {
   P_GroupInfo,
   P_GroupParams,
   P_MemberParams,
-} from '@web/auth-common/models'
+} from '@fangcha/account-models'
 import { _GroupAccess } from './_GroupAccess'
 import { _GroupMember } from './_GroupMember'
 import { _GroupPermission } from './_GroupPermission'

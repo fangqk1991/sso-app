@@ -1,5 +1,5 @@
 import { __AppAccess } from '../auto-build/__AppAccess'
-import { P_AccessInfo } from '@web/auth-common/models'
+import { P_AccessInfo } from '@fangcha/account-models'
 import { makeRandomStr, makeUUID } from '@fangcha/tools'
 
 export class _AppAccess extends __AppAccess {

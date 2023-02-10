@@ -1,6 +1,6 @@
 import { Component, Prop, ViewController } from '@fangcha/vue'
 import { Watch } from 'vue-property-decorator'
-import { PermissionMeta } from '@web/auth-common/models'
+import { PermissionMeta } from '@fangcha/account-models'
 
 interface CommonNode {
   val: PermissionMeta

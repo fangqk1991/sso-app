@@ -17,7 +17,7 @@ import {
   P_GroupInfo,
   P_GroupParams,
   PermissionHelper,
-} from '@web/auth-common/models'
+} from '@fangcha/account-models'
 import { MyAxios } from '@fangcha/vue/basic'
 import { CommonAPI } from '@fangcha/app-request'
 import { CommonAppApis } from '@web/auth-common/core-api'

@@ -10,7 +10,7 @@ import {
 } from '@fangcha/vue'
 import { MyAxios } from '@fangcha/vue/basic'
 import { CommonAPI } from '@fangcha/app-request'
-import { P_AccessInfo } from '@web/auth-common/models'
+import { P_AccessInfo } from '@fangcha/account-models'
 import { CommonAppApis } from '@web/auth-common/core-api'
 
 @Component({

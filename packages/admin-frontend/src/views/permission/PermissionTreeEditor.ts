@@ -1,7 +1,7 @@
 import { Component, Prop, ViewController } from '@fangcha/vue'
 import { Watch } from 'vue-property-decorator'
 import { ElTree } from 'element-ui/types/tree'
-import { PermissionMeta } from '@web/auth-common/models'
+import { PermissionMeta } from '@fangcha/account-models'
 
 interface CommonNode {
   permissionKey: string

@@ -8,7 +8,7 @@ import {
   P_GroupParams,
   P_Tmp_VisitorParams,
   PermissionsGrantParams,
-} from '@web/auth-common/models'
+} from '@fangcha/account-models'
 import { DiffEntity, makeRandomStr, makeUUID } from '@fangcha/tools'
 import { Transaction } from 'fc-sql'
 import assert from '@fangcha/assert'

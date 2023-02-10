@@ -1,4 +1,4 @@
-import { P_GroupDetail } from './GroupModels'
+import { P_GroupDetail } from '../admin/GroupModels'
 
 export class GroupCalculator {
   public static fillGroupsFullSubGroupIdList(groups: P_GroupDetail[], groupData: { [p: string]: P_GroupDetail }) {

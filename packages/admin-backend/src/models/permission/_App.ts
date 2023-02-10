@@ -10,7 +10,7 @@ import {
   P_AppParams,
   PermissionHelper,
   PermissionMeta,
-} from '@web/auth-common/models'
+} from '@fangcha/account-models'
 import { ApiVisitorV2 } from '@fangcha/tools'
 import { _AppAccess } from './_AppAccess'
 import { _Group } from './_Group'

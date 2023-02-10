@@ -5,7 +5,7 @@ import {
   AppType,
   P_AppInfo,
   P_GroupDetail,
-} from '@web/auth-common/models'
+} from '@fangcha/account-models'
 import { MyAxios } from '@fangcha/vue/basic'
 import { NotificationCenter } from 'notification-center-js'
 import { GroupPermissionPanel } from './GroupPermissionPanel'

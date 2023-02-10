@@ -10,7 +10,7 @@ import {
 import { AppInfoDialog } from './AppInfoDialog'
 import { CommonAPI } from '@fangcha/app-request'
 import { MyAxios } from '@fangcha/vue/basic'
-import { AppImportParams, P_AppInfo } from '@web/auth-common/models'
+import { AppImportParams, P_AppInfo } from '@fangcha/account-models'
 import { UserHTTP } from '../../services/UserHTTP'
 import { CommonAppApis } from '@web/auth-common/core-api'
 

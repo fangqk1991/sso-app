@@ -1,6 +1,6 @@
 import { Component } from 'vue-property-decorator'
 import { MultiplePicker, TypicalDialog, TypicalDialogView } from '@fangcha/vue'
-import {  P_GroupInfo, P_GroupParams } from '@web/auth-common/models'
+import {  P_GroupInfo, P_GroupParams } from '@fangcha/account-models'
 import { MyAxios } from '@fangcha/vue/basic'
 import { CommonAPI } from '@fangcha/app-request'
 import { SelectOption } from '@fangcha/tools'

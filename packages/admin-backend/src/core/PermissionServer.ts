@@ -6,7 +6,7 @@ import { _GroupAccess } from '../models/permission/_GroupAccess'
 import { _GroupMember } from '../models/permission/_GroupMember'
 import { _GroupPermission } from '../models/permission/_GroupPermission'
 import { Transaction } from 'sequelize'
-import { AppImportParams, AppType, P_AppParams } from '@web/auth-common/models'
+import { AppImportParams, AppType, P_AppParams } from '@fangcha/account-models'
 import assert from '@fangcha/assert'
 import { AppHandler } from '../services/AppHandler'
 

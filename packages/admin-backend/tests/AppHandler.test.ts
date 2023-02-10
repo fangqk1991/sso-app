@@ -1,5 +1,5 @@
 import { MyPermissionServer } from '../src/services/MyPermissionServer'
-import { AppType } from '@web/auth-common/models'
+import { AppType } from '@fangcha/account-models'
 
 describe('Test AppHandler.test.ts', () => {
   it(`generateApp`, async () => {

@@ -1,6 +1,6 @@
 import { Component } from 'vue-property-decorator'
 import { StringListPanel, TypicalDialog, TypicalDialogView } from '@fangcha/vue'
-import { AppType, AppTypeDescriptor, P_AppInfo, P_AppParams, PermissionHelper } from '@web/auth-common/models'
+import { AppType, AppTypeDescriptor, P_AppInfo, P_AppParams, PermissionHelper } from '@fangcha/account-models'
 
 @Component({
   components: {

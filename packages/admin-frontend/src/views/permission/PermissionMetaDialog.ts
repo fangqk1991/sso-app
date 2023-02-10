@@ -1,7 +1,7 @@
 import { Component } from 'vue-property-decorator'
 import { AlertTools, TypicalDialog, TypicalDialogView } from '@fangcha/vue'
 import { PermissionTreeView } from './PermissionTreeView'
-import { PermissionHelper, PermissionMeta } from '@web/auth-common/models'
+import { PermissionHelper, PermissionMeta } from '@fangcha/account-models'
 
 @Component({
   components: {

@@ -1,5 +1,5 @@
 import { Component, TypicalDialog, TypicalDialogView } from '@fangcha/vue'
-import { PermissionMeta } from '@web/auth-common/models'
+import { PermissionMeta } from '@fangcha/account-models'
 import { PermissionTreeEditor } from '../permission/PermissionTreeEditor'
 
 @Component({

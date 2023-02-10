@@ -1,5 +1,5 @@
 import { Component, Prop, ViewController } from '@fangcha/vue'
-import { P_AppInfo, P_GroupDetail } from '@web/auth-common/models'
+import { P_AppInfo, P_GroupDetail } from '@fangcha/account-models'
 
 @Component({
   template: `

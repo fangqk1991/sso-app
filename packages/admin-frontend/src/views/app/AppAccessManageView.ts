@@ -1,6 +1,6 @@
 import { Component, ViewController } from '@fangcha/vue'
 import { AppAccessTableView } from './AppAccessTableView'
-import { P_AppInfo } from '@web/auth-common/models'
+import { P_AppInfo } from '@fangcha/account-models'
 import { AppBreadcrumb } from './AppBreadcrumb'
 import { UserHTTP } from '../../services/UserHTTP'
 

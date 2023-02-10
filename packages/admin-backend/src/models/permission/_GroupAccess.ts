@@ -1,5 +1,5 @@
 import { __GroupAccess } from '../auto-build/__GroupAccess'
-import { P_GroupAccessInfo } from '@web/auth-common/models'
+import { P_GroupAccessInfo } from '@fangcha/account-models'
 import { makeRandomStr, makeUUID } from '@fangcha/tools'
 import { Transaction } from 'sequelize'
 

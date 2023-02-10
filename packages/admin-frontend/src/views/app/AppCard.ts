@@ -1,5 +1,5 @@
 import { Component, ConfirmDialog, MyTagsPanel, Prop, ViewController } from '@fangcha/vue'
-import { P_AppInfo } from '@web/auth-common/models'
+import { P_AppInfo } from '@fangcha/account-models'
 import { AppInfoDialog } from './AppInfoDialog'
 import { MyAxios } from '@fangcha/vue/basic'
 import { CommonAPI } from '@fangcha/app-request'

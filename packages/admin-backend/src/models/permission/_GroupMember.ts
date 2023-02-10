@@ -1,5 +1,5 @@
 import { __GroupMember } from '../auto-build/__GroupMember'
-import { P_MemberInfo } from '@web/auth-common/models'
+import { P_MemberInfo } from '@fangcha/account-models'
 import { Transaction } from 'sequelize'
 
 export class _GroupMember extends __GroupMember {

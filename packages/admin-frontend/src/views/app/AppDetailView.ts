@@ -2,7 +2,7 @@ import { Component, FragmentProtocol, JsonEditorDialog, JsonPre, ViewController 
 import { AppInfoPanel } from './AppInfoPanel'
 import { NotificationCenter } from 'notification-center-js'
 import { UserHTTP } from '../../services/UserHTTP'
-import { P_AppInfo, PermissionHelper, PermissionMeta } from '@web/auth-common/models'
+import { P_AppInfo, PermissionHelper, PermissionMeta } from '@fangcha/account-models'
 import { AppBreadcrumb } from './AppBreadcrumb'
 import { PermissionTreeView } from '../permission/PermissionTreeView'
 import { PermissionMetaDialog } from '../permission/PermissionMetaDialog'
