@@ -1,5 +1,5 @@
 import { Api, makeSwaggerBodyDataParameters } from '@fangcha/swagger'
-import { AuthSwaggerModelData } from '../models'
+import { AuthSwaggerModelData } from '../swagger'
 
 export const SignupApis = {
   SimpleSignup: {

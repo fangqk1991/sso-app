@@ -1,5 +1,5 @@
 import { SwaggerModelDefinitionV2, TypicalSwaggerModel } from '@fangcha/swagger'
-import { AccountSimpleParams, VisitorCoreInfo } from '@fangcha/account-models'
+import { AccountSimpleParams, VisitorCoreInfo } from '@fangcha/account-models/lib'
 
 export const AuthSwaggerModelData = {
   Swagger_AccountSimpleParams: {

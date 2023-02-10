@@ -1,5 +1,5 @@
 import { Api } from '@fangcha/swagger'
-import { AuthSwaggerModelData } from '../models'
+import { AuthSwaggerModelData } from '../swagger'
 
 export const ProfileApis = {
   ProfileInfoGet: {

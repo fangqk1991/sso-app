@@ -1,5 +1,4 @@
 export * from './oauth'
-export * from './swagger'
 export * from './SsoValidateUtils'
 export * from './SsoErrorPhrase'
 export * from './SsoConstants'
