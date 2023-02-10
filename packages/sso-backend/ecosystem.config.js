@@ -3,10 +3,10 @@ const rootDir = path.resolve(__dirname, '../..')
 
 const appList = [
   {
-    name: 'auth-web',
-    script: `${rootDir}/packages/sso-backend/dist/auth-web.js`,
-    error_file: '/data/logs/auth/auth-web-err.log',
-    out_file: '/data/logs/auth/auth-web-out.log',
+    name: 'sso-web',
+    script: `${rootDir}/packages/sso-backend/dist/sso-web.js`,
+    error_file: '/data/logs/auth/sso-web-err.log',
+    out_file: '/data/logs/auth/sso-web-out.log',
     exec_mode: 'fork',
     listen_timeout: 10000,
     log_date_format: 'YYYY-MM-DD HH:mm:ss.SSS',
@@ -25,10 +25,10 @@ const appList = [
     },
   },
   {
-    name: 'auth-admin',
-    script: `${rootDir}/packages/sso-backend/dist/auth-admin.js`,
-    error_file: '/data/logs/auth/auth-admin-err.log',
-    out_file: '/data/logs/auth/auth-admin-out.log',
+    name: 'sso-admin',
+    script: `${rootDir}/packages/sso-backend/dist/sso-admin.js`,
+    error_file: '/data/logs/auth/sso-admin-err.log',
+    out_file: '/data/logs/auth/sso-admin-out.log',
     exec_mode: 'fork',
     listen_timeout: 10000,
     log_date_format: 'YYYY-MM-DD HH:mm:ss.SSS',
