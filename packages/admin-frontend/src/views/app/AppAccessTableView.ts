@@ -11,7 +11,7 @@ import {
 import { MyAxios } from '@fangcha/vue/basic'
 import { CommonAPI } from '@fangcha/app-request'
 import { P_AccessInfo } from '@fangcha/account-models'
-import { CommonAppApis } from '@web/auth-common/core-api'
+import { CommonAppApis } from '@web/sso-common/core-api'
 
 @Component({
   components: {

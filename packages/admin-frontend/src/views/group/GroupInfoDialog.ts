@@ -4,7 +4,7 @@ import {  P_GroupInfo, P_GroupParams } from '@fangcha/account-models'
 import { MyAxios } from '@fangcha/vue/basic'
 import { CommonAPI } from '@fangcha/app-request'
 import { SelectOption } from '@fangcha/tools'
-import { CommonAppApis } from '@web/auth-common/core-api'
+import { CommonAppApis } from '@web/sso-common/core-api'
 
 @Component({
   components: {

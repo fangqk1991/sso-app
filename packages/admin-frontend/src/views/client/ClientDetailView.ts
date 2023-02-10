@@ -7,7 +7,7 @@ import ClientUserAuthTable from './ClientUserAuthTable'
 import { MyAxios } from '@fangcha/vue/basic'
 import { NotificationCenter } from 'notification-center-js'
 import { SsoClientModel } from '@fangcha/sso-models'
-import { Admin_SsoClientApis } from '@web/auth-common/admin-api'
+import { Admin_SsoClientApis } from '@web/sso-common/admin-api'
 
 @Component({
   components: {

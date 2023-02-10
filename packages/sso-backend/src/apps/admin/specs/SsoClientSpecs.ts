@@ -1,6 +1,6 @@
 import { SpecFactory } from '@fangcha/router'
 import { FangchaSession } from '@fangcha/router/lib/session'
-import { Admin_SsoClientApis } from '@web/auth-common/admin-api'
+import { Admin_SsoClientApis } from '@web/sso-common/admin-api'
 import { MyClientManager } from '../../../services/MyClientManager'
 import { SsoClientSpecHandler } from './SsoClientSpecHandler'
 import { SsoClientParams } from '@fangcha/sso-models'

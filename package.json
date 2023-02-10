@@ -6,7 +6,7 @@
     "build": "pnpm --filter \"./packages/**\" build"
   },
   "dependencies": {
-    "@web/auth-common": "workspace:*",
+    "@web/sso-common": "workspace:*",
     "@fangcha/account-models": "workspace:*",
     "@fangcha/sso-models": "workspace:*",
     "@fangcha/sso-server-sdk": "workspace:*",

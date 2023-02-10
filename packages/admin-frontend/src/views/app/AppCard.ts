@@ -3,8 +3,8 @@ import { P_AppInfo } from '@fangcha/account-models'
 import { AppInfoDialog } from './AppInfoDialog'
 import { MyAxios } from '@fangcha/vue/basic'
 import { CommonAPI } from '@fangcha/app-request'
-import { CommonAppApis } from '@web/auth-common/core-api'
-import { Admin_AppApis } from '@web/auth-common/admin-api'
+import { CommonAppApis } from '@web/sso-common/core-api'
+import { Admin_AppApis } from '@web/sso-common/admin-api'
 
 @Component({
   components: {

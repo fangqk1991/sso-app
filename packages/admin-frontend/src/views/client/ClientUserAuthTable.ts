@@ -1,7 +1,7 @@
 import { Component, MyTableView, MyTagsPanel, Prop, TableViewProtocol, ViewController } from '@fangcha/vue'
 import { CommonAPI } from '@fangcha/app-request'
 import { MyAxios } from '@fangcha/vue/basic'
-import { Admin_SsoClientApis } from '@web/auth-common/admin-api'
+import { Admin_SsoClientApis } from '@web/sso-common/admin-api'
 
 @Component({
   components: {

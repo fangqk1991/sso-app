@@ -13,7 +13,7 @@ import { GroupMemberPanel } from './GroupMemberPanel'
 import { GroupAccessTableView } from './GroupAccessTableView'
 import { GroupInfoDialog } from './GroupInfoDialog'
 import { AppBreadcrumb } from '../app/AppBreadcrumb'
-import { CommonAppApis } from '@web/auth-common/core-api'
+import { CommonAppApis } from '@web/sso-common/core-api'
 import { UserHTTP } from '../../services/UserHTTP'
 import { RouteHelper } from '../../extensions/RouteHelper'
 

@@ -5,7 +5,7 @@ import { ClientInfoDialog } from './ClientInfoDialog'
 import { MessageBox } from 'element-ui'
 import { SsoClientModel, SsoClientParams } from '@fangcha/sso-models'
 import { ClientCard } from './ClientCard'
-import { Admin_SsoClientApis } from '@web/auth-common/admin-api'
+import { Admin_SsoClientApis } from '@web/sso-common/admin-api'
 
 @Component({
   components: {

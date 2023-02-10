@@ -5,7 +5,7 @@ import { ClientInfoDialog } from './ClientInfoDialog'
 import { MyAxios } from '@fangcha/vue/basic'
 import { CommonAPI } from '@fangcha/app-request'
 import { MessageBox } from 'element-ui'
-import { Admin_SsoClientApis } from '@web/auth-common/admin-api'
+import { Admin_SsoClientApis } from '@web/sso-common/admin-api'
 
 @Component({
   components: {
