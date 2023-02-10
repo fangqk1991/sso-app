@@ -1,0 +1,29 @@
+{
+  "name": "@fangcha/web-auth-sdk",
+  "version": "0.1.0",
+  "description": "Web Auth SDK.",
+  "main": "src/index.ts",
+  "publishConfig": {
+    "main": "lib/index.js",
+    "typings": "lib/index.d.ts"
+  },
+  "repository": "https://github.com/fangqk1991/sso-app.git",
+  "scripts": {
+    "build": "rm -rf ./lib/ && tsc",
+    "prepublish": "pnpm build"
+  },
+  "keywords": [
+    "SSO"
+  ],
+  "peerDependencies": {
+    "@fangcha/account-models": "workspace:*",
+    "@fangcha/account": "workspace:*",
+    "@fangcha/backend-kit": "workspace:*"
+  },
+  "author": "fang <me@fangqk.com>",
+  "license": "MIT",
+  "files": [
+    "lib/*",
+    "src/*"
+  ]
+}
