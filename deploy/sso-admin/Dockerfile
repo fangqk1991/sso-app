@@ -68,9 +68,9 @@ COPY ./deploy/sso-admin/deps/sso-admin.nginx.conf /etc/nginx/http.d/sso-admin.ng
 # 此步骤会使文件发生改变，应放在后方避免影响缓存命中
 ARG commitSHA=Unknown
 RUN sed -i 's/COMMIT_SHA/'${commitSHA}'/g' /etc/nginx/http.d/sso-admin.nginx.conf
-RUN sed -i 's/COMMIT_SHA/'${commitSHA}'/g' ./packages/auth-backend/ecosystem.config.js
-RUN sed -i 's/COMMIT_SHA/'${commitSHA}'/g' ./packages/auth-admin-frontend/dist/index.html
+RUN sed -i 's/COMMIT_SHA/'${commitSHA}'/g' ./packages/admin-backend/ecosystem.config.js
+RUN sed -i 's/COMMIT_SHA/'${commitSHA}'/g' ./packages/admin-frontend/dist/index.html
 LABEL commitSHA="${commitSHA}"
 
-CMD nginx && /data/deps/on-container-start.sh && pm2-runtime ./packages/auth-backend/ecosystem.config.js --env ${ENV}
+CMD nginx && /data/deps/on-container-start.sh && pm2-runtime ./packages/admin-backend/ecosystem.config.js --env ${ENV}
 #HEALTHCHECK CMD curl --fail http://localhost:2500/api/health/ping && curl --fail http://localhost:2699/api/health/ping || exit 1
