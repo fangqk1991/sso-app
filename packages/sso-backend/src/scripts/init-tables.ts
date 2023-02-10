@@ -1,6 +1,6 @@
 import * as fs from 'fs'
 import { SafeTask } from '@fangcha/tools'
-import { SsoAppConfig } from '../SsoConfig'
+import { SsoConfig } from '../SsoConfig'
 import { FCDatabase } from 'fc-sql'
 import { MyTableManager } from '../services/MyTableManager'
 
@@ -17,7 +17,7 @@ SafeTask.run(async () => {
 
   const database = new FCDatabase()
   database.init({
-    ...SsoAppConfig.mysql.ssoDB,
+    ...SsoConfig.mysql.ssoDB,
     dialectOptions: {
       multipleStatements: true,
     },

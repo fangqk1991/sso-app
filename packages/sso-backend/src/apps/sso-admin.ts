@@ -3,36 +3,36 @@ import { WebAuthSdkPlugin } from '@fangcha/backend-kit/lib/auth'
 import { WebApp } from '@fangcha/backend-kit/lib/router'
 import { _FangchaState } from '@fangcha/backend-kit'
 import { SsoAdminSpecDocItems } from './admin/SsoAdminSpecDocItems'
-import { SsoAdminConfig } from '../SsoConfig'
+import { SsoConfig } from '../SsoConfig'
 
 const app = new WebApp({
   env: GlobalAppConfig.Env,
   tags: GlobalAppConfig.Tags,
   appName: 'sso-admin',
-  wecomBotKey: SsoAdminConfig.wecomBotKey,
+  wecomBotKey: SsoConfig.wecomBotKey,
   routerOptions: {
-    baseURL: SsoAdminConfig.adminBaseURL,
-    backendPort: SsoAdminConfig.adminPort,
+    baseURL: SsoConfig.adminBaseURL,
+    backendPort: SsoConfig.adminPort,
     jwtProtocol: {
-      jwtKey: SsoAdminConfig.adminJwtKey,
-      jwtSecret: SsoAdminConfig.adminJwtSecret,
+      jwtKey: SsoConfig.adminJwtKey,
+      jwtSecret: SsoConfig.adminJwtSecret,
     },
   },
   mainDocItems: SsoAdminSpecDocItems,
   plugins: [
     WebAuthSdkPlugin({
-      authMode: SsoAdminConfig.WebAuth.authMode,
+      authMode: SsoConfig.adminAuth.authMode,
       simpleAuth: {
-        retainedUserData: SsoAdminConfig.WebAuth.retainedUserData,
+        retainedUserData: SsoConfig.adminAuth.retainedUserData,
       },
-      ssoAuth: SsoAdminConfig.WebAuth.oauthConfig,
+      ssoAuth: SsoConfig.adminAuth.oauthConfig,
     }),
   ],
 
   appDidLoad: async () => {
     _FangchaState.frontendConfig = {
-      ...SsoAdminConfig.frontendConfig,
-      authMode: SsoAdminConfig.WebAuth.authMode,
+      ...SsoConfig.adminFrontendConfig,
+      authMode: SsoConfig.adminAuth.authMode,
     }
   },
   checkHealth: async () => {},

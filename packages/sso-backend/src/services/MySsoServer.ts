@@ -1,12 +1,12 @@
 import { SsoServer } from '@fangcha/sso-server'
 import { MyDatabase } from './MyDatabase'
 import { AccountServer } from '@fangcha/account'
-import { SsoAppConfig } from '../SsoConfig'
+import { SsoConfig } from '../SsoConfig'
 import { MyTableManager } from './MyTableManager'
 
 export const MySsoServer = new SsoServer({
   database: MyDatabase.ssoDB,
-  redisConfig: SsoAppConfig.redisCache,
+  redisConfig: SsoConfig.redisCache,
   tableName_SsoClient: MyTableManager.tableName_SsoClient(),
   tableName_UserAuth: MyTableManager.tableName_UserAuth(),
   accountServer: new AccountServer({
