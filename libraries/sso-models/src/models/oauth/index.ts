@@ -1,3 +1,3 @@
 export * from './AuthScope'
-export * from './SsoClientModel'
+export * from './ClientModels'
 export * from './UserAuthModel'
