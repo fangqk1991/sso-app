@@ -1,6 +1,6 @@
 import { SsoPlugin } from '@fangcha/vue/app'
 import { FrontendPluginProtocol } from '@fangcha/vue/basic'
-import { AdminApp } from '@fangcha/vue/app-admin'
+import { AdminApp } from '@fangcha/admin-vue'
 import { AuthPluginForClient, MySession } from '@fangcha/auth-vue'
 import ClientListView from './views/client/ClientListView'
 import ClientDetailView from './views/client/ClientDetailView'
