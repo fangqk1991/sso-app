@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import React, { useContext, useEffect } from 'react'
-import { ThemeContext } from '../services/ThemeContext'
+import { SessionContext } from '../services/SessionContext'
 import { LoginForm } from './LoginForm'
 
 const Main = styled.main(`
@@ -22,7 +22,7 @@ const PromotionDiv = styled.div(`
 `)
 
 export const MainLayout: React.FC = () => {
-  const theme = useContext(ThemeContext)
+  const session = useContext(SessionContext)
   useEffect(() => {
     // const request = MyAxios(RetainedSessionApis.SessionInfoGet)
     // request.setMute(true)
@@ -36,12 +36,12 @@ export const MainLayout: React.FC = () => {
     //   console.error(err)
     // }
     // return null
-  }, [theme])
+  }, [session])
   return (
-    <Main style={{ background: theme.background }}>
+    <Main style={{ background: session.config.background }}>
       <PromotionDiv className='fc-app-promotion'>
-        {`${theme.appName}. `}
-        {!theme.hidePromotion && (
+        {`${session.config.appName}. `}
+        {!session.config.hidePromotion && (
           <>
             <span>Powered by </span>
             <a target='_blank' href='https://github.com/fangqk1991/sso-app'>

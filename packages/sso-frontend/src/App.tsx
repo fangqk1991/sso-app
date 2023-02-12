@@ -1,11 +1,13 @@
 import { MainLayout } from './views/MainLayout'
-import { _defaultTheme, ThemeContext } from './services/ThemeContext'
+import { _defaultSession, SessionContext } from './services/SessionContext'
 import './assets/main.scss'
+import { useState } from 'react'
 
 export const App = () => {
+  const [session, setSession] = useState(_defaultSession)
   return (
-    <ThemeContext.Provider value={_defaultTheme}>
+    <SessionContext.Provider value={session}>
       <MainLayout />
-    </ThemeContext.Provider>
+    </SessionContext.Provider>
   )
 }

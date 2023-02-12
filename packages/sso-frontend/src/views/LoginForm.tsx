@@ -1,11 +1,11 @@
 import { useContext } from 'react'
-import { ThemeContext } from '../services/ThemeContext'
+import { SessionContext } from '../services/SessionContext'
 
 export const LoginForm = () => {
-  const theme = useContext(ThemeContext)
+  const session = useContext(SessionContext)
   return (
     <div className='fc-sso-form'>
-      <div className='logo mb-4' style={{ background: theme.logoCss }} />
+      <div className='logo mb-4' style={{ background: session.config.logoCss }} />
       <div className='h3 mb-3 font-weight-normal'>请登录</div>
       <div className='input-group input-first'>
         <input type='text' className='form-control' placeholder='邮箱' required autoFocus />

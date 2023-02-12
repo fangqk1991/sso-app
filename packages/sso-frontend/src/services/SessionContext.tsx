@@ -1,4 +1,5 @@
 import React from 'react'
+import { SessionInfo } from '@fangcha/backend-kit/lib/common/models'
 
 interface SessionConfig {
   appName: string
@@ -16,4 +17,12 @@ export const _defaultTheme: SessionConfig = {
   hidePromotion: false,
 }
 
-export const ThemeContext = React.createContext(_defaultTheme)
+export const _defaultSession: SessionInfo<SessionConfig> = {
+  env: '',
+  tags: [],
+  codeVersion: '',
+  config: _defaultTheme,
+  userInfo: null,
+}
+
+export const SessionContext = React.createContext(_defaultSession)
