@@ -1,6 +1,7 @@
 import styled from '@emotion/styled'
 import React, { useContext, useEffect } from 'react'
 import { ThemeContext } from '../services/ThemeContext'
+import { LoginForm } from './LoginForm'
 
 const Main = styled.main(`
   width: 100vw;
@@ -35,13 +36,11 @@ export const MainLayout: React.FC = () => {
     //   console.error(err)
     // }
     // return null
-
-    console.info(11)
   }, [theme])
   return (
     <Main style={{ background: theme.background }}>
       <PromotionDiv className='fc-app-promotion'>
-        {theme.appName}.
+        {`${theme.appName}. `}
         {!theme.hidePromotion && (
           <>
             <span>Powered by </span>
@@ -51,6 +50,7 @@ export const MainLayout: React.FC = () => {
           </>
         )}
       </PromotionDiv>
+      <LoginForm />
     </Main>
   )
 }
