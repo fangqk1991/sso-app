@@ -1,5 +1,5 @@
-import { SsoClientParams } from './oauth'
 import assert from '@fangcha/assert'
+import { SsoClientParams } from './oauth/ClientModels'
 
 export class SsoValidateUtils {
   public static getClearClientParams(params: Partial<SsoClientParams>) {
