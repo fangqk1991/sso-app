@@ -23,7 +23,7 @@ importers:
       '@fangcha/swagger': ^0.1.1
       '@fangcha/tools': ^1.23.2
       '@fangcha/vue': ^0.77.0
-      '@fangcha/webpack': ^0.12.0
+      '@fangcha/webpack': ^0.13.1
       '@koa/router': ^12.0.0
       '@types/ali-oss': ^6.0.10
       '@types/assert': ^1.5.4
@@ -131,7 +131,7 @@ importers:
       '@fangcha/eslint': 0.5.0_typescript@4.9.5
       '@fangcha/generator': 0.2.0
       '@fangcha/vue': 0.77.0
-      '@fangcha/webpack': 0.12.0_fvb3eha3htfbbehlemkzqjpy4m
+      '@fangcha/webpack': 0.13.1_fvb3eha3htfbbehlemkzqjpy4m
       '@types/ali-oss': 6.16.7
       '@types/bcryptjs': 2.4.2
       '@types/crypto-js': 4.1.1
@@ -208,6 +208,7 @@ importers:
       react: ^18.2.0
       react-dom: ^18.2.0
       react-router-dom: ^6.5.0
+      typescript: ^4.9.5
     devDependencies:
       '@emotion/react': 11.10.5_react@18.2.0
       '@emotion/styled': 11.10.5_hp5f5nkljdiwilp4rgxyefcplu
@@ -217,6 +218,7 @@ importers:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       react-router-dom: 6.8.1_biqbaboplfbrettd7655fr4n2y
+      typescript: 4.9.5
 
   services/sso-common:
     specifiers: {}
@@ -1771,8 +1773,8 @@ packages:
       vue-router: 3.6.5_vue@2.7.14
     dev: true
 
-  /@fangcha/webpack/0.12.0_fvb3eha3htfbbehlemkzqjpy4m:
-    resolution: {integrity: sha512-SixDF8tfLb6Pb0WVzOGWRtBPYRNRQFNxWpUjrzwiKyM/yZbrXzMPnnyKpwxejmiQJj97PDdE+PTpaSGSI8BO0w==}
+  /@fangcha/webpack/0.13.1_fvb3eha3htfbbehlemkzqjpy4m:
+    resolution: {integrity: sha512-bHV8KJbM5VuLX3WJQDREkMmiDEPQLf9q9KUAUxtgHNHZZLlLqrLAZ3bEHqV0kDjJSbe0/O7oqCzcQczklo/X9Q==}
     dependencies:
       '@babel/core': 7.20.12
       '@babel/plugin-proposal-decorators': 7.20.13_@babel+core@7.20.12
@@ -1806,7 +1808,7 @@ packages:
       webpack: 5.75.0_webpack-cli@4.10.0
       webpack-cli: 4.10.0_uaydpeuxkjjcxdbyfgk36cjdxi
       webpack-dev-server: 4.11.1_pda42hcaj7d62cr262fr632kue
-      webpack-merge: 4.2.2
+      webpack-merge: 5.8.0
       webpack-node-externals: 3.0.0
     transitivePeerDependencies:
       - '@parcel/css'
@@ -11116,12 +11118,6 @@ packages:
       - debug
       - supports-color
       - utf-8-validate
-    dev: true
-
-  /webpack-merge/4.2.2:
-    resolution: {integrity: sha512-TUE1UGoTX2Cd42j3krGYqObZbOD+xF7u28WB7tfUordytSjbWTIjK/8V0amkBfTYN4/pB/GIDlJZZ657BGG19g==}
-    dependencies:
-      lodash: 4.17.21
     dev: true
 
   /webpack-merge/5.8.0:

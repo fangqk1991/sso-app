@@ -58,7 +58,7 @@
     "@fangcha/generator": "^0.2.0",
     "@fangcha/vue": "^0.77.0",
     "@fangcha/admin-vue": "^0.1.0",
-    "@fangcha/webpack": "^0.12.0",
+    "@fangcha/webpack": "^0.13.1",
     "@types/ali-oss": "^6.0.10",
     "@types/assert": "^1.4.6",
     "@types/bcryptjs": "^2.4.2",

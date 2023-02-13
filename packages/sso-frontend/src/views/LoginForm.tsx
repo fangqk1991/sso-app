@@ -1,5 +1,9 @@
-import { useContext } from 'react'
+import React, { useContext } from 'react'
 import { SessionContext } from '../services/SessionContext'
+import { AccountSimpleParams } from '@fangcha/account-models'
+import { LoginApis } from '@fangcha/sso-models'
+import { AxiosBuilder } from '@fangcha/app-request'
+import { Input } from '../components/Input'
 
 export const LoginForm = () => {
   const session = useContext(SessionContext)
@@ -11,9 +15,23 @@ export const LoginForm = () => {
         <input type='text' className='form-control' placeholder='邮箱' required autoFocus />
       </div>
       <div className='input-group input-last'>
-        <input type='password' className='form-control' placeholder='密码' required />
+        <Input type='password' className='form-control' placeholder='密码' required onEnter={() => {
+          console.info('!!!')
+        }} />
       </div>
-      <button className='btn btn-lg btn-primary' style={{ width: '100%' }}>
+      <button
+        className='btn btn-lg btn-primary'
+        style={{ width: '100%' }}
+        onClick={() => {
+          //
+          ;async (params: AccountSimpleParams) => {
+            const request = new AxiosBuilder()
+            request.setApiOptions(LoginApis.LoginWithEmail)
+            request.setBodyData(params)
+            await request.quickSend()
+          }
+        }}
+      >
         登录
       </button>
       <p className='extras'>

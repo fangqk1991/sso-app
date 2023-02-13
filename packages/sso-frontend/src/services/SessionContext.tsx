@@ -1,7 +1,7 @@
 import React from 'react'
 import { SessionInfo } from '@fangcha/backend-kit/lib/common/models'
 
-interface SessionConfig {
+export interface SessionConfig {
   appName: string
   logoCss: string
   background: string

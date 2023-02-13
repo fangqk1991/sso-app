@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { SessionContext } from '../services/SessionContext'
 import { LoginForm } from './LoginForm'
 
@@ -23,20 +23,6 @@ const PromotionDiv = styled.div(`
 
 export const MainLayout: React.FC = () => {
   const session = useContext(SessionContext)
-  useEffect(() => {
-    // const request = MyAxios(RetainedSessionApis.SessionInfoGet)
-    // request.setMute(true)
-    // try {
-    //   const response = await request.quickSend<SessionInfo<T>>()
-    //   this.codeVersion = response.codeVersion || ''
-    //   this.curUser = response.userInfo
-    //   Object.assign(this.config, response.config)
-    //   return response
-    // } catch (err) {
-    //   console.error(err)
-    // }
-    // return null
-  }, [session])
   return (
     <Main style={{ background: session.config.background }}>
       <PromotionDiv className='fc-app-promotion'>
