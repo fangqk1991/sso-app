@@ -21,7 +21,7 @@ export const App = () => {
   }, [])
 
   return (
-    <SessionContext.Provider value={session}>
+    <SessionContext.Provider value={{ session: session, setSession: setSession }}>
       <MainLayout />
     </SessionContext.Provider>
   )

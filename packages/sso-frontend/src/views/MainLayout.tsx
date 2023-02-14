@@ -22,7 +22,7 @@ const PromotionDiv = styled.div(`
 `)
 
 export const MainLayout: React.FC = () => {
-  const session = useContext(SessionContext)
+  const { session } = useContext(SessionContext)
   return (
     <Main style={{ background: session.config.background }}>
       <PromotionDiv className='fc-app-promotion'>

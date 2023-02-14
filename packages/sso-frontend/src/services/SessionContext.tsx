@@ -25,4 +25,12 @@ export const _defaultSession: SessionInfo<SessionConfig> = {
   userInfo: null,
 }
 
-export const SessionContext = React.createContext(_defaultSession)
+interface Context {
+  session: SessionInfo<SessionConfig>
+  setSession: (session: SessionInfo<SessionConfig>) => void
+}
+
+export const SessionContext = React.createContext<Context>({
+  session: _defaultSession,
+  setSession: () => {},
+})
