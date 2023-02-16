@@ -6,6 +6,24 @@ import { RetainedSessionApis } from '@fangcha/backend-kit/lib/common/apis'
 import { SessionInfo } from '@fangcha/backend-kit/lib/common/models'
 import { ErrorBoundary } from './views/ErrorBoundary'
 import { ConfigProvider } from 'antd'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { ProfileView } from './views/ProfileView'
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <MainLayout />,
+    children: []
+  },
+  {
+    path: '/profile',
+    element: <ProfileView />,
+  },
+  {
+    path: '*',
+    element: <div>404</div>,
+  },
+])
 
 export const App = () => {
   const [session, setSession] = useState(_defaultSession)
@@ -32,7 +50,7 @@ export const App = () => {
         }}
       >
         <SessionContext.Provider value={{ session: session, setSession: setSession }}>
-          <MainLayout />
+          <RouterProvider router={router} />
         </SessionContext.Provider>
       </ConfigProvider>
     </ErrorBoundary>
