@@ -12,6 +12,9 @@ import './signin.scss'
         </template>
       </div>
       <router-view />
+      <div v-if="$session.config.beianText" class="fc-app-promotion" style="position: fixed; bottom: 8px; left: 0; right: 0; text-align: center;">
+        <a href="https://beian.miit.gov.cn/" target="_blank">{{ $session.config.beianText }}</a>
+      </div>
     </div>
   `,
 })

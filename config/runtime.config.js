@@ -34,6 +34,7 @@ module.exports = {
       background: envData.FE_background,
       logoCss: envData.FE_logoCss,
       signupAble: envData.FE_signupAble,
+      beianText: envData.FE_beianText,
     },
     adminAuth: {
       authMode: envData.authMode,

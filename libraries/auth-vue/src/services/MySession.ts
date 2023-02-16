@@ -6,6 +6,7 @@ export interface SessionConfig {
   background: string
   signupAble: boolean
   hidePromotion: boolean
+  beianText?: string
 }
 
 const config: SessionConfig = {
