@@ -70,11 +70,11 @@ const _fcApp = new AdminApp({
           titleZh: 'SSO 客户端',
           path: '/v1/client',
         },
-        {
-          titleEn: '权限应用',
-          titleZh: '权限应用',
-          path: '/v1/app',
-        },
+        // {
+        //   titleEn: '权限应用',
+        //   titleZh: '权限应用',
+        //   path: '/v1/app',
+        // },
       ],
     },
     {
