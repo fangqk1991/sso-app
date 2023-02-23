@@ -6,24 +6,26 @@ import { ConfigProvider } from 'antd'
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 import { ProfileView } from './views/ProfileView'
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Navigate to='/login' />,
-    children: [],
-  },
-  {
-    path: '/login',
-    element: <MainLayout />,
-    children: [],
-  },
+const visitorRouter = createBrowserRouter([
   {
     path: '/profile',
     element: <ProfileView />,
   },
   {
     path: '*',
-    element: <div>404 Not Found</div>,
+    element: <ProfileView />,
+  },
+])
+
+const anonymousRouter = createBrowserRouter([
+  {
+    path: '/login',
+    element: <MainLayout />,
+    children: [],
+  },
+  {
+    path: '*',
+    element: <Navigate to='/login' />,
   },
 ])
 
@@ -42,7 +44,7 @@ export const App = () => {
         }}
       >
         <SessionContext.Provider value={sessionCtx}>
-          <RouterProvider router={router} />
+          {sessionCtx.session.userInfo ? <RouterProvider router={visitorRouter} /> : <RouterProvider router={anonymousRouter} />}
         </SessionContext.Provider>
       </ConfigProvider>
     </ErrorBoundary>
