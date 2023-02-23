@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { SessionInfo } from '@fangcha/backend-kit/lib/common/models'
+import { AxiosBuilder } from '@fangcha/app-request'
+import { RetainedSessionApis } from '@fangcha/backend-kit/lib/common/apis'
 
 export interface SessionConfig {
   appName: string
@@ -27,10 +29,33 @@ export const _defaultSession: SessionInfo<SessionConfig> = {
 
 interface Context {
   session: SessionInfo<SessionConfig>
-  setSession: (session: SessionInfo<SessionConfig>) => void
+  reloadSession: () => void
 }
 
-export const SessionContext = React.createContext<Context>({
-  session: _defaultSession,
-  setSession: () => {},
-})
+export const SessionContext = React.createContext<Context>(null as any)
+
+export const useSession = (): Context => {
+  const [session, setSession] = useState(_defaultSession)
+  const reloadSession = () => {
+    console.info('reload session')
+    const request = new AxiosBuilder()
+    request.setApiOptions(RetainedSessionApis.SessionInfoGet)
+    request
+      .quickSend<SessionInfo<SessionConfig>>()
+      .then((response) => {
+        setSession(response)
+      })
+      .catch((err) => {
+        console.error(err)
+      })
+  }
+  return {
+    session: session,
+    reloadSession: reloadSession,
+  }
+}
+
+export const SessionProvider = ({ children }: React.ComponentProps<any>) => {
+  const sessionCtx = useSession()
+  return <SessionContext.Provider value={sessionCtx}>{children}</SessionContext.Provider>
+}

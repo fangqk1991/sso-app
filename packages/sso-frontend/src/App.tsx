@@ -1,19 +1,21 @@
 import { MainLayout } from './views/MainLayout'
-import { _defaultSession, SessionConfig, SessionContext } from './services/SessionContext'
-import React, { useEffect, useState } from 'react'
-import { AxiosBuilder } from '@fangcha/app-request'
-import { RetainedSessionApis } from '@fangcha/backend-kit/lib/common/apis'
-import { SessionInfo } from '@fangcha/backend-kit/lib/common/models'
+import { SessionContext, SessionProvider, useSession } from './services/SessionContext'
+import React, { useEffect } from 'react'
 import { ErrorBoundary } from './views/ErrorBoundary'
 import { ConfigProvider } from 'antd'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 import { ProfileView } from './views/ProfileView'
 
 const router = createBrowserRouter([
   {
     path: '/',
+    element: <Navigate to='/login' />,
+    children: [],
+  },
+  {
+    path: '/login',
     element: <MainLayout />,
-    children: []
+    children: [],
   },
   {
     path: '/profile',
@@ -21,25 +23,15 @@ const router = createBrowserRouter([
   },
   {
     path: '*',
-    element: <div>404</div>,
+    element: <div>404 Not Found</div>,
   },
 ])
 
 export const App = () => {
-  const [session, setSession] = useState(_defaultSession)
+  const sessionCtx = useSession()
   useEffect(() => {
-    const request = new AxiosBuilder()
-    request.setApiOptions(RetainedSessionApis.SessionInfoGet)
-    request
-      .quickSend<SessionInfo<SessionConfig>>()
-      .then((response) => {
-        setSession(response)
-      })
-      .catch((err) => {
-        console.error(err)
-      })
+    sessionCtx.reloadSession()
   }, [])
-
   return (
     <ErrorBoundary>
       <ConfigProvider
@@ -49,7 +41,7 @@ export const App = () => {
           },
         }}
       >
-        <SessionContext.Provider value={{ session: session, setSession: setSession }}>
+        <SessionContext.Provider value={sessionCtx}>
           <RouterProvider router={router} />
         </SessionContext.Provider>
       </ConfigProvider>
