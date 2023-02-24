@@ -2,29 +2,26 @@ import React, { useContext } from 'react'
 import { SessionContext } from '../services/SessionContext'
 import { AccountSimpleParams } from '@fangcha/account-models'
 import { SignupApis } from '@fangcha/sso-models'
-import { AxiosBuilder } from '@fangcha/app-request'
 import { Button, Form, Input, message } from 'antd'
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
+import { MyRequest } from '../services/HttpRequest'
 
 export const SignupForm = () => {
   const sessionCtx = useContext(SessionContext)
-  const [messageApi, contextHolder] = message.useMessage()
 
   const onSubmit = async (params: AccountSimpleParams) => {
-    const request = new AxiosBuilder()
-    request.setApiOptions(SignupApis.SimpleSignup)
+    const request = MyRequest(SignupApis.SimpleSignup)
     request.setBodyData(params)
     await request.quickSend()
 
-    messageApi.info('注册成功')
+    message.info('注册成功')
 
     sessionCtx.reloadSession()
   }
 
   return (
     <div className='fc-sso-form'>
-      {contextHolder}
       <div className='logo mb-4' style={{ background: sessionCtx.session.config.logoCss }} />
       <div className='h3 mb-3 font-weight-normal'>注册账号</div>
       <Form onFinish={onSubmit}>
