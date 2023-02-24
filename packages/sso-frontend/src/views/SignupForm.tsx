@@ -4,11 +4,12 @@ import { AccountSimpleParams } from '@fangcha/account-models'
 import { SignupApis } from '@fangcha/sso-models'
 import { Button, Form, Input, message } from 'antd'
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { MyRequest } from '../services/HttpRequest'
 
 export const SignupForm = () => {
   const sessionCtx = useContext(SessionContext)
+  const { search } = useLocation()
 
   const onSubmit = async (params: AccountSimpleParams) => {
     const request = MyRequest(SignupApis.SimpleSignup)
@@ -47,7 +48,7 @@ export const SignupForm = () => {
         </Form.Item>
       </Form>
       <p className='extras'>
-        <Link to='/login'> {'>>'} 已有账号，点击登录</Link>
+        <Link to={{ pathname: '/login', search: search }}> {'>>'} 已有账号，点击登录</Link>
       </p>
     </div>
   )

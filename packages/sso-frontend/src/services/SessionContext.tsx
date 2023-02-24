@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { SessionInfo } from '@fangcha/backend-kit/lib/common/models'
 import { AxiosBuilder } from '@fangcha/app-request'
 import { RetainedSessionApis } from '@fangcha/backend-kit/lib/common/apis'
+import { RedirectTools } from '@fangcha/auth-basic'
 
 export interface SessionConfig {
   appName: string
@@ -44,6 +45,12 @@ export const useSession = (): Context => {
       .quickSend<SessionInfo<SessionConfig>>()
       .then((response) => {
         setSession(response)
+
+        const redirectTools = new RedirectTools()
+        redirectTools.checkLogin = () => {
+          return !!response.userInfo
+        }
+        redirectTools.redirectIfNeed()
       })
       .catch((err) => {
         console.error(err)

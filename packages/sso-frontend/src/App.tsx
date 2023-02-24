@@ -8,35 +8,30 @@ import { ProfileView } from './views/ProfileView'
 import { LoginForm } from './views/LoginForm'
 import { SignupForm } from './views/SignupForm'
 
-const visitorRouter = createBrowserRouter([
+const router = createBrowserRouter([
   {
-    path: '/profile',
-    element: <ProfileView />,
-  },
-  {
-    path: '*',
-    element: <ProfileView />,
-  },
-])
-
-const anonymousRouter = createBrowserRouter([
-  {
-    path: '/',
+    path: '/login',
     element: <MainLayout />,
     children: [
       {
         path: '',
         element: <LoginForm />,
       },
+    ],
+  },
+  {
+    path: '/signup',
+    element: <MainLayout />,
+    children: [
       {
-        path: '/login',
-        element: <LoginForm />,
-      },
-      {
-        path: '/signup',
+        path: '',
         element: <SignupForm />,
       },
     ],
+  },
+  {
+    path: '/profile',
+    element: <ProfileView />,
   },
   {
     path: '*',
@@ -59,11 +54,7 @@ export const App = () => {
         }}
       >
         <SessionContext.Provider value={sessionCtx}>
-          {sessionCtx.session.userInfo ? (
-            <RouterProvider router={visitorRouter} />
-          ) : (
-            <RouterProvider router={anonymousRouter} />
-          )}
+          <RouterProvider router={router} />
         </SessionContext.Provider>
       </ConfigProvider>
     </ErrorBoundary>
