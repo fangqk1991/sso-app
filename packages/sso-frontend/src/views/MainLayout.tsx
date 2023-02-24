@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import React, { useContext } from 'react'
 import { SessionContext } from '../services/SessionContext'
-import { LoginForm } from './LoginForm'
+import { Outlet } from 'react-router-dom'
 
 const Main = styled.main(`
   width: 100vw;
@@ -36,7 +36,7 @@ export const MainLayout: React.FC = () => {
           </>
         )}
       </PromotionDiv>
-      <LoginForm />
+      <Outlet />
     </Main>
   )
 }

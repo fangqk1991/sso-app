@@ -1,10 +1,12 @@
 import { MainLayout } from './views/MainLayout'
-import { SessionContext, SessionProvider, useSession } from './services/SessionContext'
+import { SessionContext, useSession } from './services/SessionContext'
 import React, { useEffect } from 'react'
 import { ErrorBoundary } from './views/ErrorBoundary'
 import { ConfigProvider } from 'antd'
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 import { ProfileView } from './views/ProfileView'
+import { LoginForm } from './views/LoginForm'
+import { SignupForm } from './views/SignupForm'
 
 const visitorRouter = createBrowserRouter([
   {
@@ -19,9 +21,22 @@ const visitorRouter = createBrowserRouter([
 
 const anonymousRouter = createBrowserRouter([
   {
-    path: '/login',
+    path: '/',
     element: <MainLayout />,
-    children: [],
+    children: [
+      {
+        path: '',
+        element: <LoginForm />,
+      },
+      {
+        path: '/login',
+        element: <LoginForm />,
+      },
+      {
+        path: '/signup',
+        element: <SignupForm />,
+      },
+    ],
   },
   {
     path: '*',
@@ -44,7 +59,11 @@ export const App = () => {
         }}
       >
         <SessionContext.Provider value={sessionCtx}>
-          {sessionCtx.session.userInfo ? <RouterProvider router={visitorRouter} /> : <RouterProvider router={anonymousRouter} />}
+          {sessionCtx.session.userInfo ? (
+            <RouterProvider router={visitorRouter} />
+          ) : (
+            <RouterProvider router={anonymousRouter} />
+          )}
         </SessionContext.Provider>
       </ConfigProvider>
     </ErrorBoundary>
