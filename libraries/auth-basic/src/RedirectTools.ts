@@ -34,10 +34,6 @@ export class RedirectTools {
     return redirectUri || this._options.defaultRedirectUri
   }
 
-  public async onLoginSuccess() {
-    this.redirectIfNeed()
-  }
-
   public redirectIfNeed() {
     const loginPathMap = {
       [this._options.loginPagePath]: true,

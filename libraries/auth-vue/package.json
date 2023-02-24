@@ -11,6 +11,9 @@
   "files": [
     "src/*"
   ],
+  "dependencies": {
+    "@fangcha/auth-basic": "workspace:^0.2.0"
+  },
   "peerDependencies": {
     "@fangcha/vue": "*",
     "@fangcha/backend-kit": "*",

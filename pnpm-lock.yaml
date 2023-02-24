@@ -169,7 +169,10 @@ importers:
     specifiers: {}
 
   libraries/auth-vue:
-    specifiers: {}
+    specifiers:
+      '@fangcha/auth-basic': workspace:^0.2.0
+    dependencies:
+      '@fangcha/auth-basic': link:../auth-basic
 
   libraries/sso-models:
     specifiers: {}
