@@ -1,6 +1,6 @@
 {
   "name": "@fangcha/auth-vue",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "main": "src/index.ts",
   "repository": "https://github.com/fangqk1991/sso-app.git",
   "keywords": [
@@ -11,10 +11,8 @@
   "files": [
     "src/*"
   ],
-  "dependencies": {
-    "@fangcha/auth-basic": "workspace:^0.2.0"
-  },
   "peerDependencies": {
+    "@fangcha/auth-basic": "*",
     "@fangcha/vue": "*",
     "@fangcha/backend-kit": "*",
     "@fangcha/account-models": "*",
