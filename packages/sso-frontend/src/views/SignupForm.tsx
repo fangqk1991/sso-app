@@ -15,7 +15,7 @@ export const SignupForm = () => {
     request.setBodyData(params)
     await request.quickSend()
 
-    message.info('注册成功')
+    message.success('注册成功')
 
     sessionCtx.reloadSession()
   }

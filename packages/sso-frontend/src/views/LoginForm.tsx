@@ -15,7 +15,7 @@ export const LoginForm = () => {
     request.setBodyData(params)
     await request.quickSend()
 
-    message.info('登录成功')
+    message.success('登录成功')
 
     sessionCtx.reloadSession()
   }
