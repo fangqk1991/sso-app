@@ -1,8 +1,8 @@
 {
   "name": "@fangcha/auth-vue",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "main": "src/index.ts",
-  "repository": "https://github.com/fangqk1991/datawich.git",
+  "repository": "https://github.com/fangqk1991/sso-app.git",
   "keywords": [
     "tools"
   ],
