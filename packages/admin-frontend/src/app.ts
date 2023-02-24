@@ -13,7 +13,9 @@ import AppListView from './views/app/AppListView'
 import { AppDetailView } from './views/app/AppDetailView'
 import { GroupDetailView } from './views/group/GroupDetailView'
 
-MySession.defaultRedirectUri = '/'
+MySession.redirectTools.updateOptions({
+  defaultRedirectUri: '/',
+})
 
 const _fcApp = new AdminApp({
   appName: 'SSO Admin',

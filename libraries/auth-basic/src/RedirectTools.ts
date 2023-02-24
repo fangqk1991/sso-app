@@ -26,6 +26,10 @@ export class RedirectTools {
     Object.assign(this._options, options)
   }
 
+  public updateOptions(options: Partial<Options>) {
+    Object.assign(this._options, options)
+  }
+
   public redirectUri() {
     let redirectUri = getParameterByName('redirectUri') || ''
     if (!redirectUri.startsWith(window.location.origin)) {
