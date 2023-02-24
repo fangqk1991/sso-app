@@ -7,19 +7,31 @@ const getParameterByName = (name: string, url = window.location.href) => {
   return decodeURIComponent(results[2].replace(/\+/g, ' '))
 }
 
-export class RedirectTools {
-  public loginPagePath = '/login'
-  public signupPagePath = '/signup'
-  public defaultRedirectUri = '/profile'
+interface Options {
+  checkLogin: () => boolean
+  loginPagePath?: string
+  signupPagePath?: string
+  defaultRedirectUri?: string
+}
 
-  public checkLogin: () => boolean = () => false
+export class RedirectTools {
+  private _options: Required<Options> = {
+    loginPagePath: '/login',
+    signupPagePath: '/signup',
+    defaultRedirectUri: '/profile',
+    checkLogin: () => false,
+  }
+
+  public constructor(options: Options) {
+    Object.assign(this._options, options)
+  }
 
   public redirectUri() {
     let redirectUri = getParameterByName('redirectUri') || ''
     if (!redirectUri.startsWith(window.location.origin)) {
       redirectUri = ''
     }
-    return redirectUri || this.defaultRedirectUri
+    return redirectUri || this._options.defaultRedirectUri
   }
 
   public async onLoginSuccess() {
@@ -28,19 +40,19 @@ export class RedirectTools {
 
   public redirectIfNeed() {
     const loginPathMap = {
-      [this.loginPagePath]: true,
-      [this.signupPagePath]: true,
+      [this._options.loginPagePath]: true,
+      [this._options.signupPagePath]: true,
     }
     const inLoginPage = loginPathMap[window.location.pathname]
-    if (this.checkLogin()) {
+    if (this._options.checkLogin()) {
       if (inLoginPage) {
         window.location.href = this.redirectUri()
       }
     } else {
       if (window.location.pathname === '/') {
-        window.location.href = this.loginPagePath
+        window.location.href = this._options.loginPagePath
       } else if (!inLoginPage) {
-        window.location.href = `${this.loginPagePath}?redirectUri=${encodeURIComponent(window.location.href)}`
+        window.location.href = `${this._options.loginPagePath}?redirectUri=${encodeURIComponent(window.location.href)}`
       }
     }
   }

@@ -46,10 +46,11 @@ export const useSession = (): Context => {
       .then((response) => {
         setSession(response)
 
-        const redirectTools = new RedirectTools()
-        redirectTools.checkLogin = () => {
-          return !!response.userInfo
-        }
+        const redirectTools = new RedirectTools({
+          checkLogin: () => {
+            return !!response.userInfo
+          },
+        })
         redirectTools.redirectIfNeed()
       })
       .catch((err) => {
