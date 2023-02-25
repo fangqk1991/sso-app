@@ -1,7 +1,11 @@
 {
   "name": "@fangcha/auth-basic",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "main": "src/index.ts",
+  "publishConfig": {
+    "main": "lib/index.js",
+    "typings": "lib/index.d.ts"
+  },
   "repository": "https://github.com/fangqk1991/sso-app.git",
   "keywords": [
     "HTTP"
@@ -11,6 +15,10 @@
   "files": [
     "src/*"
   ],
+  "scripts": {
+    "build": "rm -rf ./lib/ && tsc",
+    "prepublish": "pnpm build"
+  },
   "peerDependencies": {
     "@fangcha/app-request": "*",
     "@fangcha/app-error": "*"
