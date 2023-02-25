@@ -2,12 +2,11 @@
   "compilerOptions": {
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
-    "declaration": false,
+    "declaration": true,
     "downlevelIteration": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "inlineSourceMap": true,
     "jsx": "react",
     "moduleResolution": "node",
     "noImplicitAny": true,
@@ -26,6 +25,5 @@
   },
   "include": [
     "./src",
-  ],
-  "exclude": ["node_modules"]
+  ]
 }
