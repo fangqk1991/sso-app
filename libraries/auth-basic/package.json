@@ -1,6 +1,6 @@
 {
   "name": "@fangcha/auth-basic",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "main": "src/index.ts",
   "publishConfig": {
     "main": "lib/index.js",
@@ -13,7 +13,8 @@
   "author": "fang <me@fangqk.com>",
   "license": "MIT",
   "files": [
-    "src/*"
+    "src/*",
+    "lib/*"
   ],
   "scripts": {
     "build": "rm -rf ./lib/ && tsc",
