@@ -1,2 +1,2 @@
 export * from './RedirectTools'
-export * from './RequestFactory'
+export * from './HttpRequest'

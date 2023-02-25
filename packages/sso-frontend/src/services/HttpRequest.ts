@@ -1,12 +1,5 @@
 import { ApiOptions } from '@fangcha/app-request'
-import { message } from 'antd'
-import { RequestFactory } from '@fangcha/auth-basic'
-
-export const HttpRequest = new RequestFactory({
-  alertHandler: (errMsg) => {
-    message.error(errMsg)
-  },
-}).makeClass()
+import { HttpRequest } from '@fangcha/auth-basic'
 
 export const MyRequest = (commonApi?: ApiOptions) => {
   const builder = new HttpRequest()
