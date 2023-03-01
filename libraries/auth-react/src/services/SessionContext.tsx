@@ -33,6 +33,7 @@ export const _defaultSession: SessionInfo<SessionConfig> = {
 }
 
 interface Context {
+  already: boolean
   session: SessionInfo<SessionConfig>
   reloadSession: () => void
 }
@@ -41,6 +42,8 @@ export const SessionContext = React.createContext<Context>(null as any)
 
 export const useSession = (): Context => {
   const [session, setSession] = useState(_defaultSession)
+  const [already, setAlready] = useState(false)
+
   const reloadSession = () => {
     console.info('reload session')
     const request = new AxiosBuilder()
@@ -55,6 +58,7 @@ export const useSession = (): Context => {
             ...response.config,
           },
         })
+        setAlready(true)
 
         const redirectTools = new RedirectTools({
           checkLogin: () => {
@@ -68,6 +72,7 @@ export const useSession = (): Context => {
       })
   }
   return {
+    already: already,
     session: session,
     reloadSession: reloadSession,
   }
