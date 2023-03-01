@@ -37,6 +37,22 @@ export const MainLayout: React.FC = () => {
         )}
       </PromotionDiv>
       <Outlet />
+      {session.config.beianText && (
+        <div
+          className='fc-app-promotion'
+          style={{
+            position: 'fixed',
+            bottom: '8px',
+            left: 0,
+            right: 0,
+            textAlign: 'center',
+          }}
+        >
+          <a href='https://beian.miit.gov.cn/' target='_blank'>
+            {session.config.beianText}
+          </a>
+        </div>
+      )}
     </Main>
   )
 }

@@ -10,28 +10,22 @@ import { SignupForm } from './views/SignupForm'
 
 const router = createBrowserRouter([
   {
-    path: '/login',
+    path: '/',
     element: <MainLayout />,
     children: [
       {
-        path: '',
+        path: '/login',
         element: <LoginForm />,
       },
-    ],
-  },
-  {
-    path: '/signup',
-    element: <MainLayout />,
-    children: [
       {
-        path: '',
+        path: '/signup',
         element: <SignupForm />,
       },
+      {
+        path: '/profile',
+        element: <ProfileView />,
+      },
     ],
-  },
-  {
-    path: '/profile',
-    element: <ProfileView />,
   },
   {
     path: '*',
@@ -44,12 +38,14 @@ export const App = () => {
   useEffect(() => {
     sessionCtx.reloadSession()
   }, [])
+  document.title = sessionCtx.session.config.appName || 'App'
+
   return (
     <ErrorBoundary>
       <ConfigProvider
         theme={{
           token: {
-            colorPrimary: 'rgb(221 115 164)',
+            colorPrimary: sessionCtx.session.config.colorPrimary || '#0d6efd',
           },
         }}
       >

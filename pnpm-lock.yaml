@@ -191,9 +191,6 @@ importers:
   packages/admin-frontend:
     specifiers: {}
 
-  packages/app-frontend:
-    specifiers: {}
-
   packages/sso-backend:
     specifiers:
       '@fangcha/web-auth-sdk': workspace:*

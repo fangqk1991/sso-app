@@ -69,7 +69,7 @@ COPY ./deploy/sso/deps/sso.nginx.conf /etc/nginx/http.d/sso.nginx.conf
 ARG commitSHA=Unknown
 RUN sed -i 's/COMMIT_SHA/'${commitSHA}'/g' /etc/nginx/http.d/sso.nginx.conf
 RUN sed -i 's/COMMIT_SHA/'${commitSHA}'/g' ./packages/sso-backend/ecosystem.config.js
-RUN sed -i 's/COMMIT_SHA/'${commitSHA}'/g' ./packages/app-frontend/dist/index.html
+RUN sed -i 's/COMMIT_SHA/'${commitSHA}'/g' ./packages/sso-frontend/dist/index.html
 RUN sed -i 's/COMMIT_SHA/'${commitSHA}'/g' ./packages/admin-frontend/dist/index.html
 LABEL commitSHA="${commitSHA}"
 

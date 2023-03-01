@@ -10,6 +10,8 @@ export interface SessionConfig {
   background: string
   signupAble: boolean
   hidePromotion: boolean
+  beianText: string
+  colorPrimary?: string
 }
 
 export const _defaultTheme: SessionConfig = {
@@ -18,6 +20,8 @@ export const _defaultTheme: SessionConfig = {
   logoCss: 'linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%)',
   signupAble: false,
   hidePromotion: false,
+  beianText: '',
+  colorPrimary: '',
 }
 
 export const _defaultSession: SessionInfo<SessionConfig> = {
@@ -44,7 +48,13 @@ export const useSession = (): Context => {
     request
       .quickSend<SessionInfo<SessionConfig>>()
       .then((response) => {
-        setSession(response)
+        setSession({
+          ...response,
+          config: {
+            ..._defaultTheme,
+            ...response.config,
+          },
+        })
 
         const redirectTools = new RedirectTools({
           checkLogin: () => {

@@ -5,7 +5,7 @@ import { SignupApis } from '@fangcha/sso-models'
 import { Button, Form, Input, message } from 'antd'
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
 import { Link, useLocation } from 'react-router-dom'
-import { MyRequest } from '../services/HttpRequest'
+import { MyRequest } from '../services/MyRequest'
 
 export const SignupForm = () => {
   const sessionCtx = useContext(SessionContext)
@@ -47,9 +47,11 @@ export const SignupForm = () => {
           </Button>
         </Form.Item>
       </Form>
-      <p className='extras'>
-        <Link to={{ pathname: '/login', search: search }}> {'>>'} 已有账号，点击登录</Link>
-      </p>
+      {sessionCtx.session.config.signupAble && (
+        <p className='extras'>
+          <Link to={{ pathname: '/login', search: search }}> {'>>'} 已有账号，点击登录</Link>
+        </p>
+      )}
     </div>
   )
 }

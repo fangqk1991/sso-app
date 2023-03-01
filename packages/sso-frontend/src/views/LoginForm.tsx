@@ -5,7 +5,7 @@ import { LoginApis } from '@fangcha/sso-models'
 import { Button, Form, Input, message } from 'antd'
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
 import { Link, useLocation } from 'react-router-dom'
-import { MyRequest } from '../services/HttpRequest'
+import { MyRequest } from '../services/MyRequest'
 
 export const LoginForm = () => {
   const sessionCtx = useContext(SessionContext)
