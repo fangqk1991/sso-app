@@ -33,7 +33,6 @@ export const _defaultSession: SessionInfo<SessionConfig> = {
 }
 
 interface Context {
-  already: boolean
   session: SessionInfo<SessionConfig>
   reloadSession: () => void
 }
@@ -77,7 +76,6 @@ export const SessionProvider = ({ children }: React.ComponentProps<any>) => {
   }
 
   const sessionCtx: Context = {
-    already: already,
     session: session,
     reloadSession: reloadSession,
   }
@@ -85,6 +83,10 @@ export const SessionProvider = ({ children }: React.ComponentProps<any>) => {
   useEffect(() => {
     sessionCtx.reloadSession()
   }, [])
+
+  if (!already) {
+    return null
+  }
 
   return <SessionContext.Provider value={sessionCtx}>{children}</SessionContext.Provider>
 }
