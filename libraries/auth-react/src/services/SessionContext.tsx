@@ -3,6 +3,7 @@ import { SessionInfo } from '@fangcha/backend-kit/lib/common/models'
 import { AxiosBuilder } from '@fangcha/app-request'
 import { RetainedSessionApis } from '@fangcha/backend-kit/lib/common/apis'
 import { RedirectTools } from '@fangcha/auth-basic'
+import { AuthSdkHelper } from '../AuthSdkHelper'
 
 export interface SessionConfig {
   appName: string
@@ -64,6 +65,7 @@ export const SessionProvider = ({ children }: React.ComponentProps<any>) => {
         setAlready(true)
 
         const redirectTools = new RedirectTools({
+          defaultRedirectUri: AuthSdkHelper.defaultRedirectUri,
           checkLogin: () => {
             return !!response.userInfo
           },

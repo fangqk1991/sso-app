@@ -3,8 +3,10 @@ import { ErrorBoundary } from '@ant-design/pro-components'
 import { VisitorProvider } from '@fangcha/react'
 import { RouterProvider } from 'react-router-dom'
 import { MyRouter } from './core/MyRouter'
-import { AuthRouter, SessionProvider, useSession } from '@fangcha/auth-react'
+import { AuthRouter, AuthSdkHelper, SessionProvider, useSession } from '@fangcha/auth-react'
 import { ConfigProvider } from 'antd'
+
+AuthSdkHelper.defaultRedirectUri = '/'
 
 export const App: React.FC = () => {
   const sessionCtx = useSession()

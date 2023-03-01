@@ -5,6 +5,7 @@ import { KitAuthApis } from '@fangcha/backend-kit/lib/apis'
 
 export class AuthSdkHelper {
   public static forClientSDK = true
+  public static defaultRedirectUri = '/profile'
 
   public static async submitLogin(params: AccountSimpleParams) {
     if (!this.forClientSDK) {
