@@ -16,25 +16,27 @@ export const App: React.FC = () => {
     return null
   }
 
+  if (!sessionCtx.session.userInfo) {
+    return (
+      <ConfigProvider
+        theme={{
+          token: {
+            colorPrimary: sessionCtx.session.config.colorPrimary || '#0d6efd',
+          },
+        }}
+      >
+        <SessionContext.Provider value={sessionCtx}>
+          <RouterProvider router={AuthRouter} />
+        </SessionContext.Provider>
+      </ConfigProvider>
+    )
+  }
+
   return (
     <ErrorBoundary>
-      {sessionCtx.session.userInfo ? (
-        <VisitorProvider>
-          <RouterProvider router={MyRouter}></RouterProvider>
-        </VisitorProvider>
-      ) : (
-        <ConfigProvider
-          theme={{
-            token: {
-              colorPrimary: sessionCtx.session.config.colorPrimary || '#0d6efd',
-            },
-          }}
-        >
-          <SessionContext.Provider value={sessionCtx}>
-            <RouterProvider router={AuthRouter} />
-          </SessionContext.Provider>
-        </ConfigProvider>
-      )}
+      <VisitorProvider>
+        <RouterProvider router={MyRouter}></RouterProvider>
+      </VisitorProvider>
     </ErrorBoundary>
   )
 }
