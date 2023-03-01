@@ -9,27 +9,27 @@ export const MyMenu: Route = {
       path: '/',
       children: [
         {
-          name: 'Page - 1',
-          path: '/v1/page-1',
+          name: '应用管理',
           icon: <CrownFilled />,
           // flatMenu: true,
           children: [
             {
-              path: '/v1/page-1/sub-page-1',
-              name: 'SubPage - 1',
+              path: '/v1/client',
+              name: 'SSO 客户端',
               icon: <CrownFilled />,
-            },
-            {
-              path: '/v1/page-1/sub-page-2',
-              name: 'SubPage - 2',
-              icon: <ChromeFilled />,
             },
           ],
         },
         {
-          path: '/v1/page-2',
-          name: 'Page - 2',
+          name: '用户管理',
           icon: <CrownFilled />,
+          children: [
+            {
+              path: '/v1/account',
+              name: '账号管理',
+              icon: <CrownFilled />,
+            },
+          ],
         },
       ],
     },

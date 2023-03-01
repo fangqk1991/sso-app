@@ -1,5 +1,5 @@
 import { AuthRouter, AuthSdkHelper, SessionContext, useSession } from '@fangcha/auth-react'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { ErrorBoundary } from './views/ErrorBoundary'
 import { ConfigProvider } from 'antd'
 import { RouterProvider } from 'react-router-dom'
