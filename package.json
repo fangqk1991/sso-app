@@ -58,7 +58,7 @@
     "@fangcha/eslint": "^0.5.0",
     "@fangcha/generator": "^0.2.0",
     "@fangcha/vue": "^0.77.0",
-    "@fangcha/react": "^0.2.2",
+    "@fangcha/react": "^0.3.0",
     "@fangcha/admin-vue": "^0.1.0",
     "@fangcha/webpack": "^0.14.1",
     "@types/ali-oss": "^6.0.10",

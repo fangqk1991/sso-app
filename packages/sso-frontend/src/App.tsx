@@ -1,32 +1,12 @@
-import { MainLayout } from './views/MainLayout'
-import { SessionContext, useSession } from './services/SessionContext'
+import { SessionContext, useSession } from '@fangcha/auth-react'
 import React, { useEffect } from 'react'
 import { ErrorBoundary } from './views/ErrorBoundary'
 import { ConfigProvider } from 'antd'
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
-import { ProfileView } from './views/ProfileView'
-import { LoginForm } from './views/LoginForm'
-import { SignupForm } from './views/SignupForm'
+import { AuthRoute } from '@fangcha/auth-react'
 
 const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <MainLayout />,
-    children: [
-      {
-        path: '/login',
-        element: <LoginForm />,
-      },
-      {
-        path: '/signup',
-        element: <SignupForm />,
-      },
-      {
-        path: '/profile',
-        element: <ProfileView />,
-      },
-    ],
-  },
+  AuthRoute,
   {
     path: '*',
     element: <Navigate to='/login' />,
