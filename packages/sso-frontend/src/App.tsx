@@ -1,17 +1,10 @@
-import { SessionContext, useSession } from '@fangcha/auth-react'
+import { AuthRouter, AuthSdkHelper, SessionContext, useSession } from '@fangcha/auth-react'
 import React, { useEffect } from 'react'
 import { ErrorBoundary } from './views/ErrorBoundary'
 import { ConfigProvider } from 'antd'
-import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
-import { AuthRoute } from '@fangcha/auth-react'
+import { RouterProvider } from 'react-router-dom'
 
-const router = createBrowserRouter([
-  AuthRoute,
-  {
-    path: '*',
-    element: <Navigate to='/login' />,
-  },
-])
+AuthSdkHelper.forClientSDK = false
 
 export const App = () => {
   const sessionCtx = useSession()
@@ -30,7 +23,7 @@ export const App = () => {
         }}
       >
         <SessionContext.Provider value={sessionCtx}>
-          <RouterProvider router={router} />
+          <RouterProvider router={AuthRouter} />
         </SessionContext.Provider>
       </ConfigProvider>
     </ErrorBoundary>
