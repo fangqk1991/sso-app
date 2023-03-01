@@ -12,6 +12,10 @@ export const App: React.FC = () => {
     sessionCtx.reloadSession()
   }, [])
 
+  if (!sessionCtx.already) {
+    return null
+  }
+
   return (
     <ErrorBoundary>
       {sessionCtx.session.userInfo ? (
