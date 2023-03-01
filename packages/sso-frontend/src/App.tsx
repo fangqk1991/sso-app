@@ -8,9 +8,6 @@ AuthSdkHelper.forClientSDK = false
 
 export const App = () => {
   const sessionCtx = useSession()
-  useEffect(() => {
-    sessionCtx.reloadSession()
-  }, [])
   document.title = sessionCtx.session.config.appName || 'App'
 
   return (

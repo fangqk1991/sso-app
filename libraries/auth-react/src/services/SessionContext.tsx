@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { SessionInfo } from '@fangcha/backend-kit/lib/common/models'
 import { AxiosBuilder } from '@fangcha/app-request'
 import { RetainedSessionApis } from '@fangcha/backend-kit/lib/common/apis'
@@ -41,6 +41,10 @@ interface Context {
 export const SessionContext = React.createContext<Context>(null as any)
 
 export const useSession = (): Context => {
+  return useContext(SessionContext)
+}
+
+export const SessionProvider = ({ children }: React.ComponentProps<any>) => {
   const [session, setSession] = useState(_defaultSession)
   const [already, setAlready] = useState(false)
 
@@ -71,14 +75,16 @@ export const useSession = (): Context => {
         console.error(err)
       })
   }
-  return {
+
+  const sessionCtx: Context = {
     already: already,
     session: session,
     reloadSession: reloadSession,
   }
-}
 
-export const SessionProvider = ({ children }: React.ComponentProps<any>) => {
-  const sessionCtx = useSession()
+  useEffect(() => {
+    sessionCtx.reloadSession()
+  }, [])
+
   return <SessionContext.Provider value={sessionCtx}>{children}</SessionContext.Provider>
 }

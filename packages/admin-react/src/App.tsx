@@ -3,14 +3,11 @@ import { ErrorBoundary } from '@ant-design/pro-components'
 import { VisitorProvider } from '@fangcha/react'
 import { RouterProvider } from 'react-router-dom'
 import { MyRouter } from './core/MyRouter'
-import { AuthRouter, SessionContext, useSession } from '@fangcha/auth-react'
+import { AuthRouter, SessionProvider, useSession } from '@fangcha/auth-react'
 import { ConfigProvider } from 'antd'
 
 export const App: React.FC = () => {
   const sessionCtx = useSession()
-  useEffect(() => {
-    sessionCtx.reloadSession()
-  }, [])
 
   if (!sessionCtx.already) {
     return null
@@ -25,9 +22,9 @@ export const App: React.FC = () => {
           },
         }}
       >
-        <SessionContext.Provider value={sessionCtx}>
+        <SessionProvider value={sessionCtx}>
           <RouterProvider router={AuthRouter} />
-        </SessionContext.Provider>
+        </SessionProvider>
       </ConfigProvider>
     )
   }
