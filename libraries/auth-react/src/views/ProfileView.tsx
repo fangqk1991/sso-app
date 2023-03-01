@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { SessionContext } from '../services/SessionContext'
 import { Button } from 'antd'
-import { LoginApis } from '@fangcha/sso-models'
+import { AuthSdkHelper } from '../AuthSdkHelper'
 
 export const ProfileView = () => {
   const { session } = useContext(SessionContext)
@@ -14,7 +14,7 @@ export const ProfileView = () => {
         type='primary'
         style={{ width: '100%' }}
         onClick={() => {
-          window.location.href = LoginApis.Logout.route
+          window.location.href = AuthSdkHelper.logoutUrl()
         }}
       >
         登出

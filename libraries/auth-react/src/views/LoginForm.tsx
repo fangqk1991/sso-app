@@ -1,21 +1,17 @@
 import React, { useContext } from 'react'
 import { SessionContext } from '../services/SessionContext'
 import { AccountSimpleParams } from '@fangcha/account-models'
-import { LoginApis } from '@fangcha/sso-models'
 import { Button, Form, Input, message } from 'antd'
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
 import { Link, useLocation } from 'react-router-dom'
-import { MyRequest } from '../services/MyRequest'
+import { AuthSdkHelper } from '../AuthSdkHelper'
 
 export const LoginForm = () => {
   const sessionCtx = useContext(SessionContext)
   const { search } = useLocation()
 
   const onSubmit = async (params: AccountSimpleParams) => {
-    const request = MyRequest(LoginApis.LoginWithEmail)
-    request.setBodyData(params)
-    await request.quickSend()
-
+    await AuthSdkHelper.submitLogin(params)
     message.success('登录成功')
 
     sessionCtx.reloadSession()
