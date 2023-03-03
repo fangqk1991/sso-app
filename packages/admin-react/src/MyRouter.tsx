@@ -1,9 +1,9 @@
 import { createBrowserRouter } from 'react-router-dom'
 import React from 'react'
 import { MainLayout } from './core/MainLayout'
-import { Button } from 'antd'
 import { RouteErrorBoundary } from '@fangcha/react'
 import { HomeView } from './core/HomeView'
+import { ClientListView } from './sso-client/ClientListView'
 
 export const MyRouter = createBrowserRouter([
   {
@@ -16,22 +16,8 @@ export const MyRouter = createBrowserRouter([
         element: <HomeView />,
       },
       {
-        path: '/v1/page-1',
-        children: [
-          {
-            path: '/v1/page-1/sub-page-1',
-            element: (
-              <div>
-                <h3>sub page 1 main</h3>
-                <Button type='primary'>Button</Button>
-              </div>
-            ),
-          },
-          {
-            path: '/v1/page-1/sub-page-2',
-            element: <div>sub page 2 main</div>,
-          },
-        ],
+        path: '/v1/client',
+        element: <ClientListView />,
       },
       {
         path: '*',
