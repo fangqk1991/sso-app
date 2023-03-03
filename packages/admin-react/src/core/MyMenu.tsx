@@ -5,7 +5,7 @@ export const MyMenu: Route = {
   path: '/',
   children: [
     {
-      name: '  ',
+      name: 'Admin',
       path: '/',
       children: [
         {

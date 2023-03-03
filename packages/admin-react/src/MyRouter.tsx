@@ -1,8 +1,9 @@
 import { createBrowserRouter } from 'react-router-dom'
 import React from 'react'
-import { MainLayout } from './MainLayout'
+import { MainLayout } from './core/MainLayout'
 import { Button } from 'antd'
 import { RouteErrorBoundary } from '@fangcha/react'
+import { HomeView } from './core/HomeView'
 
 export const MyRouter = createBrowserRouter([
   {
@@ -10,6 +11,10 @@ export const MyRouter = createBrowserRouter([
     element: <MainLayout />,
     errorElement: <RouteErrorBoundary />,
     children: [
+      {
+        path: '/',
+        element: <HomeView />,
+      },
       {
         path: '/v1/page-1',
         children: [
