@@ -1,104 +1,71 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { MyRequest } from '@fangcha/auth-react'
-import { RetainedHealthApis } from '@fangcha/backend-kit/lib/common/apis'
-import { Tag, Space, Button } from 'antd'
-import { ProList } from '@ant-design/pro-components'
-
-const dataSource = [
-  {
-    name: '语雀的天空',
-    image: 'https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg',
-    desc: '我是一条测试的描述',
-  },
-  {
-    name: 'Ant Design',
-    image: 'https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg',
-    desc: '我是一条测试的描述',
-  },
-  {
-    name: '蚂蚁金服体验科技',
-    image: 'https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg',
-    desc: '我是一条测试的描述',
-  },
-  {
-    name: 'TechUI',
-    image: 'https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg',
-    desc: '我是一条测试的描述',
-  },
-]
+import { Space, Tag } from 'antd'
+import { Admin_SsoClientApis } from '@web/sso-common/admin-api'
+import { TableView } from '../core/TableView'
+import { SsoClientModel } from '@fangcha/sso-models/lib'
+import { PageResult } from '@fangcha/tools'
 
 export const ClientListView: React.FC = () => {
-  const [appInfo, setAppInfo] = useState({
-    env: '',
-    tags: [],
-    codeVersion: '',
-    runningMachine: '',
-  })
-
-  useEffect(() => {
-    ;(async () => {
-      setAppInfo(await MyRequest(RetainedHealthApis.SystemInfoGet).quickSend())
-    })()
-  }, [])
-
   return (
-    <ProList<any>
-      toolBarRender={() => {
-        return [
-          <Button key='add' type='primary'>
-            新建
-          </Button>,
-        ]
+    <TableView
+      columns={[
+        {
+          title: 'Name',
+          render: (item: SsoClientModel) => (
+            <>
+              <b>{item.name}</b>
+              <br />
+              <span>clientId: {item.clientId}</span>
+            </>
+          ),
+        },
+        {
+          title: '回调地址',
+          render: (item: SsoClientModel) => (
+            <span>
+              {item.redirectUriList.map((email) => {
+                return (
+                  <Tag color='green' key={email}>
+                    {email}
+                  </Tag>
+                )
+              })}
+            </span>
+          ),
+        },
+        {
+          title: '管理员',
+          render: (item: SsoClientModel) => (
+            <span>
+              {item.powerUsers.map((email) => {
+                return (
+                  <Tag color='geekblue' key={email}>
+                    {email}
+                  </Tag>
+                )
+              })}
+            </span>
+          ),
+        },
+        {
+          title: 'Action',
+          key: 'action',
+          render: (item: SsoClientModel) => (
+            <Space size='middle'>
+              <a href='javascript:'>编辑</a>
+              <a href='javascript:'>删除</a>
+            </Space>
+          ),
+        },
+      ]}
+      defaultSettings={{
+        pageSize: 10,
       }}
-      onRow={(record: any) => {
-        return {
-          onMouseEnter: () => {
-            console.log(record)
-          },
-          onClick: () => {
-            console.log(record)
-          },
-        }
-      }}
-      rowKey='name'
-      headerTitle='基础列表'
-      tooltip='基础列表的配置'
-      dataSource={dataSource}
-      showActions='hover'
-      showExtra='hover'
-      metas={{
-        title: {
-          dataIndex: 'name',
-        },
-        avatar: {
-          dataIndex: 'image',
-        },
-        description: {
-          dataIndex: 'desc',
-        },
-        subTitle: {
-          render: () => {
-            return (
-              <Space size={0}>
-                <Tag color='blue'>Ant Design</Tag>
-                <Tag color='#5BD8A6'>TechUI</Tag>
-              </Space>
-            )
-          },
-        },
-        actions: {
-          render: (text, row) => [
-            <a href={row.html_url} target='_blank' rel='noopener noreferrer' key='link'>
-              链路
-            </a>,
-            <a href={row.html_url} target='_blank' rel='noopener noreferrer' key='warning'>
-              报警
-            </a>,
-            <a href={row.html_url} target='_blank' rel='noopener noreferrer' key='view'>
-              查看
-            </a>,
-          ],
-        },
+      loadData={async (retainParams) => {
+        const request = MyRequest(Admin_SsoClientApis.ClientPageDataGet)
+        request.setQueryParams(retainParams)
+        return request.quickSend<PageResult<SsoClientModel>>()
       }}
     />
   )
