@@ -22,6 +22,7 @@ type TableViewProtocol<T = any> = {
   loadData: (retainParams: Partial<RetainParams>) => Promise<PageResult<T>>
   defaultSettings?: DefaultSettings
   version?: number
+  rowKey?: string | ((record: any, index?: number) => string)
 }
 
 export const TableView = <T,>(props: PropsWithChildren<TableViewProtocol<T>>) => {
@@ -71,6 +72,7 @@ export const TableView = <T,>(props: PropsWithChildren<TableViewProtocol<T>>) =>
     <Table
       loading={loading}
       columns={props.columns}
+      rowKey={props.rowKey}
       pagination={{
         position: ['bottomRight'],
         showSizeChanger: true,

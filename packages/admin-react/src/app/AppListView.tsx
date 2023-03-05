@@ -30,6 +30,9 @@ export const AppListView: React.FC = () => {
       <Divider />
       <TableView
         version={version}
+        rowKey={(item: P_AppInfo) => {
+          return `${item.appid}-${version}`
+        }}
         columns={[
           {
             title: 'Name',
@@ -47,7 +50,7 @@ export const AppListView: React.FC = () => {
           {
             title: '管理员',
             render: (item: P_AppInfo) => (
-              <span>
+              <div>
                 {item.powerUserList.map((email) => {
                   return (
                     <Tag color='geekblue' key={email}>
@@ -55,7 +58,17 @@ export const AppListView: React.FC = () => {
                     </Tag>
                   )
                 })}
-              </span>
+              </div>
+            ),
+          },
+          {
+            title: '创建时间 / 更新时间',
+            render: (item: P_AppInfo) => (
+              <>
+                <span>{item.createTime}</span>
+                <br />
+                <span>{item.updateTime}</span>
+              </>
             ),
           },
           {

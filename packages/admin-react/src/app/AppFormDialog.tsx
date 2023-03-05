@@ -29,13 +29,13 @@ export const AppFormDialog: React.FC<Props> = (props) => {
     )
   )
   const [form] = Form.useForm<P_AppParams>()
-  form.setFieldsValue(params)
   return (
     <ModalForm<P_AppParams>
       // open={true}
       title={props.title}
       trigger={props.trigger}
       form={form}
+      initialValues={params}
       autoFocusFirstInput
       modalProps={{
         destroyOnClose: true,
