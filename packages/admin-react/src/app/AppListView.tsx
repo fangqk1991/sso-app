@@ -9,6 +9,7 @@ import { AppTypeDescriptor, P_AppInfo } from '@fangcha/account-models'
 import { AppFormDialog } from './AppFormDialog'
 import { CommonAPI } from '@fangcha/app-request'
 import { CommonAppApis } from '@web/sso-common/core-api'
+import { ConfirmDialog } from '../core/ConfirmDialog'
 
 export const AppListView: React.FC = () => {
   const [version, setVersion] = useState(0)
@@ -88,6 +89,18 @@ export const AppListView: React.FC = () => {
                     setVersion(version + 1)
                   }}
                   trigger={<Button type='link'>编辑应用</Button>}
+                />
+                <ConfirmDialog
+                  title='请确认'
+                  content={`确定要删除应用 ${item.name}[${item.appid}] 吗？`}
+                  alertType='error'
+                  onSubmit={async () => {
+                    const request = MyRequest(new CommonAPI(Admin_AppApis.AppDelete, item.appid))
+                    await request.quickSend()
+                    message.success(`已成功删除应用 ${item.name}`)
+                    setVersion(version + 1)
+                  }}
+                  trigger={<Button type='link'>删除</Button>}
                 />
               </Space>
             ),
