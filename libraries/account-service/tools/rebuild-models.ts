@@ -25,7 +25,7 @@ const generalDataSchemas: DBModelSchema[] = [
     tableName: 'fc_account_carrier',
     outputFile: `${__dirname}/../src/models/auto-build/__AccountCarrier.ts`,
     extFile: `${__dirname}/../src/models/account/_AccountCarrier.ts`,
-    primaryKey: ['carrier_uid', 'carrier_type'],
+    primaryKey: ['carrier_type', 'account_uid'],
     reloadOnAdded: true,
     reloadOnUpdated: true,
   },

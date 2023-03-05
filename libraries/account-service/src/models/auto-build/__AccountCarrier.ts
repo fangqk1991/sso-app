@@ -30,7 +30,7 @@ const _timestampTypeCols: string[] = [
 
 const dbOptions = {
   table: 'fc_account_carrier',
-  primaryKey: ['carrier_uid', 'carrier_type'],
+  primaryKey: ['carrier_type', 'account_uid'],
   cols: _cols,
   insertableCols: _insertableCols,
   modifiableCols: _modifiableCols,
