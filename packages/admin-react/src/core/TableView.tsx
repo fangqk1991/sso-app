@@ -51,7 +51,11 @@ export const TableView = <T,>(props: PropsWithChildren<TableViewProtocol<T>>) =>
   useEffect(() => {
     if (props.loadData) {
       props
-        .loadData(convertParams(curPageNum, pageSize))
+        .loadData({
+          ...convertParams(curPageNum, pageSize),
+          _sortKey: defaultSettings.sortKey,
+          _sortDirection: defaultSettings.sortDirection,
+        })
         .then((pageResult) => {
           setPageResult(pageResult)
           setLoading(false)

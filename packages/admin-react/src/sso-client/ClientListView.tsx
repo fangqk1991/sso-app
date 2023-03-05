@@ -90,6 +90,8 @@ export const ClientListView: React.FC = () => {
         ]}
         defaultSettings={{
           pageSize: 10,
+          sortKey: 'createTime',
+          sortDirection: 'descending',
         }}
         loadData={async (retainParams) => {
           const request = MyRequest(Admin_SsoClientApis.ClientPageDataGet)
