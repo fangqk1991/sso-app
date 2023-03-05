@@ -1,4 +1,4 @@
-import { ModalForm, ProFormText } from '@ant-design/pro-components'
+import { ModalForm, ProFormText, ProFormTextArea } from '@ant-design/pro-components'
 import { Form } from 'antd'
 import React from 'react'
 
@@ -11,11 +11,13 @@ interface Props {
   onSubmit: (text: string) => Promise<void>
   title?: string
   content?: string
+  type?: 'text' | 'textarea' | 'password'
 }
 
 export const SimpleInputDialog: React.FC<Props> = (props) => {
   const [form] = Form.useForm<SimpleData>()
   const title = props.title || '请输入'
+  const type = props.type || 'text'
   return (
     <ModalForm<SimpleData>
       // open={true}
@@ -23,6 +25,7 @@ export const SimpleInputDialog: React.FC<Props> = (props) => {
       trigger={props.trigger}
       form={form}
       autoFocusFirstInput
+      initialValues={{ content: props.content }}
       modalProps={{
         destroyOnClose: true,
         maskClosable: false,
@@ -34,7 +37,17 @@ export const SimpleInputDialog: React.FC<Props> = (props) => {
         return true
       }}
     >
-      <ProFormText name='content' label={title} initialValue={props.content} />
+      {type === 'text' && <ProFormText name='content' label={title} />}
+      {type === 'textarea' && (
+        <ProFormTextArea
+          name='content'
+          label={title}
+          fieldProps={{
+            rows: 10,
+          }}
+        />
+      )}
+      {type === 'password' && <ProFormText.Password name='content' label='Password' />}
     </ModalForm>
   )
 }

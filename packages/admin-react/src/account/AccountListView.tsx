@@ -49,7 +49,11 @@ export const AccountListView: React.FC = () => {
                       message.success('解绑成功')
                       setVersion(version + 1)
                     }}
-                    trigger={<Button danger type='link'>解绑</Button>}
+                    trigger={
+                      <Button danger type='link'>
+                        解绑
+                      </Button>
+                    }
                   />
                 )}
 
@@ -91,6 +95,7 @@ export const AccountListView: React.FC = () => {
                 />
                 <SimpleInputDialog
                   title='输入新密码'
+                  type='password'
                   onSubmit={async (content) => {
                     const request = MyRequest(new CommonAPI(Admin_AccountApis.AccountPasswordReset, item.accountUid))
                     request.setBodyData({

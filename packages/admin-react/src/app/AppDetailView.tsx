@@ -7,6 +7,8 @@ import { AppTypeDescriptor, P_AppInfo } from '@fangcha/account-models'
 import { CommonAppApis } from '@web/sso-common/core-api'
 import { AppFormDialog } from './AppFormDialog'
 import { TextPreviewDialog } from '../core/TextPreviewDialog'
+import { JsonPre } from '../core/JsonPre'
+import { SimpleInputDialog } from '../core/SimpleInputDialog'
 
 export const AppDetailView: React.FC = () => {
   const { appid = '' } = useParams()
@@ -83,8 +85,33 @@ export const AppDetailView: React.FC = () => {
                     const request = MyRequest(new CommonAPI(CommonAppApis.AppOpenInfoPreview, appInfo.appid))
                     return await request.quickSend()
                   }}
-                  trigger={<Button type='primary'>预览数据</Button>}
+                  trigger={<Button>预览数据</Button>}
                 />
+              </>
+            ),
+          },
+          {
+            label: `应用配置`,
+            key: 'app-config',
+            children: (
+              <>
+                <SimpleInputDialog
+                  title='输入新邮箱'
+                  content={JSON.stringify(appInfo.configData, null, 2)}
+                  type={'textarea'}
+                  onSubmit={async (content) => {
+                    const request = MyRequest(new CommonAPI(new CommonAPI(CommonAppApis.AppUpdate, appid || '_')))
+                    request.setBodyData({
+                      configData: JSON.parse(content),
+                    })
+                    await request.quickSend()
+                    message.success('更新成功')
+                    setVersion(version + 1)
+                  }}
+                  trigger={<Button type='primary'>编辑应用配置</Button>}
+                />
+                <Divider />
+                <JsonPre value={appInfo.configData} />
               </>
             ),
           },
