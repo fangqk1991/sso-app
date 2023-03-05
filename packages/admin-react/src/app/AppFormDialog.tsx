@@ -1,4 +1,4 @@
-import { ModalForm, ProFormRadio, ProFormText } from '@ant-design/pro-components'
+import { ModalForm, ProFormRadio, ProFormSelect, ProFormText } from '@ant-design/pro-components'
 import { Form } from 'antd'
 import React from 'react'
 import { AppType, AppTypeDescriptor, P_AppParams, PermissionHelper } from '@fangcha/account-models'
@@ -55,6 +55,7 @@ export const AppFormDialog: React.FC<Props> = (props) => {
       <ProFormText name='name' label='应用名' />
       <ProFormRadio.Group name='appType' label='应用类型' options={AppTypeDescriptor.options()} radioType='button' />
       <ProFormText name='remarks' label='备注' />
+      <ProFormSelect name='powerUserList' mode='tags' label='管理员' />
     </ModalForm>
   )
 }
