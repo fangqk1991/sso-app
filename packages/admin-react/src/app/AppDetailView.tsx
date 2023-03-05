@@ -8,7 +8,7 @@ import { CommonAppApis } from '@web/sso-common/core-api'
 import { AppFormDialog } from './AppFormDialog'
 import { TextPreviewDialog } from '../core/TextPreviewDialog'
 import { JsonPre } from '../core/JsonPre'
-import { SimpleInputDialog } from '../core/SimpleInputDialog'
+import { JsonEditorDialog } from '../core/JsonEditorDialog'
 
 export const AppDetailView: React.FC = () => {
   const { appid = '' } = useParams()
@@ -95,14 +95,13 @@ export const AppDetailView: React.FC = () => {
             key: 'app-config',
             children: (
               <>
-                <SimpleInputDialog
-                  title='输入新邮箱'
-                  content={JSON.stringify(appInfo.configData, null, 2)}
-                  type={'textarea'}
-                  onSubmit={async (content) => {
+                <JsonEditorDialog
+                  title='编辑应用配置'
+                  data={appInfo.configData}
+                  onSubmit={async (data) => {
                     const request = MyRequest(new CommonAPI(new CommonAPI(CommonAppApis.AppUpdate, appid || '_')))
                     request.setBodyData({
-                      configData: JSON.parse(content),
+                      configData: data,
                     })
                     await request.quickSend()
                     message.success('更新成功')
