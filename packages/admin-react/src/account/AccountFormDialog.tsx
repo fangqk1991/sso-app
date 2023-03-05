@@ -1,20 +1,18 @@
 import { ModalForm, ProFormText } from '@ant-design/pro-components'
 import { Form } from 'antd'
 import React from 'react'
-import { SsoClientModel } from '@fangcha/sso-models'
+import { AccountSimpleParams } from '@fangcha/account-models'
 
 interface Props {
   title: string
   trigger: JSX.Element
-  params?: Partial<SsoClientModel>
-  onSubmit?: (params: SsoClientModel) => Promise<void>
+  onSubmit?: (params: AccountSimpleParams) => Promise<void>
 }
 
-export const ClientFormDialog: React.FC<Props> = (props) => {
-  const params = JSON.parse(JSON.stringify(props.params || {}))
-  const [form] = Form.useForm<SsoClientModel>()
+export const AccountFormDialog: React.FC<Props> = (props) => {
+  const [form] = Form.useForm<AccountSimpleParams>()
   return (
-    <ModalForm<SsoClientModel>
+    <ModalForm<AccountSimpleParams>
       // open={true}
       title={props.title}
       trigger={props.trigger}
@@ -31,8 +29,8 @@ export const ClientFormDialog: React.FC<Props> = (props) => {
         return true
       }}
     >
-      <ProFormText name='clientId' label='clientId' initialValue={params.clientId} />
-      <ProFormText name='name' label='名称' initialValue={params.name} />
+      <ProFormText name='email' label='Email' />
+      <ProFormText.Password name='password' label='Password'  />
     </ModalForm>
   )
 }

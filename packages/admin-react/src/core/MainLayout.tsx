@@ -25,7 +25,7 @@ export const MainLayout: React.FC = () => {
     >
       <ProLayout
         logo={null}
-        title='TmplDemo'
+        title='SSO Admin'
         fixSiderbar={true}
         layout='mix'
         splitMenus={true}

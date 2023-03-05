@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { MyRequest } from '@fangcha/auth-react'
-import { Button, Modal, Space, Tag } from 'antd'
+import { Button, Modal, Space, Tag, Divider } from 'antd'
 import { Admin_SsoClientApis } from '@web/sso-common/admin-api'
 import { TableView } from '../core/TableView'
-import { SsoClientModel } from '@fangcha/sso-models/lib'
+import { SsoClientModel } from '@fangcha/sso-models'
 import { PageResult } from '@fangcha/tools'
 import { ClientFormDialog } from './ClientFormDialog'
 
@@ -25,6 +25,7 @@ export const ClientListView: React.FC = () => {
         }}
         trigger={<Button type='primary'>创建客户端</Button>}
       />
+      <Divider />
       <TableView
         version={version}
         columns={[

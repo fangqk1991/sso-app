@@ -4,6 +4,7 @@ import { MainLayout } from './core/MainLayout'
 import { RouteErrorBoundary } from '@fangcha/react'
 import { HomeView } from './core/HomeView'
 import { ClientListView } from './sso-client/ClientListView'
+import { AccountListView } from './account/AccountListView'
 
 export const MyRouter = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ export const MyRouter = createBrowserRouter([
       {
         path: '/v1/client',
         element: <ClientListView />,
+      },
+      {
+        path: '/v1/account',
+        element: <AccountListView />,
       },
       {
         path: '*',
