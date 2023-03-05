@@ -7,6 +7,8 @@ import { PageResult } from '@fangcha/tools'
 import { Link } from 'react-router-dom'
 import { AppTypeDescriptor, P_AppInfo } from '@fangcha/account-models'
 import { AppFormDialog } from './AppFormDialog'
+import { CommonAPI } from '@fangcha/app-request'
+import { CommonAppApis } from '@web/sso-common/core-api'
 
 export const AppListView: React.FC = () => {
   const [version, setVersion] = useState(0)
@@ -54,6 +56,27 @@ export const AppListView: React.FC = () => {
                   )
                 })}
               </span>
+            ),
+          },
+          {
+            title: 'Action',
+            key: 'action',
+            render: (item: P_AppInfo) => (
+              <Space size='small'>
+                <AppFormDialog
+                  title='编辑应用'
+                  forEditing={true}
+                  params={item}
+                  onSubmit={async (params) => {
+                    const request = MyRequest(new CommonAPI(CommonAppApis.AppUpdate, item.appid))
+                    request.setBodyData(params)
+                    await request.quickSend()
+                    message.success('更新成功')
+                    setVersion(version + 1)
+                  }}
+                  trigger={<Button type='link'>编辑应用</Button>}
+                />
+              </Space>
             ),
           },
         ]}
