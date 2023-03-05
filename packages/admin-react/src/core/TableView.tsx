@@ -18,9 +18,10 @@ interface RetainParams {
 }
 
 type TableViewProtocol<T = any> = {
-  columns?: ColumnsType<T>
+  columns: ColumnsType<T>
+  loadData: (retainParams: Partial<RetainParams>) => Promise<PageResult<T>>
   defaultSettings?: DefaultSettings
-  loadData?: (retainParams: Partial<RetainParams>) => Promise<PageResult<T>>
+  version?: number
 }
 
 export const TableView = <T,>(props: PropsWithChildren<TableViewProtocol<T>>) => {
@@ -60,7 +61,7 @@ export const TableView = <T,>(props: PropsWithChildren<TableViewProtocol<T>>) =>
           throw e
         })
     }
-  }, [curPageNum, pageSize])
+  }, [curPageNum, pageSize, props.version])
 
   return (
     <Table
