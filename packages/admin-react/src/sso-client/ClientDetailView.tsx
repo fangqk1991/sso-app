@@ -39,7 +39,7 @@ export const ClientDetailView: React.FC = () => {
         onSubmit={async (params) => {
           const request = MyRequest(new CommonAPI(Admin_SsoClientApis.ClientInfoUpdate, clientInfo.clientId))
           request.setBodyData(params)
-          await request.quickSend<SsoClientModel>()
+          await request.quickSend()
           message.success('编辑成功')
           setVersion(version + 1)
         }}
@@ -51,10 +51,10 @@ export const ClientDetailView: React.FC = () => {
         <Descriptions.Item label='名称'>{clientInfo.name}</Descriptions.Item>
         <Descriptions.Item label='grants'>
           <div>
-            {clientInfo.grantList.map((email) => {
+            {clientInfo.grantList.map((item) => {
               return (
-                <Tag color='green' key={email}>
-                  {email}
+                <Tag color='green' key={item}>
+                  {item}
                 </Tag>
               )
             })}
@@ -62,10 +62,10 @@ export const ClientDetailView: React.FC = () => {
         </Descriptions.Item>
         <Descriptions.Item label='scopes'>
           <div>
-            {clientInfo.scopeList.map((email) => {
+            {clientInfo.scopeList.map((item) => {
               return (
-                <Tag color='green' key={email}>
-                  {email}
+                <Tag color='green' key={item}>
+                  {item}
                 </Tag>
               )
             })}
@@ -73,10 +73,10 @@ export const ClientDetailView: React.FC = () => {
         </Descriptions.Item>
         <Descriptions.Item label='回调地址'>
           <div>
-            {clientInfo.redirectUriList.map((email) => {
+            {clientInfo.redirectUriList.map((item) => {
               return (
-                <Tag color='green' key={email}>
-                  {email}
+                <Tag color='green' key={item}>
+                  {item}
                 </Tag>
               )
             })}
@@ -84,10 +84,10 @@ export const ClientDetailView: React.FC = () => {
         </Descriptions.Item>
         <Descriptions.Item label='管理员'>
           <div>
-            {clientInfo.powerUsers.map((email) => {
+            {clientInfo.powerUsers.map((item) => {
               return (
-                <Tag color='geekblue' key={email}>
-                  {email}
+                <Tag color='geekblue' key={item}>
+                  {item}
                 </Tag>
               )
             })}

@@ -49,10 +49,10 @@ export const ClientListView: React.FC = () => {
             title: 'Scopes',
             render: (item: SsoClientModel) => (
               <span>
-                {item.scopeList.map((email) => {
+                {item.scopeList.map((item) => {
                   return (
-                    <Tag color='green' key={email}>
-                      {email}
+                    <Tag color='green' key={item}>
+                      {item}
                     </Tag>
                   )
                 })}
@@ -63,10 +63,10 @@ export const ClientListView: React.FC = () => {
             title: '回调地址',
             render: (item: SsoClientModel) => (
               <span>
-                {item.redirectUriList.map((email) => {
+                {item.redirectUriList.map((item) => {
                   return (
-                    <Tag color='green' key={email}>
-                      {email}
+                    <Tag color='green' key={item}>
+                      {item}
                     </Tag>
                   )
                 })}
@@ -77,10 +77,10 @@ export const ClientListView: React.FC = () => {
             title: '管理员',
             render: (item: SsoClientModel) => (
               <span>
-                {item.powerUsers.map((email) => {
+                {item.powerUsers.map((item) => {
                   return (
-                    <Tag color='geekblue' key={email}>
-                      {email}
+                    <Tag color='geekblue' key={item}>
+                      {item}
                     </Tag>
                   )
                 })}
