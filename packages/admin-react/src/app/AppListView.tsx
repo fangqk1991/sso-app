@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { MyRequest } from '@fangcha/auth-react'
-import { Button, Divider, message, Space, Tag } from 'antd'
+import { Button, Divider, message, Tag } from 'antd'
 import { Admin_AppApis } from '@web/sso-common/admin-api'
 import { TableView } from '../core/TableView'
 import { SsoClientModel } from '@fangcha/sso-models'
@@ -34,7 +34,7 @@ export const AppListView: React.FC = () => {
             title: 'Name',
             render: (item: P_AppInfo) => (
               <>
-                <b>{item.name}</b>
+                <Link to={{ pathname: `/v1/app/${item.appid}` }}>{item.name}</Link>
                 <br />
                 <span>appid: {item.appid}</span>
               </>
@@ -52,15 +52,6 @@ export const AppListView: React.FC = () => {
                   )
                 })}
               </span>
-            ),
-          },
-          {
-            title: 'Action',
-            key: 'action',
-            render: (item: P_AppInfo) => (
-              <Space size='middle'>
-                <Link to={{ pathname: `/v1/app/${item.appid}` }}>查看详情</Link>
-              </Space>
             ),
           },
         ]}

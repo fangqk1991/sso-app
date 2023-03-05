@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { MyRequest } from '@fangcha/auth-react'
-import { Button, Divider, Modal, Space, Tag } from 'antd'
+import { Button, Divider, Modal, Tag } from 'antd'
 import { Admin_SsoClientApis } from '@web/sso-common/admin-api'
 import { TableView } from '../core/TableView'
 import { SsoClientModel } from '@fangcha/sso-models'
@@ -39,7 +39,7 @@ export const ClientListView: React.FC = () => {
             title: 'Name',
             render: (item: SsoClientModel) => (
               <>
-                <b>{item.name}</b>
+                <Link to={{ pathname: `/v1/client/${item.clientId}` }}>{item.name}</Link>
                 <br />
                 <span>clientId: {item.clientId}</span>
               </>
@@ -85,15 +85,6 @@ export const ClientListView: React.FC = () => {
                   )
                 })}
               </span>
-            ),
-          },
-          {
-            title: 'Action',
-            key: 'action',
-            render: (item: SsoClientModel) => (
-              <Space size='middle'>
-                <Link to={{ pathname: `/v1/client/${item.clientId}` }}>查看详情</Link>
-              </Space>
             ),
           },
         ]}
