@@ -17,6 +17,10 @@ export const MyMenu: Route = {
               path: '/v1/client',
               name: 'SSO 客户端',
             },
+            {
+              path: '/v1/app',
+              name: '权限应用',
+            },
           ],
         },
         {

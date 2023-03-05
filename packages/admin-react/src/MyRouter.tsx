@@ -6,6 +6,7 @@ import { HomeView } from './core/HomeView'
 import { ClientListView } from './sso-client/ClientListView'
 import { AccountListView } from './account/AccountListView'
 import { ClientDetailView } from './sso-client/ClientDetailView'
+import { AppListView } from './app/AppListView'
 
 export const MyRouter = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ export const MyRouter = createBrowserRouter([
       {
         path: '/v1/account',
         element: <AccountListView />,
+      },
+      {
+        path: '/v1/app',
+        element: <AppListView />,
       },
       {
         path: '*',
