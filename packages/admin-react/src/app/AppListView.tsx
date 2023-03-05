@@ -100,7 +100,7 @@ export const AppListView: React.FC = () => {
                     message.success(`已成功删除应用 ${item.name}`)
                     setVersion(version + 1)
                   }}
-                  trigger={<Button type='link'>删除</Button>}
+                  trigger={<Button danger type='link'>删除</Button>}
                 />
               </Space>
             ),
