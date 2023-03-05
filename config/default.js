@@ -9,6 +9,10 @@ module.exports = {
     webPort: 2700,
     webJwtKey: 'sso_web_jwt_key',
     webJwtSecret: '<TmplDemo Random 32>',
+
+    powerBaseURL: 'http://localhost:2550',
+    powerPort: 2550,
+
     adminBaseURL: 'http://localhost:2599',
     adminPort_frontend: 2599,
     adminPort: 2600,
