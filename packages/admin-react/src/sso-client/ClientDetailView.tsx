@@ -35,6 +35,7 @@ export const ClientDetailView: React.FC = () => {
       <ClientFormDialog
         title='编辑信息'
         params={clientInfo}
+        forEditing={true}
         onSubmit={async (params) => {
           const request = MyRequest(new CommonAPI(Admin_SsoClientApis.ClientInfoUpdate, clientInfo.clientId))
           request.setBodyData(params)

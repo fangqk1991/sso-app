@@ -18,7 +18,10 @@ export const ClientListView: React.FC = () => {
         title='创建客户端'
         onSubmit={async (params) => {
           const request = MyRequest(Admin_SsoClientApis.ClientCreate)
-          request.setBodyData(params)
+          request.setBodyData({
+            ...params,
+            scopeList: ['basic'],
+          })
           const data = await request.quickSend<SsoClientModel>()
           Modal.success({
             title: '创建成功',
@@ -40,6 +43,20 @@ export const ClientListView: React.FC = () => {
                 <br />
                 <span>clientId: {item.clientId}</span>
               </>
+            ),
+          },
+          {
+            title: 'Scopes',
+            render: (item: SsoClientModel) => (
+              <span>
+                {item.scopeList.map((email) => {
+                  return (
+                    <Tag color='green' key={email}>
+                      {email}
+                    </Tag>
+                  )
+                })}
+              </span>
             ),
           },
           {
@@ -75,21 +92,6 @@ export const ClientListView: React.FC = () => {
             key: 'action',
             render: (item: SsoClientModel) => (
               <Space size='middle'>
-                <ClientFormDialog
-                  title='复制'
-                  params={item}
-                  onSubmit={async (params) => {
-                    const request = MyRequest(Admin_SsoClientApis.ClientCreate)
-                    request.setBodyData(params)
-                    const data = await request.quickSend<SsoClientModel>()
-                    Modal.success({
-                      title: '创建成功',
-                      content: `请保存此 App Secret [${data.clientSecret}]（只在本次展示）`,
-                    })
-                    setVersion(version + 1)
-                  }}
-                  trigger={<Button type='link'>复制</Button>}
-                />
                 <Link to={{ pathname: `/v1/client/${item.clientId}` }}>查看详情</Link>
               </Space>
             ),

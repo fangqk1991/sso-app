@@ -32,7 +32,7 @@ export const ClientFormDialog: React.FC<Props> = (props) => {
         return true
       }}
     >
-      {props.forEditing && <ProFormText name='clientId' label='clientId' initialValue={params.clientId} />}
+      {!props.forEditing && <ProFormText name='clientId' label='clientId' initialValue={params.clientId} />}
       <ProFormText name='name' label='名称' initialValue={params.name} />
     </ModalForm>
   )
