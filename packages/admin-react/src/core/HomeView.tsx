@@ -19,6 +19,7 @@ export const HomeView: React.FC = () => {
 
   return (
     <div>
+      <h3>HomeView</h3>
       <ul className='mt-3'>
         <li>版本: {appInfo.codeVersion}</li>
         <li>环境: {appInfo.env}</li>

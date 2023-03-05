@@ -4,6 +4,7 @@ import { AxiosBuilder } from '@fangcha/app-request'
 import { RetainedSessionApis } from '@fangcha/backend-kit/lib/common/apis'
 import { RedirectTools } from '@fangcha/auth-basic'
 import { AuthSdkHelper } from '../AuthSdkHelper'
+import { AuthMode } from '@fangcha/account-models'
 
 export interface SessionConfig {
   appName: string
@@ -13,6 +14,7 @@ export interface SessionConfig {
   hidePromotion: boolean
   beianText: string
   colorPrimary?: string
+  authMode: AuthMode
 }
 
 export const _defaultTheme: SessionConfig = {
@@ -23,6 +25,7 @@ export const _defaultTheme: SessionConfig = {
   hidePromotion: false,
   beianText: '',
   colorPrimary: '',
+  authMode: AuthMode.Simple,
 }
 
 export const _defaultSession: SessionInfo<SessionConfig> = {
