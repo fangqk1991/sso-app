@@ -14,6 +14,8 @@ export const AccountListView: React.FC = () => {
   const [version, setVersion] = useState(0)
   return (
     <div>
+      <h3>账号管理</h3>
+      <Divider />
       <AccountFormDialog
         title='创建账号'
         onSubmit={async (params) => {

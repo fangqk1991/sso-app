@@ -100,7 +100,7 @@ export const MainLayout: React.FC = () => {
       >
         <PageContainer
           header={{
-            // title: '页面标题',
+            title: '',
             // 隐藏面包屑
             breadcrumb: {},
           }}

@@ -1,16 +1,19 @@
 import React, { useState } from 'react'
 import { MyRequest } from '@fangcha/auth-react'
-import { Button, Modal, Space, Tag, Divider } from 'antd'
+import { Button, Divider, Modal, Space, Tag } from 'antd'
 import { Admin_SsoClientApis } from '@web/sso-common/admin-api'
 import { TableView } from '../core/TableView'
 import { SsoClientModel } from '@fangcha/sso-models'
 import { PageResult } from '@fangcha/tools'
 import { ClientFormDialog } from './ClientFormDialog'
+import { Link } from 'react-router-dom'
 
 export const ClientListView: React.FC = () => {
   const [version, setVersion] = useState(0)
   return (
     <div>
+      <h3>客户端管理</h3>
+      <Divider />
       <ClientFormDialog
         title='创建客户端'
         onSubmit={async (params) => {
@@ -87,6 +90,7 @@ export const ClientListView: React.FC = () => {
                   }}
                   trigger={<Button type='link'>复制</Button>}
                 />
+                <Link to={{ pathname: `/v1/client/${item.clientId}` }}>查看详情</Link>
               </Space>
             ),
           },

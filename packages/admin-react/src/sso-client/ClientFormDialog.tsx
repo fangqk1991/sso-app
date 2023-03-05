@@ -6,6 +6,7 @@ import { SsoClientModel } from '@fangcha/sso-models'
 interface Props {
   title: string
   trigger: JSX.Element
+  forEditing?: boolean
   params?: Partial<SsoClientModel>
   onSubmit?: (params: SsoClientModel) => Promise<void>
 }
@@ -31,7 +32,7 @@ export const ClientFormDialog: React.FC<Props> = (props) => {
         return true
       }}
     >
-      <ProFormText name='clientId' label='clientId' initialValue={params.clientId} />
+      {props.forEditing && <ProFormText name='clientId' label='clientId' initialValue={params.clientId} />}
       <ProFormText name='name' label='名称' initialValue={params.name} />
     </ModalForm>
   )
