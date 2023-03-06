@@ -3,10 +3,10 @@ import { Breadcrumb, Divider, Spin, Tabs } from 'antd'
 import { Link, useParams } from 'react-router-dom'
 import { useAppInfo } from './useAppInfo'
 import { useQueryParams } from '../core/useQueryParams'
-import { AppGroupsFragment } from './AppGroupsFragment'
 import { useGroupInfo } from './useGroupInfo'
 import { GroupBasicInfoFragment } from './GroupBasicInfoFragment'
 import { GroupPermissionFragment } from './GroupPermissionFragment'
+import { GroupMemberFragment } from './GroupMemberFragment'
 
 export const GroupDetailView: React.FC = () => {
   const { appid = '', groupId = '' } = useParams()
@@ -63,8 +63,14 @@ export const GroupDetailView: React.FC = () => {
           },
           {
             label: `成员信息`,
-            key: 'member-group',
-            children: <AppGroupsFragment appInfo={appInfo} onAppInfoChanged={() => setVersion(version + 1)} />,
+            key: 'member-info',
+            children: (
+              <GroupMemberFragment
+                appInfo={appInfo}
+                groupInfo={groupInfo}
+                onGroupInfoChanged={() => setVersion(version + 1)}
+              />
+            ),
           },
         ]}
       />

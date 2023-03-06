@@ -10,6 +10,7 @@ interface Props {
   trigger: JSX.Element
   onSubmit: (text: string) => Promise<void>
   title?: string
+  description?: string
   content?: string
   type?: 'text' | 'textarea' | 'password'
 }
@@ -49,6 +50,7 @@ export const SimpleInputDialog: React.FC<Props> = (props) => {
         />
       )}
       {type === 'password' && <ProFormText.Password name='content' label='Password' />}
+      {props.description && <p>{props.description}</p>}
     </ModalForm>
   )
 }
