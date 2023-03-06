@@ -10,6 +10,7 @@ import { AppFormDialog } from './AppFormDialog'
 import { CommonAPI } from '@fangcha/app-request'
 import { CommonAppApis } from '@web/sso-common/core-api'
 import { ConfirmDialog } from '../core/ConfirmDialog'
+import { JsonEditorDialog } from '../core/JsonEditorDialog'
 
 export const AppListView: React.FC = () => {
   const [version, setVersion] = useState(0)
@@ -17,17 +18,30 @@ export const AppListView: React.FC = () => {
     <div>
       <h3>应用列表</h3>
       <Divider />
-      <AppFormDialog
-        title='创建应用'
-        onSubmit={async (params) => {
-          const request = MyRequest(Admin_AppApis.AppCreate)
-          request.setBodyData(params)
-          await request.quickSend()
-          message.success('创建成功')
-          setVersion(version + 1)
-        }}
-        trigger={<Button type='primary'>创建应用</Button>}
-      />
+      <Space>
+        <AppFormDialog
+          title='创建应用'
+          onSubmit={async (params) => {
+            const request = MyRequest(Admin_AppApis.AppCreate)
+            request.setBodyData(params)
+            await request.quickSend()
+            message.success('创建成功')
+            setVersion(version + 1)
+          }}
+          trigger={<Button type='primary'>创建应用</Button>}
+        />
+        <JsonEditorDialog
+          title='导入应用'
+          onSubmit={async (params) => {
+            const request = MyRequest(Admin_AppApis.AppCreate)
+            request.setBodyData(params)
+            await request.quickSend()
+            message.success('创建成功')
+            setVersion(version + 1)
+          }}
+          trigger={<Button>导入应用</Button>}
+        />
+      </Space>
       <Divider />
       <TableView
         version={version}

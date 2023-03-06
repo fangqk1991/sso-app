@@ -1,5 +1,5 @@
 import { ModalForm, ProFormTextArea } from '@ant-design/pro-components'
-import { Form } from 'antd'
+import { Button, Form, message } from 'antd'
 import React from 'react'
 
 interface SimpleData {
@@ -16,6 +16,18 @@ interface Props {
 export const JsonEditorDialog: React.FC<Props> = (props) => {
   const [form] = Form.useForm<SimpleData>()
   const title = props.title || '请输入'
+
+  const formatContent = () => {
+    try {
+      const content = form.getFieldValue('content')
+      const data = JSON.parse(content)
+      form.setFieldValue('content', JSON.stringify(data, null, 2))
+      return data
+    } catch (e) {
+      message.error(`JSON 格式有误`)
+      throw e
+    }
+  }
   return (
     <ModalForm<SimpleData>
       // open={true}
@@ -29,9 +41,9 @@ export const JsonEditorDialog: React.FC<Props> = (props) => {
         maskClosable: false,
         forceRender: true,
       }}
-      onFinish={async (data) => {
+      onFinish={async () => {
         if (props.onSubmit) {
-          await props.onSubmit(JSON.parse(data.content))
+          await props.onSubmit(formatContent())
         }
         return true
       }}
@@ -42,6 +54,7 @@ export const JsonEditorDialog: React.FC<Props> = (props) => {
           rows: 10,
         }}
       />
+      <Button onClick={formatContent}>格式化校验</Button>
     </ModalForm>
   )
 }
