@@ -26,7 +26,9 @@ export const HomeView: React.FC = () => {
         <li>主机: {appInfo.runningMachine}</li>
         <li>
           {appInfo.tags.map((tag) => (
-            <Tag color='green'>{tag}</Tag>
+            <Tag color='green' key={tag}>
+              {tag}
+            </Tag>
           ))}
         </li>
       </ul>
