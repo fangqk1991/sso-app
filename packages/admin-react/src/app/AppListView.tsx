@@ -68,9 +68,11 @@ export const AppListView: React.FC = () => {
               <div>
                 {item.powerUserList.map((email) => {
                   return (
-                    <Tag color='geekblue' key={email}>
-                      {email}
-                    </Tag>
+                    <div>
+                      <Tag color='geekblue' key={email}>
+                        {email}
+                      </Tag>
+                    </div>
                   )
                 })}
               </div>

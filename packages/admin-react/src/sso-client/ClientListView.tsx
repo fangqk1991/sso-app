@@ -7,7 +7,6 @@ import { SsoClientModel } from '@fangcha/sso-models'
 import { PageResult } from '@fangcha/tools'
 import { ClientFormDialog } from './ClientFormDialog'
 import { Link } from 'react-router-dom'
-import { P_AppInfo } from '@fangcha/account-models'
 
 export const ClientListView: React.FC = () => {
   const [version, setVersion] = useState(0)
@@ -69,9 +68,11 @@ export const ClientListView: React.FC = () => {
               <span>
                 {item.redirectUriList.map((item) => {
                   return (
-                    <Tag color='green' key={item}>
-                      {item}
-                    </Tag>
+                    <div>
+                      <Tag color='green' key={item}>
+                        {item}
+                      </Tag>
+                    </div>
                   )
                 })}
               </span>
@@ -83,9 +84,11 @@ export const ClientListView: React.FC = () => {
               <span>
                 {item.powerUsers.map((item) => {
                   return (
-                    <Tag color='geekblue' key={item}>
-                      {item}
-                    </Tag>
+                    <div>
+                      <Tag color='geekblue' key={item}>
+                        {item}
+                      </Tag>
+                    </div>
                   )
                 })}
               </span>
