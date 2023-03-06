@@ -3,17 +3,13 @@ import { MyRequest } from '@fangcha/auth-react'
 import { Button, Descriptions, Divider, message, Space, Tag } from 'antd'
 import { Link } from 'react-router-dom'
 import { CommonAPI } from '@fangcha/app-request'
-import { AppTypeDescriptor, P_AppInfo } from '@fangcha/account-models'
+import { AppTypeDescriptor } from '@fangcha/account-models'
 import { CommonAppApis } from '@web/sso-common/core-api'
 import { AppFormDialog } from './AppFormDialog'
 import { TextPreviewDialog } from '../core/TextPreviewDialog'
+import { AppFragmentProtocol } from './AppFragmentProtocol'
 
-interface Props {
-  appInfo: P_AppInfo
-  onAppInfoChanged: () => void
-}
-
-export const AppBasicInfoFragment: React.FC<Props> = ({ appInfo, onAppInfoChanged }) => {
+export const AppBasicInfoFragment: AppFragmentProtocol = ({ appInfo, onAppInfoChanged }) => {
   return (
     <>
       <AppFormDialog

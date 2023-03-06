@@ -6,6 +6,7 @@ import { AppBasicInfoFragment } from './AppBasicInfoFragment'
 import { AppConfigFragment } from './AppConfigFragment'
 import { AppPermissionFragment } from './AppPermissionFragment'
 import { useQueryParams } from '../core/useQueryParams'
+import { AppGroupsFragment } from './AppGroupsFragment'
 
 export const AppDetailView: React.FC = () => {
   const { appid = '' } = useParams()
@@ -48,6 +49,11 @@ export const AppDetailView: React.FC = () => {
             label: `权限描述`,
             key: 'permission-meta',
             children: <AppPermissionFragment appInfo={appInfo} onAppInfoChanged={() => setVersion(version + 1)} />,
+          },
+          {
+            label: `用户组`,
+            key: 'user-group',
+            children: <AppGroupsFragment appInfo={appInfo} onAppInfoChanged={() => setVersion(version + 1)} />,
           },
         ]}
       />
