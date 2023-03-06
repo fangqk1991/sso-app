@@ -9,6 +9,7 @@ interface Props {
   defaultExpandAll?: boolean
   checkable?: boolean
   defaultCheckedKeys?: (string | number)[]
+  readonly?: boolean
 }
 
 interface MyDataNode extends DataNode {
@@ -21,6 +22,7 @@ export const PermissionTreeView: React.FC<Props> = ({
   defaultExpandAll = true,
   checkable = false,
   defaultCheckedKeys = [],
+  readonly = false,
 }) => {
   const rootNode = useMemo(() => {
     const rootNode: MyDataNode = {
@@ -28,6 +30,7 @@ export const PermissionTreeView: React.FC<Props> = ({
       title: permissionMeta.name,
       key: permissionMeta.permissionKey,
       children: [],
+      disableCheckbox: readonly,
     }
     let todoNodes = [rootNode] as MyDataNode[]
     while (todoNodes.length > 0) {
@@ -40,6 +43,7 @@ export const PermissionTreeView: React.FC<Props> = ({
             title: item.name,
             key: item.permissionKey,
             children: [],
+            disableCheckbox: readonly,
           }
         })
         nextTodoNodes = nextTodoNodes.concat(node.children)

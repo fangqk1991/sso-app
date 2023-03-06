@@ -1,8 +1,9 @@
 import React from 'react'
-import { P_GroupInfo } from '@fangcha/account-models'
+import { P_AppInfo, P_GroupDetail } from '@fangcha/account-models'
 
 export interface GroupFragmentProps {
-  groupInfo: P_GroupInfo
+  appInfo: P_AppInfo
+  groupInfo: P_GroupDetail
   onGroupInfoChanged: () => void
 }
 

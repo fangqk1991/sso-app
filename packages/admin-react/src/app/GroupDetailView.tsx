@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import { Breadcrumb, Divider, Spin, Tabs } from 'antd'
 import { Link, useParams } from 'react-router-dom'
 import { useAppInfo } from './useAppInfo'
-import { AppPermissionFragment } from './AppPermissionFragment'
 import { useQueryParams } from '../core/useQueryParams'
 import { AppGroupsFragment } from './AppGroupsFragment'
 import { useGroupInfo } from './useGroupInfo'
 import { GroupBasicInfoFragment } from './GroupBasicInfoFragment'
+import { GroupPermissionFragment } from './GroupPermissionFragment'
 
 export const GroupDetailView: React.FC = () => {
   const { appid = '', groupId = '' } = useParams()
@@ -43,13 +43,23 @@ export const GroupDetailView: React.FC = () => {
             label: `基本信息`,
             key: 'basic-info',
             children: (
-              <GroupBasicInfoFragment groupInfo={groupInfo} onGroupInfoChanged={() => setVersion(version + 1)} />
+              <GroupBasicInfoFragment
+                appInfo={appInfo}
+                groupInfo={groupInfo}
+                onGroupInfoChanged={() => setVersion(version + 1)}
+              />
             ),
           },
           {
             label: `权限信息`,
             key: 'permission-info',
-            children: <AppPermissionFragment appInfo={appInfo} onAppInfoChanged={() => setVersion(version + 1)} />,
+            children: (
+              <GroupPermissionFragment
+                appInfo={appInfo}
+                groupInfo={groupInfo}
+                onGroupInfoChanged={() => setVersion(version + 1)}
+              />
+            ),
           },
           {
             label: `成员信息`,
