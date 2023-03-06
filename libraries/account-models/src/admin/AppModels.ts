@@ -28,6 +28,7 @@ export interface P_AccessInfo {
   accessId: string
   appid: string
   appSecret: string
+  author: string
   createTime: string
   updateTime: string
 }

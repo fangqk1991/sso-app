@@ -8,6 +8,7 @@ import { AccountListView } from './account/AccountListView'
 import { ClientDetailView } from './sso-client/ClientDetailView'
 import { AppListView } from './app/AppListView'
 import { AppDetailView } from './app/AppDetailView'
+import { AppAccessListView } from './app/AppAccessListView'
 
 export const MyRouter = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ export const MyRouter = createBrowserRouter([
       {
         path: '/v1/app/:appid',
         element: <AppDetailView />,
+      },
+      {
+        path: '/v1/app/:appid/access',
+        element: <AppAccessListView />,
       },
       {
         path: '*',

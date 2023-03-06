@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { MyRequest } from '@fangcha/auth-react'
-import { Breadcrumb, Button, Descriptions, Divider, message, Spin, Tabs, Tag } from 'antd'
+import { Breadcrumb, Button, Descriptions, Divider, message, Space, Spin, Tabs, Tag } from 'antd'
 import { Link, useParams } from 'react-router-dom'
 import { CommonAPI } from '@fangcha/app-request'
 import { AppTypeDescriptor, P_AppInfo } from '@fangcha/account-models'
@@ -31,7 +31,7 @@ export const AppDetailView: React.FC = () => {
     <div>
       <Breadcrumb>
         <Breadcrumb.Item>
-          <Link to={{ pathname: `/v1/app` }}>应用管理</Link>
+          <Link to={{ pathname: `/v1/app` }}>应用列表</Link>
         </Breadcrumb.Item>
         <Breadcrumb.Item>{appInfo.name}</Breadcrumb.Item>
       </Breadcrumb>
@@ -82,13 +82,18 @@ export const AppDetailView: React.FC = () => {
                   </Descriptions.Item>
                 </Descriptions>
                 <Divider />
-                <TextPreviewDialog
-                  loadData={async () => {
-                    const request = MyRequest(new CommonAPI(CommonAppApis.AppOpenInfoPreview, appInfo.appid))
-                    return await request.quickSend()
-                  }}
-                  trigger={<Button>预览数据</Button>}
-                />
+                <Space>
+                  <TextPreviewDialog
+                    loadData={async () => {
+                      const request = MyRequest(new CommonAPI(CommonAppApis.AppOpenInfoPreview, appInfo.appid))
+                      return await request.quickSend()
+                    }}
+                    trigger={<Button>预览数据</Button>}
+                  />
+                  <Link to={{ pathname: `/v1/app/${appInfo.appid}/access` }}>
+                    <Button type={'primary'}>密钥管理</Button>
+                  </Link>
+                </Space>
               </>
             ),
           },
