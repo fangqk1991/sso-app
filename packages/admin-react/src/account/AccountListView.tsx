@@ -30,6 +30,9 @@ export const AccountListView: React.FC = () => {
       <Divider />
       <TableView
         version={version}
+        rowKey={(item: FullAccountModel) => {
+          return item.accountUid
+        }}
         columns={[
           {
             title: 'Email',

@@ -8,6 +8,7 @@ import { P_AccessInfo, P_AppInfo } from '@fangcha/account-models'
 import { CommonAPI } from '@fangcha/app-request'
 import { CommonAppApis } from '@web/sso-common/core-api'
 import { ConfirmDialog } from '../core/ConfirmDialog'
+import { SsoClientModel } from '@fangcha/sso-models'
 
 export const AppAccessListView: React.FC = () => {
   const { appid = '' } = useParams()
@@ -57,6 +58,9 @@ export const AppAccessListView: React.FC = () => {
       <Divider />
       <TableView
         version={version}
+        rowKey={(item: P_AccessInfo) => {
+          return item.accessId
+        }}
         columns={[
           {
             title: 'App Secret',

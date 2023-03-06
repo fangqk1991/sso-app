@@ -31,6 +31,9 @@ export const AppListView: React.FC = () => {
       <Divider />
       <TableView
         version={version}
+        rowKey={(item: P_AppInfo) => {
+          return item.appid
+        }}
         columns={[
           {
             title: 'Name',
