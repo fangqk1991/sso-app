@@ -31,9 +31,6 @@ export const AppListView: React.FC = () => {
       <Divider />
       <TableView
         version={version}
-        rowKey={(item: P_AppInfo) => {
-          return `${item.appid}-${version}`
-        }}
         columns={[
           {
             title: 'Name',
@@ -100,7 +97,11 @@ export const AppListView: React.FC = () => {
                     message.success(`已成功删除应用 ${item.name}`)
                     setVersion(version + 1)
                   }}
-                  trigger={<Button danger type='link'>删除</Button>}
+                  trigger={
+                    <Button danger type='link'>
+                      删除
+                    </Button>
+                  }
                 />
               </Space>
             ),

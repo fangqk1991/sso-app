@@ -12,6 +12,7 @@ import { JsonEditorDialog } from '../core/JsonEditorDialog'
 
 export const AppDetailView: React.FC = () => {
   const { appid = '' } = useParams()
+  const [curTab, setCurTab] = useState('basic-info')
   const [version, setVersion] = useState(0)
   const [appInfo, setAppInfo] = useState<P_AppInfo>()
 
@@ -37,7 +38,8 @@ export const AppDetailView: React.FC = () => {
       <Divider />
 
       <Tabs
-        defaultActiveKey='basic-info'
+        activeKey={curTab}
+        onChange={(tab) => setCurTab(tab)}
         type='card'
         items={[
           {

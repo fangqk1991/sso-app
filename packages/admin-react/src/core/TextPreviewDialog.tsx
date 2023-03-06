@@ -35,6 +35,7 @@ export const TextPreviewDialog: React.FC<Props> = (props) => {
       trigger={props.trigger}
       modalProps={{
         destroyOnClose: true,
+        forceRender: true,
       }}
       submitter={{ render: () => null }}
     >

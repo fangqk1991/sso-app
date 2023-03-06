@@ -24,6 +24,7 @@ export const ClientFormDialog: React.FC<Props> = (props) => {
       modalProps={{
         destroyOnClose: true,
         maskClosable: false,
+        forceRender: true,
       }}
       onFinish={async (data) => {
         if (props.onSubmit) {

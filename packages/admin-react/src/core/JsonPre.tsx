@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useMemo } from 'react'
 import styled from '@emotion/styled'
 
 interface Props {
@@ -17,7 +17,7 @@ const Pre = styled.pre(`
 `)
 
 export const JsonPre: React.FC<Props> = (props) => {
-  const [content] = useState(() => {
+  const content = useMemo(() => {
     if (!props.value) {
       return ''
     }
@@ -29,6 +29,6 @@ export const JsonPre: React.FC<Props> = (props) => {
       return content
     }
     return JSON.stringify(props.value, null, 2)
-  })
+  }, [props.value])
   return <Pre>{content}</Pre>
 }

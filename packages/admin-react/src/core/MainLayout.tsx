@@ -19,7 +19,7 @@ export const MainLayout: React.FC = () => {
     <ConfigProvider
       theme={{
         token: {
-          colorPrimary: 'rgb(221 115 164)',
+          colorPrimary: '#0d6efd',
         },
       }}
     >
