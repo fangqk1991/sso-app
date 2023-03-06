@@ -189,9 +189,6 @@ importers:
     specifiers: {}
 
   packages/admin-frontend:
-    specifiers: {}
-
-  packages/admin-react:
     specifiers:
       '@fangcha/auth-react': workspace:*
     devDependencies:
