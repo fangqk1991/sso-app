@@ -1,8 +1,8 @@
 import React from 'react'
-import { Tree } from 'antd'
+import { Tooltip, Tree } from 'antd'
 import { PermissionMeta } from '@fangcha/account-models'
-import { DownOutlined } from '@ant-design/icons'
-import type { DataNode } from 'antd/es/tree'
+import { DownOutlined, InfoCircleFilled } from '@ant-design/icons'
+import { DataNode } from 'antd/es/tree'
 
 interface Props {
   permissionMeta: PermissionMeta
@@ -12,57 +12,6 @@ interface MyDataNode extends DataNode {
   val: PermissionMeta
   children: MyDataNode[]
 }
-
-const treeData: DataNode[] = [
-  {
-    title: 'parent 1',
-    key: '0-0',
-    children: [
-      {
-        title: 'parent 1-0',
-        key: '0-0-0',
-        children: [
-          {
-            title: 'leaf',
-            key: '0-0-0-0',
-          },
-          {
-            title: 'leaf',
-            key: '0-0-0-1',
-          },
-          {
-            title: 'leaf',
-            key: '0-0-0-2',
-          },
-        ],
-      },
-      {
-        title: 'parent 1-1',
-        key: '0-0-1',
-        children: [
-          {
-            title: 'leaf',
-            key: '0-0-1-0',
-          },
-        ],
-      },
-      {
-        title: 'parent 1-2',
-        key: '0-0-2',
-        children: [
-          {
-            title: 'leaf',
-            key: '0-0-2-0',
-          },
-          {
-            title: 'leaf',
-            key: '0-0-2-1',
-          },
-        ],
-      },
-    ],
-  },
-]
 
 export const PermissionTreeView: React.FC<Props> = ({ permissionMeta }) => {
   const rootNode: MyDataNode = {
@@ -90,5 +39,25 @@ export const PermissionTreeView: React.FC<Props> = ({ permissionMeta }) => {
     todoNodes = nextTodoNodes
   }
 
-  return <Tree showLine switcherIcon={<DownOutlined />} defaultExpandAll={true} treeData={[rootNode]} />
+  return (
+    <Tree
+      showLine
+      switcherIcon={<DownOutlined />}
+      defaultExpandAll={true}
+      treeData={[rootNode]}
+      titleRender={(node) => {
+        const meta = node.val
+        return (
+          <div>
+            <b>{meta.name}</b> ({meta.permissionKey})
+            {meta.description && (
+              <Tooltip title={meta.description}>
+                <InfoCircleFilled style={{ marginLeft: '4px' }} />
+              </Tooltip>
+            )}
+          </div>
+        )
+      }}
+    />
+  )
 }
