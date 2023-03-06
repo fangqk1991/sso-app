@@ -15,6 +15,13 @@ SafeTask.run(async () => {
     .replace(/\bfc_sso_client\b/g, MyTableManager.tableName_SsoClient())
     .replace(/\bfc_user_auth\b/g, MyTableManager.tableName_UserAuth())
 
+    .replace(/\bfc_app\b/g, MyTableManager.tableName_App())
+    .replace(/\bfc_app_access\b/g, MyTableManager.tableName_AppAccess())
+    .replace(/\bfc_group\b/g, MyTableManager.tableName_Group())
+    .replace(/\bfc_group_access\b/g, MyTableManager.tableName_GroupAccess())
+    .replace(/\bfc_group_permission\b/g, MyTableManager.tableName_GroupPermission())
+    .replace(/\bfc_group_member\b/g, MyTableManager.tableName_GroupMember())
+
   const database = new FCDatabase()
   database.init({
     ...SsoConfig.mysql.ssoDB,
