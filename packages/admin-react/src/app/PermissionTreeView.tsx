@@ -45,6 +45,7 @@ export const PermissionTreeView: React.FC<Props> = ({ permissionMeta }) => {
       switcherIcon={<DownOutlined />}
       defaultExpandAll={true}
       treeData={[rootNode]}
+      style={{ padding: '8px' }}
       titleRender={(node) => {
         const meta = node.val
         return (
