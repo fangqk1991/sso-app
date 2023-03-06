@@ -1,12 +1,16 @@
 import React from 'react'
 import { Tree } from 'antd'
-import { P_AppInfo } from '@fangcha/account-models'
+import { PermissionMeta } from '@fangcha/account-models'
 import { DownOutlined } from '@ant-design/icons'
-import type { DataNode, TreeProps } from 'antd/es/tree'
+import type { DataNode } from 'antd/es/tree'
 
 interface Props {
-  appInfo: P_AppInfo
-  onAppInfoChanged: () => void
+  permissionMeta: PermissionMeta
+}
+
+interface MyDataNode extends DataNode {
+  val: PermissionMeta
+  children: MyDataNode[]
 }
 
 const treeData: DataNode[] = [
@@ -60,17 +64,31 @@ const treeData: DataNode[] = [
   },
 ]
 
-export const PermissionTreeView: React.FC = () => {
-  const onSelect: TreeProps['onSelect'] = (selectedKeys, info) => {
-    console.log('selected', selectedKeys, info)
+export const PermissionTreeView: React.FC<Props> = ({ permissionMeta }) => {
+  const rootNode: MyDataNode = {
+    val: permissionMeta,
+    title: permissionMeta.name,
+    key: permissionMeta.permissionKey,
+    children: [],
   }
-  return (
-    <Tree
-      showLine
-      switcherIcon={<DownOutlined />}
-      defaultExpandedKeys={['0-0-0']}
-      onSelect={onSelect}
-      treeData={treeData}
-    />
-  )
+
+  let todoNodes = [rootNode] as MyDataNode[]
+  while (todoNodes.length > 0) {
+    let nextTodoNodes: MyDataNode[] = []
+    for (const node of todoNodes) {
+      const permissionItems: PermissionMeta[] = node.val.children || []
+      node.children = permissionItems.map((item) => {
+        return {
+          val: item,
+          title: item.name,
+          key: item.permissionKey,
+          children: [],
+        }
+      })
+      nextTodoNodes = nextTodoNodes.concat(node.children)
+    }
+    todoNodes = nextTodoNodes
+  }
+
+  return <Tree showLine switcherIcon={<DownOutlined />} defaultExpandAll={true} treeData={[rootNode]} />
 }

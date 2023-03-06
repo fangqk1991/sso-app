@@ -10,7 +10,7 @@ interface Props {
 export const AppPermissionFragment: React.FC<Props> = ({ appInfo, onAppInfoChanged }) => {
   return (
     <>
-      <PermissionTreeView />
+      <PermissionTreeView permissionMeta={appInfo.permissionMeta} />
     </>
   )
 }
