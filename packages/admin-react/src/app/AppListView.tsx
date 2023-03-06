@@ -33,7 +33,7 @@ export const AppListView: React.FC = () => {
         <JsonEditorDialog
           title='导入应用'
           onSubmit={async (params) => {
-            const request = MyRequest(Admin_AppApis.AppCreate)
+            const request = MyRequest(Admin_AppApis.AppFullCreate)
             request.setBodyData(params)
             await request.quickSend()
             message.success('创建成功')
