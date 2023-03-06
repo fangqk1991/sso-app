@@ -48,7 +48,6 @@ docker run -d --restart=unless-stopped \
 ```
 
 ### SSO 客户端、用户维护
-* SSO Admin: <https://github.com/fangqk1991/sso-admin>
 * SSO Admin Demo: <https://sso-admin-demo.fangcha.net/>
 * Demo 账号: sso-admin-demo@fangcha.net
 * Demo 密码: sVUhtonaLp4N0M2EKIm5nLbtoxSwDdBN
