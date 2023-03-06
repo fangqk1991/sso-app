@@ -4,10 +4,12 @@ import { Link, useParams } from 'react-router-dom'
 import { useAppInfo } from './useAppInfo'
 import { AppBasicInfoFragment } from './AppBasicInfoFragment'
 import { AppConfigFragment } from './AppConfigFragment'
+import { AppPermissionFragment } from './AppPermissionFragment'
+import { useQueryParams } from '../core/useQueryParams'
 
 export const AppDetailView: React.FC = () => {
   const { appid = '' } = useParams()
-  const [curTab, setCurTab] = useState('basic-info')
+  const { queryParams, updateQueryParams } = useQueryParams()
   const [version, setVersion] = useState(0)
   const appInfo = useAppInfo(appid, version)
   if (!appInfo) {
@@ -24,8 +26,12 @@ export const AppDetailView: React.FC = () => {
       <Divider />
 
       <Tabs
-        activeKey={curTab}
-        onChange={(tab) => setCurTab(tab)}
+        activeKey={queryParams['curTab'] || 'basic-info'}
+        onChange={(tab) => {
+          updateQueryParams({
+            curTab: tab,
+          })
+        }}
         type='card'
         items={[
           {
@@ -37,6 +43,11 @@ export const AppDetailView: React.FC = () => {
             label: `应用配置`,
             key: 'app-config',
             children: <AppConfigFragment appInfo={appInfo} onAppInfoChanged={() => setVersion(version + 1)} />,
+          },
+          {
+            label: `权限描述`,
+            key: 'permission-meta',
+            children: <AppPermissionFragment appInfo={appInfo} onAppInfoChanged={() => setVersion(version + 1)} />,
           },
         ]}
       />
