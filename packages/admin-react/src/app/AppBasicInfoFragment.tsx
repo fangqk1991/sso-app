@@ -31,6 +31,7 @@ export const AppBasicInfoFragment: AppFragmentProtocol = ({ appInfo, onAppInfoCh
         <Descriptions.Item label='应用类型'>{AppTypeDescriptor.describe(appInfo.appType)}</Descriptions.Item>
         <Descriptions.Item label='应用名'>{appInfo.name}</Descriptions.Item>
         <Descriptions.Item label='备注'>{appInfo.remarks}</Descriptions.Item>
+        <Descriptions.Item label='版本号'>{appInfo.version}</Descriptions.Item>
         <Descriptions.Item label='创建者'>{appInfo.author}</Descriptions.Item>
         <Descriptions.Item label='创建时间'>{appInfo.createTime}</Descriptions.Item>
         <Descriptions.Item label='更新时间'>{appInfo.updateTime}</Descriptions.Item>

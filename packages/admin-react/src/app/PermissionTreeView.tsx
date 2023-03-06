@@ -6,6 +6,7 @@ import { DataNode } from 'antd/es/tree'
 
 interface Props {
   permissionMeta: PermissionMeta
+  defaultExpandAll?: boolean
 }
 
 interface MyDataNode extends DataNode {
@@ -13,7 +14,7 @@ interface MyDataNode extends DataNode {
   children: MyDataNode[]
 }
 
-export const PermissionTreeView: React.FC<Props> = ({ permissionMeta }) => {
+export const PermissionTreeView: React.FC<Props> = ({ permissionMeta, defaultExpandAll = true }) => {
   const rootNode: MyDataNode = {
     val: permissionMeta,
     title: permissionMeta.name,
@@ -43,7 +44,7 @@ export const PermissionTreeView: React.FC<Props> = ({ permissionMeta }) => {
     <Tree
       showLine
       switcherIcon={<DownOutlined />}
-      defaultExpandAll={true}
+      defaultExpandAll={defaultExpandAll}
       treeData={[rootNode]}
       style={{ padding: '8px' }}
       titleRender={(node) => {
