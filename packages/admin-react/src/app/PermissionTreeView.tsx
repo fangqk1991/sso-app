@@ -7,6 +7,8 @@ import { DataNode } from 'antd/es/tree'
 interface Props {
   permissionMeta: PermissionMeta
   defaultExpandAll?: boolean
+  checkable?: boolean
+  defaultCheckedKeys?: (string | number)[]
 }
 
 interface MyDataNode extends DataNode {
@@ -14,7 +16,12 @@ interface MyDataNode extends DataNode {
   children: MyDataNode[]
 }
 
-export const PermissionTreeView: React.FC<Props> = ({ permissionMeta, defaultExpandAll = true }) => {
+export const PermissionTreeView: React.FC<Props> = ({
+  permissionMeta,
+  defaultExpandAll = true,
+  checkable = false,
+  defaultCheckedKeys = [],
+}) => {
   const rootNode = useMemo(() => {
     const rootNode: MyDataNode = {
       val: permissionMeta,
@@ -58,6 +65,7 @@ export const PermissionTreeView: React.FC<Props> = ({ permissionMeta, defaultExp
   }, [permissionMeta])
 
   const [expandedKeys, setExpandedKeys] = useState<(string | number)[]>(defaultExpandAll ? allKeys : [])
+  const [checkedKeys, setCheckedKeys] = useState<(string | number)[]>(checkable ? defaultCheckedKeys || [] : [])
 
   return (
     <>
@@ -71,10 +79,15 @@ export const PermissionTreeView: React.FC<Props> = ({ permissionMeta, defaultExp
       </Space>
       <Tree
         showLine
+        checkable={checkable}
         switcherIcon={<DownOutlined />}
         expandedKeys={expandedKeys}
+        checkedKeys={checkedKeys}
         onExpand={(expandedKeys, { expanded, node }) => {
           setExpandedKeys(expandedKeys)
+        }}
+        onCheck={(checkedKeys) => {
+          setCheckedKeys(checkedKeys as string[])
         }}
         treeData={[rootNode]}
         style={{ padding: '8px' }}
