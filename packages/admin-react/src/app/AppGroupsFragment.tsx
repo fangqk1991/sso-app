@@ -55,7 +55,7 @@ export const AppGroupsFragment: AppFragmentProtocol = ({ appInfo }) => {
                   <Link to={{ pathname: `/v1/app/${appInfo.appid}/group/${item.groupId}` }}>{item.name}</Link>
                 </Space>
                 <br />
-                <span>groupId: {item.groupAlias}</span>
+                <span>Alias: {item.groupAlias}</span>
               </>
             ),
           },

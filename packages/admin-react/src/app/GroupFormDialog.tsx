@@ -51,7 +51,7 @@ export const GroupFormDialog: React.FC<Props> = (props) => {
         return true
       }}
     >
-      {props.forEditing && <ProFormText name='groupAlias' label='groupId' />}
+      {props.forEditing && <ProFormText name='groupAlias' label='Alias' />}
       <ProFormText name='name' label='名称' />
       <ProFormText name='remarks' label='备注' />
       <ProFormRadio.Group name='isEnabled' label='是否有效' options={NumBoolDescriptor.options()} radioType='button' />

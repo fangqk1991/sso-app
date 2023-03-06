@@ -9,6 +9,7 @@ import { ClientDetailView } from './sso-client/ClientDetailView'
 import { AppListView } from './app/AppListView'
 import { AppDetailView } from './app/AppDetailView'
 import { AppAccessListView } from './app/AppAccessListView'
+import { GroupDetailView } from './app/GroupDetailView'
 
 export const MyRouter = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ export const MyRouter = createBrowserRouter([
       {
         path: '/v1/app/:appid/access',
         element: <AppAccessListView />,
+      },
+      {
+        path: '/v1/app/:appid/group/:groupId',
+        element: <GroupDetailView />,
       },
       {
         path: '*',
