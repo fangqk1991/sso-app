@@ -41,6 +41,7 @@ docker run -d --restart=unless-stopped \
   -e Redis_Port=${Redis_Port} \
   -e Auth_User=${Auth_User} \
   -e Auth_Password=${Auth_Password} \
+  -p 2550:2550 \
   -p 2599:2599 \
   -p 2699:2699 \
   fangqk1991/sso-app

@@ -19,6 +19,7 @@ docker container rm ${containerName} || true
 docker run --name ${containerName} --hostname=`hostname` -d \
   -p 2599:2599 \
   -p 2699:2699 \
+  -p 2550:2550 \
   -e ENV=${env} \
   -e NODE_CONFIG_EXTRA_JS=/data/sso/config/docker.extras.config.js \
   ${imageName}
