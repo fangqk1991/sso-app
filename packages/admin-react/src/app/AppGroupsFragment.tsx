@@ -1,44 +1,46 @@
 import React, { useState } from 'react'
 import { AppFragmentProtocol } from './AppFragmentProtocol'
-import { Button, message, Space } from 'antd'
+import { Button, Divider, message, Space } from 'antd'
 import { MyRequest } from '@fangcha/auth-react'
 import { TableView } from '../core/TableView'
-import { P_AppInfo, P_GroupInfo } from '@fangcha/account-models'
+import { P_GroupInfo } from '@fangcha/account-models'
 import { Link } from 'react-router-dom'
 import { CommonAPI } from '@fangcha/app-request'
 import { CommonAppApis } from '@web/sso-common/core-api'
 import { ConfirmDialog } from '../core/ConfirmDialog'
 import { PageResult } from '@fangcha/tools'
+import { GroupFormDialog } from './GroupFormDialog'
+import { JsonEditorDialog } from '../core/JsonEditorDialog'
 
-export const AppGroupsFragment: AppFragmentProtocol = ({ appInfo, onAppInfoChanged }) => {
+export const AppGroupsFragment: AppFragmentProtocol = ({ appInfo }) => {
   const [version, setVersion] = useState(0)
   return (
     <div>
-      {/*<Space>*/}
-      {/*  <AppFormDialog*/}
-      {/*    title='创建应用'*/}
-      {/*    onSubmit={async (params) => {*/}
-      {/*      const request = MyRequest(Admin_AppApis.AppCreate)*/}
-      {/*      request.setBodyData(params)*/}
-      {/*      await request.quickSend()*/}
-      {/*      message.success('创建成功')*/}
-      {/*      setVersion(version + 1)*/}
-      {/*    }}*/}
-      {/*    trigger={<Button type='primary'>创建应用</Button>}*/}
-      {/*  />*/}
-      {/*  <JsonEditorDialog*/}
-      {/*    title='导入应用'*/}
-      {/*    onSubmit={async (params) => {*/}
-      {/*      const request = MyRequest(Admin_AppApis.AppFullCreate)*/}
-      {/*      request.setBodyData(params)*/}
-      {/*      await request.quickSend()*/}
-      {/*      message.success('创建成功')*/}
-      {/*      setVersion(version + 1)*/}
-      {/*    }}*/}
-      {/*    trigger={<Button>导入应用</Button>}*/}
-      {/*  />*/}
-      {/*</Space>*/}
-      {/*<Divider />*/}
+      <Space>
+        <GroupFormDialog
+          title='创建用户组'
+          onSubmit={async (params) => {
+            const request = MyRequest(new CommonAPI(CommonAppApis.AppGroupCreate, appInfo.appid))
+            request.setBodyData(params)
+            await request.quickSend()
+            message.success('创建成功')
+            setVersion(version + 1)
+          }}
+          trigger={<Button type='primary'>创建</Button>}
+        />
+        <JsonEditorDialog
+          title='导入用户组'
+          onSubmit={async (params) => {
+            const request = MyRequest(new CommonAPI(CommonAppApis.AppGroupFullCreate, appInfo.appid))
+            request.setBodyData(params)
+            await request.quickSend()
+            message.success('导入成功')
+            setVersion(version + 1)
+          }}
+          trigger={<Button>导入</Button>}
+        />
+      </Space>
+      <Divider />
       <TableView
         version={version}
         rowKey={(item: P_GroupInfo) => {
@@ -50,7 +52,7 @@ export const AppGroupsFragment: AppFragmentProtocol = ({ appInfo, onAppInfoChang
             render: (item: P_GroupInfo) => (
               <>
                 <Space>
-                  <Link to={{ pathname: `/v1/app/${item.appid}` }}>{item.name}</Link>
+                  <Link to={{ pathname: `/v1/app/${appInfo.appid}/group/${item.groupId}` }}>{item.name}</Link>
                 </Space>
                 <br />
                 <span>groupId: {item.groupAlias}</span>
@@ -72,25 +74,37 @@ export const AppGroupsFragment: AppFragmentProtocol = ({ appInfo, onAppInfoChang
             key: 'action',
             render: (item: P_GroupInfo) => (
               <Space size='small'>
-                {/*<AppFormDialog*/}
-                {/*  title='编辑应用'*/}
-                {/*  forEditing={true}*/}
-                {/*  params={item}*/}
-                {/*  onSubmit={async (params) => {*/}
-                {/*    const request = MyRequest(new CommonAPI(CommonAppApis.AppUpdate, item.appid))*/}
-                {/*    request.setBodyData(params)*/}
-                {/*    await request.quickSend()*/}
-                {/*    message.success('更新成功')*/}
-                {/*    setVersion(version + 1)*/}
-                {/*  }}*/}
-                {/*  trigger={<Button type='link'>编辑应用</Button>}*/}
-                {/*/>*/}
+                <GroupFormDialog
+                  title='编辑用户组'
+                  forEditing={true}
+                  params={item}
+                  onSubmit={async (params) => {
+                    const request = MyRequest(new CommonAPI(CommonAppApis.AppGroupInfoUpdate, appInfo.appid, item.groupId))
+                    request.setBodyData(params)
+                    await request.quickSend()
+                    message.success('更新成功')
+                    setVersion(version + 1)
+                  }}
+                  trigger={<Button type='link'>编辑</Button>}
+                />
+                <Button
+                  type='link'
+                  onClick={() => {
+                    window.location.href = new CommonAPI(
+                      CommonAppApis.AppGroupInfoExport,
+                      appInfo.appid,
+                      item.groupId
+                    ).api
+                  }}
+                >
+                  导出
+                </Button>
                 <ConfirmDialog
                   title='请确认'
                   content={`确定要删除用户组 ${item.name}[${item.groupAlias}] 吗？`}
                   alertType='error'
                   onSubmit={async () => {
-                    const request = MyRequest(new CommonAPI(CommonAppApis.AppGroupDelete, item.appid, item.groupId))
+                    const request = MyRequest(new CommonAPI(CommonAppApis.AppGroupDelete, appInfo.appid, item.groupId))
                     await request.quickSend()
                     message.success(`已删除`)
                     setVersion(version + 1)

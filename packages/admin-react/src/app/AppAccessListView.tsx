@@ -71,7 +71,7 @@ export const AppAccessListView: React.FC = () => {
                   type='link'
                   onClick={async () => {
                     const request = MyRequest(
-                      new CommonAPI(CommonAppApis.AppAccessInfoRequest, item.appid, item.accessId)
+                      new CommonAPI(CommonAppApis.AppAccessInfoRequest, appInfo.appid, item.accessId)
                     )
                     const data = await request.quickSend<P_AccessInfo>()
                     Modal.info({
@@ -110,7 +110,7 @@ export const AppAccessListView: React.FC = () => {
                   content={`确定要删除吗？`}
                   alertType='error'
                   onSubmit={async () => {
-                    const request = MyRequest(new CommonAPI(CommonAppApis.AppAccessDelete, item.appid, item.accessId))
+                    const request = MyRequest(new CommonAPI(CommonAppApis.AppAccessDelete, appInfo.appid, item.accessId))
                     await request.quickSend()
                     message.success(`已成功删除密钥`)
                     setVersion(version + 1)
