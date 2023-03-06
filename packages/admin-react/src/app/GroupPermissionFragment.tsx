@@ -4,20 +4,21 @@ import { MyRequest } from '@fangcha/auth-react'
 import { CommonAPI } from '@fangcha/app-request'
 import { CommonAppApis } from '@web/sso-common/core-api'
 import { Button, Divider, message } from 'antd'
-import { PermissionMetaDialog } from './PermissionMetaDialog'
 import { GroupFragmentProtocol } from './GroupFragmentProtocol'
+import { PermissionEditorDialog } from './PermissionEditorDialog'
 
 export const GroupPermissionFragment: GroupFragmentProtocol = ({ appInfo, groupInfo, onGroupInfoChanged }) => {
   return (
     <>
-      <PermissionMetaDialog
+      <PermissionEditorDialog
         permissionMeta={appInfo.permissionMeta}
+        checkedKeys={groupInfo.permissionKeys}
         forEditing={true}
-        onSubmit={async (params) => {
-          const request = MyRequest(new CommonAPI(CommonAppApis.AppUpdate, appInfo.appid))
-          request.setBodyData({
-            permissionMeta: params,
-          })
+        onSubmit={async (diffItems) => {
+          const request = MyRequest(
+            new CommonAPI(CommonAppApis.AppGroupPermissionUpdate, appInfo.appid, groupInfo.groupId)
+          )
+          request.setBodyData(diffItems)
           await request.quickSend()
           message.success('编辑成功')
           onGroupInfoChanged()

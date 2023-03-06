@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Button, Space, Tooltip, Tree } from 'antd'
 import { PermissionMeta } from '@fangcha/account-models'
 import { DownOutlined, InfoCircleFilled } from '@ant-design/icons'
@@ -9,6 +9,7 @@ interface Props {
   defaultExpandAll?: boolean
   checkable?: boolean
   defaultCheckedKeys?: (string | number)[]
+  onCheckedKeysChanged?: (checkedKeys: (string | number)[]) => void
   readonly?: boolean
 }
 
@@ -23,6 +24,7 @@ export const PermissionTreeView: React.FC<Props> = ({
   checkable = false,
   defaultCheckedKeys = [],
   readonly = false,
+  onCheckedKeysChanged,
 }) => {
   const rootNode = useMemo(() => {
     const rootNode: MyDataNode = {
@@ -69,7 +71,10 @@ export const PermissionTreeView: React.FC<Props> = ({
   }, [permissionMeta])
 
   const [expandedKeys, setExpandedKeys] = useState<(string | number)[]>(defaultExpandAll ? allKeys : [])
-  const [checkedKeys, setCheckedKeys] = useState<(string | number)[]>(checkable ? defaultCheckedKeys || [] : [])
+  const [checkedKeys, setCheckedKeys] = useState<(string | number)[]>([])
+  useEffect(() => {
+    setCheckedKeys(checkable ? defaultCheckedKeys || [] : [])
+  }, [checkable, defaultCheckedKeys])
 
   return (
     <>
@@ -92,6 +97,9 @@ export const PermissionTreeView: React.FC<Props> = ({
         }}
         onCheck={(checkedKeys) => {
           setCheckedKeys(checkedKeys as string[])
+          if (onCheckedKeysChanged) {
+            onCheckedKeysChanged(checkedKeys as string[])
+          }
         }}
         treeData={[rootNode]}
         style={{ padding: '8px' }}
