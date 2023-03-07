@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import { Breadcrumb, Divider, Spin, Tabs } from 'antd'
 import { Link, useParams } from 'react-router-dom'
 import { useAppInfo } from './useAppInfo'
-import { useQueryParams } from '../core/useQueryParams'
 import { useGroupInfo } from './useGroupInfo'
 import { GroupBasicInfoFragment } from './GroupBasicInfoFragment'
 import { GroupPermissionFragment } from './GroupPermissionFragment'
 import { GroupMemberFragment } from './GroupMemberFragment'
+import { useQueryParams } from '@fangcha/react'
 
 export const GroupDetailView: React.FC = () => {
   const { appid = '', groupId = '' } = useParams()

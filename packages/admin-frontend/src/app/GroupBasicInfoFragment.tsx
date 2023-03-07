@@ -1,11 +1,11 @@
 import React from 'react'
 import { Button, Descriptions, Divider, message } from 'antd'
 import { GroupFragmentProtocol } from './GroupFragmentProtocol'
-import { NumBoolDescriptor } from '../core/NumBool'
 import { GroupFormDialog } from './GroupFormDialog'
 import { MyRequest } from '@fangcha/auth-react'
 import { CommonAPI } from '@fangcha/app-request'
 import { CommonAppApis } from '@web/sso-common/core-api'
+import { NumBoolDescriptor } from '@fangcha/tools'
 
 export const GroupBasicInfoFragment: GroupFragmentProtocol = ({ groupInfo, onGroupInfoChanged }) => {
   return (

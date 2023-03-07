@@ -7,7 +7,7 @@ import { AuthRouter, AuthSdkHelper, SessionProvider, useSession } from '@fangcha
 import { ConfigProvider } from 'antd'
 import { AuthMode } from '@fangcha/account-models'
 import { KitAuthApis } from '@fangcha/backend-kit/lib/apis'
-import { LoadingView } from './core/LoadingView'
+import { LoadingView } from '@fangcha/admin-react'
 
 AuthSdkHelper.defaultRedirectUri = '/'
 

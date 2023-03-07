@@ -2,7 +2,7 @@ import { ModalForm, ProFormRadio, ProFormText } from '@ant-design/pro-components
 import { Form } from 'antd'
 import React from 'react'
 import { P_GroupParams } from '@fangcha/account-models'
-import { NumBoolDescriptor } from '../core/NumBool'
+import { NumBoolDescriptor } from '@fangcha/tools'
 
 interface Props {
   title: string

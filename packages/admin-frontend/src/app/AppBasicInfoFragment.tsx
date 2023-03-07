@@ -6,7 +6,7 @@ import { CommonAPI } from '@fangcha/app-request'
 import { AppTypeDescriptor } from '@fangcha/account-models'
 import { CommonAppApis } from '@web/sso-common/core-api'
 import { AppFormDialog } from './AppFormDialog'
-import { TextPreviewDialog } from '../core/TextPreviewDialog'
+import { TextPreviewDialog } from '@fangcha/admin-react'
 import { AppFragmentProtocol } from './AppFragmentProtocol'
 
 export const AppBasicInfoFragment: AppFragmentProtocol = ({ appInfo, onAppInfoChanged }) => {

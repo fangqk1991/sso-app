@@ -5,8 +5,8 @@ import { useAppInfo } from './useAppInfo'
 import { AppBasicInfoFragment } from './AppBasicInfoFragment'
 import { AppConfigFragment } from './AppConfigFragment'
 import { AppPermissionFragment } from './AppPermissionFragment'
-import { useQueryParams } from '../core/useQueryParams'
 import { AppGroupsFragment } from './AppGroupsFragment'
+import { useQueryParams } from '@fangcha/react'
 
 export const AppDetailView: React.FC = () => {
   const { appid = '' } = useParams()

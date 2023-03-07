@@ -2,13 +2,13 @@ import React, { useState } from 'react'
 import { MyRequest } from '@fangcha/auth-react'
 import { Button, Divider, message, Space } from 'antd'
 import { Admin_AccountApis } from '@web/sso-common/admin-api'
-import { TableView } from '../core/TableView'
+import { TableView } from '@fangcha/admin-react'
 import { PageResult } from '@fangcha/tools'
 import { AccountFormDialog } from './AccountFormDialog'
 import { CarrierType, FullAccountModel } from '@fangcha/account-models'
-import { SimpleInputDialog } from '../core/SimpleInputDialog'
+import { SimpleInputDialog } from '@fangcha/admin-react'
 import { CommonAPI } from '@fangcha/app-request'
-import { ConfirmDialog } from '../core/ConfirmDialog'
+import { ConfirmDialog } from '@fangcha/admin-react'
 
 export const AccountListView: React.FC = () => {
   const [version, setVersion] = useState(0)
