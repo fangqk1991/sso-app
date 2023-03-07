@@ -1,4 +1,4 @@
-import { ModalForm, ProFormText } from '@ant-design/pro-components'
+import { ModalForm, ProFormSelect, ProFormText } from '@ant-design/pro-components'
 import { Form } from 'antd'
 import React from 'react'
 import { SsoClientModel } from '@fangcha/sso-models'
@@ -20,6 +20,7 @@ export const ClientFormDialog: React.FC<Props> = (props) => {
       title={props.title}
       trigger={props.trigger}
       form={form}
+      initialValues={params}
       autoFocusFirstInput
       modalProps={{
         destroyOnClose: true,
@@ -33,8 +34,10 @@ export const ClientFormDialog: React.FC<Props> = (props) => {
         return true
       }}
     >
-      {!props.forEditing && <ProFormText name='clientId' label='clientId' initialValue={params.clientId} />}
-      <ProFormText name='name' label='名称' initialValue={params.name} />
+      {!props.forEditing && <ProFormText name='clientId' label='clientId' />}
+      <ProFormText name='name' label='名称' />
+      <ProFormSelect name='redirectUriList' mode='tags' label='回调地址' />
+      <ProFormSelect name='powerUsers' mode='tags' label='管理员' />
     </ModalForm>
   )
 }
