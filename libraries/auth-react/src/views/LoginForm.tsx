@@ -43,9 +43,11 @@ export const LoginForm = () => {
           </Button>
         </Form.Item>
       </Form>
-      <p className='extras'>
-        <Link to={{ pathname: '/signup', search: search }}> {'>>'} 没有账号，点击注册</Link>
-      </p>
+      {sessionCtx.session.config.signupAble && (
+        <p className='extras'>
+          <Link to={{ pathname: '/signup', search: search }}> {'>>'} 没有账号，点击注册</Link>
+        </p>
+      )}
     </div>
   )
 }
