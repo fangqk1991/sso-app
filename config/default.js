@@ -64,4 +64,11 @@ module.exports = {
       beianText: '',
     },
   },
+  UserSDK: {
+    adminUserService: {
+      urlBase: 'http://localhost:2550',
+      username: '<username>',
+      password: '<password>',
+    },
+  },
 }
