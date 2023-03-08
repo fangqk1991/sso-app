@@ -1,6 +1,6 @@
 import { ApiOptions } from '@fangcha/app-request'
-import { HttpRequest } from '@fangcha/auth-basic'
 import { message } from 'antd'
+import { HttpRequest } from '@fangcha/auth-basic'
 
 HttpRequest.updateClassOptions({
   alertHandler: (errMsg) => {

@@ -1,6 +1,6 @@
 import React from 'react'
 import { PermissionTreeView } from './PermissionTreeView'
-import { MyRequest } from '@fangcha/auth-react'
+import { MyRequest } from '@fangcha/auth-react/antd'
 import { CommonAPI } from '@fangcha/app-request'
 import { CommonAppApis } from '@web/sso-common/core-api'
 import { Button, Divider, message } from 'antd'

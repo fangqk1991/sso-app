@@ -1,5 +1,5 @@
 import React from 'react'
-import { MyRequest } from '@fangcha/auth-react'
+import { MyRequest } from '@fangcha/auth-react/antd'
 import { Button, Divider, message } from 'antd'
 import { CommonAPI } from '@fangcha/app-request'
 import { CommonAppApis } from '@web/sso-common/core-api'

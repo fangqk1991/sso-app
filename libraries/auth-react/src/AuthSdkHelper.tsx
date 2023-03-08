@@ -1,7 +1,7 @@
-import { MyRequest } from './services/MyRequest'
 import { LoginApis } from '@fangcha/sso-models'
 import { AccountSimpleParams } from '@fangcha/account-models'
 import { KitAuthApis } from '@fangcha/backend-kit/lib/apis'
+import { MyRequest } from '../antd'
 
 export class AuthSdkHelper {
   public static forClientSDK = true

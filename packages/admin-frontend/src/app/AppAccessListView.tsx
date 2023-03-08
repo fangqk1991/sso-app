@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { MyRequest } from '@fangcha/auth-react'
+import { MyRequest } from '@fangcha/auth-react/antd'
 import { Breadcrumb, Button, Divider, message, Modal, Space, Spin, Tag } from 'antd'
 import { TableView } from '@fangcha/admin-react'
 import { PageResult } from '@fangcha/tools'

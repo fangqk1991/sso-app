@@ -1,6 +1,6 @@
 {
   "name": "@fangcha/auth-react",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "main": "src/index.ts",
   "repository": "https://github.com/fangqk1991/sso-app.git",
   "keywords": [
@@ -9,7 +9,8 @@
   "author": "fang <me@fangqk.com>",
   "license": "MIT",
   "files": [
-    "src/*"
+    "src/*",
+    "antd/*"
   ],
   "dependencies": {
     "bootstrap": "^5.1.3"

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { MyRequest } from '@fangcha/auth-react'
+import { MyRequest } from '@fangcha/auth-react/antd'
 import { RetainedHealthApis } from '@fangcha/backend-kit/lib/common/apis'
 import { Tag } from 'antd'
 

@@ -5,7 +5,7 @@ import { SignupApis } from '@fangcha/sso-models'
 import { Button, Form, Input, message } from 'antd'
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
 import { Link, useLocation } from 'react-router-dom'
-import { MyRequest } from '../services/MyRequest'
+import { MyRequest } from '../../antd'
 
 export const SignupForm = () => {
   const sessionCtx = useContext(SessionContext)

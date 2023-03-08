@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { MyRequest } from '@fangcha/auth-react'
+import { MyRequest } from '@fangcha/auth-react/antd'
 import { CommonAPI } from '@fangcha/app-request'
 import { CommonAppApis } from '@web/sso-common/core-api'
 import { Button, Card, Divider, message, Space, Tag } from 'antd'

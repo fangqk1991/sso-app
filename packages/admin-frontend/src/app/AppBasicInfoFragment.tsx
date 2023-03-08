@@ -1,5 +1,5 @@
 import React from 'react'
-import { MyRequest } from '@fangcha/auth-react'
+import { MyRequest } from '@fangcha/auth-react/antd'
 import { Button, Descriptions, Divider, message, Space, Tag } from 'antd'
 import { Link } from 'react-router-dom'
 import { CommonAPI } from '@fangcha/app-request'

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { MyRequest } from '@fangcha/auth-react'
+import { MyRequest } from '@fangcha/auth-react/antd'
 import { Breadcrumb, Button, Descriptions, Divider, message, Spin, Tag } from 'antd'
 import { Admin_SsoClientApis } from '@web/sso-common/admin-api'
 import { SsoClientModel } from '@fangcha/sso-models'

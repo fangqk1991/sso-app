@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { MyRequest } from '@fangcha/auth-react'
+import { MyRequest } from '@fangcha/auth-react/antd'
 import { Button, Divider, message, Space, Tag } from 'antd'
 import { Admin_AppApis } from '@web/sso-common/admin-api'
 import { TableView } from '@fangcha/admin-react'
