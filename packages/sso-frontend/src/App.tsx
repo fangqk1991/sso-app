@@ -1,4 +1,5 @@
-import { AuthRouter, AuthSdkHelper, SessionContext, useSession } from '@fangcha/auth-react'
+import { AuthSdkHelper, SessionContext, useSession } from '@fangcha/auth-react'
+import { AuthRouter } from '@fangcha/auth-react/router'
 import React from 'react'
 import { ErrorBoundary } from './views/ErrorBoundary'
 import { ConfigProvider } from 'antd'

@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
-import { SessionContext } from '../services/SessionContext'
+import { AuthSdkHelper, SessionContext } from '../../src'
 import { Button } from 'antd'
-import { AuthSdkHelper } from '../AuthSdkHelper'
 
 export const ProfileView = () => {
   const { session } = useContext(SessionContext)

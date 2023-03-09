@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { AppFragmentProtocol } from './AppFragmentProtocol'
 import { Button, Divider, message, Space } from 'antd'
-import { MyRequest } from '@fangcha/auth-react/antd'
+import { MyRequest } from '@fangcha/auth-react'
 import { TableView } from '@fangcha/admin-react'
 import { P_GroupInfo } from '@fangcha/account-models'
 import { Link } from 'react-router-dom'

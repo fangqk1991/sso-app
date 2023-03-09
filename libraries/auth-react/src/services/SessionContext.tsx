@@ -3,7 +3,7 @@ import { SessionInfo } from '@fangcha/backend-kit/lib/common/models'
 import { AxiosBuilder } from '@fangcha/app-request'
 import { RetainedSessionApis } from '@fangcha/backend-kit/lib/common/apis'
 import { RedirectTools } from '@fangcha/auth-basic'
-import { AuthSdkHelper } from '../AuthSdkHelper'
+import { AuthSdkHelper } from './AuthSdkHelper'
 import { AuthMode } from '@fangcha/account-models'
 
 export interface SessionConfig {

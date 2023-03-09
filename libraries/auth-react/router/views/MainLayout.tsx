@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import React, { useContext } from 'react'
-import { SessionContext } from '../services/SessionContext'
+import { SessionContext } from '../../src'
 import { Outlet } from 'react-router-dom'
 
 const Main = styled.main(`

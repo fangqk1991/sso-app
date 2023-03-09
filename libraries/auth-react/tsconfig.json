@@ -20,6 +20,6 @@
     "sourceMap": true,
     "inlineSourceMap": false
   },
-  "include": ["./src"],
+  "include": ["./src", "./router", "./antd"],
   "exclude": ["node_modules"]
 }

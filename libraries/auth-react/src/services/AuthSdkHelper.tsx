@@ -1,6 +1,6 @@
 import { LoginApis, WebAuthApis } from '@fangcha/sso-models'
 import { AccountSimpleParams } from '@fangcha/account-models'
-import { MyRequest } from '../antd'
+import { MyRequest } from './MyRequest'
 
 export class AuthSdkHelper {
   public static forClientSDK = true
