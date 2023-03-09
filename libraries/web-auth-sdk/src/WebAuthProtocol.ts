@@ -1,6 +1,11 @@
 import { AccountServer } from '@fangcha/account'
 import { AuthMode } from '@fangcha/account-models'
-import { OAuthClientConfig } from '@fangcha/tools/lib/oauth-client'
+import { OAuthClientConfig } from '@fangcha/sso-client'
+
+interface JwtOptions {
+  jwtKey: string
+  jwtSecret: string
+}
 
 export interface SimpleAuthProtocol {
   retainedUserData?: {
@@ -12,6 +17,7 @@ export interface SimpleAuthProtocol {
 
 export interface WebAuthProtocol {
   authMode: AuthMode
+  jwtOptions: JwtOptions
   simpleAuth?: SimpleAuthProtocol
   ssoAuth?: OAuthClientConfig & { userInfoURL: string }
 }

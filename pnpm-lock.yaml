@@ -15,7 +15,7 @@ importers:
       '@fangcha/assert': ^1.2.0
       '@fangcha/auth-basic': workspace:*
       '@fangcha/auth-vue': workspace:*
-      '@fangcha/backend-kit': ^0.55.0
+      '@fangcha/backend-kit': ^0.56.0
       '@fangcha/eslint': ^0.5.0
       '@fangcha/generator': ^0.2.0
       '@fangcha/logger': ^0.4.0
@@ -25,7 +25,7 @@ importers:
       '@fangcha/sso-server': workspace:*
       '@fangcha/sso-server-sdk': workspace:*
       '@fangcha/swagger': ^0.1.1
-      '@fangcha/tools': ^1.23.3
+      '@fangcha/tools': ^1.24.0
       '@fangcha/vue': ^0.77.0
       '@fangcha/webpack': ^0.15.0
       '@koa/router': ^12.0.0
@@ -88,14 +88,14 @@ importers:
       '@fangcha/app-request': 1.7.0
       '@fangcha/app-request-extensions': 0.1.0
       '@fangcha/assert': 1.2.0
-      '@fangcha/backend-kit': 0.55.0
+      '@fangcha/backend-kit': 0.56.0
       '@fangcha/logger': 0.4.0
-      '@fangcha/router': 0.27.0_i5swqumvwtvuefo2skdd2egybu
+      '@fangcha/router': 0.27.0_7kv4f7qhmu6p66boxnkj23jlta
       '@fangcha/sso-models': link:libraries/sso-models
       '@fangcha/sso-server': link:libraries/sso-server
       '@fangcha/sso-server-sdk': link:libraries/sso-server-sdk
       '@fangcha/swagger': 0.1.1
-      '@fangcha/tools': 1.23.3
+      '@fangcha/tools': 1.24.0
       '@koa/router': 12.0.0
       '@types/bcrypt': 5.0.0
       '@web/sso-common': link:services/sso-common
@@ -196,16 +196,21 @@ importers:
     specifiers:
       '@fangcha/account-models': ^0.2.0
       '@fangcha/app-request': ^1.7.0
+      '@fangcha/app-request-extensions': ^0.1.0
       '@fangcha/assert': ^1.2.0
-      '@fangcha/tools': ^1.23.3
+      '@fangcha/tools': ^1.24.0
     dependencies:
       '@fangcha/account-models': link:../account-models
       '@fangcha/app-request': 1.7.0
+      '@fangcha/app-request-extensions': 0.1.0
       '@fangcha/assert': 1.2.0
-      '@fangcha/tools': 1.23.3
+      '@fangcha/tools': 1.24.0
 
   libraries/web-auth-sdk:
-    specifiers: {}
+    specifiers:
+      '@fangcha/sso-client': workspace:*
+    devDependencies:
+      '@fangcha/sso-client': link:../sso-client
 
   packages/admin-frontend:
     specifiers:
@@ -1996,16 +2001,18 @@ packages:
       '@fangcha/app-error': 1.6.0
     dev: false
 
-  /@fangcha/backend-kit/0.55.0:
-    resolution: {integrity: sha512-Ur7CspZrbNPAZkpL0ul5WKXFKzSy5vNSVytyaVIqz+E3pcLE2QcZ1spHyjWIMuDFM+0xlp0GP5K/U1OQL8yW+A==}
+  /@fangcha/backend-kit/0.56.0:
+    resolution: {integrity: sha512-/j2GwqCMDXSmTyzKNNsxuAYPcKi40mPSTAwvvqx662Hl2ZHeSckOmvL7H+V+oCKWF06qkcp3TFAVDZBRNOOZdg==}
     dependencies:
       '@fangcha/app-error': 1.6.0
       '@fangcha/app-request': 1.7.0
+      '@fangcha/app-request-extensions': 0.1.0
       '@fangcha/assert': 1.2.0
-      '@fangcha/tools': 1.23.3
+      '@fangcha/tools': 1.24.0
       moment: 2.29.4
     transitivePeerDependencies:
       - debug
+      - supports-color
     dev: false
 
   /@fangcha/eslint/0.5.0_typescript@4.9.5:
@@ -2034,7 +2041,7 @@ packages:
     resolution: {integrity: sha512-m+wljZf+EBTbxHp97NPzOzAcJMZS6x3zGlur9441XOozfWfjFMt/v1mUwx/IQDjdHGbmN4I7d2Oobs0/wy5h/A==}
     dependencies:
       '@fangcha/swagger': 0.1.1
-      '@fangcha/tools': 1.23.3
+      '@fangcha/tools': 1.24.0
       '@types/ejs': 3.1.1
       ejs: 3.1.8
       fc-sql: 0.30.0
@@ -2072,15 +2079,15 @@ packages:
       - moment
     dev: true
 
-  /@fangcha/router/0.27.0_i5swqumvwtvuefo2skdd2egybu:
+  /@fangcha/router/0.27.0_7kv4f7qhmu6p66boxnkj23jlta:
     resolution: {integrity: sha512-DQUOHl34sSjSzX6sC74zvaU5RGxqEbKzfAtuPHXm8cwbAb/t/K28bhoVsBuKrgHYmmvO93R5TRcpNlu1glimgw==}
     peerDependencies:
       '@fangcha/backend-kit': ^*
     dependencies:
       '@fangcha/app-error': 1.6.0
-      '@fangcha/backend-kit': 0.55.0
+      '@fangcha/backend-kit': 0.56.0
       '@fangcha/swagger': 0.1.1
-      '@fangcha/tools': 1.23.3
+      '@fangcha/tools': 1.24.0
       '@koa/router': 12.0.0
       '@types/jsonwebtoken': 9.0.1
       '@types/koa': 2.13.5
@@ -2105,6 +2112,13 @@ packages:
 
   /@fangcha/tools/1.23.3:
     resolution: {integrity: sha512-gBMObZGSa5N5aL95HSRicQ0RhsidbKt6q+HyreAoI4nRxu1KFaCMcsmuHxTnVPLhTPhzYqBFRs4pu2RiiZHVNA==}
+    dependencies:
+      moment: 2.29.4
+      uuid: 9.0.0
+    dev: false
+
+  /@fangcha/tools/1.24.0:
+    resolution: {integrity: sha512-uUmrk1wZvS35LTXiVURge1C0UjgGRechGSlUjMCNToi5+SXYRSeDmrWCTa9JQUyen1B4ofpfphFlBRnW0yBYwg==}
     dependencies:
       moment: 2.29.4
       uuid: 9.0.0
@@ -3338,7 +3352,7 @@ packages:
     hasBin: true
     dependencies:
       '@fangcha/ali-oss': 1.2.0
-      '@fangcha/tools': 1.23.3
+      '@fangcha/tools': 1.24.0
       shelljs: 0.8.5
     transitivePeerDependencies:
       - supports-color

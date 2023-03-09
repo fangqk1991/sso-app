@@ -5,11 +5,11 @@ import { _WebAuthState } from './_WebAuthState'
 import { AccountErrorPhrase, AuthMode, CarrierType, VisitorCoreInfo } from '@fangcha/account-models'
 import { AppException } from '@fangcha/app-error'
 import assert from '@fangcha/assert'
-import { OAuthClient } from '@fangcha/tools/lib/oauth-client'
 import { Context } from 'koa'
 import { axiosGET } from '@fangcha/app-request'
 import { CustomRequestFollower } from '@fangcha/backend-kit'
 import { KitAuthApis } from '@fangcha/backend-kit/lib/apis'
+import { OAuthClient } from '@fangcha/sso-client'
 
 const makeOAuthClient = (ctx: Context) => {
   const ssoAuth = _WebAuthState.authProtocol.ssoAuth!

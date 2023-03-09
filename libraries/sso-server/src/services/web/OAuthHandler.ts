@@ -1,12 +1,19 @@
 import { Context } from 'koa'
 import * as OAuthServer from 'oauth2-server'
 import { SsoSession } from './SsoSession'
-import { OAuthToken } from '@fangcha/tools/lib/oauth-client'
 import assert from '@fangcha/assert'
 import { RedirectBreak } from '@fangcha/app-error'
 import { SsoServer } from '../../SsoServer'
 import { RetainPagePath, SsoConstants } from '@fangcha/sso-models'
 import { _SessionApp } from '@fangcha/router/lib/session'
+
+interface OAuthToken {
+  access_token: string
+  token_type: 'Bearer'
+  expires_in: number
+  refresh_token: string
+  scope?: string
+}
 
 export class OAuthHandler {
   public readonly ctx: Context

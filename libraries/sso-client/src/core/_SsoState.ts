@@ -4,11 +4,6 @@ import { FangchaSession } from '@fangcha/router/lib/session'
 import { OAuthClient } from '../oauth/OAuthClient'
 import { RequestFollower } from '@fangcha/app-request-extensions'
 
-interface JWTProtocol {
-  jwtKey: string
-  jwtSecret: string
-}
-
 class __SsoState {
   public ssoProtocol!: SsoProtocol
 

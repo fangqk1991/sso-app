@@ -1,7 +1,7 @@
 import { CommonAPI } from '@fangcha/app-request'
-import { BasicAuthProxy, RequestFollower } from '@fangcha/tools/lib/request'
 import { AppFullInfo } from '@fangcha/account-models'
 import { UserServiceProtocol } from './UserServiceProtocol'
+import { BasicAuthProxy, RequestFollower } from '@fangcha/app-request-extensions'
 
 const OpenAppApis = {
   AppFullInfo: {

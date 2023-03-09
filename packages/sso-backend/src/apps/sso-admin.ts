@@ -21,6 +21,10 @@ const app = new WebApp({
   mainDocItems: SsoAdminSpecDocItems,
   plugins: [
     WebAuthSdkPlugin({
+      jwtOptions: {
+        jwtKey: SsoConfig.adminJwtKey,
+        jwtSecret: SsoConfig.adminJwtSecret,
+      },
       authMode: SsoConfig.adminAuth.authMode,
       simpleAuth: {
         retainedUserData: SsoConfig.adminAuth.retainedUserData,
