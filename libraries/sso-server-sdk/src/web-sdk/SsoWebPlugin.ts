@@ -1,8 +1,7 @@
 import { SsoServerDocItem } from '../web-specs'
-import { AppPluginProtocol } from '@fangcha/backend-kit/lib/basic'
+import { _FangchaState, AppPluginProtocol } from '@fangcha/backend-kit'
 import { _RouterState } from '@fangcha/backend-kit/lib/router'
 import assert from '@fangcha/assert'
-import { _FangchaState } from '@fangcha/backend-kit'
 import { SsoServer, SsoSession } from '@fangcha/sso-server'
 
 export interface SsoWebOptions {

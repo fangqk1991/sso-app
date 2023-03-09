@@ -11,10 +11,11 @@ importers:
       '@fangcha/ali-oss': ^1.2.0
       '@fangcha/app-error': ^1.6.0
       '@fangcha/app-request': ^1.7.0
+      '@fangcha/app-request-extensions': ^0.1.0
       '@fangcha/assert': ^1.2.0
       '@fangcha/auth-basic': workspace:*
       '@fangcha/auth-vue': workspace:*
-      '@fangcha/backend-kit': ^0.54.0
+      '@fangcha/backend-kit': ^0.55.0
       '@fangcha/eslint': ^0.5.0
       '@fangcha/generator': ^0.2.0
       '@fangcha/logger': ^0.4.0
@@ -85,10 +86,11 @@ importers:
       '@fangcha/ali-oss': 1.2.0
       '@fangcha/app-error': 1.6.0
       '@fangcha/app-request': 1.7.0
+      '@fangcha/app-request-extensions': 0.1.0
       '@fangcha/assert': 1.2.0
-      '@fangcha/backend-kit': 0.54.0
+      '@fangcha/backend-kit': 0.55.0
       '@fangcha/logger': 0.4.0
-      '@fangcha/router': 0.27.0_jrdd2wj7pvdy4huej7txzdigmm
+      '@fangcha/router': 0.27.0_i5swqumvwtvuefo2skdd2egybu
       '@fangcha/sso-models': link:libraries/sso-models
       '@fangcha/sso-server': link:libraries/sso-server
       '@fangcha/sso-server-sdk': link:libraries/sso-server-sdk
@@ -173,6 +175,12 @@ importers:
       bootstrap: 5.2.3
 
   libraries/auth-vue:
+    specifiers: {}
+
+  libraries/sso-client:
+    specifiers: {}
+
+  libraries/sso-client-sdk:
     specifiers: {}
 
   libraries/sso-models:
@@ -1961,6 +1969,19 @@ packages:
     resolution: {integrity: sha512-8X/WE1W+YRePXzlK8hALIkMNPsfB7fOydzsDHdjj9Gd19YWTF5Z4A8NTSQDAKvDrngFkh73aPWKUq12EXo2a7g==}
     dev: false
 
+  /@fangcha/app-request-extensions/0.1.0:
+    resolution: {integrity: sha512-AyqbQPD7e9i2yDlxhXtCwcPHmsn988R9vjR8aI9SaX60Z1ibzEj7cIUf1fHY/4hsph2J3srYXuB02FgR3U+rGw==}
+    dependencies:
+      '@fangcha/app-error': 1.6.0
+      '@fangcha/app-request': 1.7.0
+      '@fangcha/logger': 0.5.0
+      '@fangcha/tools': 1.23.3
+      log4js: 6.7.1
+    transitivePeerDependencies:
+      - debug
+      - supports-color
+    dev: false
+
   /@fangcha/app-request/1.7.0:
     resolution: {integrity: sha512-0xyYB/zSfPUClzVG1xFzbnXw2B1POsXBBVi/tbD7s5EiUQW1xX+6dl2OiWJ6kIHWrJUPOZAe/DNJ3VKNU8Jh1Q==}
     dependencies:
@@ -1978,8 +1999,8 @@ packages:
       '@fangcha/app-error': 1.6.0
     dev: false
 
-  /@fangcha/backend-kit/0.54.0:
-    resolution: {integrity: sha512-ILKU33iVs9Xnh64GA4PxFc3DGaI/9odU98a1bF811FS7w6qb3SYLU0OCC6fBgHnpQCd+6eRzEDIUtCSJiM3jcg==}
+  /@fangcha/backend-kit/0.55.0:
+    resolution: {integrity: sha512-Ur7CspZrbNPAZkpL0ul5WKXFKzSy5vNSVytyaVIqz+E3pcLE2QcZ1spHyjWIMuDFM+0xlp0GP5K/U1OQL8yW+A==}
     dependencies:
       '@fangcha/app-error': 1.6.0
       '@fangcha/app-request': 1.7.0
@@ -2031,6 +2052,12 @@ packages:
       tslib: 2.5.0
     dev: false
 
+  /@fangcha/logger/0.5.0:
+    resolution: {integrity: sha512-mtX82gxL+heXN5PK/0exEQZDKq4SFRkHPhO6XyQnn1LOd5y9NwGMLrCTjPXPwUGhP+r75HsG1z8OHb/61b3aKA==}
+    dependencies:
+      lodash: 4.17.21
+    dev: false
+
   /@fangcha/react/0.5.0_moment@2.29.4:
     resolution: {integrity: sha512-pyZ8YgufyWzNa0aKBnYb8oc5z+ZpzG6qSJP8Z/QWXhFOQhco0Bq+yQzgDNlG5LJsz2t6nVH92LaOCsiWplSTzw==}
     dependencies:
@@ -2048,13 +2075,13 @@ packages:
       - moment
     dev: true
 
-  /@fangcha/router/0.27.0_jrdd2wj7pvdy4huej7txzdigmm:
+  /@fangcha/router/0.27.0_i5swqumvwtvuefo2skdd2egybu:
     resolution: {integrity: sha512-DQUOHl34sSjSzX6sC74zvaU5RGxqEbKzfAtuPHXm8cwbAb/t/K28bhoVsBuKrgHYmmvO93R5TRcpNlu1glimgw==}
     peerDependencies:
       '@fangcha/backend-kit': ^*
     dependencies:
       '@fangcha/app-error': 1.6.0
-      '@fangcha/backend-kit': 0.54.0
+      '@fangcha/backend-kit': 0.55.0
       '@fangcha/swagger': 0.1.1
       '@fangcha/tools': 1.23.3
       '@koa/router': 12.0.0

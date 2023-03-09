@@ -1,7 +1,7 @@
 {
-  "name": "@fangcha/sso-server-sdk",
-  "version": "0.2.0",
-  "description": "SSO Server SDK.",
+  "name": "@fangcha/sso-client",
+  "version": "0.1.0",
+  "description": "SSO Client",
   "main": "src/index.ts",
   "publishConfig": {
     "main": "lib/index.js",
@@ -16,7 +16,10 @@
     "SSO"
   ],
   "peerDependencies": {
-    "@fangcha/sso-server": "workspace:*"
+    "@fangcha/router": "*",
+    "@fangcha/app-request": "*",
+    "@fangcha/app-request-extensions": "*",
+    "@fangcha/sso-models": "*"
   },
   "author": "fang <me@fangqk.com>",
   "license": "MIT",
