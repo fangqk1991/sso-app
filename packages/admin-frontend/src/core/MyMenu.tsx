@@ -9,27 +9,27 @@ export const MyMenu: Route = {
       path: '/',
       children: [
         {
-          name: '应用管理',
-          icon: <AppstoreOutlined />,
-          // flatMenu: true,
+          name: '用户管理',
+          icon: <UserOutlined />,
           children: [
             {
               path: '/v1/client',
               name: 'SSO 客户端',
             },
             {
-              path: '/v1/app',
-              name: '权限应用',
+              path: '/v1/account',
+              name: '账号管理',
             },
           ],
         },
         {
-          name: '用户管理',
-          icon: <UserOutlined />,
+          name: '数据托管',
+          icon: <AppstoreOutlined />,
+          // flatMenu: true,
           children: [
             {
-              path: '/v1/account',
-              name: '账号管理',
+              path: '/v1/app',
+              name: '权限应用',
             },
           ],
         },
