@@ -1,10 +1,10 @@
 import { ApiOptions, axiosBuilder } from '@fangcha/app-request'
 import AppError from '@fangcha/app-error'
-import { OAuthClientConfig } from '../core/OAuthClientConfig'
 import { AxiosProxyConfig } from 'axios'
 import * as tunnel from 'tunnel'
 import { OAuthToken } from './OAuthModels'
 import { ServiceProxy } from '@fangcha/app-request-extensions'
+import { OAuthClientConfig } from './OAuthClientConfig'
 
 export class OAuthClient extends ServiceProxy<OAuthClientConfig> {
   private _proxyConfig?: AxiosProxyConfig | false

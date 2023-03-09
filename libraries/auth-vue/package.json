@@ -1,6 +1,6 @@
 {
   "name": "@fangcha/auth-vue",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "main": "src/index.ts",
   "repository": "https://github.com/fangqk1991/sso-app.git",
   "keywords": [

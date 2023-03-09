@@ -177,9 +177,6 @@ importers:
   libraries/auth-vue:
     specifiers: {}
 
-  libraries/sso-client:
-    specifiers: {}
-
   libraries/sso-models:
     specifiers: {}
 
@@ -207,10 +204,7 @@ importers:
       '@fangcha/tools': 1.24.0
 
   libraries/web-auth-sdk:
-    specifiers:
-      '@fangcha/sso-client': workspace:*
-    devDependencies:
-      '@fangcha/sso-client': link:../sso-client
+    specifiers: {}
 
   packages/admin-frontend:
     specifiers:

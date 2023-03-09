@@ -1,5 +1,6 @@
 import { AxiosBuilder } from '@fangcha/app-request'
 import { ErrorModel } from '@fangcha/app-error'
+import { WebAuthApis } from '@fangcha/sso-models'
 
 interface ClassOptions {
   loginUrl?: string
@@ -9,7 +10,7 @@ interface ClassOptions {
 
 export class HttpRequest extends AxiosBuilder {
   protected static _classOptions: Required<ClassOptions> = {
-    loginUrl: '/api/v1/login',
+    loginUrl: WebAuthApis.RedirectLogin.route,
     alertHandler: () => {},
     errorMsgParser: (responseData: any) => {
       let errMessage = responseData?.phrase

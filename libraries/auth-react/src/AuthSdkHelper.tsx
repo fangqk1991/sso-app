@@ -1,6 +1,5 @@
-import { LoginApis } from '@fangcha/sso-models'
+import { LoginApis, WebAuthApis } from '@fangcha/sso-models'
 import { AccountSimpleParams } from '@fangcha/account-models'
-import { KitAuthApis } from '@fangcha/backend-kit/lib/apis'
 import { MyRequest } from '../antd'
 
 export class AuthSdkHelper {
@@ -14,7 +13,7 @@ export class AuthSdkHelper {
       await request.quickSend()
       return
     }
-    const request = MyRequest(KitAuthApis.Login)
+    const request = MyRequest(WebAuthApis.Login)
     request.setBodyData(params)
     await request.quickSend()
   }
@@ -23,6 +22,6 @@ export class AuthSdkHelper {
     if (!this.forClientSDK) {
       return LoginApis.Logout.route
     }
-    return KitAuthApis.RedirectLogout.route
+    return WebAuthApis.RedirectLogout.route
   }
 }

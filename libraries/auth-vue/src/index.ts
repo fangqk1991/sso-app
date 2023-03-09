@@ -5,10 +5,9 @@ import { ProfileView } from './views/ProfileView'
 import { AxiosSettings, FrontendPluginProtocol, MyAxios } from '@fangcha/vue/basic'
 import 'bootstrap'
 import { AccountSimpleParams } from '@fangcha/account-models'
-import { LoginApis } from '@fangcha/sso-models'
+import { LoginApis, WebAuthApis } from '@fangcha/sso-models'
 import { LoginLayout } from './views/LoginLayout'
 import { SignupView } from './views/SignupView'
-import { KitAuthApis } from '@fangcha/backend-kit/lib/apis'
 
 export * from './views/LoginView'
 export * from './views/ProfileView'
@@ -19,7 +18,7 @@ export const AuthPluginForClient = (): FrontendPluginProtocol => {
   Vue.prototype.$session = MySession
   AxiosSettings.loginUrl = '/login'
   MySession.submitLogin = async (params: AccountSimpleParams) => {
-    const request = MyAxios(KitAuthApis.Login)
+    const request = MyAxios(WebAuthApis.Login)
     request.setBodyData(params)
     await request.quickSend()
   }

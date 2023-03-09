@@ -4,6 +4,9 @@ export interface OAuthClientConfig {
   clientSecret: string
   callbackUri: string
   authorizePath: string
+
+  userInfoURL: string
+
   // Google OAuth 的 authorize、token 所使用的 baseURL 不同
   tokenBaseURL?: string
   tokenPath: string

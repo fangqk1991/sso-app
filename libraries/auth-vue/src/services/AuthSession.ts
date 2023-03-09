@@ -1,9 +1,9 @@
-import { KitAuthApis } from '@fangcha/backend-kit/lib/apis'
 import { EmptyConfig, Session } from '@fangcha/vue/basic'
 import { RedirectTools } from '@fangcha/auth-basic'
+import { WebAuthApis } from '@fangcha/sso-models'
 
 export class AuthSession<T extends EmptyConfig = {}> extends Session<T> {
-  public logoutApiPath = KitAuthApis.RedirectLogout.route
+  public logoutApiPath = WebAuthApis.RedirectLogout.route
   public redirectTools: RedirectTools
 
   public constructor(config?: T) {

@@ -6,8 +6,8 @@ import { MyRouter } from './MyRouter'
 import { AuthRouter, AuthSdkHelper, SessionProvider, useSession } from '@fangcha/auth-react'
 import { ConfigProvider } from 'antd'
 import { AuthMode } from '@fangcha/account-models'
-import { KitAuthApis } from '@fangcha/backend-kit/lib/apis'
 import { LoadingView } from '@fangcha/admin-react'
+import { WebAuthApis } from '@fangcha/sso-models'
 
 AuthSdkHelper.defaultRedirectUri = '/'
 
@@ -30,7 +30,7 @@ export const App: React.FC = () => {
         </ConfigProvider>
       )
     } else {
-      window.location.href = `${KitAuthApis.RedirectLogin.route}?redirectUri=${encodeURIComponent(
+      window.location.href = `${WebAuthApis.RedirectLogin.route}?redirectUri=${encodeURIComponent(
         window.location.href
       )}`
       return <LoadingView text='跳转中……' />

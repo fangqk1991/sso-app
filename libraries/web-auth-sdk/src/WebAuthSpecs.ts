@@ -1,5 +1,5 @@
 import { SpecFactory, SwaggerDocItem } from '@fangcha/router'
-import { _SessionApp, FangchaSession } from '@fangcha/router/lib/session'
+import { FangchaSession } from '@fangcha/router/lib/session'
 import * as jsonwebtoken from 'jsonwebtoken'
 import { _WebAuthState } from './_WebAuthState'
 import { AccountErrorPhrase, AuthMode, CarrierType, VisitorCoreInfo } from '@fangcha/account-models'
@@ -8,8 +8,8 @@ import assert from '@fangcha/assert'
 import { Context } from 'koa'
 import { axiosGET } from '@fangcha/app-request'
 import { CustomRequestFollower } from '@fangcha/backend-kit'
-import { KitAuthApis } from '@fangcha/backend-kit/lib/apis'
-import { OAuthClient } from '@fangcha/sso-client'
+import { OAuthClient } from './OAuthClient'
+import { WebAuthApis } from '@fangcha/sso-models'
 
 const makeOAuthClient = (ctx: Context) => {
   const ssoAuth = _WebAuthState.authProtocol.ssoAuth!
@@ -31,7 +31,7 @@ const makeOAuthClient = (ctx: Context) => {
 
 const factory = new SpecFactory('Auth', { skipAuth: true })
 
-factory.prepare(KitAuthApis.Login, async (ctx) => {
+factory.prepare(WebAuthApis.Login, async (ctx) => {
   const params = ctx.request.body as {
     email: string
     password: string
@@ -66,19 +66,19 @@ factory.prepare(KitAuthApis.Login, async (ctx) => {
     throw AppException.exception(AccountErrorPhrase.PasswordIncorrect)
   }
   const aliveSeconds = 24 * 3600
-  const jwt = jsonwebtoken.sign(userInfo, _SessionApp.jwtProtocol.jwtSecret, { expiresIn: aliveSeconds })
-  ctx.cookies.set(_SessionApp.jwtProtocol.jwtKey, jwt, { maxAge: aliveSeconds * 1000 })
+  const jwt = jsonwebtoken.sign(userInfo, _WebAuthState.authProtocol.jwtOptions.jwtSecret, { expiresIn: aliveSeconds })
+  ctx.cookies.set(_WebAuthState.authProtocol.jwtOptions.jwtKey, jwt, { maxAge: aliveSeconds * 1000 })
   ctx.status = 200
 })
 
-factory.prepare(KitAuthApis.Logout, async (ctx) => {
-  ctx.cookies.set(_SessionApp.jwtProtocol.jwtKey, '', {
+factory.prepare(WebAuthApis.Logout, async (ctx) => {
+  ctx.cookies.set(_WebAuthState.authProtocol.jwtOptions.jwtKey, '', {
     maxAge: 0,
   })
   ctx.status = 200
 })
 
-factory.prepare(KitAuthApis.RedirectLogin, async (ctx) => {
+factory.prepare(WebAuthApis.RedirectLogin, async (ctx) => {
   const session = ctx.session as FangchaSession
   if (_WebAuthState.authProtocol.authMode === AuthMode.SSO) {
     const ssoProxy = makeOAuthClient(ctx)
@@ -88,8 +88,8 @@ factory.prepare(KitAuthApis.RedirectLogin, async (ctx) => {
   }
 })
 
-factory.prepare(KitAuthApis.RedirectLogout, async (ctx) => {
-  ctx.cookies.set(_SessionApp.jwtProtocol.jwtKey, '', {
+factory.prepare(WebAuthApis.RedirectLogout, async (ctx) => {
+  ctx.cookies.set(_WebAuthState.authProtocol.jwtOptions.jwtKey, '', {
     maxAge: 0,
   })
   const session = ctx.session as FangchaSession
@@ -103,7 +103,7 @@ factory.prepare(KitAuthApis.RedirectLogout, async (ctx) => {
   }
 })
 
-factory.prepare(KitAuthApis.RedirectHandleSSO, async (ctx) => {
+factory.prepare(WebAuthApis.RedirectHandleSSO, async (ctx) => {
   const { code, state: redirectUri } = ctx.request.query
   assert.ok(!!code && typeof code === 'string', 'code invalid.')
   assert.ok(typeof redirectUri === 'string', 'state/redirectUri invalid')
@@ -116,8 +116,8 @@ factory.prepare(KitAuthApis.RedirectHandleSSO, async (ctx) => {
   request.addHeader('Authorization', `Bearer ${accessToken}`)
   const userInfo = await request.quickSend()
   const aliveSeconds = 24 * 3600
-  const jwt = jsonwebtoken.sign(userInfo, _SessionApp.jwtProtocol.jwtSecret, { expiresIn: aliveSeconds })
-  ctx.cookies.set(_SessionApp.jwtProtocol.jwtKey, jwt, { maxAge: aliveSeconds * 1000 })
+  const jwt = jsonwebtoken.sign(userInfo, _WebAuthState.authProtocol.jwtOptions.jwtSecret, { expiresIn: aliveSeconds })
+  ctx.cookies.set(_WebAuthState.authProtocol.jwtOptions.jwtKey, jwt, { maxAge: aliveSeconds * 1000 })
   const session = ctx.session as FangchaSession
   ctx.redirect(session.correctUrl(redirectUri as string))
 })
