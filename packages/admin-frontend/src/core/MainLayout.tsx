@@ -3,9 +3,8 @@ import { PageContainer, ProLayout } from '@ant-design/pro-layout'
 import React from 'react'
 import { ConfigProvider, Dropdown } from 'antd'
 import { MyMenu } from './MyMenu'
-import { useVisitorCtx } from '@fangcha/react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
-import { AuthSdkHelper } from '@fangcha/auth-react'
+import { AuthSdkHelper, useVisitorCtx } from '@fangcha/auth-react'
 
 export const MainLayout: React.FC = () => {
   const visitorCtx = useVisitorCtx()

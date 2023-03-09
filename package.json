@@ -49,7 +49,7 @@
     "@fangcha/eslint": "^0.5.0",
     "@fangcha/generator": "^0.2.0",
     "@fangcha/vue": "^0.77.0",
-    "@fangcha/react": "^0.5.0",
+    "@fangcha/react": "^0.6.0",
     "@fangcha/admin-vue": "^0.1.0",
     "@fangcha/admin-react": "^0.1.0",
     "@fangcha/webpack": "^0.15.0",
