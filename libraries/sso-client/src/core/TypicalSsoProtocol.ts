@@ -5,8 +5,7 @@ interface JwtOptions {
   jwtSecret: string
 }
 
-export interface SsoProtocol<T = any> {
-  oauthConfig: OAuthClientConfig
-  getUserInfo: (accessToken: string) => Promise<T>
+export interface TypicalSsoProtocol<T = any> {
+  oauthConfig: OAuthClientConfig & { userInfoURL: string }
   jwtOptions: JwtOptions
 }

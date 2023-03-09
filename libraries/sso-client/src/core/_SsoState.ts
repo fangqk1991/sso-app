@@ -11,15 +11,9 @@ interface JWTProtocol {
 
 class __SsoState {
   public ssoProtocol!: SsoProtocol
-  public jwtProtocol!: JWTProtocol
 
   public setSsoProtocol(protocol: SsoProtocol) {
     this.ssoProtocol = protocol
-    return this
-  }
-
-  public setJwtProtocol(protocol: JWTProtocol) {
-    this.jwtProtocol = protocol
     return this
   }
 

@@ -180,9 +180,6 @@ importers:
   libraries/sso-client:
     specifiers: {}
 
-  libraries/sso-client-sdk:
-    specifiers: {}
-
   libraries/sso-models:
     specifiers: {}
 

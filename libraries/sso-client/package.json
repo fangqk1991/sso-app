@@ -19,6 +19,7 @@
     "@fangcha/router": "*",
     "@fangcha/app-request": "*",
     "@fangcha/app-request-extensions": "*",
+    "@fangcha/backend-kit": "*",
     "@fangcha/sso-models": "*"
   },
   "author": "fang <me@fangqk.com>",

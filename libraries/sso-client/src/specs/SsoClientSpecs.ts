@@ -14,7 +14,7 @@ factory.prepare(SsoClientApis.Login, async (ctx) => {
 })
 
 factory.prepare(SsoClientApis.Logout, async (ctx) => {
-  ctx.cookies.set(_SsoState.jwtProtocol.jwtKey, '', {
+  ctx.cookies.set(_SsoState.ssoProtocol.jwtOptions.jwtKey, '', {
     maxAge: 0,
   })
   const session = ctx.session as FangchaSession
@@ -30,8 +30,8 @@ factory.prepare(SsoClientApis.SSOHandle, async (ctx) => {
   const accessToken = await ssoProxy.getAccessTokenFromCode(code as string)
   const userInfo = await _SsoState.ssoProtocol.getUserInfo(accessToken)
   const aliveSeconds = 24 * 3600
-  const jwt = jsonwebtoken.sign(userInfo, _SsoState.jwtProtocol.jwtSecret, { expiresIn: aliveSeconds })
-  ctx.cookies.set(_SsoState.jwtProtocol.jwtKey, jwt, { maxAge: aliveSeconds * 1000 })
+  const jwt = jsonwebtoken.sign(userInfo, _SsoState.ssoProtocol.jwtOptions.jwtSecret, { expiresIn: aliveSeconds })
+  ctx.cookies.set(_SsoState.ssoProtocol.jwtOptions.jwtKey, jwt, { maxAge: aliveSeconds * 1000 })
   const session = ctx.session as FangchaSession
   ctx.redirect(session.correctUrl(redirectUri as string))
 })
