@@ -16,8 +16,11 @@ yarn add @fangcha/user-sdk
 // Init a global checker
 const checker = AdminUserCenter.useAutoReloadingChecker(new UserProxy(……))
 
-// checkUserHasPermission
-checker.checkUserHasPermission(userName, permissionKey)
+// checkUserHasPermission: boolean
+checker.checkUserHasPermission(userKey, permissionKey)
+
+// getPermissionKeysForUser: string[]
+checker.getPermissionKeysForUser(userKey)
 ```
 
 ```
