@@ -12,6 +12,12 @@
     "build": "rm -rf ./lib/ && tsc",
     "prepublish": "pnpm build"
   },
+  "dependencies": {
+    "@fangcha/app-request": "^1.7.0",
+    "@fangcha/tools": "^1.23.3",
+    "@fangcha/assert": "^1.2.0",
+    "@fangcha/account-models": "^0.2.0"
+  },
   "keywords": [
     "SSO"
   ],

@@ -14,7 +14,7 @@ importers:
       '@fangcha/assert': ^1.2.0
       '@fangcha/auth-basic': workspace:*
       '@fangcha/auth-vue': workspace:*
-      '@fangcha/backend-kit': ^0.53.0
+      '@fangcha/backend-kit': ^0.54.0
       '@fangcha/eslint': ^0.5.0
       '@fangcha/generator': ^0.2.0
       '@fangcha/logger': ^0.4.0
@@ -86,9 +86,9 @@ importers:
       '@fangcha/app-error': 1.6.0
       '@fangcha/app-request': 1.7.0
       '@fangcha/assert': 1.2.0
-      '@fangcha/backend-kit': 0.53.0
+      '@fangcha/backend-kit': 0.54.0
       '@fangcha/logger': 0.4.0
-      '@fangcha/router': 0.27.0_ihusj4cqxallue724jb3psgbsm
+      '@fangcha/router': 0.27.0_jrdd2wj7pvdy4huej7txzdigmm
       '@fangcha/sso-models': link:libraries/sso-models
       '@fangcha/sso-server': link:libraries/sso-server
       '@fangcha/sso-server-sdk': link:libraries/sso-server-sdk
@@ -186,6 +186,18 @@ importers:
 
   libraries/sso-server-sdk:
     specifiers: {}
+
+  libraries/user-sdk:
+    specifiers:
+      '@fangcha/account-models': ^0.2.0
+      '@fangcha/app-request': ^1.7.0
+      '@fangcha/assert': ^1.2.0
+      '@fangcha/tools': ^1.23.3
+    dependencies:
+      '@fangcha/account-models': link:../account-models
+      '@fangcha/app-request': 1.7.0
+      '@fangcha/assert': 1.2.0
+      '@fangcha/tools': 1.23.3
 
   libraries/web-auth-sdk:
     specifiers: {}
@@ -1966,8 +1978,8 @@ packages:
       '@fangcha/app-error': 1.6.0
     dev: false
 
-  /@fangcha/backend-kit/0.53.0:
-    resolution: {integrity: sha512-S4WcyckNgUm5XQ3CFILyHL94MZzHvBPBkxH6r9MjWH0JEGKHq77FljH1A31NqSKTwknfb+vxV24ymLNhydDoiw==}
+  /@fangcha/backend-kit/0.54.0:
+    resolution: {integrity: sha512-ILKU33iVs9Xnh64GA4PxFc3DGaI/9odU98a1bF811FS7w6qb3SYLU0OCC6fBgHnpQCd+6eRzEDIUtCSJiM3jcg==}
     dependencies:
       '@fangcha/app-error': 1.6.0
       '@fangcha/app-request': 1.7.0
@@ -2036,13 +2048,13 @@ packages:
       - moment
     dev: true
 
-  /@fangcha/router/0.27.0_ihusj4cqxallue724jb3psgbsm:
+  /@fangcha/router/0.27.0_jrdd2wj7pvdy4huej7txzdigmm:
     resolution: {integrity: sha512-DQUOHl34sSjSzX6sC74zvaU5RGxqEbKzfAtuPHXm8cwbAb/t/K28bhoVsBuKrgHYmmvO93R5TRcpNlu1glimgw==}
     peerDependencies:
       '@fangcha/backend-kit': ^*
     dependencies:
       '@fangcha/app-error': 1.6.0
-      '@fangcha/backend-kit': 0.53.0
+      '@fangcha/backend-kit': 0.54.0
       '@fangcha/swagger': 0.1.1
       '@fangcha/tools': 1.23.3
       '@koa/router': 12.0.0

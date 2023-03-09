@@ -45,7 +45,7 @@ export class AppPermissionHelper {
 }
 
 export class UserAppChecker {
-  protected _appInfo!: AppFullInfo
+  private _appInfo!: AppFullInfo
   protected _permissionData: { [p: string]: PermissionMeta } = {}
   protected _groupPermissionMapper: GroupPermissionMapper = {}
 
@@ -53,6 +53,20 @@ export class UserAppChecker {
 
   public appInfo() {
     return this._appInfo
+  }
+
+  public appGroups() {
+    if (!this._appInfo) {
+      return []
+    }
+    return this._appInfo.groups
+  }
+
+  public appPowerUsers() {
+    if (!this._appInfo) {
+      return []
+    }
+    return this._appInfo.powerUserList
   }
 
   public setAppInfo(appInfo: AppFullInfo) {

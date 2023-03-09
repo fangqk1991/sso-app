@@ -31,9 +31,10 @@ export class AdminAppChecker extends UserAppChecker {
   }
 
   public assertGroupExists(...groupIdList: string[]) {
+    const appGroups = this.appGroups()
     for (const groupId of groupIdList) {
       assert.ok(
-        !!this._appInfo.groups.find((item) => item.groupId === groupId || item.groupAlias === groupId),
+        !!appGroups.find((item) => item.groupId === groupId || item.groupAlias === groupId),
         `${groupId} 不存在`,
         500
       )
@@ -41,13 +42,13 @@ export class AdminAppChecker extends UserAppChecker {
   }
 
   public prepareRetainGroup(groupId: string) {
-    const group = this._appInfo.groups.find((item) => item.groupId === groupId || item.groupAlias === groupId)
+    const group = this.appGroups().find((item) => item.groupId === groupId || item.groupAlias === groupId)
     assert.ok(!!group, `保留组 ${groupId} 未被创建，请联系管理员`, 500)
     return group!
   }
 
   public getGroupsForUser(email: string) {
-    return this._appInfo.groups.filter(
+    return this.appGroups().filter(
       (item) =>
         this._groupMemberMapper[item.groupId] &&
         (this._groupMemberMapper[item.groupId]['*'] ||
@@ -65,7 +66,7 @@ export class AdminAppChecker extends UserAppChecker {
   }
 
   public getUsersSetForPermission(permissionKey: string) {
-    const groups = this._appInfo.groups.filter((item) => this._groupPermissionMapper[item.groupId][permissionKey])
+    const groups = this.appGroups().filter((item) => this._groupPermissionMapper[item.groupId][permissionKey])
     const userKeySet = new Set<string>()
     groups.forEach((group) => {
       group.memberEmails.forEach((key) => {
@@ -122,7 +123,7 @@ export class AdminAppChecker extends UserAppChecker {
   }
 
   public checkUserIsAdmin(email: string) {
-    return this._appInfo.powerUserList.includes(email)
+    return this.appPowerUsers().includes(email)
   }
 
   public assertUserIsAdmin(email: string) {
