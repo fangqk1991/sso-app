@@ -2,9 +2,9 @@ import React, { useContext, useEffect, useState } from 'react'
 import { SessionInfo } from '@fangcha/backend-kit/lib/common/models'
 import { AxiosBuilder } from '@fangcha/app-request'
 import { RetainedSessionApis } from '@fangcha/backend-kit/lib/common/apis'
-import { RedirectTools } from '@fangcha/auth-basic'
-import { AuthSdkHelper } from './AuthSdkHelper'
+import { AuthSdkHelper } from '../services/AuthSdkHelper'
 import { AuthMode } from '@fangcha/account-models'
+import { RedirectTools } from '@fangcha/auth-basic'
 
 export interface SessionConfig {
   appName: string

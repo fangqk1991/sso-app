@@ -1,3 +1,5 @@
 export * from './services/MyRequest'
 export * from './services/AuthSdkHelper'
-export * from './services/SessionContext'
+export * from './session/SessionContext'
+export * from './session/SessionHTTP'
+export * from './session/VisitorContext'
