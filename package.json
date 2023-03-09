@@ -16,7 +16,7 @@
     "@fangcha/assert": "^1.2.0",
     "@fangcha/tools": "^1.24.0",
     "@fangcha/ali-oss": "^1.2.0",
-    "@fangcha/backend-kit": "^0.56.0",
+    "@fangcha/backend-kit": "^0.57.0",
     "@fangcha/logger": "^0.4.0",
     "@fangcha/router": "^0.27.0",
     "@fangcha/swagger": "^0.1.1",

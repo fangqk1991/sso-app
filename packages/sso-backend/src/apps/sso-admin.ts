@@ -4,6 +4,9 @@ import { _FangchaState } from '@fangcha/backend-kit'
 import { SsoAdminSpecDocItems } from './admin/SsoAdminSpecDocItems'
 import { SsoConfig } from '../SsoConfig'
 import { WebAuthSdkPlugin } from '@fangcha/web-auth-sdk'
+import { AdminUserCenter } from '@fangcha/user-sdk'
+import { UserSystemCenter } from '../services/UserSystemCenter'
+import { AppHandler } from '../services/AppHandler'
 
 const app = new WebApp({
   env: GlobalAppConfig.Env,
@@ -34,6 +37,25 @@ const app = new WebApp({
   ],
 
   appDidLoad: async () => {
+    AdminUserCenter.useAutoReloadingChecker({
+      getAppFullInfo: async () => {
+        const app = await UserSystemCenter.prepareUserSystemApp()
+        return new AppHandler(app).getFullAppInfo()
+      },
+      getAppVersion: async () => {
+        const app = await UserSystemCenter.prepareUserSystemApp()
+        return app.version
+      },
+    })
+    await AdminUserCenter.waitForReady()
+
+    _FangchaState.transferSessionUserInfo = async (userInfo: { email: string }) => {
+      return {
+        ...userInfo,
+        permissionKeyMap: AdminUserCenter.checker().getPermissionKeyMapForUser(userInfo.email),
+      }
+    }
+
     _FangchaState.frontendConfig = {
       ...SsoConfig.adminFrontendConfig,
       authMode: SsoConfig.adminAuth.authMode,

@@ -2,9 +2,9 @@ import { UserOutlined } from '@ant-design/icons'
 import { PageContainer, ProLayout } from '@ant-design/pro-layout'
 import React from 'react'
 import { ConfigProvider, Dropdown } from 'antd'
-import { MyMenu } from './MyMenu'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { AuthSdkHelper, useVisitorCtx } from '@fangcha/auth-react'
+import { MenuRoute, MyMenu } from './MyMenu'
 
 export const MainLayout: React.FC = () => {
   const visitorCtx = useVisitorCtx()
@@ -13,6 +13,18 @@ export const MainLayout: React.FC = () => {
 
   const location = useLocation()
   const navigate = useNavigate()
+
+  let curItems: MenuRoute[] = [MyMenu]
+  while (curItems.length > 0) {
+    const nextItems: MenuRoute[] = []
+    for (const item of curItems) {
+      item.hideInMenu = false
+      // item.hideInMenu = !!item.permissionKey && !visitorCtx.hasPermission(item.permissionKey)
+      const children = (item.children || []) as MenuRoute[]
+      nextItems.push(...children)
+    }
+    curItems = nextItems
+  }
 
   return (
     <ConfigProvider
@@ -27,7 +39,8 @@ export const MainLayout: React.FC = () => {
         title='SSO Admin'
         fixSiderbar={true}
         layout='mix'
-        splitMenus={true}
+        splitMenus={false}
+        defaultCollapsed={false}
         route={MyMenu}
         location={{
           pathname: location.pathname,
@@ -37,6 +50,25 @@ export const MainLayout: React.FC = () => {
           type: 'sub',
           defaultOpenAll: true,
           ignoreFlatMenu: true,
+          // params: visitorCtx.userInfo,
+          // request: async (params, defaultMenuData) => {
+          //   const menuItems: MenuRoute[] = [...defaultMenuData]
+          //   let curItems: Route[] = [...menuItems]
+          //   while (curItems.length > 0) {
+          //     const nextItems: Route[] = []
+          //     for (const item of curItems) {
+          //       const children = item.children ? [...item.children] : []
+          //       const visibleItems = children.filter(
+          //         (item) => !item.permissionKey || visitorCtx.hasPermission(item.permissionKey)
+          //       )
+          //       item.children = visibleItems
+          //       nextItems.push(...visibleItems)
+          //     }
+          //     curItems = nextItems
+          //   }
+          //   console.info(menuItems)
+          //   return menuItems
+          // },
         }}
         avatarProps={{
           icon: <UserOutlined />,

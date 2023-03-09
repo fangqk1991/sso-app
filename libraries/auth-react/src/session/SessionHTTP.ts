@@ -4,6 +4,9 @@ import { MyRequest } from '../services/MyRequest'
 
 export interface SessionUserInfo {
   email: string
+  permissionKeyMap: {
+    [p: string]: 1
+  }
   [p: string]: any
 }
 
