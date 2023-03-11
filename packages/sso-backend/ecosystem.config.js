@@ -5,8 +5,8 @@ const appList = [
   {
     name: 'sso-web',
     script: `${rootDir}/packages/sso-backend/dist/sso-web.js`,
-    error_file: '/data/logs/auth/sso-web-err.log',
-    out_file: '/data/logs/auth/sso-web-out.log',
+    error_file: '/data/logs/sso/sso-web-err.log',
+    out_file: '/data/logs/sso/sso-web-out.log',
     exec_mode: 'fork',
     listen_timeout: 10000,
     log_date_format: 'YYYY-MM-DD HH:mm:ss.SSS',
@@ -27,8 +27,8 @@ const appList = [
   {
     name: 'sso-admin',
     script: `${rootDir}/packages/sso-backend/dist/sso-admin.js`,
-    error_file: '/data/logs/auth/sso-admin-err.log',
-    out_file: '/data/logs/auth/sso-admin-out.log',
+    error_file: '/data/logs/sso/sso-admin-err.log',
+    out_file: '/data/logs/sso/sso-admin-out.log',
     exec_mode: 'fork',
     listen_timeout: 10000,
     log_date_format: 'YYYY-MM-DD HH:mm:ss.SSS',
@@ -49,8 +49,8 @@ const appList = [
   {
     name: 'sso-power',
     script: `${rootDir}/packages/sso-backend/dist/sso-power.js`,
-    error_file: '/data/logs/auth/sso-power-err.log',
-    out_file: '/data/logs/auth/sso-power-out.log',
+    error_file: '/data/logs/sso/sso-power-err.log',
+    out_file: '/data/logs/sso/sso-power-out.log',
     exec_mode: 'fork',
     listen_timeout: 10000,
     log_date_format: 'YYYY-MM-DD HH:mm:ss.SSS',
