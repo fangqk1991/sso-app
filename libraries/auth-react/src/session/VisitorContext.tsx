@@ -27,7 +27,7 @@ export const VisitorProvider = ({ children }: React.ComponentProps<any>) => {
       })
     },
     hasPermission: (permissionKey: string) => {
-      return !!userInfo.permissionKeyMap[permissionKey]
+      return userInfo.permissionKeyMap && !!userInfo.permissionKeyMap[permissionKey]
     },
   }
   useEffect(() => {
