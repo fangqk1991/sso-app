@@ -1,6 +1,6 @@
 {
   "name": "@fangcha/auth-react",
-  "version": "0.7.1",
+  "version": "0.8.0",
   "main": "src/index.ts",
   "repository": "https://github.com/fangqk1991/sso-app.git",
   "keywords": [

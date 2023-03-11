@@ -53,6 +53,7 @@ const app = new WebApp({
     _FangchaState.transferSessionUserInfo = async (userInfo: { email: string }) => {
       return {
         ...userInfo,
+        isAdmin: AdminUserCenter.checker().checkUserIsAdmin(userInfo.email),
         permissionKeyMap: AdminUserCenter.checker().getPermissionKeyMapForUser(userInfo.email),
       }
     }

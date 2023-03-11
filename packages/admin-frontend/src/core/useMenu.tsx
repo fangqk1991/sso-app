@@ -17,12 +17,12 @@ export const useMenu = () => {
           {
             path: '/v1/client',
             name: 'SSO 客户端',
-            hideInMenu: !visitorCtx.hasPermission(UserPermission.M_User_SsoClient),
+            hideInMenu: !visitorCtx.userInfo.isAdmin && !visitorCtx.hasPermission(UserPermission.M_User_SsoClient),
           },
           {
             path: '/v1/account',
             name: '账号管理',
-            hideInMenu: !visitorCtx.hasPermission(UserPermission.M_User_Account),
+            hideInMenu: !visitorCtx.userInfo.isAdmin && !visitorCtx.hasPermission(UserPermission.M_User_Account),
           },
         ],
       },
@@ -34,7 +34,8 @@ export const useMenu = () => {
           {
             path: '/v1/app',
             name: '权限应用',
-            hideInMenu: !visitorCtx.hasPermission(UserPermission.M_DataHosting_PermissionApps),
+            hideInMenu:
+              !visitorCtx.userInfo.isAdmin && !visitorCtx.hasPermission(UserPermission.M_DataHosting_PermissionApps),
           },
         ],
       },

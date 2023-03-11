@@ -4,6 +4,7 @@ import { MyRequest } from '../services/MyRequest'
 
 export interface SessionUserInfo {
   email: string
+  isAdmin?: boolean
   permissionKeyMap: {
     [p: string]: 1
   }

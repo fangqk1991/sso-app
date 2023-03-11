@@ -14,7 +14,7 @@ class _UserSystemCenter {
         configData: {},
         permissionMeta: PermissionHelper.defaultPermissionMeta(),
         powerUserList: [],
-        author: 'user-system@fangcha.net',
+        author: 'user-system@example.com',
       })
     }
     assert.ok(!!app, 'user-system 未被创建', 500)
