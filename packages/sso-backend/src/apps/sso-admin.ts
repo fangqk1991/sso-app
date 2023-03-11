@@ -31,6 +31,7 @@ const app = new WebApp({
       authMode: SsoConfig.adminAuth.authMode,
       simpleAuth: {
         retainedUserData: SsoConfig.adminAuth.retainedUserData,
+        // accountServer: MyAccountServer,
       },
       ssoAuth: SsoConfig.adminAuth.oauthConfig,
     }),
