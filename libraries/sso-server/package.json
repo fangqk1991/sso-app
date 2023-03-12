@@ -1,6 +1,6 @@
 {
   "name": "@fangcha/sso-server",
-  "version": "0.28.0",
+  "version": "0.29.0",
   "description": "SSO Server.",
   "main": "src/index.ts",
   "publishConfig": {
@@ -25,9 +25,9 @@
     "oauth2-server": "^3.1.1"
   },
   "peerDependencies": {
-    "@fangcha/account-models": "workspace:*",
-    "@fangcha/sso-models": "workspace:*",
-    "@fangcha/account": "workspace:*"
+    "@fangcha/account-models": "*",
+    "@fangcha/sso-models": "*",
+    "@fangcha/account": "*"
   },
   "files": [
     "lib/*",
