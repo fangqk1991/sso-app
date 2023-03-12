@@ -2,6 +2,7 @@ import { _FangchaState, AppPluginProtocol, CustomRequestFollower } from '@fangch
 import { BasicAuthConfig } from '@fangcha/tools'
 import { AdminUserCenter } from './admin/AdminUserCenter'
 import { UserProxy } from './core/UserProxy'
+import { _SessionApp } from '@fangcha/session'
 
 export const UserSdkPlugin = (config: BasicAuthConfig): AppPluginProtocol => {
   return {
@@ -15,6 +16,18 @@ export const UserSdkPlugin = (config: BasicAuthConfig): AppPluginProtocol => {
           isAdmin: AdminUserCenter.checker().checkUserIsAdmin(userInfo.email),
           permissionKeyMap: AdminUserCenter.checker().getPermissionKeyMapForUser(userInfo.email),
         }
+      })
+
+      _SessionApp.setPermissionProtocol({
+        checkUserIsAdmin: (email) => {
+          return AdminUserCenter.checker().checkUserIsAdmin(email)
+        },
+        checkUserHasPermission: (email, permissionKey) => {
+          return AdminUserCenter.checker().checkUserHasPermission(email, permissionKey)
+        },
+        checkUserInAnyGroup: (email, ...groupIds) => {
+          return AdminUserCenter.checker().checkUserInAnyGroup(email, ...groupIds)
+        },
       })
     },
   }
