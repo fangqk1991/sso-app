@@ -1,6 +1,6 @@
 import { Context } from 'koa'
 import assert from '@fangcha/assert'
-import { FangchaSession } from '@fangcha/router/lib/session'
+import { FangchaSession } from '@fangcha/session'
 import { _SsoClient } from '@fangcha/sso-server'
 import { MyClientManager } from '../../../services/MyClientManager'
 

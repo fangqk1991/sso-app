@@ -1,7 +1,7 @@
 import { Context } from 'koa'
 import * as jsonwebtoken from 'jsonwebtoken'
 import assert from '@fangcha/assert'
-import { _SessionApp, FangchaSession } from '@fangcha/router/lib/session'
+import { _SessionApp, FangchaSession } from '@fangcha/session'
 import { AppException } from '@fangcha/app-error'
 import { VisitorCoreInfo } from '@fangcha/account-models'
 import { SsoConstants, SsoErrorPhrase } from '@fangcha/sso-models'

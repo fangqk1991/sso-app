@@ -1,6 +1,6 @@
 import { Context } from 'koa'
 import assert from '@fangcha/assert'
-import { FangchaSession } from '@fangcha/router/lib/session'
+import { FangchaSession } from '@fangcha/session'
 import AppError from '@fangcha/app-error'
 import { _App } from '../models/permission/_App'
 import { MyPermissionServer } from './MyPermissionServer'

@@ -1,5 +1,5 @@
 import { SpecFactory, SwaggerDocItem } from '@fangcha/router'
-import { FangchaSession } from '@fangcha/router/lib/session'
+import { FangchaSession } from '@fangcha/session'
 import * as jsonwebtoken from 'jsonwebtoken'
 import { _WebAuthState } from './_WebAuthState'
 import { AccountErrorPhrase, AuthMode, CarrierType, VisitorCoreInfo } from '@fangcha/account-models'

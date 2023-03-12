@@ -1,5 +1,5 @@
 import { SpecFactory } from '@fangcha/router'
-import { FangchaSession } from '@fangcha/router/lib/session'
+import { FangchaSession } from '@fangcha/session'
 import { Admin_AppApis } from '@web/sso-common/admin-api'
 import { MyPermissionServer } from '../../../services/MyPermissionServer'
 import { Admin_AppSpecsBuilder, UserAdminUtils } from '../UserAdminUtils'

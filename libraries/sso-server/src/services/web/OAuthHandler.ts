@@ -5,7 +5,7 @@ import assert from '@fangcha/assert'
 import { RedirectBreak } from '@fangcha/app-error'
 import { SsoServer } from '../../SsoServer'
 import { RetainPagePath, SsoConstants } from '@fangcha/sso-models'
-import { _SessionApp } from '@fangcha/router/lib/session'
+import { _SessionApp } from '@fangcha/session'
 
 interface OAuthToken {
   access_token: string

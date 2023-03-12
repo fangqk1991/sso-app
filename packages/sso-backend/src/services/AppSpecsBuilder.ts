@@ -1,6 +1,6 @@
 import { SpecFactory } from '@fangcha/router'
 import { Context } from 'koa'
-import { FangchaSession } from '@fangcha/router/lib/session'
+import { FangchaSession } from '@fangcha/session'
 import assert from '@fangcha/assert'
 import { AppSpecHandlerProtocol, CommonAppSpecHandler } from './CommonAppSpecHandler'
 import { CommonAppApis, CommonSearchApis } from '@web/sso-common/core-api'

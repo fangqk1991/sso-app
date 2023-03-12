@@ -1,4 +1,4 @@
-import { FangchaSession } from '@fangcha/router/lib/session'
+import { FangchaSession } from '@fangcha/session'
 import AppError from '@fangcha/app-error'
 import assert from '@fangcha/assert'
 import { Context } from 'koa'

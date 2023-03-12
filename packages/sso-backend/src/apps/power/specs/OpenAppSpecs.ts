@@ -2,7 +2,7 @@ import { SpecFactory } from '@fangcha/router'
 import { Context } from 'koa'
 import assert from '@fangcha/assert'
 import { OpenAppApis } from '@web/sso-common/power-api'
-import { FangchaSession } from '@fangcha/router/lib/session'
+import { FangchaSession } from '@fangcha/session'
 import { MyPermissionServer } from '../../../services/MyPermissionServer'
 import { AppHandler } from '../../../services/AppHandler'
 
