@@ -16,7 +16,7 @@
     "SSO"
   ],
   "peerDependencies": {
-    "@fangcha/sso-server": "workspace:*"
+    "@fangcha/sso-server": "*"
   },
   "author": "fang <me@fangqk.com>",
   "license": "MIT",
