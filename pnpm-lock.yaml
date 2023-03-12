@@ -193,7 +193,7 @@ importers:
 
   libraries/user-sdk:
     specifiers:
-      '@fangcha/account-models': ^0.2.0
+      '@fangcha/account-models': workspace:*
       '@fangcha/app-request': ^1.7.0
       '@fangcha/app-request-extensions': ^0.1.0
       '@fangcha/assert': ^1.2.0
