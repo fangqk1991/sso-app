@@ -3,6 +3,7 @@ import { BasicAuthConfig } from '@fangcha/tools'
 import { AdminUserCenter } from './admin/AdminUserCenter'
 import { UserProxy } from './core/UserProxy'
 import { _SessionApp } from '@fangcha/session'
+import { UserSdkSpecDocItem } from './specs/UserSdkSpecs'
 
 export const UserSdkPlugin = (config: BasicAuthConfig): AppPluginProtocol => {
   return {
@@ -17,7 +18,6 @@ export const UserSdkPlugin = (config: BasicAuthConfig): AppPluginProtocol => {
           permissionKeyMap: AdminUserCenter.checker().getPermissionKeyMapForUser(userInfo.email),
         }
       })
-
       _SessionApp.setPermissionProtocol({
         checkUserIsAdmin: (email) => {
           return AdminUserCenter.checker().checkUserIsAdmin(email)
@@ -30,5 +30,6 @@ export const UserSdkPlugin = (config: BasicAuthConfig): AppPluginProtocol => {
         },
       })
     },
+    specDocItems: [UserSdkSpecDocItem],
   }
 }
