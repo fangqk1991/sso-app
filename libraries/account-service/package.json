@@ -20,7 +20,7 @@
   "author": "fang <me@fangqk.com>",
   "license": "MIT",
   "peerDependencies": {
-    "@fangcha/account-models": "workspace:*",
+    "@fangcha/account-models": "*",
     "bcrypt": "^5.1.0",
     "@types/bcrypt": "^5.0.0"
   },

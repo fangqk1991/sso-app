@@ -1,6 +1,5 @@
-import { RetainedSessionApis } from '@fangcha/backend-kit/lib/common/apis'
-import { SessionInfo } from '@fangcha/backend-kit/lib/common/models'
 import { MyRequest } from '../services/MyRequest'
+import { RetainedSessionApis, SessionInfo } from '@fangcha/app-models'
 
 export interface SessionUserInfo {
   email: string
