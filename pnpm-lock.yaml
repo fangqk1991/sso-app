@@ -196,14 +196,10 @@ importers:
   libraries/user-sdk:
     specifiers:
       '@fangcha/account-models': workspace:^*
-      '@fangcha/app-request': ^1.7.0
-      '@fangcha/app-request-extensions': ^0.1.0
       '@fangcha/assert': ^1.2.0
       '@fangcha/tools': ^1.24.0
     dependencies:
       '@fangcha/account-models': link:../account-models
-      '@fangcha/app-request': 1.7.0
-      '@fangcha/app-request-extensions': 0.1.0
       '@fangcha/assert': 1.2.0
       '@fangcha/tools': 1.24.0
 
@@ -1995,19 +1991,6 @@ packages:
     resolution: {integrity: sha512-QX3LgoApk8g8gDdayuQB7gDSTToNHv77Rpzz4gjL9iachqnlBZpUphUgwa1fs2Ev0N0vjoiVl+dI+o3Mc7cDNA==}
     dev: false
 
-  /@fangcha/app-request-extensions/0.1.0:
-    resolution: {integrity: sha512-AyqbQPD7e9i2yDlxhXtCwcPHmsn988R9vjR8aI9SaX60Z1ibzEj7cIUf1fHY/4hsph2J3srYXuB02FgR3U+rGw==}
-    dependencies:
-      '@fangcha/app-error': 1.6.0
-      '@fangcha/app-request': 1.7.0
-      '@fangcha/logger': 0.5.0
-      '@fangcha/tools': 1.23.3
-      log4js: 6.7.1
-    transitivePeerDependencies:
-      - debug
-      - supports-color
-    dev: false
-
   /@fangcha/app-request-extensions/0.2.0:
     resolution: {integrity: sha512-cVsUPvwTz+Hu2GZ8nnGFOiO5oEC0daYyHZGZP0fUawMn2SH5Strvg6RNkfCkoVAyexpkeA1zMg4pt9DqclM3vw==}
     dependencies:
@@ -2145,13 +2128,6 @@ packages:
 
   /@fangcha/swagger/0.1.1:
     resolution: {integrity: sha512-NOTpGTPvp2aLCD8EJ+cG/oCd17nl3nmsNV9leVSTq8/M+wNXiYbv21ftZSqHP7/pf9tA5gr9JghizkZI2z5Ing==}
-
-  /@fangcha/tools/1.23.3:
-    resolution: {integrity: sha512-gBMObZGSa5N5aL95HSRicQ0RhsidbKt6q+HyreAoI4nRxu1KFaCMcsmuHxTnVPLhTPhzYqBFRs4pu2RiiZHVNA==}
-    dependencies:
-      moment: 2.29.4
-      uuid: 9.0.0
-    dev: false
 
   /@fangcha/tools/1.24.0:
     resolution: {integrity: sha512-uUmrk1wZvS35LTXiVURge1C0UjgGRechGSlUjMCNToi5+SXYRSeDmrWCTa9JQUyen1B4ofpfphFlBRnW0yBYwg==}
