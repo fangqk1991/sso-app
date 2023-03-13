@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { MyRequest } from '@fangcha/auth-react'
 import { Breadcrumb, Button, Divider, message, Modal, Space, Spin, Tag } from 'antd'
-import { TableView } from '@fangcha/admin-react'
+import { TableView } from '@fangcha/react'
 import { PageResult } from '@fangcha/tools'
 import { Link, useParams } from 'react-router-dom'
 import { P_AccessInfo, P_AppInfo } from '@fangcha/account-models'
 import { CommonAPI } from '@fangcha/app-request'
 import { CommonAppApis } from '@web/sso-common/core-api'
-import { ConfirmDialog } from '@fangcha/admin-react'
+import { ConfirmDialog } from '@fangcha/react'
 import { SsoClientModel } from '@fangcha/sso-models'
 
 export const AppAccessListView: React.FC = () => {

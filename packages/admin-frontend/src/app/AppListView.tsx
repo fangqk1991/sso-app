@@ -2,15 +2,15 @@ import React, { useState } from 'react'
 import { MyRequest } from '@fangcha/auth-react'
 import { Button, Divider, message, Space, Tag } from 'antd'
 import { Admin_AppApis } from '@web/sso-common/admin-api'
-import { TableView } from '@fangcha/admin-react'
+import { TableView } from '@fangcha/react'
 import { PageResult } from '@fangcha/tools'
 import { Link } from 'react-router-dom'
 import { AppTypeDescriptor, P_AppInfo } from '@fangcha/account-models'
 import { AppFormDialog } from './AppFormDialog'
 import { CommonAPI } from '@fangcha/app-request'
 import { CommonAppApis } from '@web/sso-common/core-api'
-import { ConfirmDialog } from '@fangcha/admin-react'
-import { JsonEditorDialog } from '@fangcha/admin-react'
+import { ConfirmDialog } from '@fangcha/react'
+import { JsonEditorDialog } from '@fangcha/react'
 
 export const AppListView: React.FC = () => {
   const [version, setVersion] = useState(0)

@@ -6,7 +6,7 @@ import { AuthSdkHelper, SessionProvider, useSession, VisitorProvider } from '@fa
 import { AuthRouter } from '@fangcha/auth-react/router'
 import { ConfigProvider } from 'antd'
 import { AuthMode } from '@fangcha/account-models'
-import { LoadingView } from '@fangcha/admin-react'
+import { LoadingView } from '@fangcha/react'
 import { WebAuthApis } from '@fangcha/sso-models'
 
 AuthSdkHelper.defaultRedirectUri = '/'

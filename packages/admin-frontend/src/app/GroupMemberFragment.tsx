@@ -5,10 +5,10 @@ import { CommonAppApis } from '@web/sso-common/core-api'
 import { Button, Card, Divider, message, Space, Tag } from 'antd'
 import { GroupFragmentProtocol } from './GroupFragmentProtocol'
 import { P_MemberInfo } from '@fangcha/account-models'
-import { ConfirmDialog } from '@fangcha/admin-react'
-import { SimplePickerDialog } from '@fangcha/admin-react'
+import { ConfirmDialog } from '@fangcha/react'
+import { SimplePickerDialog } from '@fangcha/react'
 import { NumBoolDescriptor } from '@fangcha/tools'
-import { SimpleInputDialog } from '@fangcha/admin-react'
+import { SimpleInputDialog } from '@fangcha/react'
 
 export const GroupMemberFragment: GroupFragmentProtocol = ({ appInfo, groupInfo, onGroupInfoChanged }) => {
   const [memberList, setMemberList] = useState<P_MemberInfo[]>([])

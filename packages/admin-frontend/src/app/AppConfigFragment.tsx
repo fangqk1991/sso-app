@@ -3,8 +3,8 @@ import { MyRequest } from '@fangcha/auth-react'
 import { Button, Divider, message } from 'antd'
 import { CommonAPI } from '@fangcha/app-request'
 import { CommonAppApis } from '@web/sso-common/core-api'
-import { JsonEditorDialog } from '@fangcha/admin-react'
-import { JsonPre } from '@fangcha/admin-react'
+import { JsonEditorDialog } from '@fangcha/react'
+import { JsonPre } from '@fangcha/react'
 import { AppFragmentProtocol } from './AppFragmentProtocol'
 
 export const AppConfigFragment: AppFragmentProtocol = ({ appInfo, onAppInfoChanged }) => {
