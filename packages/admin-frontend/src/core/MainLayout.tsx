@@ -91,13 +91,13 @@ export const MainLayout: React.FC = () => {
           return []
         }}
         menuItemRender={(item, dom) => (
-          <div
+          <a
             onClick={() => {
               navigate(item.path || '/')
             }}
           >
             {dom}
-          </div>
+          </a>
         )}
       >
         <PageContainer
