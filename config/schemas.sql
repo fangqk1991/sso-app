@@ -106,7 +106,7 @@ CREATE TABLE IF NOT EXISTS fc_app
   COLLATE utf8mb4_general_ci;
 
 INSERT INTO `fc_app` (`appid`, `app_type`, `name`, `remarks`, `config_info`, `permission_info`, `power_users`, `author`) VALUES
-    ('user-system', 'Admin', 'User System', '初始管理员为 *，表示所有人均具有最高权限，请及时移除', '{}', '{}', '*', '*')
+    ('user-system', 'Admin', 'User System', '初始管理员为 *，表示所有人均具有最高权限，请及时移除', '{}', '{"permissionKey":"*","name":"所有权限","description":"所有权限","children":[]}', '*', '*')
     ON DUPLICATE KEY UPDATE `appid` = VALUES(`appid`);
 
 CREATE TABLE IF NOT EXISTS fc_app_access
