@@ -32,7 +32,7 @@ export class UserAdminUtils {
     const session = ctx.session as FangchaSession
     const app = await UserSystemCenter.prepareUserSystemApp()
     const userList = app.powerUserList()
-    return userList.includes(session.curUserStr())
+    return userList.includes(session.curUserStr()) || userList.includes('*')
   }
 
   public static async assertUserSystemAdmin(ctx: Context) {
@@ -41,7 +41,8 @@ export class UserAdminUtils {
 
   public static async checkVisitorAppAdmin(ctx: Context, app: _App) {
     const session = ctx.session as FangchaSession
-    if (app.powerUserList().includes(session.curUserStr())) {
+    const userList = app.powerUserList()
+    if (userList.includes(session.curUserStr()) || userList.includes('*')) {
       return true
     }
     if (await UserAdminUtils.checkUserSystemAdmin(ctx)) {

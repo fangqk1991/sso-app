@@ -105,6 +105,10 @@ CREATE TABLE IF NOT EXISTS fc_app
   DEFAULT CHARSET = utf8mb4
   COLLATE utf8mb4_general_ci;
 
+INSERT INTO `fc_app` (`appid`, `app_type`, `name`, `remarks`, `config_info`, `permission_info`, `power_users`, `author`) VALUES
+    ('user-system', 'Admin', 'User System', '初始管理员为 *，表示所有人均具有最高权限，请及时移除', '{}', '{}', '*', '*')
+    ON DUPLICATE KEY UPDATE `appid` = VALUES(`appid`);
+
 CREATE TABLE IF NOT EXISTS fc_app_access
 (
     _rid        BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
