@@ -12,7 +12,7 @@ export class _Account extends __Account {
   }
 
   public assertPasswordCorrect(password: string) {
-    if (!bcrypt.compareSync(password, this.password)) {
+    if (!bcrypt.compareSync(password || '', this.password)) {
       throw AppException.exception(AccountErrorPhrase.PasswordIncorrect)
     }
   }
