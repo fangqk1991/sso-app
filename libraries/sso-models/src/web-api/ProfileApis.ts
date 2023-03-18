@@ -8,4 +8,10 @@ export const ProfileApis = {
     description: '获取个人信息',
     responseSchemaRef: AuthSwaggerModelData.Swagger_VisitorCoreInfo,
   } as Api,
+  PasswordUpdate: {
+    method: 'PUT',
+    route: '/api/v1/profile/password',
+    description: '更新密码',
+    responseSchemaRef: AuthSwaggerModelData.Swagger_PasswordUpdateParams,
+  } as Api,
 }

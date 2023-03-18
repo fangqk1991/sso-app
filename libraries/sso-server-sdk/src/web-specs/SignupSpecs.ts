@@ -4,7 +4,7 @@ import assert from '@fangcha/assert'
 import { _FangchaState } from '@fangcha/backend-kit'
 import { LoginService, SsoServer, SsoSession } from '@fangcha/sso-server'
 
-const factory = new SpecFactory('注册')
+const factory = new SpecFactory('Signup')
 
 factory.prepare(SignupApis.SimpleSignup, async (ctx) => {
   assert.ok(_FangchaState.frontendConfig.signupAble, '注册功能已被关闭')

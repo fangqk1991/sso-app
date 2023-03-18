@@ -1,5 +1,5 @@
 import { SwaggerModelDefinitionV2, TypicalSwaggerModel } from '@fangcha/swagger'
-import { AccountSimpleParams, VisitorCoreInfo } from '@fangcha/account-models'
+import { AccountSimpleParams, PasswordUpdateParams, VisitorCoreInfo } from '@fangcha/account-models'
 
 export const AuthSwaggerModelData = {
   Swagger_AccountSimpleParams: {
@@ -34,6 +34,22 @@ export const AuthSwaggerModelData = {
       },
     },
   } as TypicalSwaggerModel<VisitorCoreInfo>,
+  Swagger_PasswordUpdateParams: {
+    name: 'Swagger_PasswordUpdateParams',
+    schema: {
+      type: 'object',
+      properties: {
+        curPassword: {
+          type: 'string',
+          example: 'xxxxxxxx',
+        },
+        newPassword: {
+          type: 'string',
+          example: 'xxxxxxxx',
+        },
+      },
+    },
+  } as TypicalSwaggerModel<PasswordUpdateParams>,
 }
 
 export const AuthSwaggerModelList: SwaggerModelDefinitionV2[] = Object.keys(AuthSwaggerModelData).map(

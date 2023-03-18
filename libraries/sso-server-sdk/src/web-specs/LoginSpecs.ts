@@ -2,7 +2,7 @@ import { SpecFactory } from '@fangcha/router'
 import { LoginApis } from '@fangcha/sso-models'
 import { LoginService, SsoSession } from '@fangcha/sso-server'
 
-const factory = new SpecFactory('注册')
+const factory = new SpecFactory('Login')
 
 factory.prepare(LoginApis.LoginWithEmail, async (ctx) => {
   await new LoginService(ctx).loginWithEmail(ctx.request.body)

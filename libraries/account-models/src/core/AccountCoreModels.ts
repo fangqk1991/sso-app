@@ -15,6 +15,11 @@ export interface VisitorCoreInfo {
   email: string
 }
 
+export interface PasswordUpdateParams {
+  curPassword: string
+  newPassword: string
+}
+
 export interface AccountModel {
   accountUid: string
   password: string
