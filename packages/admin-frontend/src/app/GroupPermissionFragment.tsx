@@ -10,21 +10,26 @@ import { PermissionEditorDialog } from './PermissionEditorDialog'
 export const GroupPermissionFragment: GroupFragmentProtocol = ({ appInfo, groupInfo, onGroupInfoChanged }) => {
   return (
     <>
-      <PermissionEditorDialog
-        permissionMeta={appInfo.permissionMeta}
-        checkedKeys={groupInfo.permissionKeys}
-        forEditing={true}
-        onSubmit={async (diffItems) => {
-          const request = MyRequest(
-            new CommonAPI(CommonAppApis.AppGroupPermissionUpdate, appInfo.appid, groupInfo.groupId)
-          )
-          request.setBodyData(diffItems)
-          await request.quickSend()
-          message.success('编辑成功')
-          onGroupInfoChanged()
+      <Button
+        type='primary'
+        onClick={() => {
+          const dialog = new PermissionEditorDialog({
+            permissionMeta: appInfo.permissionMeta,
+            checkedKeys: groupInfo.permissionKeys,
+          })
+          dialog.show(async (diffItems) => {
+            const request = MyRequest(
+              new CommonAPI(CommonAppApis.AppGroupPermissionUpdate, appInfo.appid, groupInfo.groupId)
+            )
+            request.setBodyData(diffItems)
+            await request.quickSend()
+            message.success('编辑成功')
+            onGroupInfoChanged()
+          })
         }}
-        trigger={<Button type='primary'>编辑权限</Button>}
-      />
+      >
+        编辑权限
+      </Button>
       <Divider />
       <PermissionTreeView
         permissionMeta={appInfo.permissionMeta}

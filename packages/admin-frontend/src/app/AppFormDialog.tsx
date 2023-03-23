@@ -1,62 +1,56 @@
-import { ModalForm, ProFormRadio, ProFormSelect, ProFormText } from '@ant-design/pro-components'
+import { ProForm, ProFormRadio, ProFormSelect, ProFormText } from '@ant-design/pro-components'
 import { Form } from 'antd'
 import React from 'react'
 import { AppType, AppTypeDescriptor, P_AppParams, PermissionHelper } from '@fangcha/account-models'
+import { DialogProps, ReactDialog } from '@fangcha/react'
 
-interface Props {
-  title: string
-  trigger: JSX.Element
-  forEditing?: boolean
+type Props = DialogProps & {
   params?: Partial<P_AppParams>
-  onSubmit?: (params: P_AppParams) => Promise<void>
+  forEditing?: boolean
 }
 
-export const AppFormDialog: React.FC<Props> = (props) => {
-  const params = JSON.parse(
-    JSON.stringify(
-      props.params ||
-        ({
-          appid: '',
-          appType: AppType.Admin,
-          name: '',
-          remarks: '',
-          author: '',
-          configData: {},
-          permissionMeta: PermissionHelper.defaultPermissionMeta(),
-          powerUserList: [],
-          version: 0,
-        } as P_AppParams)
-    )
-  )
-  const [form] = Form.useForm<P_AppParams>()
-  return (
-    <ModalForm<P_AppParams>
-      // open={true}
-      title={props.title}
-      trigger={props.trigger}
-      form={form}
-      initialValues={params}
-      autoFocusFirstInput
-      modalProps={{
-        destroyOnClose: true,
-        maskClosable: false,
-        forceRender: true,
-      }}
-      onFinish={async (data) => {
-        if (props.onSubmit) {
-          await props.onSubmit({
-            ...params,
-            ...data,
-          })
+export class AppFormDialog extends ReactDialog<Props, P_AppParams> {
+  title = '编辑应用'
+
+  public rawComponent(): React.FC<Props> {
+    return (props) => {
+      const params = JSON.parse(
+        JSON.stringify(
+          props.params ||
+            ({
+              appid: '',
+              appType: AppType.Admin,
+              name: '',
+              remarks: '',
+              author: '',
+              configData: {},
+              permissionMeta: PermissionHelper.defaultPermissionMeta(),
+              powerUserList: [],
+              version: 0,
+            } as P_AppParams)
+        )
+      )
+      const [form] = Form.useForm<P_AppParams>()
+      props.context.handleResult = () => {
+        return {
+          ...params,
+          ...form.getFieldsValue(),
         }
-        return true
-      }}
-    >
-      {!props.forEditing && <ProFormText name='appid' label='Appid' />}
-      <ProFormText name='name' label='应用名' />
-      <ProFormRadio.Group name='appType' label='应用类型' options={AppTypeDescriptor.options()} radioType='button' />
-      <ProFormText name='remarks' label='备注' />
-      <ProFormSelect name='powerUserList' mode='tags' label='管理员' />
-    </ModalForm>
-  )
+      }
+      return (
+        <ProForm form={form} autoFocusFirstInput initialValues={params} submitter={false}>
+          {!props.forEditing && <ProFormText name='appid' label='Appid' />}
+          <ProFormText name='name' label='应用名' />
+          <ProFormRadio.Group
+            name='appType'
+            label='应用类型'
+            options={AppTypeDescriptor.options()}
+            radioType='button'
+          />
+          <ProFormText name='remarks' label='备注' />
+          <ProFormSelect name='powerUserList' mode='tags' label='管理员' />
+        </ProForm>
+      )
+    }
+  }
 }

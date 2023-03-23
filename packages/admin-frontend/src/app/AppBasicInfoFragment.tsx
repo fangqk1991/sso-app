@@ -12,19 +12,25 @@ import { AppFragmentProtocol } from './AppFragmentProtocol'
 export const AppBasicInfoFragment: AppFragmentProtocol = ({ appInfo, onAppInfoChanged }) => {
   return (
     <>
-      <AppFormDialog
-        title='编辑信息'
-        params={appInfo}
-        forEditing={true}
-        onSubmit={async (params) => {
-          const request = MyRequest(new CommonAPI(CommonAppApis.AppUpdate, appInfo.appid))
-          request.setBodyData(params)
-          await request.quickSend()
-          message.success('编辑成功')
-          onAppInfoChanged()
+      <Button
+        type='primary'
+        onClick={() => {
+          const dialog = new AppFormDialog({
+            title: '编辑应用',
+            params: appInfo,
+            forEditing: true,
+          })
+          dialog.show(async (params) => {
+            const request = MyRequest(new CommonAPI(CommonAppApis.AppUpdate, appInfo.appid))
+            request.setBodyData(params)
+            await request.quickSend()
+            message.success('编辑成功')
+            onAppInfoChanged()
+          })
         }}
-        trigger={<Button type='primary'>编辑</Button>}
-      />
+      >
+        编辑
+      </Button>
       <Divider />
       <Descriptions title='基本信息'>
         <Descriptions.Item label='Appid'>{appInfo.appid}</Descriptions.Item>

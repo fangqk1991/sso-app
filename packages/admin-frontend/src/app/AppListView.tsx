@@ -17,17 +17,23 @@ export const AppListView: React.FC = () => {
       <h3>应用列表</h3>
       <Divider />
       <Space>
-        <AppFormDialog
-          title='创建应用'
-          onSubmit={async (params) => {
-            const request = MyRequest(Admin_AppApis.AppCreate)
-            request.setBodyData(params)
-            await request.quickSend()
-            message.success('创建成功')
-            setVersion(version + 1)
+        <Button
+          type='primary'
+          onClick={() => {
+            const dialog = new AppFormDialog({
+              title: '创建应用',
+            })
+            dialog.show(async (params) => {
+              const request = MyRequest(Admin_AppApis.AppCreate)
+              request.setBodyData(params)
+              await request.quickSend()
+              message.success('创建成功')
+              setVersion(version + 1)
+            })
           }}
-          trigger={<Button type='primary'>创建应用</Button>}
-        />
+        >
+          创建应用
+        </Button>
         <Button
           onClick={() => {
             const dialog = new JsonEditorDialog({
@@ -71,11 +77,9 @@ export const AppListView: React.FC = () => {
               <div>
                 {item.powerUserList.map((email) => {
                   return (
-                    <div>
-                      <Tag color='geekblue' key={email}>
-                        {email}
-                      </Tag>
-                    </div>
+                    <Tag color='geekblue' key={email}>
+                      {email}
+                    </Tag>
                   )
                 })}
               </div>
@@ -96,19 +100,25 @@ export const AppListView: React.FC = () => {
             key: 'action',
             render: (item: P_AppInfo) => (
               <Space size='small'>
-                <AppFormDialog
-                  title='编辑应用'
-                  forEditing={true}
-                  params={item}
-                  onSubmit={async (params) => {
-                    const request = MyRequest(new CommonAPI(CommonAppApis.AppUpdate, item.appid))
-                    request.setBodyData(params)
-                    await request.quickSend()
-                    message.success('更新成功')
-                    setVersion(version + 1)
+                <Button
+                  type='link'
+                  onClick={() => {
+                    const dialog = new AppFormDialog({
+                      title: '编辑应用',
+                      params: item,
+                      forEditing: true,
+                    })
+                    dialog.show(async (params) => {
+                      const request = MyRequest(new CommonAPI(CommonAppApis.AppUpdate, item.appid))
+                      request.setBodyData(params)
+                      await request.quickSend()
+                      message.success('更新成功')
+                      setVersion(version + 1)
+                    })
                   }}
-                  trigger={<Button type='link'>编辑应用</Button>}
-                />
+                >
+                  编辑应用
+                </Button>
 
                 <Button
                   danger

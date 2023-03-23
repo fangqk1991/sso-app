@@ -10,19 +10,27 @@ import { NumBoolDescriptor } from '@fangcha/tools'
 export const GroupBasicInfoFragment: GroupFragmentProtocol = ({ groupInfo, onGroupInfoChanged }) => {
   return (
     <>
-      <GroupFormDialog
-        title='编辑信息'
-        params={groupInfo}
-        forEditing={true}
-        onSubmit={async (params) => {
-          const request = MyRequest(new CommonAPI(CommonAppApis.AppGroupInfoUpdate, groupInfo.appid, groupInfo.groupId))
-          request.setBodyData(params)
-          await request.quickSend()
-          message.success('编辑成功')
-          onGroupInfoChanged()
+      <Button
+        type='primary'
+        onClick={() => {
+          const dialog = new GroupFormDialog({
+            title: '编辑用户组',
+            params: groupInfo,
+            forEditing: true,
+          })
+          dialog.show(async (params) => {
+            const request = MyRequest(
+              new CommonAPI(CommonAppApis.AppGroupInfoUpdate, groupInfo.appid, groupInfo.groupId)
+            )
+            request.setBodyData(params)
+            await request.quickSend()
+            message.success('编辑成功')
+            onGroupInfoChanged()
+          })
         }}
-        trigger={<Button type='primary'>编辑</Button>}
-      />
+      >
+        编辑
+      </Button>
       <Divider />
       <Descriptions title='基本信息'>
         <Descriptions.Item label='ID'>{groupInfo.groupId}</Descriptions.Item>

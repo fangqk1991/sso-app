@@ -1,43 +1,34 @@
-import { ModalForm, ProFormSelect, ProFormText } from '@ant-design/pro-components'
+import { ProForm, ProFormSelect, ProFormText } from '@ant-design/pro-components'
 import { Form } from 'antd'
 import React from 'react'
 import { SsoClientModel } from '@fangcha/sso-models'
+import { DialogProps, ReactDialog } from '@fangcha/react'
 
-interface Props {
-  title: string
-  trigger: JSX.Element
-  forEditing?: boolean
+type Props = DialogProps & {
   params?: Partial<SsoClientModel>
-  onSubmit?: (params: SsoClientModel) => Promise<void>
+  forEditing?: boolean
 }
 
-export const ClientFormDialog: React.FC<Props> = (props) => {
-  const params = JSON.parse(JSON.stringify(props.params || {}))
-  const [form] = Form.useForm<SsoClientModel>()
-  return (
-    <ModalForm<SsoClientModel>
-      // open={true}
-      title={props.title}
-      trigger={props.trigger}
-      form={form}
-      initialValues={params}
-      autoFocusFirstInput
-      modalProps={{
-        destroyOnClose: true,
-        maskClosable: false,
-        forceRender: true,
-      }}
-      onFinish={async (data) => {
-        if (props.onSubmit) {
-          await props.onSubmit(data)
+export class ClientFormDialog extends ReactDialog<Props, SsoClientModel> {
+  public rawComponent(): React.FC<Props> {
+    return (props) => {
+      const params = JSON.parse(JSON.stringify(props.params || {}))
+      const [form] = Form.useForm<SsoClientModel>()
+
+      props.context.handleResult = () => {
+        return {
+          ...params,
+          ...form.getFieldsValue(),
         }
-        return true
-      }}
-    >
-      {!props.forEditing && <ProFormText name='clientId' label='clientId' />}
-      <ProFormText name='name' label='名称' />
-      <ProFormSelect name='redirectUriList' mode='tags' label='回调地址' />
-      <ProFormSelect name='powerUsers' mode='tags' label='管理员' />
-    </ModalForm>
-  )
+      }
+      return (
+        <ProForm form={form} autoFocusFirstInput initialValues={params} submitter={false}>
+          {!props.forEditing && <ProFormText name='clientId' label='clientId' />}
+          <ProFormText name='name' label='名称' />
+          <ProFormSelect name='redirectUriList' mode='tags' label='回调地址' />
+          <ProFormSelect name='powerUsers' mode='tags' label='管理员' />
+        </ProForm>
+      )
+    }
+  }
 }

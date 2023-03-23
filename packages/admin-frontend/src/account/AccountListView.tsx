@@ -14,17 +14,21 @@ export const AccountListView: React.FC = () => {
     <div>
       <h3>账号管理</h3>
       <Divider />
-      <AccountFormDialog
-        title='创建账号'
-        onSubmit={async (params) => {
-          const request = MyRequest(Admin_AccountApis.AccountCreate)
-          request.setBodyData(params)
-          await request.quickSend()
-          message.success('创建成功')
-          setVersion(version + 1)
+      <Button
+        type='primary'
+        onClick={() => {
+          const dialog = new AccountFormDialog({})
+          dialog.show(async (params) => {
+            const request = MyRequest(Admin_AccountApis.AccountCreate)
+            request.setBodyData(params)
+            await request.quickSend()
+            message.success('创建成功')
+            setVersion(version + 1)
+          })
         }}
-        trigger={<Button type='primary'>创建账号</Button>}
-      />
+      >
+        创建账号
+      </Button>
       <Divider />
       <TableView
         version={version}

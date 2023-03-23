@@ -1,37 +1,28 @@
-import { ModalForm, ProFormText } from '@ant-design/pro-components'
+import { ProForm, ProFormText } from '@ant-design/pro-components'
 import { Form } from 'antd'
 import React from 'react'
 import { AccountSimpleParams } from '@fangcha/account-models'
+import { DialogProps, ReactDialog } from '@fangcha/react'
 
-interface Props {
-  title: string
-  trigger: JSX.Element
-  onSubmit?: (params: AccountSimpleParams) => Promise<void>
-}
+type Props = DialogProps
 
-export const AccountFormDialog: React.FC<Props> = (props) => {
-  const [form] = Form.useForm<AccountSimpleParams>()
-  return (
-    <ModalForm<AccountSimpleParams>
-      // open={true}
-      title={props.title}
-      trigger={props.trigger}
-      form={form}
-      autoFocusFirstInput
-      modalProps={{
-        destroyOnClose: true,
-        maskClosable: false,
-        forceRender: true,
-      }}
-      onFinish={async (data) => {
-        if (props.onSubmit) {
-          await props.onSubmit(data)
+export class AccountFormDialog extends ReactDialog<Props, AccountSimpleParams> {
+  title = '创建账号'
+
+  public rawComponent(): React.FC<Props> {
+    return (props) => {
+      const [form] = Form.useForm<AccountSimpleParams>()
+      props.context.handleResult = () => {
+        return {
+          ...form.getFieldsValue(),
         }
-        return true
-      }}
-    >
-      <ProFormText name='email' label='Email' />
-      <ProFormText.Password name='password' label='Password'  />
-    </ModalForm>
-  )
+      }
+      return (
+        <ProForm form={form} autoFocusFirstInput submitter={false}>
+          <ProFormText name='email' label='Email' />
+          <ProFormText.Password name='password' label='Password' />
+        </ProForm>
+      )
+    }
+  }
 }

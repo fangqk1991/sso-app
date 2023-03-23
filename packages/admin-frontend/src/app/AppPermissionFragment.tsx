@@ -10,20 +10,25 @@ import { AppFragmentProtocol } from './AppFragmentProtocol'
 export const AppPermissionFragment: AppFragmentProtocol = ({ appInfo, onAppInfoChanged }) => {
   return (
     <>
-      <PermissionMetaDialog
-        permissionMeta={appInfo.permissionMeta}
-        forEditing={true}
-        onSubmit={async (params) => {
-          const request = MyRequest(new CommonAPI(CommonAppApis.AppUpdate, appInfo.appid))
-          request.setBodyData({
-            permissionMeta: params,
+      <Button
+        type='primary'
+        onClick={() => {
+          const dialog = new PermissionMetaDialog({
+            permissionMeta: appInfo.permissionMeta,
           })
-          await request.quickSend()
-          message.success('编辑成功')
-          onAppInfoChanged()
+          dialog.show(async (params) => {
+            const request = MyRequest(new CommonAPI(CommonAppApis.AppUpdate, appInfo.appid))
+            request.setBodyData({
+              permissionMeta: params,
+            })
+            await request.quickSend()
+            message.success('编辑成功')
+            onAppInfoChanged()
+          })
         }}
-        trigger={<Button type='primary'>编辑权限</Button>}
-      />
+      >
+        编辑权限
+      </Button>
       <Divider />
       <PermissionTreeView permissionMeta={appInfo.permissionMeta} />
     </>

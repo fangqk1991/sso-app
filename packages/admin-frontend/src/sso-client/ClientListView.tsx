@@ -14,23 +14,29 @@ export const ClientListView: React.FC = () => {
     <div>
       <h3>客户端管理</h3>
       <Divider />
-      <ClientFormDialog
-        title='创建客户端'
-        onSubmit={async (params) => {
-          const request = MyRequest(Admin_SsoClientApis.ClientCreate)
-          request.setBodyData({
-            ...params,
-            scopeList: ['basic'],
+      <Button
+        type='primary'
+        onClick={() => {
+          const dialog = new ClientFormDialog({
+            title: '创建客户端',
           })
-          const data = await request.quickSend<SsoClientModel>()
-          Modal.success({
-            title: '创建成功',
-            content: `请保存此 App Secret [${data.clientSecret}]（只在本次展示）`,
+          dialog.show(async (params) => {
+            const request = MyRequest(Admin_SsoClientApis.ClientCreate)
+            request.setBodyData({
+              ...params,
+              scopeList: ['basic'],
+            })
+            const data = await request.quickSend<SsoClientModel>()
+            Modal.success({
+              title: '创建成功',
+              content: `请保存此 App Secret [${data.clientSecret}]（只在本次展示）`,
+            })
+            setVersion(version + 1)
           })
-          setVersion(version + 1)
         }}
-        trigger={<Button type='primary'>创建客户端</Button>}
-      />
+      >
+        创建客户端
+      </Button>
       <Divider />
       <TableView
         version={version}

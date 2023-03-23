@@ -15,17 +15,24 @@ export const AppGroupsFragment: AppFragmentProtocol = ({ appInfo }) => {
   return (
     <div>
       <Space>
-        <GroupFormDialog
-          title='创建用户组'
-          onSubmit={async (params) => {
-            const request = MyRequest(new CommonAPI(CommonAppApis.AppGroupCreate, appInfo.appid))
-            request.setBodyData(params)
-            await request.quickSend()
-            message.success('创建成功')
-            setVersion(version + 1)
+        <Button
+          type='primary'
+          onClick={() => {
+            const dialog = new GroupFormDialog({
+              title: '创建用户组',
+            })
+            dialog.show(async (params) => {
+              const request = MyRequest(new CommonAPI(CommonAppApis.AppGroupCreate, appInfo.appid))
+              request.setBodyData(params)
+              await request.quickSend()
+              message.success('创建成功')
+              setVersion(version + 1)
+            })
           }}
-          trigger={<Button type='primary'>创建</Button>}
-        />
+        >
+          创建
+        </Button>
+
         <Button
           onClick={() => {
             const dialog = new JsonEditorDialog({
@@ -77,21 +84,28 @@ export const AppGroupsFragment: AppFragmentProtocol = ({ appInfo }) => {
             key: 'action',
             render: (item: P_GroupInfo) => (
               <Space size='small'>
-                <GroupFormDialog
-                  title='编辑用户组'
-                  forEditing={true}
-                  params={item}
-                  onSubmit={async (params) => {
-                    const request = MyRequest(
-                      new CommonAPI(CommonAppApis.AppGroupInfoUpdate, appInfo.appid, item.groupId)
-                    )
-                    request.setBodyData(params)
-                    await request.quickSend()
-                    message.success('更新成功')
-                    setVersion(version + 1)
+                <Button
+                  type='link'
+                  onClick={() => {
+                    const dialog = new GroupFormDialog({
+                      title: '编辑用户组',
+                      params: item,
+                      forEditing: true,
+                    })
+                    dialog.show(async (params) => {
+                      const request = MyRequest(
+                        new CommonAPI(CommonAppApis.AppGroupInfoUpdate, appInfo.appid, item.groupId)
+                      )
+                      request.setBodyData(params)
+                      await request.quickSend()
+                      message.success('更新成功')
+                      setVersion(version + 1)
+                    })
                   }}
-                  trigger={<Button type='link'>编辑</Button>}
-                />
+                >
+                  编辑
+                </Button>
+
                 <Button
                   type='link'
                   onClick={() => {

@@ -32,19 +32,25 @@ export const ClientDetailView: React.FC = () => {
         <Breadcrumb.Item>{clientInfo.name}</Breadcrumb.Item>
       </Breadcrumb>
       <Divider />
-      <ClientFormDialog
-        title='编辑信息'
-        params={clientInfo}
-        forEditing={true}
-        onSubmit={async (params) => {
-          const request = MyRequest(new CommonAPI(Admin_SsoClientApis.ClientInfoUpdate, clientInfo.clientId))
-          request.setBodyData(params)
-          await request.quickSend()
-          message.success('编辑成功')
-          setVersion(version + 1)
+      <Button
+        type='primary'
+        onClick={() => {
+          const dialog = new ClientFormDialog({
+            title: '编辑客户端信息',
+            params: clientInfo,
+            forEditing: true,
+          })
+          dialog.show(async (params) => {
+            const request = MyRequest(new CommonAPI(Admin_SsoClientApis.ClientInfoUpdate, clientInfo.clientId))
+            request.setBodyData(params)
+            await request.quickSend()
+            message.success('编辑成功')
+            setVersion(version + 1)
+          })
         }}
-        trigger={<Button type='primary'>编辑</Button>}
-      />
+      >
+        编辑
+      </Button>
       <Divider />
       <Descriptions title='基本信息'>
         <Descriptions.Item label='clientId'>{clientInfo.clientId}</Descriptions.Item>
