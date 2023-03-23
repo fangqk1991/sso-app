@@ -2,15 +2,13 @@ import React, { useState } from 'react'
 import { AppFragmentProtocol } from './AppFragmentProtocol'
 import { Button, Divider, message, Space } from 'antd'
 import { MyRequest } from '@fangcha/auth-react'
-import { TableView } from '@fangcha/react'
+import { ConfirmDialog, JsonEditorDialog, TableView } from '@fangcha/react'
 import { P_GroupInfo } from '@fangcha/account-models'
 import { Link } from 'react-router-dom'
 import { CommonAPI } from '@fangcha/app-request'
 import { CommonAppApis } from '@web/sso-common/core-api'
-import { ConfirmDialog } from '@fangcha/react'
 import { PageResult } from '@fangcha/tools'
 import { GroupFormDialog } from './GroupFormDialog'
-import { JsonEditorDialog } from '@fangcha/react'
 
 export const AppGroupsFragment: AppFragmentProtocol = ({ appInfo }) => {
   const [version, setVersion] = useState(0)
@@ -28,17 +26,22 @@ export const AppGroupsFragment: AppFragmentProtocol = ({ appInfo }) => {
           }}
           trigger={<Button type='primary'>创建</Button>}
         />
-        <JsonEditorDialog
-          title='导入用户组'
-          onSubmit={async (params) => {
-            const request = MyRequest(new CommonAPI(CommonAppApis.AppGroupFullCreate, appInfo.appid))
-            request.setBodyData(params)
-            await request.quickSend()
-            message.success('导入成功')
-            setVersion(version + 1)
+        <Button
+          onClick={() => {
+            const dialog = new JsonEditorDialog({
+              title: '导入用户组',
+            })
+            dialog.show(async (params) => {
+              const request = MyRequest(new CommonAPI(CommonAppApis.AppGroupFullCreate, appInfo.appid))
+              request.setBodyData(params)
+              await request.quickSend()
+              message.success('导入成功')
+              setVersion(version + 1)
+            })
           }}
-          trigger={<Button>导入</Button>}
-        />
+        >
+          导入
+        </Button>
       </Space>
       <Divider />
       <TableView
@@ -79,7 +82,9 @@ export const AppGroupsFragment: AppFragmentProtocol = ({ appInfo }) => {
                   forEditing={true}
                   params={item}
                   onSubmit={async (params) => {
-                    const request = MyRequest(new CommonAPI(CommonAppApis.AppGroupInfoUpdate, appInfo.appid, item.groupId))
+                    const request = MyRequest(
+                      new CommonAPI(CommonAppApis.AppGroupInfoUpdate, appInfo.appid, item.groupId)
+                    )
                     request.setBodyData(params)
                     await request.quickSend()
                     message.success('更新成功')
@@ -99,22 +104,26 @@ export const AppGroupsFragment: AppFragmentProtocol = ({ appInfo }) => {
                 >
                   导出
                 </Button>
-                <ConfirmDialog
-                  title='请确认'
-                  content={`确定要删除用户组 ${item.name}[${item.groupAlias}] 吗？`}
-                  alertType='error'
-                  onSubmit={async () => {
-                    const request = MyRequest(new CommonAPI(CommonAppApis.AppGroupDelete, appInfo.appid, item.groupId))
-                    await request.quickSend()
-                    message.success(`已删除`)
-                    setVersion(version + 1)
+
+                <Button
+                  danger
+                  type='link'
+                  onClick={() => {
+                    const dialog = new ConfirmDialog({
+                      content: `确定要删除用户组 ${item.name}[${item.groupAlias}] 吗？`,
+                    })
+                    dialog.show(async () => {
+                      const request = MyRequest(
+                        new CommonAPI(CommonAppApis.AppGroupDelete, appInfo.appid, item.groupId)
+                      )
+                      await request.quickSend()
+                      message.success(`已删除`)
+                      setVersion(version + 1)
+                    })
                   }}
-                  trigger={
-                    <Button danger type='link'>
-                      删除
-                    </Button>
-                  }
-                />
+                >
+                  删除
+                </Button>
               </Space>
             ),
           },

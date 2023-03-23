@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { MyRequest } from '@fangcha/auth-react'
 import { Breadcrumb, Button, Divider, message, Modal, Space, Spin, Tag } from 'antd'
-import { TableView } from '@fangcha/react'
+import { ConfirmDialog, TableView } from '@fangcha/react'
 import { PageResult } from '@fangcha/tools'
 import { Link, useParams } from 'react-router-dom'
 import { P_AccessInfo, P_AppInfo } from '@fangcha/account-models'
 import { CommonAPI } from '@fangcha/app-request'
 import { CommonAppApis } from '@web/sso-common/core-api'
-import { ConfirmDialog } from '@fangcha/react'
-import { SsoClientModel } from '@fangcha/sso-models'
 
 export const AppAccessListView: React.FC = () => {
   const { appid = '' } = useParams()
@@ -105,22 +103,25 @@ export const AppAccessListView: React.FC = () => {
             key: 'action',
             render: (item: P_AccessInfo) => (
               <Space size='small'>
-                <ConfirmDialog
-                  title='请确认'
-                  content={`确定要删除吗？`}
-                  alertType='error'
-                  onSubmit={async () => {
-                    const request = MyRequest(new CommonAPI(CommonAppApis.AppAccessDelete, appInfo.appid, item.accessId))
-                    await request.quickSend()
-                    message.success(`已成功删除密钥`)
-                    setVersion(version + 1)
+                <Button
+                  danger
+                  type='link'
+                  onClick={() => {
+                    const dialog = new ConfirmDialog({
+                      content: `确定要删除吗？`,
+                    })
+                    dialog.show(async () => {
+                      const request = MyRequest(
+                        new CommonAPI(CommonAppApis.AppAccessDelete, appInfo.appid, item.accessId)
+                      )
+                      await request.quickSend()
+                      message.success(`已成功删除密钥`)
+                      setVersion(version + 1)
+                    })
                   }}
-                  trigger={
-                    <Button danger type='link'>
-                      删除
-                    </Button>
-                  }
-                />
+                >
+                  删除
+                </Button>
               </Space>
             ),
           },

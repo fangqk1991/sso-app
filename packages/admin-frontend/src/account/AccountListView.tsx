@@ -2,13 +2,11 @@ import React, { useState } from 'react'
 import { MyRequest } from '@fangcha/auth-react'
 import { Button, Divider, message, Space } from 'antd'
 import { Admin_AccountApis } from '@web/sso-common/admin-api'
-import { TableView } from '@fangcha/react'
+import { ConfirmDialog, SimpleInputDialog, TableView } from '@fangcha/react'
 import { PageResult } from '@fangcha/tools'
 import { AccountFormDialog } from './AccountFormDialog'
 import { CarrierType, FullAccountModel } from '@fangcha/account-models'
-import { SimpleInputDialog } from '@fangcha/react'
 import { CommonAPI } from '@fangcha/app-request'
-import { ConfirmDialog } from '@fangcha/react'
 
 export const AccountListView: React.FC = () => {
   const [version, setVersion] = useState(0)
@@ -40,24 +38,25 @@ export const AccountListView: React.FC = () => {
               <>
                 <b>{item.email}</b>
                 {item.email && (
-                  <ConfirmDialog
-                    title='请确认'
-                    content={`确定解绑此账号 Email[${item.email}] 吗`}
-                    alertType='error'
-                    onSubmit={async () => {
-                      const request = MyRequest(
-                        new CommonAPI(Admin_AccountApis.AccountCarrierUnlink, item.accountUid, CarrierType.Email)
-                      )
-                      await request.quickSend()
-                      message.success('解绑成功')
-                      setVersion(version + 1)
+                  <Button
+                    danger
+                    type='link'
+                    onClick={() => {
+                      const dialog = new ConfirmDialog({
+                        content: `确定解绑此账号 Email[${item.email}] 吗`,
+                      })
+                      dialog.show(async () => {
+                        const request = MyRequest(
+                          new CommonAPI(Admin_AccountApis.AccountCarrierUnlink, item.accountUid, CarrierType.Email)
+                        )
+                        await request.quickSend()
+                        message.success('解绑成功')
+                        setVersion(version + 1)
+                      })
                     }}
-                    trigger={
-                      <Button danger type='link'>
-                        解绑
-                      </Button>
-                    }
-                  />
+                  >
+                    解绑
+                  </Button>
                 )}
 
                 <br />
@@ -80,36 +79,49 @@ export const AccountListView: React.FC = () => {
             key: 'action',
             render: (item: FullAccountModel) => (
               <Space size='small'>
-                <SimpleInputDialog
-                  title='输入新邮箱'
-                  content={item.email}
-                  onSubmit={async (content) => {
-                    const request = MyRequest(
-                      new CommonAPI(Admin_AccountApis.AccountCarrierUpdate, item.accountUid, CarrierType.Email)
-                    )
-                    request.setBodyData({
-                      carrierUid: content,
+                <Button
+                  type='link'
+                  onClick={() => {
+                    const dialog = new SimpleInputDialog({
+                      title: '输入新邮箱',
+                      curValue: item.email,
                     })
-                    await request.quickSend()
-                    message.success('变更成功')
-                    setVersion(version + 1)
-                  }}
-                  trigger={<Button type='link'>变更邮箱</Button>}
-                />
-                <SimpleInputDialog
-                  title='输入新密码'
-                  type='password'
-                  onSubmit={async (content) => {
-                    const request = MyRequest(new CommonAPI(Admin_AccountApis.AccountPasswordReset, item.accountUid))
-                    request.setBodyData({
-                      newPassword: content,
+                    dialog.show(async (content) => {
+                      const request = MyRequest(
+                        new CommonAPI(Admin_AccountApis.AccountCarrierUpdate, item.accountUid, CarrierType.Email)
+                      )
+                      request.setBodyData({
+                        carrierUid: content,
+                      })
+                      await request.quickSend()
+                      message.success('变更成功')
+                      setVersion(version + 1)
                     })
-                    await request.quickSend()
-                    message.success('重置成功')
-                    setVersion(version + 1)
                   }}
-                  trigger={<Button type='link'>重置密码</Button>}
-                />
+                >
+                  变更邮箱
+                </Button>
+
+                <Button
+                  type='link'
+                  onClick={() => {
+                    const dialog = new SimpleInputDialog({
+                      title: '输入新密码',
+                      type: 'password',
+                    })
+                    dialog.show(async (content) => {
+                      const request = MyRequest(new CommonAPI(Admin_AccountApis.AccountPasswordReset, item.accountUid))
+                      request.setBodyData({
+                        newPassword: content,
+                      })
+                      await request.quickSend()
+                      message.success('重置成功')
+                      setVersion(version + 1)
+                    })
+                  }}
+                >
+                  重置密码
+                </Button>
               </Space>
             ),
           },

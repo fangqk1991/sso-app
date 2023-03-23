@@ -5,10 +5,8 @@ import { CommonAppApis } from '@web/sso-common/core-api'
 import { Button, Card, Divider, message, Space, Tag } from 'antd'
 import { GroupFragmentProtocol } from './GroupFragmentProtocol'
 import { P_MemberInfo } from '@fangcha/account-models'
-import { ConfirmDialog } from '@fangcha/react'
-import { SimplePickerDialog } from '@fangcha/react'
+import { ConfirmDialog, SimpleInputDialog, SimplePickerDialog } from '@fangcha/react'
 import { NumBoolDescriptor } from '@fangcha/tools'
-import { SimpleInputDialog } from '@fangcha/react'
 
 export const GroupMemberFragment: GroupFragmentProtocol = ({ appInfo, groupInfo, onGroupInfoChanged }) => {
   const [memberList, setMemberList] = useState<P_MemberInfo[]>([])
@@ -23,25 +21,31 @@ export const GroupMemberFragment: GroupFragmentProtocol = ({ appInfo, groupInfo,
 
   return (
     <>
-      <SimpleInputDialog
-        title='批量添加成员'
-        type={'textarea'}
-        description={'多个成员请用 , 或换行分割'}
-        onSubmit={async (content) => {
-          const memberList = content
-            .split(/[,;\n]/)
-            .map((item) => item.trim())
-            .filter((item) => !!item)
-          const request = MyRequest(
-            new CommonAPI(CommonAppApis.AppGroupMemberCreate, groupInfo.appid, groupInfo.groupId)
-          )
-          request.setBodyData({ memberList: memberList })
-          await request.quickSend()
-          message.success('添加成功')
-          onGroupInfoChanged()
+      <Button
+        type='primary'
+        onClick={() => {
+          const dialog = new SimpleInputDialog({
+            title: '批量添加成员',
+            type: 'textarea',
+            description: '多个成员请用 , 或换行分割',
+          })
+          dialog.show(async (content) => {
+            const memberList = content
+              .split(/[,;\n]/)
+              .map((item) => item.trim())
+              .filter((item) => !!item)
+            const request = MyRequest(
+              new CommonAPI(CommonAppApis.AppGroupMemberCreate, groupInfo.appid, groupInfo.groupId)
+            )
+            request.setBodyData({ memberList: memberList })
+            await request.quickSend()
+            message.success('添加成功')
+            onGroupInfoChanged()
+          })
         }}
-        trigger={<Button type='primary'>添加成员</Button>}
-      />
+      >
+        添加成员
+      </Button>
       <Divider />
       <div>
         {memberList.map((item) => (
@@ -52,41 +56,49 @@ export const GroupMemberFragment: GroupFragmentProtocol = ({ appInfo, groupInfo,
             </Space>
             <br />
             <Space size={'small'}>
-              <SimplePickerDialog
-                title={`将 ${item.member} 设为管理员`}
-                options={NumBoolDescriptor.options()}
-                curValue={item.isAdmin}
-                onSubmit={async (val) => {
-                  const request = MyRequest(
-                    new CommonAPI(CommonAppApis.AppGroupMemberUpdate, groupInfo.appid, groupInfo.groupId, item.member)
-                  )
-                  request.setBodyData({
-                    isAdmin: val,
+              <Button
+                type='link'
+                onClick={() => {
+                  const dialog = new SimplePickerDialog({
+                    curValue: item.isAdmin,
+                    options: NumBoolDescriptor.options(),
+                    title: `将 ${item.member} 设为管理员`,
                   })
-                  await request.quickSend()
-                  message.success(`设置成功`)
-                  onGroupInfoChanged()
+                  dialog.show(async (val) => {
+                    const request = MyRequest(
+                      new CommonAPI(CommonAppApis.AppGroupMemberUpdate, groupInfo.appid, groupInfo.groupId, item.member)
+                    )
+                    request.setBodyData({
+                      isAdmin: val,
+                    })
+                    await request.quickSend()
+                    message.success(`设置成功`)
+                    onGroupInfoChanged()
+                  })
                 }}
-                trigger={<Button type='link'>编辑</Button>}
-              />
-              <ConfirmDialog
-                title='请确认'
-                content={`确定要移除用户 ${item.member} 吗？`}
-                alertType='error'
-                onSubmit={async () => {
-                  const request = MyRequest(
-                    new CommonAPI(CommonAppApis.AppGroupMemberDelete, groupInfo.appid, groupInfo.groupId, item.member)
-                  )
-                  await request.quickSend()
-                  message.success(`移除成功`)
-                  onGroupInfoChanged()
+              >
+                编辑
+              </Button>
+
+              <Button
+                danger
+                type='link'
+                onClick={() => {
+                  const dialog = new ConfirmDialog({
+                    content: `确定要移除用户 ${item.member} 吗？`,
+                  })
+                  dialog.show(async () => {
+                    const request = MyRequest(
+                      new CommonAPI(CommonAppApis.AppGroupMemberDelete, groupInfo.appid, groupInfo.groupId, item.member)
+                    )
+                    await request.quickSend()
+                    message.success(`移除成功`)
+                    onGroupInfoChanged()
+                  })
                 }}
-                trigger={
-                  <Button danger type='link'>
-                    移除
-                  </Button>
-                }
-              />
+              >
+                移除
+              </Button>
             </Space>
           </Card>
         ))}

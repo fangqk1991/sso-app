@@ -2,15 +2,13 @@ import React, { useState } from 'react'
 import { MyRequest } from '@fangcha/auth-react'
 import { Button, Divider, message, Space, Tag } from 'antd'
 import { Admin_AppApis } from '@web/sso-common/admin-api'
-import { TableView } from '@fangcha/react'
+import { ConfirmDialog, JsonEditorDialog, TableView } from '@fangcha/react'
 import { PageResult } from '@fangcha/tools'
 import { Link } from 'react-router-dom'
 import { AppTypeDescriptor, P_AppInfo } from '@fangcha/account-models'
 import { AppFormDialog } from './AppFormDialog'
 import { CommonAPI } from '@fangcha/app-request'
 import { CommonAppApis } from '@web/sso-common/core-api'
-import { ConfirmDialog } from '@fangcha/react'
-import { JsonEditorDialog } from '@fangcha/react'
 
 export const AppListView: React.FC = () => {
   const [version, setVersion] = useState(0)
@@ -30,17 +28,22 @@ export const AppListView: React.FC = () => {
           }}
           trigger={<Button type='primary'>创建应用</Button>}
         />
-        <JsonEditorDialog
-          title='导入应用'
-          onSubmit={async (params) => {
-            const request = MyRequest(Admin_AppApis.AppFullCreate)
-            request.setBodyData(params)
-            await request.quickSend()
-            message.success('创建成功')
-            setVersion(version + 1)
+        <Button
+          onClick={() => {
+            const dialog = new JsonEditorDialog({
+              title: '导入应用',
+            })
+            dialog.show(async (params) => {
+              const request = MyRequest(Admin_AppApis.AppFullCreate)
+              request.setBodyData(params)
+              await request.quickSend()
+              message.success('创建成功')
+              setVersion(version + 1)
+            })
           }}
-          trigger={<Button>导入应用</Button>}
-        />
+        >
+          导入
+        </Button>
       </Space>
       <Divider />
       <TableView
@@ -106,22 +109,24 @@ export const AppListView: React.FC = () => {
                   }}
                   trigger={<Button type='link'>编辑应用</Button>}
                 />
-                <ConfirmDialog
-                  title='请确认'
-                  content={`确定要删除应用 ${item.name}[${item.appid}] 吗？`}
-                  alertType='error'
-                  onSubmit={async () => {
-                    const request = MyRequest(new CommonAPI(Admin_AppApis.AppDelete, item.appid))
-                    await request.quickSend()
-                    message.success(`已成功删除应用 ${item.name}`)
-                    setVersion(version + 1)
+
+                <Button
+                  danger
+                  type='link'
+                  onClick={() => {
+                    const dialog = new ConfirmDialog({
+                      content: `确定要删除应用 ${item.name}[${item.appid}] 吗？`,
+                    })
+                    dialog.show(async () => {
+                      const request = MyRequest(new CommonAPI(Admin_AppApis.AppDelete, item.appid))
+                      await request.quickSend()
+                      message.success(`已成功删除应用 ${item.name}`)
+                      setVersion(version + 1)
+                    })
                   }}
-                  trigger={
-                    <Button danger type='link'>
-                      删除
-                    </Button>
-                  }
-                />
+                >
+                  删除
+                </Button>
               </Space>
             ),
           },

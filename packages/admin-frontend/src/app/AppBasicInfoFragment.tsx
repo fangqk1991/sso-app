@@ -49,13 +49,19 @@ export const AppBasicInfoFragment: AppFragmentProtocol = ({ appInfo, onAppInfoCh
       </Descriptions>
       <Divider />
       <Space>
-        <TextPreviewDialog
-          loadData={async () => {
-            const request = MyRequest(new CommonAPI(CommonAppApis.AppOpenInfoPreview, appInfo.appid))
-            return await request.quickSend()
+        <Button
+          onClick={() => {
+            const dialog = new TextPreviewDialog({
+              loadData: async () => {
+                const request = MyRequest(new CommonAPI(CommonAppApis.AppOpenInfoPreview, appInfo.appid))
+                return await request.quickSend()
+              },
+            })
+            dialog.show()
           }}
-          trigger={<Button>预览数据</Button>}
-        />
+        >
+          预览数据
+        </Button>
         <Link to={{ pathname: `/v1/app/${appInfo.appid}/access` }}>
           <Button type={'primary'}>密钥管理</Button>
         </Link>
