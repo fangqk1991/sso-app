@@ -2,25 +2,9 @@ import { ServiceProxy } from '@fangcha/app-request-extensions'
 import { FeishuConfig } from './FeishuConfig'
 import { ApiOptions, axiosBuilder } from '@fangcha/app-request'
 import { EmployeePageDataResponse, FeishuEmployee, TenantAccessTokenResponse } from './FeishuModels'
-
-const FeishuApis = {
-  TenantAccessTokenRequest: {
-    method: 'POST',
-    route: '/open-apis/auth/v3/tenant_access_token/internal',
-    description: '自建应用获取 tenant_access_token',
-  },
-  EmployeePageDataGet: {
-    method: 'GET',
-    route: '/open-apis/ehr/v1/employees',
-    description: '批量获取员工花名册信息',
-  },
-}
+import { FeishuApis } from './FeishuApis'
 
 export class FeishuClient extends ServiceProxy<FeishuConfig> {
-  // constructor(config: FeishuConfig, observerClass?: { new (requestId?: string): RequestFollower }) {
-  //   super(config, observerClass)
-  // }
-
   public makeRequest(commonApi: ApiOptions) {
     const request = axiosBuilder()
       .setBaseURL(this._config.urlBase)
