@@ -10,4 +10,14 @@ describe('Test FeishuClient.test.ts', () => {
     const accessToken = await feishuClient.requestTenantAccessToken()
     loggerForDev.info(accessToken)
   })
+
+  it(`getEmployeePageData`, async () => {
+    const pageData = await feishuClient.getEmployeePageData()
+    console.info(JSON.stringify(pageData, null, 2))
+  })
+
+  it(`getAllEmployees`, async () => {
+    const items = await feishuClient.getAllEmployees()
+    console.info(JSON.stringify(items, null, 2))
+  })
 })
