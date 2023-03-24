@@ -13,7 +13,6 @@ AuthSdkHelper.defaultRedirectUri = '/'
 
 export const App: React.FC = () => {
   const sessionCtx = useSession()
-
   if (!sessionCtx.session.userInfo) {
     if (sessionCtx.session.config.authMode === AuthMode.Simple) {
       return (
@@ -33,7 +32,7 @@ export const App: React.FC = () => {
       window.location.href = `${WebAuthApis.RedirectLogin.route}?redirectUri=${encodeURIComponent(
         window.location.href
       )}`
-      return <LoadingView text='跳转中……' />
+      return <LoadingView style={{ height: '100vh' }} text='跳转中……' />
     }
   }
 
