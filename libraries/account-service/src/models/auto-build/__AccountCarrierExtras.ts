@@ -3,22 +3,22 @@ import { DBProtocolV2, FCDatabase } from 'fc-sql'
 
 const _cols: string[] = [
   // prettier-ignore
-  'carrier_uid',
   'carrier_type',
+  'carrier_uid',
   'extras_info',
   'create_time',
   'update_time',
 ]
 const _insertableCols: string[] = [
   // prettier-ignore
-  'carrier_uid',
   'carrier_type',
+  'carrier_uid',
   'extras_info',
 ]
 const _modifiableCols: string[] = [
   // prettier-ignore
-  'carrier_uid',
   'carrier_type',
+  'carrier_uid',
   'extras_info',
   'create_time',
 ]
@@ -39,13 +39,13 @@ const dbOptions = {
 
 export class __AccountCarrierExtras extends FeedBase {
   /**
+   * @description [enum('Email','Phone','Google','GitHub','Wechat','Cocos')] 账号载体（登录方式）
+   */
+  public carrierType!: string | null
+  /**
    * @description [varchar(64)] 载体 ID
    */
   public carrierUid!: string
-  /**
-   * @description [varchar(16)] 账号载体（登录方式）
-   */
-  public carrierType!: string
   /**
    * @description [mediumtext] 附加信息
    */
@@ -92,13 +92,14 @@ export class __AccountCarrierExtras extends FeedBase {
 
   public fc_defaultInit() {
     // This function is invoked by constructor of FCModel
+    this.carrierType = null
     this.extrasInfo = ''
   }
 
   public fc_propertyMapper() {
     return {
-      carrierUid: 'carrier_uid',
       carrierType: 'carrier_type',
+      carrierUid: 'carrier_uid',
       extrasInfo: 'extras_info',
       createTime: 'create_time',
       updateTime: 'update_time',

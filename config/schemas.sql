@@ -105,9 +105,10 @@ CREATE TABLE IF NOT EXISTS fc_app
   DEFAULT CHARSET = utf8mb4
   COLLATE utf8mb4_general_ci;
 
-INSERT INTO `fc_app` (`appid`, `app_type`, `name`, `remarks`, `config_info`, `permission_info`, `power_users`, `author`) VALUES
-    ('user-system', 'Admin', 'User System', '初始管理员为 *，表示所有人均具有最高权限，请及时移除', '{}', '{"permissionKey":"*","name":"所有权限","description":"所有权限","children":[]}', '*', '*')
-    ON DUPLICATE KEY UPDATE `appid` = VALUES(`appid`);
+INSERT INTO `fc_app` (`appid`, `app_type`, `name`, `remarks`, `config_info`, `permission_info`, `power_users`, `author`)
+VALUES ('user-system', 'Admin', 'User System', '初始管理员为 *，表示所有人均具有最高权限，请及时移除', '{}',
+        '{"permissionKey":"*","name":"所有权限","description":"所有权限","children":[]}', '*', '*')
+ON DUPLICATE KEY UPDATE `appid` = VALUES(`appid`);
 
 CREATE TABLE IF NOT EXISTS fc_app_access
 (
@@ -190,6 +191,66 @@ CREATE TABLE IF NOT EXISTS fc_group_permission
     update_time    TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     UNIQUE (group_id, permission_key),
     INDEX (permission_key)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE utf8mb4_general_ci;
+
+
+CREATE TABLE IF NOT EXISTS fc_feishu_department
+(
+    _rid                      BIGINT UNSIGNED           NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    is_stash                  TINYINT                   NOT NULL DEFAULT '0' COMMENT '是否为数据副本',
+    open_department_id        VARCHAR(40)               NOT NULL COLLATE ascii_bin COMMENT '飞书 open_department_id',
+    department_id             VARCHAR(40)               NOT NULL COLLATE ascii_bin COMMENT '飞书 department_id',
+    parent_open_department_id VARCHAR(40)               NOT NULL COLLATE ascii_bin COMMENT '父级 open_department_id',
+    department_name           TEXT COMMENT '部门名称',
+    path                      TEXT COLLATE ascii_bin COMMENT '完整路径',
+    hash                      CHAR(8) COLLATE ascii_bin NOT NULL DEFAULT '' COMMENT 'MD5 摘要值',
+    raw_data_str              MEDIUMTEXT COMMENT '原始信息',
+    create_time               TIMESTAMP                 NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    update_time               TIMESTAMP                 NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    UNIQUE (is_stash, open_department_id),
+    INDEX (is_stash),
+    INDEX (open_department_id),
+    INDEX (department_name(127)),
+    INDEX (parent_open_department_id),
+    INDEX (path(768))
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE utf8mb4_general_ci;
+
+CREATE TABLE IF NOT EXISTS fc_feishu_user
+(
+    _rid         BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    user_id      VARCHAR(40)     NOT NULL COLLATE ascii_bin COMMENT '飞书 user_id',
+    open_id      VARCHAR(40)     NOT NULL COLLATE ascii_bin COMMENT '飞书 open_id',
+    union_id     VARCHAR(40)     NOT NULL COLLATE ascii_bin COMMENT '飞书 union_id',
+    email        VARCHAR(127)    NOT NULL COMMENT '用户邮箱',
+    name         VARCHAR(127)    NOT NULL DEFAULT '' COMMENT '企业微信姓名',
+    raw_data_str MEDIUMTEXT COMMENT '原始信息',
+    create_time  TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    update_time  TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    UNIQUE (user_id),
+    INDEX (name)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE utf8mb4_general_ci;
+
+CREATE TABLE IF NOT EXISTS fc_feishu_department_member
+(
+    _rid               BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    is_stash           TINYINT         NOT NULL DEFAULT '0' COMMENT '是否为数据副本',
+    open_department_id VARCHAR(40)     NOT NULL COLLATE ascii_bin COMMENT '飞书 open_department_id',
+    user_id            VARCHAR(40)     NOT NULL COLLATE ascii_bin COMMENT '飞书 user_id',
+    is_leader          TINYINT         NOT NULL DEFAULT 0 COMMENT '是否为组长',
+    create_time        TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    update_time        TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    FOREIGN KEY (is_stash, open_department_id) REFERENCES fc_feishu_department (is_stash, open_department_id) ON DELETE CASCADE ON UPDATE RESTRICT,
+    UNIQUE (is_stash, open_department_id, user_id),
+    INDEX (is_stash),
+    INDEX (open_department_id),
+    INDEX (user_id),
+    INDEX (is_leader)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE utf8mb4_general_ci;

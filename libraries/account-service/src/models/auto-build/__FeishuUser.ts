@@ -3,23 +3,31 @@ import { DBProtocolV2, FCDatabase } from 'fc-sql'
 
 const _cols: string[] = [
   // prettier-ignore
-  'carrier_type',
-  'carrier_uid',
-  'account_uid',
+  'user_id',
+  'open_id',
+  'union_id',
+  'email',
+  'name',
+  'raw_data_str',
   'create_time',
   'update_time',
 ]
 const _insertableCols: string[] = [
   // prettier-ignore
-  'carrier_type',
-  'carrier_uid',
-  'account_uid',
+  'user_id',
+  'open_id',
+  'union_id',
+  'email',
+  'name',
+  'raw_data_str',
 ]
 const _modifiableCols: string[] = [
   // prettier-ignore
-  'carrier_type',
-  'carrier_uid',
-  'account_uid',
+  'open_id',
+  'union_id',
+  'email',
+  'name',
+  'raw_data_str',
   'create_time',
 ]
 const _timestampTypeCols: string[] = [
@@ -29,27 +37,39 @@ const _timestampTypeCols: string[] = [
 ]
 
 const dbOptions = {
-  table: 'fc_account_carrier',
-  primaryKey: ['carrier_type', 'account_uid'],
+  table: 'fc_feishu_user',
+  primaryKey: 'user_id',
   cols: _cols,
   insertableCols: _insertableCols,
   modifiableCols: _modifiableCols,
   timestampTypeCols: _timestampTypeCols,
 }
 
-export class __AccountCarrier extends FeedBase {
+export class __FeishuUser extends FeedBase {
   /**
-   * @description [enum('Email','Phone','Google','GitHub','Wechat','Cocos')] 账号载体（登录方式）
+   * @description [varchar(40)] 飞书 user_id
    */
-  public carrierType!: string | null
+  public userId!: string
   /**
-   * @description [varchar(64)] 载体 ID
+   * @description [varchar(40)] 飞书 open_id
    */
-  public carrierUid!: string
+  public openId!: string
   /**
-   * @description [char(32)] 账号 UUID，-> account_v2.account_uid
+   * @description [varchar(40)] 飞书 union_id
    */
-  public accountUid!: string
+  public unionId!: string
+  /**
+   * @description [varchar(127)] 用户邮箱
+   */
+  public email!: string
+  /**
+   * @description [varchar(127)] 企业微信姓名
+   */
+  public name!: string
+  /**
+   * @description [mediumtext] 原始信息
+   */
+  public rawDataStr!: string
   /**
    * @description [timestamp] 创建时间
    */
@@ -92,14 +112,18 @@ export class __AccountCarrier extends FeedBase {
 
   public fc_defaultInit() {
     // This function is invoked by constructor of FCModel
-    this.carrierType = null
+    this.name = ''
+    this.rawDataStr = ''
   }
 
   public fc_propertyMapper() {
     return {
-      carrierType: 'carrier_type',
-      carrierUid: 'carrier_uid',
-      accountUid: 'account_uid',
+      userId: 'user_id',
+      openId: 'open_id',
+      unionId: 'union_id',
+      email: 'email',
+      name: 'name',
+      rawDataStr: 'raw_data_str',
       createTime: 'create_time',
       updateTime: 'update_time',
     }

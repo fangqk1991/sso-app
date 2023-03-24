@@ -1,12 +1,12 @@
 import { DBModelSchema, ModelGenerator } from '@fangcha/generator'
 import { SafeTask } from '@fangcha/tools'
-import { DemoDBOptions } from './db-config'
+import { GlobalAppConfig } from 'fc-config'
 
 const modelTmpl = `${__dirname}/model.tmpl.ejs`
 const extendTmpl = `${__dirname}/class.extends.model.ejs`
 
 const generator = new ModelGenerator({
-  dbConfig: DemoDBOptions,
+  dbConfig: GlobalAppConfig.FangchaAuth.mysql.ssoDB,
   tmplFile: modelTmpl,
   extTmplFile: extendTmpl,
 })
@@ -35,6 +35,32 @@ const generalDataSchemas: DBModelSchema[] = [
     outputFile: `${__dirname}/../src/models/auto-build/__AccountCarrierExtras.ts`,
     extFile: `${__dirname}/../src/models/account/_AccountCarrierExtras.ts`,
     primaryKey: ['carrier_uid', 'carrier_type'],
+    reloadOnAdded: true,
+    reloadOnUpdated: true,
+  },
+  {
+    generator: generator,
+    tableName: 'fc_feishu_department',
+    outputFile: `${__dirname}/../src/models/auto-build/__FeishuDepartment.ts`,
+    extFile: `${__dirname}/../src/models/feishu/_FeishuDepartment.ts`,
+    primaryKey: ['is_stash', 'open_department_id'],
+    reloadOnAdded: true,
+    reloadOnUpdated: true,
+  },
+  {
+    generator: generator,
+    tableName: 'fc_feishu_user',
+    outputFile: `${__dirname}/../src/models/auto-build/__FeishuUser.ts`,
+    extFile: `${__dirname}/../src/models/feishu/_FeishuUser.ts`,
+    reloadOnAdded: true,
+    reloadOnUpdated: true,
+  },
+  {
+    generator: generator,
+    tableName: 'fc_feishu_department_member',
+    outputFile: `${__dirname}/../src/models/auto-build/__FeishuDepartmentMember.ts`,
+    extFile: `${__dirname}/../src/models/feishu/_FeishuDepartmentMember.ts`,
+    primaryKey: ['is_stash', 'open_department_id', 'user_id'],
     reloadOnAdded: true,
     reloadOnUpdated: true,
   },

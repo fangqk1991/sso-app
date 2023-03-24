@@ -3,23 +3,38 @@ import { DBProtocolV2, FCDatabase } from 'fc-sql'
 
 const _cols: string[] = [
   // prettier-ignore
-  'carrier_type',
-  'carrier_uid',
-  'account_uid',
+  'is_stash',
+  'open_department_id',
+  'department_id',
+  'parent_open_department_id',
+  'department_name',
+  'path',
+  'hash',
+  'raw_data_str',
   'create_time',
   'update_time',
 ]
 const _insertableCols: string[] = [
   // prettier-ignore
-  'carrier_type',
-  'carrier_uid',
-  'account_uid',
+  'is_stash',
+  'open_department_id',
+  'department_id',
+  'parent_open_department_id',
+  'department_name',
+  'path',
+  'hash',
+  'raw_data_str',
 ]
 const _modifiableCols: string[] = [
   // prettier-ignore
-  'carrier_type',
-  'carrier_uid',
-  'account_uid',
+  'is_stash',
+  'open_department_id',
+  'department_id',
+  'parent_open_department_id',
+  'department_name',
+  'path',
+  'hash',
+  'raw_data_str',
   'create_time',
 ]
 const _timestampTypeCols: string[] = [
@@ -29,27 +44,47 @@ const _timestampTypeCols: string[] = [
 ]
 
 const dbOptions = {
-  table: 'fc_account_carrier',
-  primaryKey: ['carrier_type', 'account_uid'],
+  table: 'fc_feishu_department',
+  primaryKey: ['is_stash', 'open_department_id'],
   cols: _cols,
   insertableCols: _insertableCols,
   modifiableCols: _modifiableCols,
   timestampTypeCols: _timestampTypeCols,
 }
 
-export class __AccountCarrier extends FeedBase {
+export class __FeishuDepartment extends FeedBase {
   /**
-   * @description [enum('Email','Phone','Google','GitHub','Wechat','Cocos')] 账号载体（登录方式）
+   * @description [tinyint] 是否为数据副本
    */
-  public carrierType!: string | null
+  public isStash!: number
   /**
-   * @description [varchar(64)] 载体 ID
+   * @description [varchar(40)] 飞书 open_department_id
    */
-  public carrierUid!: string
+  public openDepartmentId!: string
   /**
-   * @description [char(32)] 账号 UUID，-> account_v2.account_uid
+   * @description [varchar(40)] 飞书 department_id
    */
-  public accountUid!: string
+  public departmentId!: string
+  /**
+   * @description [varchar(40)] 父级 open_department_id
+   */
+  public parentOpenDepartmentId!: string
+  /**
+   * @description [text] 部门名称
+   */
+  public departmentName!: string
+  /**
+   * @description [text] 完整路径
+   */
+  public path!: string
+  /**
+   * @description [char(8)] MD5 摘要值
+   */
+  public hash!: string
+  /**
+   * @description [mediumtext] 原始信息
+   */
+  public rawDataStr!: string
   /**
    * @description [timestamp] 创建时间
    */
@@ -92,14 +127,23 @@ export class __AccountCarrier extends FeedBase {
 
   public fc_defaultInit() {
     // This function is invoked by constructor of FCModel
-    this.carrierType = null
+    this.isStash = 0
+    this.departmentName = ''
+    this.path = ''
+    this.hash = ''
+    this.rawDataStr = ''
   }
 
   public fc_propertyMapper() {
     return {
-      carrierType: 'carrier_type',
-      carrierUid: 'carrier_uid',
-      accountUid: 'account_uid',
+      isStash: 'is_stash',
+      openDepartmentId: 'open_department_id',
+      departmentId: 'department_id',
+      parentOpenDepartmentId: 'parent_open_department_id',
+      departmentName: 'department_name',
+      path: 'path',
+      hash: 'hash',
+      rawDataStr: 'raw_data_str',
       createTime: 'create_time',
       updateTime: 'update_time',
     }

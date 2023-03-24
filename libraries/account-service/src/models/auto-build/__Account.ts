@@ -48,7 +48,7 @@ export class __Account extends FeedBase {
    */
   public accountUid!: string
   /**
-   * @description [varchar(64)] bcrypt.hash(password, salt)
+   * @description [varchar(128)] (兼容旧版) 密码
    */
   public password!: string
   /**

@@ -3,23 +3,26 @@ import { DBProtocolV2, FCDatabase } from 'fc-sql'
 
 const _cols: string[] = [
   // prettier-ignore
-  'carrier_type',
-  'carrier_uid',
-  'account_uid',
+  'is_stash',
+  'open_department_id',
+  'user_id',
+  'is_leader',
   'create_time',
   'update_time',
 ]
 const _insertableCols: string[] = [
   // prettier-ignore
-  'carrier_type',
-  'carrier_uid',
-  'account_uid',
+  'is_stash',
+  'open_department_id',
+  'user_id',
+  'is_leader',
 ]
 const _modifiableCols: string[] = [
   // prettier-ignore
-  'carrier_type',
-  'carrier_uid',
-  'account_uid',
+  'is_stash',
+  'open_department_id',
+  'user_id',
+  'is_leader',
   'create_time',
 ]
 const _timestampTypeCols: string[] = [
@@ -29,27 +32,31 @@ const _timestampTypeCols: string[] = [
 ]
 
 const dbOptions = {
-  table: 'fc_account_carrier',
-  primaryKey: ['carrier_type', 'account_uid'],
+  table: 'fc_feishu_department_member',
+  primaryKey: ['is_stash', 'open_department_id', 'user_id'],
   cols: _cols,
   insertableCols: _insertableCols,
   modifiableCols: _modifiableCols,
   timestampTypeCols: _timestampTypeCols,
 }
 
-export class __AccountCarrier extends FeedBase {
+export class __FeishuDepartmentMember extends FeedBase {
   /**
-   * @description [enum('Email','Phone','Google','GitHub','Wechat','Cocos')] 账号载体（登录方式）
+   * @description [tinyint] 是否为数据副本
    */
-  public carrierType!: string | null
+  public isStash!: number
   /**
-   * @description [varchar(64)] 载体 ID
+   * @description [varchar(40)] 飞书 open_department_id
    */
-  public carrierUid!: string
+  public openDepartmentId!: string
   /**
-   * @description [char(32)] 账号 UUID，-> account_v2.account_uid
+   * @description [varchar(40)] 飞书 user_id
    */
-  public accountUid!: string
+  public userId!: string
+  /**
+   * @description [tinyint] 是否为组长
+   */
+  public isLeader!: number
   /**
    * @description [timestamp] 创建时间
    */
@@ -92,14 +99,16 @@ export class __AccountCarrier extends FeedBase {
 
   public fc_defaultInit() {
     // This function is invoked by constructor of FCModel
-    this.carrierType = null
+    this.isStash = 0
+    this.isLeader = 0
   }
 
   public fc_propertyMapper() {
     return {
-      carrierType: 'carrier_type',
-      carrierUid: 'carrier_uid',
-      accountUid: 'account_uid',
+      isStash: 'is_stash',
+      openDepartmentId: 'open_department_id',
+      userId: 'user_id',
+      isLeader: 'is_leader',
       createTime: 'create_time',
       updateTime: 'update_time',
     }
