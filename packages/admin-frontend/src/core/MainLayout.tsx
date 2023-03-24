@@ -3,10 +3,11 @@ import { PageContainer, ProLayout } from '@ant-design/pro-layout'
 import React from 'react'
 import { ConfigProvider, Dropdown } from 'antd'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
-import { AuthSdkHelper, useVisitorCtx } from '@fangcha/auth-react'
+import { AuthSdkHelper, useSession, useVisitorCtx } from '@fangcha/auth-react'
 import { useMenu } from './useMenu'
 
 export const MainLayout: React.FC = () => {
+  const sessionCtx = useSession()
   const visitorCtx = useVisitorCtx()
 
   const { userInfo } = visitorCtx
@@ -25,7 +26,7 @@ export const MainLayout: React.FC = () => {
     >
       <ProLayout
         logo={null}
-        title='SSO Admin'
+        title={sessionCtx.session.config.appName || 'SSO Admin'}
         fixSiderbar={true}
         layout='mix'
         splitMenus={false}
