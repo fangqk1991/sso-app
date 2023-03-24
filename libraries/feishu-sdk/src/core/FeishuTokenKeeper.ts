@@ -6,8 +6,8 @@ import { FeishuApis } from './FeishuApis'
 import { ChannelTask } from '@fangcha/tools'
 
 export class FeishuTokenKeeper extends ServiceProxy<FeishuConfig> {
-  public tenantAccessToken: string = ''
-  public expireTs: number = 0
+  private _tenantAccessToken: string = ''
+  private _expireTs: number = 0
   private _refreshTokenTask: ChannelTask<string>
 
   constructor(config: FeishuConfig, observerClass?: { new (requestId?: string): RequestFollower }) {
@@ -23,9 +23,9 @@ export class FeishuTokenKeeper extends ServiceProxy<FeishuConfig> {
         app_secret: this._config.appSecret,
       })
       const response = (await request.quickSend()) as TenantAccessTokenResponse
-      this.tenantAccessToken = response.tenant_access_token
-      this.expireTs = Date.now() + response.expire * 1000
-      return this.tenantAccessToken
+      this._tenantAccessToken = response.tenant_access_token
+      this._expireTs = Date.now() + response.expire * 1000
+      return this._tenantAccessToken
     })
   }
 
@@ -35,9 +35,9 @@ export class FeishuTokenKeeper extends ServiceProxy<FeishuConfig> {
 
   public async requireTenantAccessToken() {
     // 到期时间不足 60s
-    if (this.expireTs - Date.now() < 60000) {
+    if (this._expireTs - Date.now() < 60000) {
       await this.refreshTenantAccessToken()
     }
-    return this.tenantAccessToken
+    return this._tenantAccessToken
   }
 }

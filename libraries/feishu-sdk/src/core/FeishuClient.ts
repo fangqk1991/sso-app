@@ -1,36 +1,31 @@
-import { ServiceProxy } from '@fangcha/app-request-extensions'
+import { RequestFollower, ServiceProxy } from '@fangcha/app-request-extensions'
 import { FeishuConfig } from './FeishuConfig'
 import { ApiOptions, axiosBuilder } from '@fangcha/app-request'
-import { EmployeePageDataResponse, FeishuEmployee, TenantAccessTokenResponse } from './FeishuModels'
+import { EmployeePageDataResponse, FeishuEmployee } from './FeishuModels'
 import { FeishuApis } from './FeishuApis'
+import { FeishuTokenKeeper } from './FeishuTokenKeeper'
 
 export class FeishuClient extends ServiceProxy<FeishuConfig> {
-  public makeRequest(commonApi: ApiOptions) {
+  private _tokenKeeper: FeishuTokenKeeper
+
+  constructor(config: FeishuConfig, observerClass?: { new (requestId?: string): RequestFollower }) {
+    super(config, observerClass)
+    this._tokenKeeper = new FeishuTokenKeeper(config, observerClass)
+  }
+
+  public async makeRequest(commonApi: ApiOptions) {
+    const accessToken = await this._tokenKeeper.requireTenantAccessToken()
     const request = axiosBuilder()
       .setBaseURL(this._config.urlBase)
-      .addHeader('Authorization', `Bearer t-g1043oe2QO7PMSOQ5ZKFOLCBTL7EMXAKKNHRFNW3`)
+      .addHeader('Authorization', `Bearer ${accessToken}`)
       .setApiOptions(commonApi)
       .setTimeout(15000)
     this.onRequestMade(request)
     return request
   }
 
-  public async requestTenantAccessToken() {
-    const request = axiosBuilder()
-      .setBaseURL(this._config.urlBase)
-      .setApiOptions(FeishuApis.TenantAccessTokenRequest)
-      .setTimeout(15000)
-    this.onRequestMade(request)
-    request.setBodyData({
-      app_id: this._config.appid,
-      app_secret: this._config.appSecret,
-    })
-    const response = (await request.quickSend()) as TenantAccessTokenResponse
-    return response.tenant_access_token
-  }
-
   public async getEmployeePageData(params: { page_token?: string; page_size?: number } = {}) {
-    const request = this.makeRequest(FeishuApis.EmployeePageDataGet)
+    const request = await this.makeRequest(FeishuApis.EmployeePageDataGet)
     request.setQueryParams(params)
     const response = await request.quickSend<EmployeePageDataResponse>()
     return response.data
