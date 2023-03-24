@@ -63,6 +63,11 @@ module.exports = {
       signupAble: false,
       beianText: '',
     },
+    FeishuSDK: {
+      urlBase: 'https://open.feishu.cn',
+      appid: '<appid>',
+      appSecret: '<appSecret>',
+    },
   },
   UserSDK: {
     adminUserService: {
