@@ -23,9 +23,9 @@ export class FeishuServer {
   public readonly FeishuDepartmentMember!: { new (): _FeishuDepartmentMember } & typeof _FeishuDepartmentMember
   public readonly FeishuUser!: { new (): _FeishuUser } & typeof _FeishuUser
 
-  private readonly tableName_FeishuDepartment: string
-  private readonly tableName_FeishuDepartmentMember: string
-  private readonly tableName_FeishuUser: string
+  public readonly tableName_FeishuDepartment: string
+  public readonly tableName_FeishuDepartmentMember: string
+  public readonly tableName_FeishuUser: string
 
   constructor(options: Options) {
     this.options = options
