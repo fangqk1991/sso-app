@@ -1,6 +1,6 @@
 import { FeishuServer } from '@fangcha/account'
 import { FeishuClient } from '../core/FeishuClient'
-import { FeishuDepartment, FeishuDepartmentTree } from '../core/FeishuModels'
+import { FeishuDepartmentTree } from '../core/FeishuModels'
 import { SQLBulkAdder } from 'fc-sql'
 
 export class FeishuSync {
@@ -17,11 +17,11 @@ export class FeishuSync {
     const feishuClient = this.feishuClient
 
     const rootNode = await feishuClient.getDepartmentTree('0')
-    const departmentList: FeishuDepartment[] = []
+    const departmentNodeList: FeishuDepartmentTree[] = []
     let todoItems = [rootNode]
     while (todoItems.length > 0) {
       for (const item of todoItems) {
-        departmentList.push(item.department)
+        departmentNodeList.push(item)
       }
       const nextItems: FeishuDepartmentTree[] = []
       for (const item of todoItems) {
@@ -51,17 +51,38 @@ export class FeishuSync {
         bulkAdder.setTable(dbSpec.table)
         bulkAdder.useUpdateWhenDuplicate()
         bulkAdder.setInsertKeys(dbSpec.insertableCols())
-        departmentList.forEach((item) => {
+        departmentNodeList.forEach((item) => {
+          const department = item.department
           const feishuDepartment = new feishuServer.FeishuDepartment()
           feishuDepartment.isStash = 1
-          feishuDepartment.openDepartmentId = item.open_department_id
-          feishuDepartment.departmentId = item.department_id
-          feishuDepartment.parentOpenDepartmentId = item.parent_department_id || ''
-          feishuDepartment.departmentName = item.name
+          feishuDepartment.openDepartmentId = department.open_department_id
+          feishuDepartment.departmentId = department.department_id
+          feishuDepartment.parentOpenDepartmentId = department.parent_department_id || ''
+          feishuDepartment.departmentName = department.name
           feishuDepartment.path = ''
           feishuDepartment.hash = ''
-          feishuDepartment.rawDataStr = JSON.stringify(item)
+          feishuDepartment.rawDataStr = JSON.stringify(department)
           bulkAdder.putObject(feishuDepartment.fc_encode())
+        })
+        await bulkAdder.execute()
+      }
+
+      {
+        const dbSpec = new feishuServer.FeishuDepartmentMember().dbSpec()
+        const bulkAdder = new SQLBulkAdder(dbSpec.database)
+        bulkAdder.transaction = transaction
+        bulkAdder.setTable(dbSpec.table)
+        bulkAdder.useUpdateWhenDuplicate()
+        bulkAdder.setInsertKeys(dbSpec.insertableCols())
+        departmentNodeList.forEach((item) => {
+          item.memberList.forEach((member) => {
+            const departmentMember = new feishuServer.FeishuDepartmentMember()
+            departmentMember.isStash = 1
+            departmentMember.openDepartmentId = item.department.open_department_id
+            departmentMember.userId = member.user_id
+            departmentMember.isLeader = 0
+            bulkAdder.putObject(departmentMember.fc_encode())
+          })
         })
         await bulkAdder.execute()
       }
