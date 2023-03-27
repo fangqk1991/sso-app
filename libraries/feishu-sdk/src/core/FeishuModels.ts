@@ -55,6 +55,7 @@ export interface FeishuUser {
   employee_type: number
   // enterprise_email: string
   job_title: string
+  status: FeishuUserStatus
 }
 
 /**
@@ -93,4 +94,13 @@ export interface FeishuDepartmentTree {
   department: FeishuDepartment
   children: FeishuDepartmentTree[]
   memberList: FeishuUser[]
+}
+
+// https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/field-overview
+export interface FeishuUserStatus {
+  is_frozen: boolean // 是否暂停
+  is_resigned: boolean // 是否离职
+  is_activated: boolean // 是否激活
+  is_exited: boolean // 是否主动退出，主动退出一段时间后用户会自动转为已离职
+  is_unjoin: boolean // 是否未加入，需要用户自主确认才能加入团队
 }

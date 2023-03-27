@@ -222,15 +222,16 @@ CREATE TABLE IF NOT EXISTS fc_feishu_department
 CREATE TABLE IF NOT EXISTS fc_feishu_user
 (
     _rid         BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    union_id     VARCHAR(40)     NOT NULL COLLATE ascii_bin COMMENT '飞书 union_id',
     user_id      VARCHAR(40)     NOT NULL COLLATE ascii_bin COMMENT '飞书 user_id',
     open_id      VARCHAR(40)     NOT NULL COLLATE ascii_bin COMMENT '飞书 open_id',
-    union_id     VARCHAR(40)     NOT NULL COLLATE ascii_bin COMMENT '飞书 union_id',
     email        VARCHAR(127)    NOT NULL COMMENT '用户邮箱',
     name         VARCHAR(127)    NOT NULL DEFAULT '' COMMENT '企业微信姓名',
+    is_valid     TINYINT         NOT NULL DEFAULT '0' COMMENT '是否活跃',
     raw_data_str MEDIUMTEXT COMMENT '原始信息',
     create_time  TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     update_time  TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    UNIQUE (user_id),
+    UNIQUE (union_id),
     INDEX (name)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
@@ -241,15 +242,15 @@ CREATE TABLE IF NOT EXISTS fc_feishu_department_member
     _rid               BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     is_stash           TINYINT         NOT NULL DEFAULT '0' COMMENT '是否为数据副本',
     open_department_id VARCHAR(40)     NOT NULL COLLATE ascii_bin COMMENT '飞书 open_department_id',
-    user_id            VARCHAR(40)     NOT NULL COLLATE ascii_bin COMMENT '飞书 user_id',
+    union_id           VARCHAR(40)     NOT NULL COLLATE ascii_bin COMMENT '飞书 user_id',
     is_leader          TINYINT         NOT NULL DEFAULT 0 COMMENT '是否为组长',
     create_time        TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     update_time        TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     FOREIGN KEY (is_stash, open_department_id) REFERENCES fc_feishu_department (is_stash, open_department_id) ON DELETE CASCADE ON UPDATE RESTRICT,
-    UNIQUE (is_stash, open_department_id, user_id),
+    UNIQUE (is_stash, open_department_id, union_id),
     INDEX (is_stash),
     INDEX (open_department_id),
-    INDEX (user_id),
+    INDEX (union_id),
     INDEX (is_leader)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4

@@ -72,6 +72,7 @@ export class FeishuClient extends ServiceProxy<FeishuConfig> {
       ...params,
       department_id_type: 'open_department_id',
       department_id: openDepartmentId,
+      user_id_type: 'union_id',
     })
     const response = await request.quickSend<FeishuPageDataResponse<FeishuUser>>()
     return response.data
@@ -98,12 +99,20 @@ export class FeishuClient extends ServiceProxy<FeishuConfig> {
 
   public async getDepartmentInfo(departmentId: string) {
     const request = await this.makeRequest(new CommonAPI(FeishuApis.DepartmentInfoGet, departmentId))
+    request.setQueryParams({
+      user_id_type: 'union_id',
+      department_id_type: 'open_department_id',
+    })
     const response = await request.quickSend<FeishuDepartmentResponse>()
     return response.data.department
   }
 
   public async getDepartmentChildren(openDepartmentId: string) {
     const request = await this.makeRequest(new CommonAPI(FeishuApis.DepartmentChildrenInfoGet, openDepartmentId))
+    request.setQueryParams({
+      user_id_type: 'union_id',
+      department_id_type: 'open_department_id',
+    })
     const response = await request.quickSend<FeishuPageDataResponse<FeishuDepartment>>()
     return response.data.items || []
   }

@@ -1,7 +1,7 @@
 import { FeishuServer } from '@fangcha/account'
 import { FeishuClient } from '../core/FeishuClient'
 import { FeishuDepartmentTree } from '../core/FeishuModels'
-import { SQLBulkAdder } from 'fc-sql'
+import { SQLBulkAdder, SQLModifier } from 'fc-sql'
 
 export class FeishuSync {
   private readonly feishuServer: FeishuServer
@@ -45,6 +45,39 @@ export class FeishuSync {
       )
 
       {
+        const unionIdList: string[] = []
+        const dbSpec = new feishuServer.FeishuUser().dbSpec()
+        const bulkAdder = new SQLBulkAdder(dbSpec.database)
+        bulkAdder.transaction = transaction
+        bulkAdder.setTable(dbSpec.table)
+        bulkAdder.useUpdateWhenDuplicate()
+        bulkAdder.setInsertKeys(dbSpec.insertableCols())
+        departmentNodeList.forEach((item) => {
+          item.memberList.forEach((member) => {
+            unionIdList.push(member.union_id)
+
+            const feishuUser = new feishuServer.FeishuUser()
+            feishuUser.openId = member.open_id
+            feishuUser.userId = member.user_id
+            feishuUser.unionId = member.union_id
+            feishuUser.email = member.email || ''
+            feishuUser.name = member.name || ''
+            feishuUser.isValid = member.status.is_activated ? 1 : 0
+            feishuUser.rawDataStr = JSON.stringify(member)
+            bulkAdder.putObject(feishuUser.fc_encode())
+          })
+        })
+        await bulkAdder.execute()
+
+        const modifier = new SQLModifier(database)
+        modifier.transaction = transaction
+        modifier.setTable(feishuServer.tableName_FeishuUser)
+        modifier.updateKV('is_valid', 0)
+        modifier.addConditionKeyNotInArray('union_id', unionIdList)
+        await modifier.execute()
+      }
+
+      {
         const dbSpec = new feishuServer.FeishuDepartment().dbSpec()
         const bulkAdder = new SQLBulkAdder(dbSpec.database)
         bulkAdder.transaction = transaction
@@ -79,8 +112,29 @@ export class FeishuSync {
             const departmentMember = new feishuServer.FeishuDepartmentMember()
             departmentMember.isStash = 1
             departmentMember.openDepartmentId = item.department.open_department_id
-            departmentMember.userId = member.user_id
+            departmentMember.unionId = member.union_id
             departmentMember.isLeader = 0
+            bulkAdder.putObject(departmentMember.fc_encode())
+          })
+        })
+        await bulkAdder.execute()
+      }
+
+      {
+        const dbSpec = new feishuServer.FeishuDepartmentMember().dbSpec()
+        const bulkAdder = new SQLBulkAdder(dbSpec.database)
+        bulkAdder.transaction = transaction
+        bulkAdder.setTable(dbSpec.table)
+        bulkAdder.useUpdateWhenDuplicate()
+        bulkAdder.setInsertKeys(dbSpec.insertableCols())
+        departmentNodeList.forEach((item) => {
+          const leaders = item.department.leaders || []
+          leaders.forEach((member) => {
+            const departmentMember = new feishuServer.FeishuDepartmentMember()
+            departmentMember.isStash = 1
+            departmentMember.openDepartmentId = item.department.open_department_id
+            departmentMember.unionId = member.leaderID
+            departmentMember.isLeader = 1
             bulkAdder.putObject(departmentMember.fc_encode())
           })
         })

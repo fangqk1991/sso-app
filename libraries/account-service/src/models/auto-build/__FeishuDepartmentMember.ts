@@ -5,7 +5,7 @@ const _cols: string[] = [
   // prettier-ignore
   'is_stash',
   'open_department_id',
-  'user_id',
+  'union_id',
   'is_leader',
   'create_time',
   'update_time',
@@ -14,14 +14,14 @@ const _insertableCols: string[] = [
   // prettier-ignore
   'is_stash',
   'open_department_id',
-  'user_id',
+  'union_id',
   'is_leader',
 ]
 const _modifiableCols: string[] = [
   // prettier-ignore
   'is_stash',
   'open_department_id',
-  'user_id',
+  'union_id',
   'is_leader',
   'create_time',
 ]
@@ -33,7 +33,7 @@ const _timestampTypeCols: string[] = [
 
 const dbOptions = {
   table: 'fc_feishu_department_member',
-  primaryKey: ['is_stash', 'open_department_id', 'user_id'],
+  primaryKey: ['is_stash', 'open_department_id', 'union_id'],
   cols: _cols,
   insertableCols: _insertableCols,
   modifiableCols: _modifiableCols,
@@ -52,7 +52,7 @@ export class __FeishuDepartmentMember extends FeedBase {
   /**
    * @description [varchar(40)] 飞书 user_id
    */
-  public userId!: string
+  public unionId!: string
   /**
    * @description [tinyint] 是否为组长
    */
@@ -107,7 +107,7 @@ export class __FeishuDepartmentMember extends FeedBase {
     return {
       isStash: 'is_stash',
       openDepartmentId: 'open_department_id',
-      userId: 'user_id',
+      unionId: 'union_id',
       isLeader: 'is_leader',
       createTime: 'create_time',
       updateTime: 'update_time',

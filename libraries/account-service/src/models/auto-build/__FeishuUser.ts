@@ -3,30 +3,33 @@ import { DBProtocolV2, FCDatabase } from 'fc-sql'
 
 const _cols: string[] = [
   // prettier-ignore
+  'union_id',
   'user_id',
   'open_id',
-  'union_id',
   'email',
   'name',
+  'is_valid',
   'raw_data_str',
   'create_time',
   'update_time',
 ]
 const _insertableCols: string[] = [
   // prettier-ignore
+  'union_id',
   'user_id',
   'open_id',
-  'union_id',
   'email',
   'name',
+  'is_valid',
   'raw_data_str',
 ]
 const _modifiableCols: string[] = [
   // prettier-ignore
+  'user_id',
   'open_id',
-  'union_id',
   'email',
   'name',
+  'is_valid',
   'raw_data_str',
   'create_time',
 ]
@@ -38,7 +41,7 @@ const _timestampTypeCols: string[] = [
 
 const dbOptions = {
   table: 'fc_feishu_user',
-  primaryKey: 'user_id',
+  primaryKey: 'union_id',
   cols: _cols,
   insertableCols: _insertableCols,
   modifiableCols: _modifiableCols,
@@ -46,6 +49,10 @@ const dbOptions = {
 }
 
 export class __FeishuUser extends FeedBase {
+  /**
+   * @description [varchar(40)] 飞书 union_id
+   */
+  public unionId!: string
   /**
    * @description [varchar(40)] 飞书 user_id
    */
@@ -55,10 +62,6 @@ export class __FeishuUser extends FeedBase {
    */
   public openId!: string
   /**
-   * @description [varchar(40)] 飞书 union_id
-   */
-  public unionId!: string
-  /**
    * @description [varchar(127)] 用户邮箱
    */
   public email!: string
@@ -66,6 +69,10 @@ export class __FeishuUser extends FeedBase {
    * @description [varchar(127)] 企业微信姓名
    */
   public name!: string
+  /**
+   * @description [tinyint] 是否活跃
+   */
+  public isValid!: number
   /**
    * @description [mediumtext] 原始信息
    */
@@ -113,16 +120,18 @@ export class __FeishuUser extends FeedBase {
   public fc_defaultInit() {
     // This function is invoked by constructor of FCModel
     this.name = ''
+    this.isValid = 0
     this.rawDataStr = ''
   }
 
   public fc_propertyMapper() {
     return {
+      unionId: 'union_id',
       userId: 'user_id',
       openId: 'open_id',
-      unionId: 'union_id',
       email: 'email',
       name: 'name',
+      isValid: 'is_valid',
       rawDataStr: 'raw_data_str',
       createTime: 'create_time',
       updateTime: 'update_time',

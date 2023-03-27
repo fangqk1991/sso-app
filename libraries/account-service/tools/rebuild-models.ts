@@ -60,7 +60,7 @@ const generalDataSchemas: DBModelSchema[] = [
     tableName: 'fc_feishu_department_member',
     outputFile: `${__dirname}/../src/models/auto-build/__FeishuDepartmentMember.ts`,
     extFile: `${__dirname}/../src/models/feishu/_FeishuDepartmentMember.ts`,
-    primaryKey: ['is_stash', 'open_department_id', 'user_id'],
+    primaryKey: ['is_stash', 'open_department_id', 'union_id'],
     reloadOnAdded: true,
     reloadOnUpdated: true,
   },
