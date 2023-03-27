@@ -1,7 +1,7 @@
 import { RequestFollower, ServiceProxy } from '@fangcha/app-request-extensions'
 import { FeishuConfig } from './FeishuConfig'
 import { axiosBuilder } from '@fangcha/app-request'
-import { TenantAccessTokenResponse } from './FeishuModels'
+import { TenantAccessTokenResponse } from './RawFeishuModels'
 import { FeishuApis } from './FeishuApis'
 import { ChannelTask } from '@fangcha/tools'
 

@@ -8,7 +8,7 @@ import {
   FeishuEmployee,
   FeishuPageDataResponse,
   FeishuUser,
-} from './FeishuModels'
+} from './RawFeishuModels'
 import { FeishuApis } from './FeishuApis'
 import { FeishuTokenKeeper } from './FeishuTokenKeeper'
 

@@ -15,4 +15,8 @@ describe('Test FeishuSync.test.ts', () => {
   it(`fetchRemoteDepartmentsAndUsers`, async () => {
     await feishuSync.fetchRemoteDepartmentsAndUsers()
   })
+
+  it(`syncRemoteDepartmentsAndUsers`, async () => {
+    await feishuSync.syncRemoteDepartmentsAndUsers()
+  })
 })
