@@ -123,6 +123,7 @@ export class FeishuClient extends ServiceProxy<FeishuConfig> {
     node.children = subDepartments.map((item) => {
       return {
         department: item,
+        path: `${node.path},${item.open_department_id}`,
         memberList: [],
         children: [],
       }
@@ -137,6 +138,7 @@ export class FeishuClient extends ServiceProxy<FeishuConfig> {
     const department = await this.getDepartmentInfo(departmentId)
     const rootNode: FeishuDepartmentTree = {
       department: department,
+      path: `${department.open_department_id}`,
       children: [],
       memberList: [],
     }

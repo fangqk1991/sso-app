@@ -94,7 +94,7 @@ export class FeishuSync {
           feishuDepartment.departmentId = department.department_id
           feishuDepartment.parentOpenDepartmentId = department.parent_department_id || ''
           feishuDepartment.departmentName = department.name
-          feishuDepartment.path = ''
+          feishuDepartment.path = item.path
           feishuDepartment.hash = ''
           feishuDepartment.rawDataStr = JSON.stringify(department)
           bulkAdder.putObject(feishuDepartment.fc_encode())

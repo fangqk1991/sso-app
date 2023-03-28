@@ -19,12 +19,12 @@ export interface FeishuDepartmentMemberModel {
 //   name: string
 // }
 //
-// export interface DepartmentNode {
-//   val: WechatDepartmentModel
-//   label: string
-//   children: DepartmentNode[]
-// }
-//
+export interface FeishuDepartmentNode {
+  val: FeishuDepartmentModel
+  label: string
+  children: FeishuDepartmentNode[]
+}
+
 // export interface DepartmentDetailInfo extends WechatDepartmentModel {
 //   fullPathName: string
 //   pathDepartments: WechatDepartmentModel[]

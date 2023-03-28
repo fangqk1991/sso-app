@@ -92,6 +92,7 @@ export interface FeishuDepartmentResponse {
 
 export interface FeishuDepartmentTree {
   department: FeishuDepartment
+  path: string
   children: FeishuDepartmentTree[]
   memberList: FeishuUser[]
 }
