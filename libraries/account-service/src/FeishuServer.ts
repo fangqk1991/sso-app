@@ -57,4 +57,9 @@ export class FeishuServer {
     })
     this.FeishuUser = FeishuUser
   }
+
+  public async getFullStructureInfo() {
+    const rootDepartment = await this.FeishuDepartment.getRootDepartment()
+    return rootDepartment.getStructureInfo()
+  }
 }

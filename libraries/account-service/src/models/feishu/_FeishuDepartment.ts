@@ -1,10 +1,15 @@
 import { __FeishuDepartment } from '../auto-build/__FeishuDepartment'
 import { FilterOptions } from 'fc-feed'
-import { FeishuDepartmentModel } from '@fangcha/account-models'
+import { FeishuDepartmentModel, FeishuDepartmentNode } from '@fangcha/account-models'
+import assert from '@fangcha/assert'
 
 export class _FeishuDepartment extends __FeishuDepartment {
   public constructor() {
     super()
+  }
+
+  public getClass() {
+    return this.constructor as typeof _FeishuDepartment
   }
 
   public fc_searcher(params: FilterOptions = {}) {
@@ -29,5 +34,52 @@ export class _FeishuDepartment extends __FeishuDepartment {
       path: this.path,
       hash: this.hash,
     } as FeishuDepartmentModel
+  }
+
+  public static async getRootDepartment() {
+    const department = (await this.findOne({
+      open_department_id: 0,
+    }))!
+    assert.ok(!!department, `Root Department Not Found`, 500)
+    return department
+  }
+
+  public async getAllSubDepartments(withSelf = false) {
+    const FeishuDepartment = this.getClass()
+    const searcher = new FeishuDepartment().fc_searcher()
+    if (!withSelf) {
+      searcher.processor().addSpecialCondition('open_department_id != ?', this.openDepartmentId)
+    }
+    searcher.processor().addSpecialCondition('FIND_IN_SET(?, path)', this.openDepartmentId)
+    return searcher.queryAllFeeds()
+  }
+
+  public async getStructureInfo(withMembers = false) {
+    const subDepartments = await this.getAllSubDepartments()
+    const items = subDepartments.map((feed) => feed.modelForClient())
+    const rootVal = this.modelForClient()
+    const nodes: FeishuDepartmentNode[] = [rootVal].concat(items).map((item) => {
+      return {
+        val: item,
+        label: item.departmentName,
+        children: [],
+      } as FeishuDepartmentNode
+    })
+    const nodeMap: { [p: string]: FeishuDepartmentNode } = nodes.reduce((result, cur) => {
+      result[cur.val.openDepartmentId] = cur
+      return result
+    }, {})
+    for (const node of nodes) {
+      if (node.val.parentOpenDepartmentId && nodeMap[node.val.parentOpenDepartmentId]) {
+        nodeMap[node.val.parentOpenDepartmentId].children.push(node)
+      }
+    }
+    // if (withMembers) {
+    //   const memberList = await this.getAllMemberInfos()
+    //   for (const memberInfo of memberList) {
+    //     nodeMap[memberInfo.departmentId].val.members.push(memberInfo)
+    //   }
+    // }
+    return nodes[0]
   }
 }
