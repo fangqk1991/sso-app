@@ -123,7 +123,7 @@ export const DepartmentTreeView: React.FC<Props> = ({
                 <div>
                   {meta.memberList.map((member) => {
                     return (
-                      <Tag color={'geekblue'} key={member.unionId}>
+                      <Tag color={member.isLeader ? 'red' : 'geekblue'} key={member.unionId}>
                         {member.name}
                       </Tag>
                     )
