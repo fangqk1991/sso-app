@@ -1,5 +1,5 @@
 export * from './AccountServer'
-export * from './FeishuServer'
+export * from './services/feishu/FeishuServer'
 export * from './models/feishu/_FeishuUser'
 export * from './models/feishu/_FeishuDepartment'
 export * from './models/feishu/_FeishuDepartmentMember'

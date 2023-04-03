@@ -10,6 +10,7 @@ export interface FeishuDepartmentMemberModel {
   unionId: string
   openDepartmentId: string
   isLeader: number
+  name: string
 }
 
 // export interface DepartmentMemberInfo {
@@ -22,6 +23,7 @@ export interface FeishuDepartmentMemberModel {
 
 export interface FeishuDepartmentTree extends FeishuDepartmentModel {
   subDepartmentList: FeishuDepartmentTree[]
+  memberList: FeishuDepartmentMemberModel[]
 }
 
 // export interface DepartmentDetailInfo extends WechatDepartmentModel {

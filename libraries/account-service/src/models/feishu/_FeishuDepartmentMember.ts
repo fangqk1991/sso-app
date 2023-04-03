@@ -22,6 +22,7 @@ export class _FeishuDepartmentMember extends __FeishuDepartmentMember {
       unionId: this.unionId,
       openDepartmentId: this.openDepartmentId,
       isLeader: this.isLeader,
+      name: '',
     } as FeishuDepartmentMemberModel
   }
 }

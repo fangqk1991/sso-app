@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import { Button, Space, Tree } from 'antd'
+import { Button, Space, Tag, Tree } from 'antd'
 import { FeishuDepartmentTree } from '@fangcha/account-models'
 import { DownOutlined } from '@ant-design/icons'
 import { DataNode } from 'antd/es/tree'
@@ -119,6 +119,17 @@ export const DepartmentTreeView: React.FC<Props> = ({
               }}
             >
               <b>{meta.departmentName}</b>
+              {meta.memberList.length > 0 && (
+                <div>
+                  {meta.memberList.map((member) => {
+                    return (
+                      <Tag color={'geekblue'} key={member.unionId}>
+                        {member.name}
+                      </Tag>
+                    )
+                  })}
+                </div>
+              )}
               {/*{meta.description && (*/}
               {/*  <Tooltip title={meta.description}>*/}
               {/*    <InfoCircleFilled style={{ marginLeft: '4px' }} />*/}

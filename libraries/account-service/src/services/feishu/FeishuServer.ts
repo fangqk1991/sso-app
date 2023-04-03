@@ -1,7 +1,8 @@
 import { FCDatabase } from 'fc-sql'
-import { _FeishuDepartment } from './models/feishu/_FeishuDepartment'
-import { _FeishuDepartmentMember } from './models/feishu/_FeishuDepartmentMember'
-import { _FeishuUser } from './models/feishu/_FeishuUser'
+import { _FeishuDepartment } from '../../models/feishu/_FeishuDepartment'
+import { _FeishuDepartmentMember } from '../../models/feishu/_FeishuDepartmentMember'
+import { _FeishuUser } from '../../models/feishu/_FeishuUser'
+import { FeishuDepartmentHandler } from './FeishuDepartmentHandler'
 
 interface Options {
   database: FCDatabase
@@ -36,19 +37,19 @@ export class FeishuServer {
     this.tableName_FeishuDepartmentMember = options.tableName_FeishuDepartmentMember || 'fc_feishu_department_member'
     this.tableName_FeishuUser = options.tableName_FeishuUser || 'fc_feishu_user'
 
-    class FeishuDepartment extends _FeishuDepartment {}
-    FeishuDepartment.addStaticOptions({
-      database: options.database,
-      table: this.tableName_FeishuDepartment,
-    })
-    this.FeishuDepartment = FeishuDepartment
-
     class FeishuDepartmentMember extends _FeishuDepartmentMember {}
     FeishuDepartmentMember.addStaticOptions({
       database: options.database,
       table: this.tableName_FeishuDepartmentMember,
     })
     this.FeishuDepartmentMember = FeishuDepartmentMember
+
+    class FeishuDepartment extends _FeishuDepartment {}
+    FeishuDepartment.addStaticOptions({
+      database: options.database,
+      table: this.tableName_FeishuDepartment,
+    })
+    this.FeishuDepartment = FeishuDepartment
 
     class FeishuUser extends _FeishuUser {}
     FeishuUser.addStaticOptions({
@@ -60,8 +61,13 @@ export class FeishuServer {
 
   public async getFullStructureInfo() {
     const rootDepartment = await this.FeishuDepartment.getRootDepartment()
-    const node = await rootDepartment.getStructureInfo()
+    const handler = this.departmentHandler(rootDepartment)
+    const node = await handler.getStructureInfo(true)
     node.departmentName = node.departmentName || 'ROOT'
     return node
+  }
+
+  public departmentHandler(department: _FeishuDepartment) {
+    return new FeishuDepartmentHandler(department, this)
   }
 }

@@ -1,7 +1,8 @@
 import { __FeishuDepartment } from '../auto-build/__FeishuDepartment'
 import { FilterOptions } from 'fc-feed'
-import { FeishuDepartmentModel, FeishuDepartmentTree } from '@fangcha/account-models'
+import { FeishuDepartmentModel } from '@fangcha/account-models'
 import assert from '@fangcha/assert'
+import { _FeishuDepartmentMember } from './_FeishuDepartmentMember'
 
 export class _FeishuDepartment extends __FeishuDepartment {
   public constructor() {
@@ -52,33 +53,5 @@ export class _FeishuDepartment extends __FeishuDepartment {
     }
     searcher.processor().addSpecialCondition('FIND_IN_SET(?, path)', this.openDepartmentId)
     return searcher.queryAllFeeds()
-  }
-
-  public async getStructureInfo(_withMembers = false) {
-    const subDepartments = await this.getAllSubDepartments()
-    const items = subDepartments.map((feed) => feed.modelForClient())
-    const rootVal = this.modelForClient()
-    const nodes: FeishuDepartmentTree[] = [rootVal].concat(items).map((item) => {
-      return {
-        ...item,
-        subDepartmentList: [],
-      } as FeishuDepartmentTree
-    })
-    const nodeMap: { [p: string]: FeishuDepartmentTree } = nodes.reduce((result, cur) => {
-      result[cur.openDepartmentId] = cur
-      return result
-    }, {})
-    for (const node of nodes) {
-      if (node.parentOpenDepartmentId && nodeMap[node.parentOpenDepartmentId]) {
-        nodeMap[node.parentOpenDepartmentId].subDepartmentList.push(node)
-      }
-    }
-    // if (withMembers) {
-    //   const memberList = await this.getAllMemberInfos()
-    //   for (const memberInfo of memberList) {
-    //     nodeMap[memberInfo.departmentId].val.members.push(memberInfo)
-    //   }
-    // }
-    return nodes[0]
   }
 }
