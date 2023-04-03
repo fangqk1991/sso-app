@@ -107,7 +107,17 @@ export const DepartmentTreeView: React.FC<Props> = ({
         titleRender={(node) => {
           const meta = node.val
           return (
-            <div>
+            <div
+              onClick={() => {
+                const keySet = new Set(expandedKeys)
+                if (keySet.has(node.key)) {
+                  keySet.delete(node.key)
+                } else {
+                  keySet.add(node.key)
+                }
+                setExpandedKeys([...keySet])
+              }}
+            >
               <b>{meta.departmentName}</b>
               {/*{meta.description && (*/}
               {/*  <Tooltip title={meta.description}>*/}
