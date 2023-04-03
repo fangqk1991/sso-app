@@ -16,7 +16,7 @@ export const FeishuSdkPlugin = (options: FeishuSdkOptions): AppPluginProtocol =>
       const routerApp = _RouterState.routerApp
       routerApp.addDocItem(FeishuSdkDocItem)
       routerApp.addMiddlewareBeforeInit(async (ctx, next) => {
-        ctx.ssoServer = feishuServer
+        ctx.feishuServer = feishuServer
         await next()
       })
     },

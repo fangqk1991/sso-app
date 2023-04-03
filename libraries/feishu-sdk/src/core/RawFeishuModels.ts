@@ -23,7 +23,7 @@ export interface FeishuPageDataResponse<T> {
  * union_id：标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的，在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID，应用开发商可以把同个用户在多个应用中的身份关联起来。
  * user_id：标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内，一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。
  */
-export interface FeishuEmployee {
+export interface Raw_FeishuEmployee {
   user_id: string
   system_fields: {
     employee_no: string
@@ -34,7 +34,7 @@ export interface FeishuEmployee {
   }
 }
 
-export interface FeishuUser {
+export interface Raw_FeishuUser {
   user_id: string
   open_id: string
   union_id: string
@@ -64,7 +64,7 @@ export interface FeishuUser {
  * 已经创建的部门，不允许修改 department_id。
  * open_department_id 用来在具体某个应用中标识一个部门，同一个department_id 在不同应用中的 open_department_id 相同。
  */
-export interface FeishuDepartment {
+export interface Raw_FeishuDepartment {
   chat_id: string
   department_id: string
   open_department_id: string
@@ -86,15 +86,15 @@ export interface FeishuDepartmentResponse {
   code: number
   msg: string // 'ok'
   data: {
-    department: FeishuDepartment
+    department: Raw_FeishuDepartment
   }
 }
 
-export interface FeishuDepartmentTree {
-  department: FeishuDepartment
+export interface Raw_FeishuDepartmentTree {
+  department: Raw_FeishuDepartment
   path: string
-  children: FeishuDepartmentTree[]
-  memberList: FeishuUser[]
+  children: Raw_FeishuDepartmentTree[]
+  memberList: Raw_FeishuUser[]
 }
 
 // https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/field-overview

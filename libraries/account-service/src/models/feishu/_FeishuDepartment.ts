@@ -1,6 +1,6 @@
 import { __FeishuDepartment } from '../auto-build/__FeishuDepartment'
 import { FilterOptions } from 'fc-feed'
-import { FeishuDepartmentModel, FeishuDepartmentNode } from '@fangcha/account-models'
+import { FeishuDepartmentModel, FeishuDepartmentTree } from '@fangcha/account-models'
 import assert from '@fangcha/assert'
 
 export class _FeishuDepartment extends __FeishuDepartment {
@@ -58,20 +58,19 @@ export class _FeishuDepartment extends __FeishuDepartment {
     const subDepartments = await this.getAllSubDepartments()
     const items = subDepartments.map((feed) => feed.modelForClient())
     const rootVal = this.modelForClient()
-    const nodes: FeishuDepartmentNode[] = [rootVal].concat(items).map((item) => {
+    const nodes: FeishuDepartmentTree[] = [rootVal].concat(items).map((item) => {
       return {
-        val: item,
-        label: item.departmentName,
-        children: [],
-      } as FeishuDepartmentNode
+        ...item,
+        subDepartmentList: [],
+      } as FeishuDepartmentTree
     })
-    const nodeMap: { [p: string]: FeishuDepartmentNode } = nodes.reduce((result, cur) => {
-      result[cur.val.openDepartmentId] = cur
+    const nodeMap: { [p: string]: FeishuDepartmentTree } = nodes.reduce((result, cur) => {
+      result[cur.openDepartmentId] = cur
       return result
     }, {})
     for (const node of nodes) {
-      if (node.val.parentOpenDepartmentId && nodeMap[node.val.parentOpenDepartmentId]) {
-        nodeMap[node.val.parentOpenDepartmentId].children.push(node)
+      if (node.parentOpenDepartmentId && nodeMap[node.parentOpenDepartmentId]) {
+        nodeMap[node.parentOpenDepartmentId].subDepartmentList.push(node)
       }
     }
     // if (withMembers) {

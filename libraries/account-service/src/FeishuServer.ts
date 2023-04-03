@@ -60,6 +60,8 @@ export class FeishuServer {
 
   public async getFullStructureInfo() {
     const rootDepartment = await this.FeishuDepartment.getRootDepartment()
-    return rootDepartment.getStructureInfo()
+    const node = await rootDepartment.getStructureInfo()
+    node.departmentName = node.departmentName || 'ROOT'
+    return node
   }
 }

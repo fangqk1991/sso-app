@@ -1,6 +1,6 @@
 import { _FeishuUser, FeishuServer } from '@fangcha/account'
 import { FeishuClient } from '../core/FeishuClient'
-import { FeishuDepartmentTree } from '../core/RawFeishuModels'
+import { Raw_FeishuDepartmentTree } from '../core/RawFeishuModels'
 import { SQLBulkAdder, SQLModifier } from 'fc-sql'
 import { FeishuDepartmentMemberModel, FeishuDepartmentModel } from '@fangcha/account-models'
 import { DiffMapper, DiffType } from '@fangcha/tools'
@@ -19,13 +19,13 @@ export class FeishuSync {
     const feishuClient = this.feishuClient
 
     const rootNode = await feishuClient.getDepartmentTree('0')
-    const departmentNodeList: FeishuDepartmentTree[] = []
+    const departmentNodeList: Raw_FeishuDepartmentTree[] = []
     let todoItems = [rootNode]
     while (todoItems.length > 0) {
       for (const item of todoItems) {
         departmentNodeList.push(item)
       }
-      const nextItems: FeishuDepartmentTree[] = []
+      const nextItems: Raw_FeishuDepartmentTree[] = []
       for (const item of todoItems) {
         nextItems.push(...item.children)
       }

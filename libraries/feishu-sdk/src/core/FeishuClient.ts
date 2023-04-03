@@ -2,12 +2,12 @@ import { RequestFollower, ServiceProxy } from '@fangcha/app-request-extensions'
 import { FeishuConfig } from './FeishuConfig'
 import { ApiOptions, axiosBuilder, CommonAPI } from '@fangcha/app-request'
 import {
-  FeishuDepartment,
+  Raw_FeishuDepartment,
   FeishuDepartmentResponse,
-  FeishuDepartmentTree,
-  FeishuEmployee,
+  Raw_FeishuDepartmentTree,
+  Raw_FeishuEmployee,
   FeishuPageDataResponse,
-  FeishuUser,
+  Raw_FeishuUser,
 } from './RawFeishuModels'
 import { FeishuApis } from './FeishuApis'
 import { FeishuTokenKeeper } from './FeishuTokenKeeper'
@@ -36,12 +36,12 @@ export class FeishuClient extends ServiceProxy<FeishuConfig> {
   ) {
     const request = await this.makeRequest(FeishuApis.EmployeePageDataGet)
     request.setQueryParams(params)
-    const response = await request.quickSend<FeishuPageDataResponse<FeishuEmployee>>()
+    const response = await request.quickSend<FeishuPageDataResponse<Raw_FeishuEmployee>>()
     return response.data
   }
 
   public async getAllEmployees(params: { user_id_type?: 'open_id' | 'union_id' | 'user_id' } = {}) {
-    let items: FeishuEmployee[] = []
+    let items: Raw_FeishuEmployee[] = []
     let finished = false
     let pageToken: any = undefined
     while (!finished) {
@@ -74,12 +74,12 @@ export class FeishuClient extends ServiceProxy<FeishuConfig> {
       department_id: openDepartmentId,
       user_id_type: 'union_id',
     })
-    const response = await request.quickSend<FeishuPageDataResponse<FeishuUser>>()
+    const response = await request.quickSend<FeishuPageDataResponse<Raw_FeishuUser>>()
     return response.data
   }
 
   public async getDepartmentAllMembers(openDepartmentId: string) {
-    let items: FeishuUser[] = []
+    let items: Raw_FeishuUser[] = []
     let finished = false
     let pageToken: any = undefined
     while (!finished) {
@@ -113,11 +113,11 @@ export class FeishuClient extends ServiceProxy<FeishuConfig> {
       user_id_type: 'union_id',
       department_id_type: 'open_department_id',
     })
-    const response = await request.quickSend<FeishuPageDataResponse<FeishuDepartment>>()
+    const response = await request.quickSend<FeishuPageDataResponse<Raw_FeishuDepartment>>()
     return response.data.items || []
   }
 
-  public async fillDepartmentTree(node: FeishuDepartmentTree) {
+  public async fillDepartmentTree(node: Raw_FeishuDepartmentTree) {
     const openDepartmentId = node.department.open_department_id
     const subDepartments = await this.getDepartmentChildren(openDepartmentId)
     node.children = subDepartments.map((item) => {
@@ -136,7 +136,7 @@ export class FeishuClient extends ServiceProxy<FeishuConfig> {
 
   public async getDepartmentTree(departmentId = '0') {
     const department = await this.getDepartmentInfo(departmentId)
-    const rootNode: FeishuDepartmentTree = {
+    const rootNode: Raw_FeishuDepartmentTree = {
       department: department,
       path: `${department.open_department_id}`,
       children: [],

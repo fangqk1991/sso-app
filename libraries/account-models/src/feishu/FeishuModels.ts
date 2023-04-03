@@ -19,10 +19,9 @@ export interface FeishuDepartmentMemberModel {
 //   name: string
 // }
 //
-export interface FeishuDepartmentNode {
-  val: FeishuDepartmentModel
-  label: string
-  children: FeishuDepartmentNode[]
+
+export interface FeishuDepartmentTree extends FeishuDepartmentModel {
+  subDepartmentList: FeishuDepartmentTree[]
 }
 
 // export interface DepartmentDetailInfo extends WechatDepartmentModel {
