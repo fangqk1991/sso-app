@@ -54,7 +54,7 @@ export class _FeishuDepartment extends __FeishuDepartment {
     return searcher.queryAllFeeds()
   }
 
-  public async getStructureInfo(withMembers = false) {
+  public async getStructureInfo(_withMembers = false) {
     const subDepartments = await this.getAllSubDepartments()
     const items = subDepartments.map((feed) => feed.modelForClient())
     const rootVal = this.modelForClient()

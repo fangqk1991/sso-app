@@ -10,6 +10,7 @@ import { AppListView } from './app/AppListView'
 import { AppDetailView } from './app/AppDetailView'
 import { AppAccessListView } from './app/AppAccessListView'
 import { GroupDetailView } from './app/GroupDetailView'
+import { FeishuDepartmentMainView } from './feishu/FeishuDepartmentMainView'
 
 export const MyRouter = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ export const MyRouter = createBrowserRouter([
       {
         path: '/v1/app/:appid/group/:groupId',
         element: <GroupDetailView />,
+      },
+      {
+        path: '/v1/enterprise/feishu',
+        element: <FeishuDepartmentMainView />,
       },
       {
         path: '*',

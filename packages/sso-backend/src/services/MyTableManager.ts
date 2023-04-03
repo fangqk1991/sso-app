@@ -50,6 +50,18 @@ export class TableManager {
   public tableName_GroupPermission() {
     return this.prefix + 'fc_group_permission'
   }
+
+  public tableName_FeishuDepartment() {
+    return this.prefix + 'fc_feishu_department'
+  }
+
+  public tableName_FeishuDepartmentMember() {
+    return this.prefix + 'fc_feishu_department_member'
+  }
+
+  public tableName_FeishuUser() {
+    return this.prefix + 'fc_feishu_user'
+  }
 }
 
 export const MyTableManager = new TableManager(SsoConfig.sqlTablePrefix)

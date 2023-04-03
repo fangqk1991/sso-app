@@ -179,6 +179,9 @@ importers:
   libraries/auth-vue:
     specifiers: {}
 
+  libraries/feishu-sdk:
+    specifiers: {}
+
   libraries/sso-models:
     specifiers: {}
 
@@ -212,11 +215,13 @@ importers:
 
   packages/sso-backend:
     specifiers:
+      '@fangcha/feishu-sdk': workspace:^*
       '@fangcha/user-sdk': workspace:^*
       '@fangcha/web-auth-sdk': workspace:^*
       '@types/oauth2-server': ^3.0.13
       oauth2-server: ^3.1.1
     dependencies:
+      '@fangcha/feishu-sdk': link:../../libraries/feishu-sdk
       '@fangcha/user-sdk': link:../../libraries/user-sdk
       '@fangcha/web-auth-sdk': link:../../libraries/web-auth-sdk
       oauth2-server: 3.1.1

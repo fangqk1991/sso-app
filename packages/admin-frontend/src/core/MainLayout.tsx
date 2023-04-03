@@ -40,7 +40,7 @@ export const MainLayout: React.FC = () => {
           type: 'sub',
           defaultOpenAll: true,
           ignoreFlatMenu: true,
-          defaultOpenKeys: ['M_User', 'M_DataHosting'],
+          defaultOpenKeys: ['M_User', 'M_DataHosting', 'M_Enterprise'],
         }}
         avatarProps={{
           icon: <UserOutlined />,

@@ -7,6 +7,8 @@ import { WebAuthSdkPlugin } from '@fangcha/web-auth-sdk'
 import { AdminUserCenter } from '@fangcha/user-sdk'
 import { UserSystemCenter } from '../services/UserSystemCenter'
 import { AppHandler } from '../services/AppHandler'
+import { FeishuSdkPlugin } from '@fangcha/feishu-sdk'
+import { MyFeishuServer } from '../services/MyFeishuServer'
 
 const app = new WebApp({
   env: GlobalAppConfig.Env,
@@ -34,6 +36,9 @@ const app = new WebApp({
         // accountServer: MyAccountServer,
       },
       ssoAuth: SsoConfig.adminAuth.oauthConfig,
+    }),
+    FeishuSdkPlugin({
+      feishuServer: MyFeishuServer,
     }),
   ],
 

@@ -1,4 +1,4 @@
-import { AppstoreOutlined, UserOutlined } from '@ant-design/icons'
+import { AppstoreOutlined, UserOutlined, ApartmentOutlined } from '@ant-design/icons'
 import { Route } from '@ant-design/pro-layout/es/typing'
 import { UserPermission } from '@web/sso-common/user-models'
 import { useVisitorCtx } from '@fangcha/auth-react'
@@ -36,6 +36,18 @@ export const useMenu = () => {
             name: '权限应用',
             // hideInMenu:
             //   !visitorCtx.userInfo.isAdmin && !visitorCtx.hasPermission(UserPermission.M_DataHosting_PermissionApps),
+          },
+        ],
+      },
+      {
+        key: 'M_Enterprise',
+        name: '员工管理',
+        icon: <ApartmentOutlined />,
+        children: [
+          {
+            path: '/v1/enterprise/feishu',
+            name: '飞书组织架构',
+            // hideInMenu: !visitorCtx.userInfo.isAdmin && !visitorCtx.hasPermission(UserPermission.M_User_SsoClient),
           },
         ],
       },
