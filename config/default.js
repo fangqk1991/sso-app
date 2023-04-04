@@ -68,6 +68,7 @@ module.exports = {
       appid: '<appid>',
       appSecret: '<appSecret>',
     },
+    feishuSyncNotifyBotKey: '',
   },
   UserSDK: {
     adminUserService: {

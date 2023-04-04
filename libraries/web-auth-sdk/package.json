@@ -22,7 +22,7 @@
     "@fangcha/app-request": "*",
     "@fangcha/app-request-extensions": "*",
     "@fangcha/sso-models": "*",
-    "@fangcha/backend-kit": "^0.59.0"
+    "@fangcha/backend-kit": "^0.60.0"
   },
   "author": "fang <me@fangqk.com>",
   "license": "MIT",

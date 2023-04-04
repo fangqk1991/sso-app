@@ -4,14 +4,23 @@ import { Raw_FeishuDepartmentTree } from '../core/RawFeishuModels'
 import { SQLBulkAdder, SQLModifier } from 'fc-sql'
 import { FeishuDepartmentMemberModel, FeishuDepartmentModel } from '@fangcha/account-models'
 import { DiffMapper, DiffType } from '@fangcha/tools'
+import { BotCore } from '@fangcha/bot-kit'
+
+interface Options {
+  feishuServer: FeishuServer
+  feishuClient: FeishuClient
+  botCore?: BotCore
+}
 
 export class FeishuSync {
   private readonly feishuServer: FeishuServer
   private readonly feishuClient: FeishuClient
+  private readonly botCore?: BotCore
 
-  public constructor(feishuServer: FeishuServer, feishuClient: FeishuClient) {
-    this.feishuServer = feishuServer
-    this.feishuClient = feishuClient
+  public constructor(options: Options) {
+    this.feishuServer = options.feishuServer
+    this.feishuClient = options.feishuClient
+    this.botCore = options.botCore
   }
 
   public async fetchRemoteDepartmentsAndUsers() {
@@ -272,8 +281,11 @@ export class FeishuSync {
     })
 
     if (changeLogs.length > 0) {
-      console.info(['部门 / 人员变更: '].concat(changeLogs).join('\n'))
-      // await NotifyHelper.vipNotify2(['部门 / 人员变更: '].concat(changeLogs).join('\n'))
+      const msgNotify = ['部门 / 人员变更: '].concat(changeLogs).join('\n')
+      console.info(msgNotify)
+      if (this.botCore) {
+        this.botCore.notify(msgNotify)
+      }
     }
   }
 
