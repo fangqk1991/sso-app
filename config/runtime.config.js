@@ -4,10 +4,14 @@ const retainedUserData = {}
 if (envData.Auth_User) {
   retainedUserData[envData.Auth_User] = envData.Auth_Password
 }
+const Feishu_useDepartmentSyncing = !!envData.Feishu_useDepartmentSyncing
+
 module.exports = {
   FangchaAuth: {
     configVersion: envData.configVersion,
     wecomBotKey: envData.wecomBotKey,
+    feishuBotKey: envData.feishuBotKey,
+
     webBaseURL: envData.webBaseURL,
     webJwtKey: envData.webJwtKey,
     webJwtSecret: envData.webJwtSecret,
@@ -57,5 +61,16 @@ module.exports = {
       logoCss: envData.adminFE_logoCss,
       navBackground: envData.adminFE_navBackground,
     },
+    useResque: Feishu_useDepartmentSyncing,
+    useSchedule: Feishu_useDepartmentSyncing,
+    ssoResque: {
+      dynamicQueues: Feishu_useDepartmentSyncing ? ['FeishuQueue'] : [],
+    },
+    FeishuSDK: {
+      urlBase: 'https://open.feishu.cn',
+      appid: envData.Feishu_appid,
+      appSecret: envData.Feishu_appSecret,
+    },
+    feishuSyncNotifyBotKey: envData.Feishu_syncNotifyBotKey,
   },
 }
