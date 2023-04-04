@@ -32,6 +32,11 @@ module.exports = {
       host: envData.Redis_Host,
       port: envData.Redis_Port,
     },
+    ssoResque: {
+      redisHost: envData.Resque_redisHost,
+      redisPort: envData.Resque_redisPort,
+      dynamicQueues: Feishu_useDepartmentSyncing ? ['FeishuQueue'] : [],
+    },
     sqlTablePrefix: envData.DB_tableNamePrefix,
     frontendConfig: {
       appName: envData.FE_appName,
@@ -63,9 +68,6 @@ module.exports = {
     },
     useResque: Feishu_useDepartmentSyncing,
     useSchedule: Feishu_useDepartmentSyncing,
-    ssoResque: {
-      dynamicQueues: Feishu_useDepartmentSyncing ? ['FeishuQueue'] : [],
-    },
     FeishuSDK: {
       urlBase: 'https://open.feishu.cn',
       appid: envData.Feishu_appid,
