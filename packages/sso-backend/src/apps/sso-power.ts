@@ -9,6 +9,7 @@ const app = new WebApp({
   env: GlobalAppConfig.Env,
   tags: GlobalAppConfig.Tags,
   appName: 'sso-power',
+  feishuBotKey: SsoConfig.feishuBotKey,
   wecomBotKey: SsoConfig.wecomBotKey,
   useJwtSpecs: true,
   mainDocItems: SsoPowerSpecDocItems,

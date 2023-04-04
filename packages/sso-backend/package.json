@@ -8,6 +8,7 @@
     "admin:compile": "ts-node-dev --no-notify --ignore-watch node_modules src/apps/sso-admin.ts",
     "web:compile": "ts-node-dev --no-notify --ignore-watch node_modules src/apps/sso-web.ts",
     "power:compile": "ts-node-dev --no-notify --ignore-watch node_modules src/apps/sso-power.ts",
+    "start-resque": "ts-node-dev --no-notify --ignore-watch node_modules src/apps/sso-resque.ts",
     "start:typecheck": "tsc -w --noEmit",
     "build": "rm -rf dist && webpack --config ./webpack.config.js",
     "rebuild-models": "ts-node ./tools/rebuild-models.ts",

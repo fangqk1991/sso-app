@@ -5,6 +5,9 @@ module.exports = {
         host: 'host.docker.internal',
       },
     },
+    ssoResque: {
+      redisHost: 'host.docker.internal',
+    },
     redisCache: {
       host: 'host.docker.internal',
     },

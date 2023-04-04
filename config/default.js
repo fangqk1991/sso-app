@@ -4,6 +4,8 @@ module.exports = {
   FangchaAuth: {
     configVersion: '0.0.0',
     wecomBotKey: '',
+    feishuBotKey: '',
+
     webBaseURL: 'http://localhost:2699',
     webPort_frontend: 2699,
     webPort: 2700,
@@ -50,6 +52,13 @@ module.exports = {
         username: 'root',
         password: '',
       },
+    },
+    useResque: false,
+    useSchedule: false,
+    ssoResque: {
+      redisHost: '127.0.0.1',
+      redisPort: 30100,
+      dynamicQueues: [],
     },
     redisCache: {
       host: '127.0.0.1',

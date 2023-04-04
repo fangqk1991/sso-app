@@ -14,6 +14,7 @@ const app = new WebApp({
   env: GlobalAppConfig.Env,
   tags: GlobalAppConfig.Tags,
   appName: 'sso-admin',
+  feishuBotKey: SsoConfig.feishuBotKey,
   wecomBotKey: SsoConfig.wecomBotKey,
   routerOptions: {
     baseURL: SsoConfig.adminBaseURL,

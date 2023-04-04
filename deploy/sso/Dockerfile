@@ -33,7 +33,7 @@ RUN pnpm fetch
 
 # 本仓库所有项目共享 pnpm install 缓存
 COPY --from=FILES_CACHE /data/meta-files ${BUILD_DIR}
-RUN pnpm install -r --offline
+RUN pnpm install -r
 
 # node_modules 已准备完毕；此时复制完整源代码
 COPY --from=FILES_CACHE /data/source-files ${BUILD_DIR}
@@ -47,7 +47,7 @@ RUN cp -r ./deploy/docker.deps.local/* ./deploy/docker.deps/
 #  auth/something.txt ${BUILD_DIR}/my-modules/something.txt
 
 RUN pnpm build
-RUN rm -rf ./node_modules/ && pnpm install -r --offline --prod
+RUN rm -rf ./node_modules/ && pnpm install -r --prod
 
 ########################################
 # 最终镜像，仅复制可执行的程序文件和准备必要的系统服务（nginx、curl）

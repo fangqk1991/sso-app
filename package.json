@@ -20,6 +20,7 @@
     "@fangcha/backend-kit": "^0.60.0",
     "@fangcha/bot-kit": "^0.1.0",
     "@fangcha/logger": "^0.5.0",
+    "@fangcha/resque": "^1.5.0",
     "@fangcha/router": "^0.29.0",
     "@fangcha/session": "^0.2.0",
     "@fangcha/swagger": "^0.1.1",
