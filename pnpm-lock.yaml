@@ -73,6 +73,9 @@ importers:
       bcrypt:
         specifier: ^5.1.0
         version: 5.1.0
+      cron:
+        specifier: ^1.8.2
+        version: 1.8.2
       crypto-js:
         specifier: ^4.0.0
         version: 4.1.1
@@ -158,6 +161,9 @@ importers:
       '@types/bcryptjs':
         specifier: ^2.4.2
         version: 2.4.2
+      '@types/cron':
+        specifier: ^1.7.2
+        version: 1.7.2
       '@types/crypto-js':
         specifier: ^4.0.1
         version: 4.1.1
@@ -2818,6 +2824,13 @@ packages:
       '@types/node': 18.11.19
     dev: false
 
+  /@types/cron@1.7.2:
+    resolution: {integrity: sha512-AEpNLRcsVSc5AdseJKNHpz0d4e8+ow+abTaC0fKDbAU86rF1evoFF0oC2fV9FdqtfVXkG2LKshpLTJCFOpyvTg==}
+    dependencies:
+      '@types/node': 18.11.19
+      moment: 2.29.4
+    dev: true
+
   /@types/crypto-js@4.1.1:
     resolution: {integrity: sha512-BG7fQKZ689HIoc5h+6D2Dgq1fABRa0RbBWKBd9SP/MVRVXROflpm5fhwyATX5duFmbStzyzyycPB8qUYKDH3NA==}
     dev: true
@@ -4885,6 +4898,12 @@ packages:
   /create-require@1.1.1:
     resolution: {integrity: sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ==}
     dev: true
+
+  /cron@1.8.2:
+    resolution: {integrity: sha512-Gk2c4y6xKEO8FSAUTklqtfSr7oTq0CiPQeLBG5Fl0qoXpZyMcj1SG59YL+hqq04bu6/IuEA7lMkYDAplQNKkyg==}
+    dependencies:
+      moment-timezone: 0.5.40
+    dev: false
 
   /cross-spawn@7.0.3:
     resolution: {integrity: sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==}
