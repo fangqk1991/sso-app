@@ -4,6 +4,7 @@ import React from 'react'
 import { P_GroupParams } from '@fangcha/account-models'
 import { NumBoolDescriptor } from '@fangcha/tools'
 import { DialogProps, ReactDialog } from '@fangcha/react'
+import { GroupCategory } from '@web/sso-common/user-models'
 
 type Props = DialogProps & {
   params?: Partial<P_GroupParams>
@@ -24,6 +25,9 @@ export class GroupFormDialog extends ReactDialog<Props, P_GroupParams> {
               groupAlias: '',
               isRetained: 0,
               isEnabled: 1,
+              groupCategory: GroupCategory.Custom,
+              departmentId: null,
+              isFullDepartment: 0,
               blackPermission: 0,
               subGroupIdList: [],
             } as P_GroupParams)

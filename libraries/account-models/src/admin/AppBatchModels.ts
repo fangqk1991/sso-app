@@ -6,7 +6,7 @@ export interface GroupImportParams extends P_GroupParams {
   name: string
   remarks: string
   groupAlias: string
-  departmentId: number | null
+  departmentId: string | null
   isFullDepartment: number
   isRetained: number
   permissionKeys: string[]

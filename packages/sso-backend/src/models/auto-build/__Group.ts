@@ -7,7 +7,8 @@ const _cols: string[] = [
   'appid',
   'group_alias',
   'group_category',
-  'feishu_open_department_id',
+  'department_id',
+  'is_full_department',
   'name',
   'remarks',
   'version',
@@ -25,7 +26,8 @@ const _insertableCols: string[] = [
   'appid',
   'group_alias',
   'group_category',
-  'feishu_open_department_id',
+  'department_id',
+  'is_full_department',
   'name',
   'remarks',
   'version',
@@ -40,7 +42,8 @@ const _modifiableCols: string[] = [
   'appid',
   'group_alias',
   'group_category',
-  'feishu_open_department_id',
+  'department_id',
+  'is_full_department',
   'name',
   'remarks',
   'version',
@@ -84,9 +87,13 @@ export class __Group extends FeedBase {
    */
   public groupCategory!: string
   /**
-   * @description [bigint] 绑定飞书部门 ID
+   * @description [varchar(40)] 绑定部门 ID
    */
-  public feishuOpenDepartmentId!: number | null
+  public departmentId!: string | null
+  /**
+   * @description [tinyint] 是否包含子孙部门
+   */
+  public isFullDepartment!: number
   /**
    * @description [varchar(127)] 组名
    */
@@ -162,7 +169,8 @@ export class __Group extends FeedBase {
   public fc_defaultInit() {
     // This function is invoked by constructor of FCModel
     this.groupCategory = 'Custom'
-    this.feishuOpenDepartmentId = null
+    this.departmentId = null
+    this.isFullDepartment = 0
     this.name = ''
     this.remarks = ''
     this.version = 0
@@ -179,7 +187,8 @@ export class __Group extends FeedBase {
       appid: 'appid',
       groupAlias: 'group_alias',
       groupCategory: 'group_category',
-      feishuOpenDepartmentId: 'feishu_open_department_id',
+      departmentId: 'department_id',
+      isFullDepartment: 'is_full_department',
       name: 'name',
       remarks: 'remarks',
       version: 'version',

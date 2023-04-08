@@ -1,10 +1,13 @@
 export interface P_GroupParams {
+  groupCategory: string
   name: string
   remarks: string
   isRetained: number
   isEnabled: number
   blackPermission: number
   groupAlias: string
+  departmentId: string | null
+  isFullDepartment: number
   author?: string
   subGroupIdList: string[]
 }

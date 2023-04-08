@@ -15,7 +15,7 @@ import { _GroupPermission } from './_GroupPermission'
 import assert from '@fangcha/assert'
 import { makeUUID } from '@fangcha/tools'
 import { Transaction } from 'sequelize'
-import { GroupCategory } from '@web/sso-common/user-models'
+import { GroupCategory, GroupCategoryDescriptor } from '@web/sso-common/user-models'
 
 export class _Group extends __Group {
   groupCategory!: GroupCategory
@@ -58,6 +58,12 @@ export class _Group extends __Group {
     if (!onlyCheckDefinedKeys || params.name !== undefined) {
       assert.ok(!!params.name, '组名 不能为空')
     }
+    if (!onlyCheckDefinedKeys || params.groupCategory !== undefined) {
+      assert.ok(GroupCategoryDescriptor.checkValueValid(params.groupCategory), 'groupCategory 有误')
+    }
+    if (params.groupCategory === GroupCategory.Department) {
+      assert.ok(!!params.departmentId, '部门 不能为空')
+    }
   }
 
   public static async makeGroupFeed(appid: string, params: P_GroupParams, transaction?: Transaction) {
@@ -94,6 +100,29 @@ export class _Group extends __Group {
 
     if (params.remarks !== undefined) {
       this.remarks = params.remarks || ''
+    }
+
+    if (params.groupCategory !== undefined) {
+      this.groupCategory = params.groupCategory as GroupCategory
+      switch (params.groupCategory) {
+        case GroupCategory.Custom:
+          this.departmentId = null
+          this.isFullDepartment = 0
+          break
+        case GroupCategory.Department:
+          this.departmentId = params.departmentId || null
+          this.isFullDepartment = params.isFullDepartment || 0
+          if (params.departmentId) {
+            // const department = await WechatDepartment.findWithDepartmentId(params.departmentId, transaction)
+            // if (!department) {
+            //   this.groupCategory = GroupCategory.Custom
+            //   this.departmentId = null
+            // } else {
+            //   this.departmentHash = department.hash
+            // }
+          }
+          break
+      }
     }
 
     if (params.isRetained !== undefined) {
