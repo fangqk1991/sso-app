@@ -71,12 +71,21 @@ export class FeishuServer {
   public async getFullStructureInfo() {
     const rootDepartment = await this.FeishuDepartment.getRootDepartment()
     const handler = this.departmentHandler(rootDepartment)
-    const node = await handler.getStructureInfo(true)
-    node.departmentName = node.departmentName || 'ROOT'
-    return node
+    return handler.getStructureInfo(true)
   }
 
   public departmentHandler(department: _FeishuDepartment) {
     return new FeishuDepartmentHandler(department, this)
+  }
+
+  public async getDepartmentMap(departmentIds: string[]) {
+    const searcher = new this.FeishuDepartment().fc_searcher()
+    searcher.processor().addConditionKeyInArray('open_department_id', departmentIds)
+    const items = await searcher.queryAllFeeds()
+    const itemData: { [p: string]: _FeishuDepartment } = items.reduce((result, cur) => {
+      result[cur.openDepartmentId] = cur
+      return result
+    }, {})
+    return itemData
   }
 }

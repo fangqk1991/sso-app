@@ -1,10 +1,9 @@
 import { _Group } from '../models/permission/_Group'
-import { P_GroupParams } from '@fangcha/account-models'
+import { GroupCategory, GroupCategoryDescriptor, P_GroupParams } from '@fangcha/account-models'
 import { Transaction } from 'sequelize'
 import { makeUUID } from '@fangcha/tools'
 import { MyPermissionServer } from './MyPermissionServer'
 import assert from '@fangcha/assert'
-import { GroupCategory, GroupCategoryDescriptor } from '@web/sso-common/user-models'
 import { MyFeishuServer } from './MyFeishuServer'
 
 export class GroupHandler {

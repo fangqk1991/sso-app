@@ -1,10 +1,10 @@
-import { ProForm, ProFormRadio, ProFormText } from '@ant-design/pro-components'
+import { ProForm, ProFormDependency, ProFormRadio, ProFormText } from '@ant-design/pro-components'
 import { Form } from 'antd'
 import React from 'react'
-import { P_GroupParams } from '@fangcha/account-models'
+import { GroupCategory, GroupCategoryDescriptor, P_GroupParams } from '@fangcha/account-models'
 import { NumBoolDescriptor } from '@fangcha/tools'
 import { DialogProps, ReactDialog } from '@fangcha/react'
-import { GroupCategory } from '@web/sso-common/user-models'
+import { DepartmentSelector } from './DepartmentSelector'
 
 type Props = DialogProps & {
   params?: Partial<P_GroupParams>
@@ -43,6 +43,12 @@ export class GroupFormDialog extends ReactDialog<Props, P_GroupParams> {
       return (
         <ProForm form={form} autoFocusFirstInput initialValues={params} submitter={false}>
           {props.forEditing && <ProFormText name='groupAlias' label='Alias' />}
+          <ProFormRadio.Group
+            name='groupCategory'
+            label='类别'
+            options={GroupCategoryDescriptor.options()}
+            radioType='button'
+          />
           <ProFormText name='name' label='名称' />
           <ProFormText name='remarks' label='备注' />
           <ProFormRadio.Group
@@ -51,6 +57,13 @@ export class GroupFormDialog extends ReactDialog<Props, P_GroupParams> {
             options={NumBoolDescriptor.options()}
             radioType='button'
           />
+          <ProFormDependency key='departmentId' name={['groupCategory']}>
+            {({ groupCategory }) => {
+              if (groupCategory === GroupCategory.Department) {
+                return <DepartmentSelector />
+              }
+            }}
+          </ProFormDependency>
         </ProForm>
       )
     }

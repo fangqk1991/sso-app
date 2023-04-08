@@ -26,7 +26,7 @@ export interface FeishuDepartmentTree extends FeishuDepartmentModel {
   memberList: FeishuDepartmentMemberModel[]
 }
 
-// export interface DepartmentDetailInfo extends WechatDepartmentModel {
-//   fullPathName: string
-//   pathDepartments: WechatDepartmentModel[]
-// }
+export interface FeishuDepartmentDetailInfo extends FeishuDepartmentModel {
+  fullPathName: string
+  pathDepartments: FeishuDepartmentModel[]
+}

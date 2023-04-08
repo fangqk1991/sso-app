@@ -28,6 +28,8 @@ export class FeishuSync {
     const feishuClient = this.feishuClient
 
     const rootNode = await feishuClient.getDepartmentTree('0')
+    rootNode.department.name = rootNode.department.name || 'ROOT'
+
     const departmentNodeList: Raw_FeishuDepartmentTree[] = []
     let todoItems = [rootNode]
     while (todoItems.length > 0) {

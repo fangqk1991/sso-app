@@ -7,6 +7,8 @@ import { CommonAppApis, CommonSearchApis } from '@web/sso-common/core-api'
 import { AppHandler } from './AppHandler'
 import { MyPermissionServer } from './MyPermissionServer'
 import { MyAccountServer } from './MyAccountServer'
+import { MyFeishuServer } from './MyFeishuServer'
+import { FeishuDepartmentDetailInfo } from '@fangcha/account-models'
 
 export class AppSpecsBuilder {
   public readonly protocol: AppSpecHandlerProtocol
@@ -299,14 +301,28 @@ export class AppSpecsBuilder {
       ctx.body = feeds.map((item) => item.toJSON())
     })
 
+    factory.prepare(CommonSearchApis.DepartmentSearch, async (ctx) => {
+      const searcher = new MyFeishuServer.FeishuDepartment().fc_searcher(ctx.request.query)
+      searcher.processor().setLimitInfo(0, 5)
+      const feeds = await searcher.queryAllFeeds()
+      const departmentIds = feeds
+        .map((item) => item.getPathDepartmentIds())
+        .reduce((result, cur) => result.concat(cur), [])
+      const mapper = await MyFeishuServer.getDepartmentMap(departmentIds)
+      ctx.body = feeds.map((item) => {
+        const data = item.modelForClient() as FeishuDepartmentDetailInfo
+        data.fullPathName = item
+          .getPathDepartmentIds()
+          .map((departmentId) => mapper[departmentId].departmentName)
+          .join(' > ')
+        return data
+      })
+    })
+
     return factory.buildSpecs()
   }
 
   public makeSpecs() {
-    return [
-      ...this.makeAppSpecs(),
-      ...this.makeGroupMemberSpecs(),
-      ...this.makeSearchSpecs(),
-    ]
+    return [...this.makeAppSpecs(), ...this.makeGroupMemberSpecs(), ...this.makeSearchSpecs()]
   }
 }

@@ -1,5 +1,7 @@
+import { GroupCategory } from './GroupCategory'
+
 export interface P_GroupParams {
-  groupCategory: string
+  groupCategory: GroupCategory
   name: string
   remarks: string
   isRetained: number

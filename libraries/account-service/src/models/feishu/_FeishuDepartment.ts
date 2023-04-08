@@ -2,7 +2,6 @@ import { __FeishuDepartment } from '../auto-build/__FeishuDepartment'
 import { FilterOptions } from 'fc-feed'
 import { FeishuDepartmentModel } from '@fangcha/account-models'
 import assert from '@fangcha/assert'
-import { _FeishuDepartmentMember } from './_FeishuDepartmentMember'
 
 export class _FeishuDepartment extends __FeishuDepartment {
   public constructor() {
@@ -21,6 +20,13 @@ export class _FeishuDepartment extends __FeishuDepartment {
       searcher.processor().addSpecialCondition('department_name LIKE ?', `%${keywords}%`)
     }
     return searcher
+  }
+
+  public getPathDepartmentIds() {
+    return this.path
+      .split(',')
+      .map((item) => item.trim())
+      .filter((item) => !!item)
   }
 
   public full_searcher(params: FilterOptions = {}) {

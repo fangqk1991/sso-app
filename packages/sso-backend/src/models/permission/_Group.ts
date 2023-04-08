@@ -2,7 +2,7 @@ import { __Group } from '../auto-build/__Group'
 import { FilterOptions } from 'fc-feed'
 import {
   FullGroupInfo,
-  GroupCalculator,
+  GroupCalculator, GroupCategory,
   GroupExportInfo,
   P_GroupDetail,
   P_GroupInfo,
@@ -12,7 +12,6 @@ import { _GroupAccess } from './_GroupAccess'
 import { _GroupMember } from './_GroupMember'
 import { _GroupPermission } from './_GroupPermission'
 import { Transaction } from 'sequelize'
-import { GroupCategory } from '@web/sso-common/user-models'
 
 export class _Group extends __Group {
   groupCategory!: GroupCategory
