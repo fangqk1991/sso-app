@@ -1,12 +1,12 @@
 import { DBModelSchema, ModelGenerator } from '@fangcha/generator'
 import { SafeTask } from '@fangcha/tools'
-import { DemoDBOptions } from './db-config'
+import { SsoConfig } from '../src/SsoConfig'
 
 const modelTmpl = `${__dirname}/model.tmpl.ejs`
 const extendTmpl = `${__dirname}/class.extends.model.ejs`
 
 const generator = new ModelGenerator({
-  dbConfig: DemoDBOptions,
+  dbConfig: SsoConfig.mysql.ssoDB,
   tmplFile: modelTmpl,
   extTmplFile: extendTmpl,
 })

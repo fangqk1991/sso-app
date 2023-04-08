@@ -15,8 +15,11 @@ import { _GroupPermission } from './_GroupPermission'
 import assert from '@fangcha/assert'
 import { makeUUID } from '@fangcha/tools'
 import { Transaction } from 'sequelize'
+import { GroupCategory } from '@web/sso-common/user-models'
 
 export class _Group extends __Group {
+  groupCategory!: GroupCategory
+
   public static GroupAccess: { new (): _GroupAccess } & typeof _GroupAccess
   public static GroupMember: { new (): _GroupMember } & typeof _GroupMember
   public static GroupPermission: { new (): _GroupPermission } & typeof _GroupPermission

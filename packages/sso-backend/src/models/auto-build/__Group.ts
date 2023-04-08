@@ -6,6 +6,8 @@ const _cols: string[] = [
   'group_id',
   'appid',
   'group_alias',
+  'group_category',
+  'feishu_open_department_id',
   'name',
   'remarks',
   'version',
@@ -22,6 +24,8 @@ const _insertableCols: string[] = [
   'group_id',
   'appid',
   'group_alias',
+  'group_category',
+  'feishu_open_department_id',
   'name',
   'remarks',
   'version',
@@ -35,6 +39,8 @@ const _modifiableCols: string[] = [
   // prettier-ignore
   'appid',
   'group_alias',
+  'group_category',
+  'feishu_open_department_id',
   'name',
   'remarks',
   'version',
@@ -73,6 +79,14 @@ export class __Group extends FeedBase {
    * @description [varchar(64)] 组的别名，由用户自行指定，具备唯一性
    */
   public groupAlias!: string
+  /**
+   * @description [enum('Custom','Department','Staff')] 组类别
+   */
+  public groupCategory!: string
+  /**
+   * @description [bigint] 绑定飞书部门 ID
+   */
+  public feishuOpenDepartmentId!: number | null
   /**
    * @description [varchar(127)] 组名
    */
@@ -147,6 +161,8 @@ export class __Group extends FeedBase {
 
   public fc_defaultInit() {
     // This function is invoked by constructor of FCModel
+    this.groupCategory = 'Custom'
+    this.feishuOpenDepartmentId = null
     this.name = ''
     this.remarks = ''
     this.version = 0
@@ -162,6 +178,8 @@ export class __Group extends FeedBase {
       groupId: 'group_id',
       appid: 'appid',
       groupAlias: 'group_alias',
+      groupCategory: 'group_category',
+      feishuOpenDepartmentId: 'feishu_open_department_id',
       name: 'name',
       remarks: 'remarks',
       version: 'version',
