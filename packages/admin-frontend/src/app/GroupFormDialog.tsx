@@ -60,7 +60,7 @@ export class GroupFormDialog extends ReactDialog<Props, P_GroupParams> {
           <ProFormDependency key='departmentId' name={['groupCategory']}>
             {({ groupCategory }) => {
               if (groupCategory === GroupCategory.Department) {
-                return <DepartmentSelector />
+                return <DepartmentSelector name='departmentId' />
               }
             }}
           </ProFormDependency>

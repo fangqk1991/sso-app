@@ -4,7 +4,11 @@ import { MyRequest } from '@fangcha/auth-react'
 import { CommonSearchApis } from '@web/sso-common/core-api'
 import { FeishuDepartmentDetailInfo } from '@fangcha/account-models'
 
-export const DepartmentSelector: React.FC = () => {
+interface Props {
+  name: string
+}
+
+export const DepartmentSelector: React.FC<Props> = ({ name }) => {
   const [departments, setDepartments] = useState<FeishuDepartmentDetailInfo[]>([])
 
   const searchKeywords = (keywords: string) => {
@@ -24,7 +28,7 @@ export const DepartmentSelector: React.FC = () => {
 
   return (
     <ProFormSelect
-      name='departmentId'
+      name={name}
       label='绑定部门'
       fieldProps={{
         showSearch: true,
