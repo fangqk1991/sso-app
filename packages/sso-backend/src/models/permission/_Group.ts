@@ -6,16 +6,13 @@ import {
   GroupExportInfo,
   P_GroupDetail,
   P_GroupInfo,
-  P_GroupParams,
   P_MemberParams,
 } from '@fangcha/account-models'
 import { _GroupAccess } from './_GroupAccess'
 import { _GroupMember } from './_GroupMember'
 import { _GroupPermission } from './_GroupPermission'
-import assert from '@fangcha/assert'
-import { makeUUID } from '@fangcha/tools'
 import { Transaction } from 'sequelize'
-import { GroupCategory, GroupCategoryDescriptor } from '@web/sso-common/user-models'
+import { GroupCategory } from '@web/sso-common/user-models'
 
 export class _Group extends __Group {
   groupCategory!: GroupCategory
@@ -52,91 +49,6 @@ export class _Group extends __Group {
       }
     }
     return pageResult
-  }
-
-  public static checkValidParams(params: P_GroupParams, onlyCheckDefinedKeys = false) {
-    if (!onlyCheckDefinedKeys || params.name !== undefined) {
-      assert.ok(!!params.name, '组名 不能为空')
-    }
-    if (!onlyCheckDefinedKeys || params.groupCategory !== undefined) {
-      assert.ok(GroupCategoryDescriptor.checkValueValid(params.groupCategory), 'groupCategory 有误')
-    }
-    if (params.groupCategory === GroupCategory.Department) {
-      assert.ok(!!params.departmentId, '部门 不能为空')
-    }
-  }
-
-  public static async makeGroupFeed(appid: string, params: P_GroupParams, transaction?: Transaction) {
-    this.checkValidParams(params)
-    const group = new this()
-    group.groupId = makeUUID()
-    group.appid = appid
-    group.author = params.author || ''
-    group.version = 1
-    await group.changeWithParams(appid, params, transaction)
-    return group
-  }
-
-  public async changeWithParams(appid: string, params: P_GroupParams, transaction?: Transaction) {
-    if (params.groupAlias && params.groupAlias !== this.groupAlias) {
-      const Group = this.getClass()
-      const feed = await Group.findOne(
-        {
-          appid: appid,
-          group_alias: params.groupAlias,
-        },
-        transaction
-      )
-      assert.ok(!feed, `groupAlias: ${params.groupAlias} 已存在，不可导入`)
-    }
-
-    if (params.groupAlias !== undefined) {
-      this.groupAlias = params.groupAlias || this.groupId
-    }
-
-    if (params.name !== undefined) {
-      this.name = params.name || ''
-    }
-
-    if (params.remarks !== undefined) {
-      this.remarks = params.remarks || ''
-    }
-
-    if (params.groupCategory !== undefined) {
-      this.groupCategory = params.groupCategory as GroupCategory
-      switch (params.groupCategory) {
-        case GroupCategory.Custom:
-          this.departmentId = null
-          this.isFullDepartment = 0
-          break
-        case GroupCategory.Department:
-          this.departmentId = params.departmentId || null
-          this.isFullDepartment = params.isFullDepartment || 0
-          if (params.departmentId) {
-            // const department = await WechatDepartment.findWithDepartmentId(params.departmentId, transaction)
-            // if (!department) {
-            //   this.groupCategory = GroupCategory.Custom
-            //   this.departmentId = null
-            // } else {
-            //   this.departmentHash = department.hash
-            // }
-          }
-          break
-      }
-    }
-
-    if (params.isRetained !== undefined) {
-      this.isRetained = params.isRetained || 0
-    }
-    if (params.blackPermission !== undefined) {
-      this.blackPermission = params.blackPermission || 0
-    }
-    if (params.isEnabled !== undefined) {
-      this.isEnabled = params.isEnabled || 0
-    }
-    if (params.subGroupIdList !== undefined) {
-      this.subGroupsStr = [...new Set(params.subGroupIdList)].join(',')
-    }
   }
 
   public async removePermissionsAndMembers(transaction?: Transaction) {

@@ -9,6 +9,7 @@ const _cols: string[] = [
   'group_category',
   'department_id',
   'is_full_department',
+  'department_hash',
   'name',
   'remarks',
   'version',
@@ -28,6 +29,7 @@ const _insertableCols: string[] = [
   'group_category',
   'department_id',
   'is_full_department',
+  'department_hash',
   'name',
   'remarks',
   'version',
@@ -44,6 +46,7 @@ const _modifiableCols: string[] = [
   'group_category',
   'department_id',
   'is_full_department',
+  'department_hash',
   'name',
   'remarks',
   'version',
@@ -94,6 +97,10 @@ export class __Group extends FeedBase {
    * @description [tinyint] 是否包含子孙部门
    */
   public isFullDepartment!: number
+  /**
+   * @description [char(8)] 部门摘要值
+   */
+  public departmentHash!: string
   /**
    * @description [varchar(127)] 组名
    */
@@ -171,6 +178,7 @@ export class __Group extends FeedBase {
     this.groupCategory = 'Custom'
     this.departmentId = null
     this.isFullDepartment = 0
+    this.departmentHash = ''
     this.name = ''
     this.remarks = ''
     this.version = 0
@@ -189,6 +197,7 @@ export class __Group extends FeedBase {
       groupCategory: 'group_category',
       departmentId: 'department_id',
       isFullDepartment: 'is_full_department',
+      departmentHash: 'department_hash',
       name: 'name',
       remarks: 'remarks',
       version: 'version',

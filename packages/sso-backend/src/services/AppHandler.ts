@@ -16,6 +16,8 @@ import { _App } from '../models/permission/_App'
 import { _Group } from '../models/permission/_Group'
 import { _GroupMember } from '../models/permission/_GroupMember'
 import { _GroupAccess } from '../models/permission/_GroupAccess'
+import { GroupHandler } from './GroupHandler'
+import { MyPermissionServer } from './MyPermissionServer'
 
 export class AppHandler {
   public readonly app: _App
@@ -192,8 +194,7 @@ export class AppHandler {
 
   public async generateGroup(params: P_GroupParams, transaction?: Transaction) {
     const app = this.app
-    const Group = app.getClass().Group
-    const group = await Group.makeGroupFeed(app.appid, params, transaction)
+    const group = await GroupHandler.makeGroupFeed(app.appid, params, transaction)
     const handler = async (transaction: Transaction) => {
       await group.addToDB(transaction)
       await app.increaseVersion(transaction)
@@ -209,7 +210,6 @@ export class AppHandler {
 
   public async generateFullGroup(params: GroupImportParams, transaction?: Transaction) {
     const app = this.app
-    const Group = app.getClass().Group
     if (params.groupAlias === params.groupId && /^\w{32}$/.test(params.groupId)) {
       params.groupAlias = ''
     }
@@ -218,18 +218,18 @@ export class AppHandler {
     for (const memberParams of params.members) {
       assert.ok(!!memberParams.member, 'members.*.member can not be empty')
     }
-    const group = await Group.makeGroupFeed(app.appid, params, transaction)
+    const group = await GroupHandler.makeGroupFeed(app.appid, params, transaction)
     const handler = async (transaction: Transaction) => {
       await group.addToDB(transaction)
       for (const permissionKey of params.permissionKeys) {
-        const permission = new Group.GroupPermission()
+        const permission = new MyPermissionServer.GroupPermission()
         permission.groupId = group.groupId
         permission.permissionKey = permissionKey
         permission.author = group.author
         await permission.strongAddToDB(transaction)
       }
       for (const memberParams of params.members) {
-        const member = new Group.GroupMember()
+        const member = new MyPermissionServer.GroupMember()
         member.groupId = group.groupId
         member.member = memberParams.member
         member.isAdmin = memberParams.isAdmin ? 1 : 0
@@ -262,12 +262,11 @@ export class AppHandler {
 
   public async updateGroup(group: _Group, params: P_GroupParams, transaction?: Transaction) {
     const app = this.app
-    const Group = app.getClass().Group
-    Group.checkValidParams(params, true)
+    GroupHandler.checkValidParams(params, true)
 
     const handler = async (transaction: Transaction) => {
       group.fc_edit()
-      await group.changeWithParams(group.appid, params, transaction)
+      await new GroupHandler(group).changeWithParams(params, transaction)
       ++group.version
       await group.updateToDB(transaction)
       await app.increaseVersion(transaction)
@@ -393,7 +392,7 @@ export class AppHandler {
     await runner.commit(async (transaction) => {
       let group = await app.findGroup(email, transaction)
       if (!group) {
-        group = await Group.makeGroupFeed(
+        group = await GroupHandler.makeGroupFeed(
           app.appid,
           {
             name: email,

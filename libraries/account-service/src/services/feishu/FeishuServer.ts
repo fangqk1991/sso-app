@@ -1,4 +1,4 @@
-import { FCDatabase } from 'fc-sql'
+import { FCDatabase, Transaction } from 'fc-sql'
 import { _FeishuDepartment } from '../../models/feishu/_FeishuDepartment'
 import { _FeishuDepartmentMember } from '../../models/feishu/_FeishuDepartmentMember'
 import { _FeishuUser } from '../../models/feishu/_FeishuUser'
@@ -57,6 +57,15 @@ export class FeishuServer {
       table: this.tableName_FeishuUser,
     })
     this.FeishuUser = FeishuUser
+  }
+
+  public async findDepartment(departmentId: string, transaction?: Transaction) {
+    const searcher = new this.FeishuDepartment().fc_searcher()
+    if (transaction) {
+      searcher.processor().transaction = transaction
+    }
+    searcher.processor().addConditionKV('open_department_id', departmentId)
+    return (await searcher.queryOne())!
   }
 
   public async getFullStructureInfo() {

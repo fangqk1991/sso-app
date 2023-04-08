@@ -135,6 +135,7 @@ CREATE TABLE IF NOT EXISTS fc_group
     group_category     ENUM ('Custom', 'Department', 'Staff') NOT NULL DEFAULT 'Custom' COMMENT '组类别',
     department_id      VARCHAR(40)                            NULL COLLATE ascii_bin COMMENT '绑定部门 ID',
     is_full_department TINYINT                                NOT NULL DEFAULT 0 COMMENT '是否包含子孙部门',
+    department_hash    CHAR(8) COLLATE ascii_bin              NOT NULL DEFAULT '' COMMENT '部门摘要值',
     name               VARCHAR(127)                           NOT NULL DEFAULT '' COMMENT '组名',
     remarks            VARCHAR(255)                           NOT NULL DEFAULT '' COMMENT '备注',
     version            BIGINT                                 NOT NULL DEFAULT 0 COMMENT '版本号',
