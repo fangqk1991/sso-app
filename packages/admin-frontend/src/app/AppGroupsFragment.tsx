@@ -1,16 +1,18 @@
 import React, { useState } from 'react'
 import { AppFragmentProtocol } from './AppFragmentProtocol'
-import { Button, Divider, message, Space } from 'antd'
+import { Button, Divider, message, Space, Tag } from 'antd'
 import { MyRequest } from '@fangcha/auth-react'
 import { ConfirmDialog, JsonEditorDialog, TableView } from '@fangcha/react'
-import { P_GroupInfo } from '@fangcha/account-models'
+import { GroupCategory, P_GroupInfo } from '@fangcha/account-models'
 import { Link } from 'react-router-dom'
 import { CommonAPI } from '@fangcha/app-request'
 import { CommonAppApis } from '@web/sso-common/core-api'
 import { PageResult } from '@fangcha/tools'
 import { GroupFormDialog } from './GroupFormDialog'
+import { useFeishuDepartmentCtx } from '../feishu/FeishuDepartmentContext'
 
 export const AppGroupsFragment: AppFragmentProtocol = ({ appInfo }) => {
+  const departmentCtx = useFeishuDepartmentCtx()
   const [version, setVersion] = useState(0)
   return (
     <div>
@@ -63,6 +65,9 @@ export const AppGroupsFragment: AppFragmentProtocol = ({ appInfo }) => {
               <>
                 <Space>
                   <Link to={{ pathname: `/v1/app/${appInfo.appid}/group/${item.groupId}` }}>{item.name}</Link>
+                  {item.groupCategory === GroupCategory.Department && item.departmentId && (
+                    <Tag color={'geekblue'}>{departmentCtx.getFullDepartmentName(item.departmentId)}</Tag>
+                  )}
                 </Space>
                 <br />
                 <span>Alias: {item.groupAlias}</span>
