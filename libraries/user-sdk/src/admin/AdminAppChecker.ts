@@ -22,9 +22,9 @@ export class AdminAppChecker extends UserAppChecker {
       if (!groupMemberMapper[group.groupId]) {
         groupMemberMapper[group.groupId] = {}
       }
-      for (const email of group.memberEmails) {
-        groupMemberMapper[group.groupId][email] = true
-        groupMemberMapper[group.groupId][email.toLocaleLowerCase()] = true
+      for (const memberId of group.memberIdList) {
+        groupMemberMapper[group.groupId][memberId] = true
+        groupMemberMapper[group.groupId][memberId.toLocaleLowerCase()] = true
       }
     }
     this._groupMemberMapper = groupMemberMapper
@@ -69,14 +69,14 @@ export class AdminAppChecker extends UserAppChecker {
     const groups = this.appGroups().filter((item) => this._groupPermissionMapper[item.groupId][permissionKey])
     const userKeySet = new Set<string>()
     groups.forEach((group) => {
-      group.memberEmails.forEach((key) => {
+      group.memberIdList.forEach((key) => {
         userKeySet.add(key)
       })
     })
     groups
       .filter((item) => item.blackPermission)
       .forEach((group) => {
-        group.memberEmails.forEach((key) => {
+        group.memberIdList.forEach((key) => {
           userKeySet.delete(key)
         })
       })

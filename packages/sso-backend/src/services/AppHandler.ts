@@ -130,7 +130,7 @@ export class AppHandler {
       fullInfo.groups = groupFeeds.map((item) => {
         const data = item.toJSON() as FullGroupInfo
         data.permissionKeys = []
-        data.memberEmails = []
+        data.memberIdList = []
         data.groupSecrets = []
         return data
       })
@@ -173,21 +173,21 @@ export class AppHandler {
       )
       const items = await searcher.queryAllFeeds()
       for (const item of items) {
-        groupData[item.groupId].memberEmails.push(item.member)
+        groupData[item.groupId].memberIdList.push(item.member)
       }
     }
     fullInfo.groups.forEach((group) => {
-      group.fullMemberEmails = [
+      group.fullMemberIdList = [
         ...new Set(
           group.fullSubGroupIdList.reduce((result, groupId) => {
-            return result.concat(groupData[groupId].memberEmails)
+            return result.concat(groupData[groupId].memberIdList)
           }, [] as string[])
         ),
       ]
     })
     fullInfo.groups.forEach((group) => {
-      group.memberEmails = group.fullMemberEmails
-      group.fullMemberEmails = []
+      group.memberIdList = group.fullMemberIdList
+      group.fullMemberIdList = []
     })
     return fullInfo
   }

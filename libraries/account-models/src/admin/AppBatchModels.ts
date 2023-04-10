@@ -29,7 +29,7 @@ export interface AppExportInfo extends P_AppInfo {
 
 export interface FullGroupInfo extends P_GroupDetail {
   permissionKeys: string[]
-  memberEmails: string[]
+  memberIdList: string[]
   groupSecrets: string[]
 }
 

@@ -167,7 +167,7 @@ export class AppSpecsBuilder {
 
       const fullAppInfo = await new AppHandler(app).getFullAppInfo()
       const keyGroup = fullAppInfo.groups.find((item) => item.groupId === group.groupId)!
-      ctx.body = keyGroup.memberEmails
+      ctx.body = keyGroup.memberIdList
     })
 
     factory.prepare(CommonAppApis.AppGroupInfoExport, async (ctx) => {

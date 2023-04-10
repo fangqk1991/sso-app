@@ -46,7 +46,7 @@ export const UserSwaggerModelData = {
             example: 'accessAll',
           },
         },
-        memberEmails: {
+        memberIdList: {
           type: 'array',
           items: {
             type: 'string',

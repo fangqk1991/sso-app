@@ -140,7 +140,7 @@ export class _Group extends __Group {
     const GroupMember = this.getClass().GroupMember
     const data = this.toJSON() as P_GroupDetail
     data.permissionKeys = await this.getPermissionKeys()
-    data.fullMemberEmails = []
+    data.fullMemberIdList = []
     data.fullSubGroupIdList = []
     if (data.subGroupIdList.length > 0) {
       const searcher = new Group().fc_searcher()
@@ -162,7 +162,7 @@ export class _Group extends __Group {
         const searcher = new GroupMember().fc_searcher()
         searcher.processor().addConditionKeyInArray('group_id', data.fullSubGroupIdList)
         const items = await searcher.queryAllFeeds()
-        data.fullMemberEmails = [...new Set(items.map((item) => item.member))]
+        data.fullMemberIdList = [...new Set(items.map((item) => item.member))]
       }
     }
     return data
