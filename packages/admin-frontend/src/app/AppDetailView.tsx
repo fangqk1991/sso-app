@@ -7,7 +7,6 @@ import { AppConfigFragment } from './AppConfigFragment'
 import { AppPermissionFragment } from './AppPermissionFragment'
 import { AppGroupsFragment } from './AppGroupsFragment'
 import { useQueryParams } from '@fangcha/react'
-import { FeishuDepartmentProvider } from '../feishu/FeishuDepartmentContext'
 
 export const AppDetailView: React.FC = () => {
   const { appid = '' } = useParams()
@@ -54,11 +53,7 @@ export const AppDetailView: React.FC = () => {
           {
             label: `用户组`,
             key: 'user-group',
-            children: (
-              <FeishuDepartmentProvider>
-                <AppGroupsFragment appInfo={appInfo} onAppInfoChanged={() => setVersion(version + 1)} />
-              </FeishuDepartmentProvider>
-            ),
+            children: <AppGroupsFragment appInfo={appInfo} onAppInfoChanged={() => setVersion(version + 1)} />,
           },
         ]}
       />

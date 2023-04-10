@@ -6,6 +6,7 @@ interface Context {
   departmentTree: FeishuDepartmentTree
   departmentMapper: { [openDepartmentId: string]: FeishuDepartmentTree }
   reloadDepartmentTree: () => void
+  getDepartmentTree: (openDepartmentId: string | null) => FeishuDepartmentTree | null
   getDepartmentName: (openDepartmentId: string) => string
   getFullDepartmentName: (openDepartmentId: string) => string
 }
@@ -52,6 +53,9 @@ export const FeishuDepartmentProvider = ({ children }: React.ComponentProps<any>
         .then((response) => {
           setDepartmentTree(response)
         })
+    },
+    getDepartmentTree: (openDepartmentId) => {
+      return openDepartmentId ? departmentMapper[openDepartmentId] : null
     },
     getDepartmentName: (openDepartmentId) => {
       const departmentTree = departmentMapper[openDepartmentId]

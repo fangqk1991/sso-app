@@ -8,6 +8,7 @@ import { ConfigProvider } from 'antd'
 import { AuthMode } from '@fangcha/account-models'
 import { LoadingView } from '@fangcha/react'
 import { WebAuthApis } from '@fangcha/sso-models'
+import { FeishuDepartmentProvider } from './feishu/FeishuDepartmentContext'
 
 AuthSdkHelper.defaultRedirectUri = '/'
 
@@ -39,7 +40,9 @@ export const App: React.FC = () => {
   return (
     <ErrorBoundary>
       <VisitorProvider>
-        <RouterProvider router={MyRouter}></RouterProvider>
+        <FeishuDepartmentProvider>
+          <RouterProvider router={MyRouter}></RouterProvider>
+        </FeishuDepartmentProvider>
       </VisitorProvider>
     </ErrorBoundary>
   )

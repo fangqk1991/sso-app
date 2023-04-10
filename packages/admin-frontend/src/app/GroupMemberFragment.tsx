@@ -4,12 +4,16 @@ import { CommonAPI } from '@fangcha/app-request'
 import { CommonAppApis } from '@web/sso-common/core-api'
 import { Button, Card, Divider, message, Space, Tag } from 'antd'
 import { GroupFragmentProtocol } from './GroupFragmentProtocol'
-import { P_MemberInfo } from '@fangcha/account-models'
+import { GroupCategory, P_MemberInfo } from '@fangcha/account-models'
 import { ConfirmDialog, SimpleInputDialog, SimplePickerDialog } from '@fangcha/react'
 import { NumBoolDescriptor } from '@fangcha/tools'
+import { DepartmentTreeView } from '../feishu/DepartmentTreeView'
+import { useFeishuDepartmentCtx } from '../feishu/FeishuDepartmentContext'
 
 export const GroupMemberFragment: GroupFragmentProtocol = ({ appInfo, groupInfo, onGroupInfoChanged }) => {
   const [memberList, setMemberList] = useState<P_MemberInfo[]>([])
+  const departmentCtx = useFeishuDepartmentCtx()
+  const curDepartmentTree = departmentCtx.getDepartmentTree(groupInfo.departmentId)
 
   useEffect(() => {
     MyRequest(new CommonAPI(CommonAppApis.AppGroupMemberListGet, groupInfo.appid, groupInfo.groupId))
@@ -21,6 +25,18 @@ export const GroupMemberFragment: GroupFragmentProtocol = ({ appInfo, groupInfo,
 
   return (
     <>
+      {groupInfo.groupCategory === GroupCategory.Department && curDepartmentTree && (
+        <>
+          <h4>所绑定的部门架构</h4>
+          <p>
+            {groupInfo.isFullDepartment
+              ? '组成员包含该部门及其子孙部门的所有员工'
+              : '组成员包含该部门一级节点（不包含子孙部门）的员工'}
+          </p>
+          <DepartmentTreeView departmentNode={curDepartmentTree} defaultExpandAll={true} />
+          <Divider />
+        </>
+      )}
       <Button
         type='primary'
         onClick={() => {
