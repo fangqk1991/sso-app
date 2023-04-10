@@ -1,4 +1,4 @@
-import { AuthSdkHelper, SessionContext, useSession } from '@fangcha/auth-react'
+import { AuthSdkHelper, SessionContext, useSession, useSessionConfig } from '@fangcha/auth-react'
 import { AuthRouter } from '@fangcha/auth-react/router'
 import React from 'react'
 import { ErrorBoundary } from './views/ErrorBoundary'
@@ -9,14 +9,15 @@ AuthSdkHelper.forClientSDK = false
 
 export const App = () => {
   const sessionCtx = useSession()
-  document.title = sessionCtx.session.config.appName || 'App'
+  const config = useSessionConfig()
+  document.title = config.appName || 'App'
 
   return (
     <ErrorBoundary>
       <ConfigProvider
         theme={{
           token: {
-            colorPrimary: sessionCtx.session.config.colorPrimary || '#0d6efd',
+            colorPrimary: config.colorPrimary || '#0d6efd',
           },
         }}
       >

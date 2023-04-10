@@ -1,10 +1,11 @@
-import { AppstoreOutlined, UserOutlined, ApartmentOutlined } from '@ant-design/icons'
+import { ApartmentOutlined, AppstoreOutlined, UserOutlined } from '@ant-design/icons'
 import { Route } from '@ant-design/pro-layout/es/typing'
 import { UserPermission } from '@web/sso-common/user-models'
-import { useVisitorCtx } from '@fangcha/auth-react'
+import { useSessionConfig, useVisitorCtx } from '@fangcha/auth-react'
 
 export const useMenu = () => {
   const visitorCtx = useVisitorCtx()
+  const config = useSessionConfig()
 
   const myMenu: Route = {
     path: '/',
@@ -43,11 +44,12 @@ export const useMenu = () => {
         key: 'M_Enterprise',
         name: '员工管理',
         icon: <ApartmentOutlined />,
+        hideInMenu: !config.feishuValid,
         children: [
           {
             path: '/v1/enterprise/feishu',
             name: '飞书组织架构',
-            // hideInMenu: !visitorCtx.userInfo.isAdmin && !visitorCtx.hasPermission(UserPermission.M_User_SsoClient),
+            hideInMenu: !config.feishuValid,
           },
         ],
       },

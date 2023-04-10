@@ -1,5 +1,5 @@
-import React, { useContext } from 'react'
-import { MyRequest, SessionContext } from '../../src'
+import React from 'react'
+import { MyRequest, useSession, useSessionConfig } from '../../src'
 import { AccountSimpleParams } from '@fangcha/account-models'
 import { SignupApis } from '@fangcha/sso-models'
 import { Button, Form, Input, message } from 'antd'
@@ -7,7 +7,8 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons'
 import { Link, useLocation } from 'react-router-dom'
 
 export const SignupForm = () => {
-  const sessionCtx = useContext(SessionContext)
+  const sessionCtx = useSession()
+  const config = useSessionConfig()
   const { search } = useLocation()
 
   const onSubmit = async (params: AccountSimpleParams) => {
@@ -22,7 +23,7 @@ export const SignupForm = () => {
 
   return (
     <div className='fc-sso-form'>
-      <div className='logo mb-4' style={{ background: sessionCtx.session.config.logoCss }} />
+      <div className='logo mb-4' style={{ background: config.logoCss }} />
       <div className='h3 mb-3 font-weight-normal'>注册账号</div>
       <Form onFinish={onSubmit}>
         <Form.Item name='email' rules={[{ required: true, message: 'Please input your email!' }]}>

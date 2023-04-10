@@ -17,7 +17,7 @@ export const useFeishuDepartmentCtx = () => {
   return useContext(FeishuDepartmentContext)
 }
 
-export const FeishuDepartmentProvider = ({ children }: React.ComponentProps<any>) => {
+export const FeishuDepartmentProvider = ({ children, feishuValid }: React.ComponentProps<any>) => {
   const [departmentTree, setDepartmentTree] = useState<FeishuDepartmentTree>({
     departmentName: 'ROOT',
     hash: '',
@@ -78,7 +78,9 @@ export const FeishuDepartmentProvider = ({ children }: React.ComponentProps<any>
     },
   }
   useEffect(() => {
-    departmentCtx.reloadDepartmentTree()
+    if (feishuValid) {
+      departmentCtx.reloadDepartmentTree()
+    }
   }, [])
 
   return <FeishuDepartmentContext.Provider value={departmentCtx}>{children}</FeishuDepartmentContext.Provider>

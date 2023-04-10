@@ -3,6 +3,7 @@ import { _FeishuDepartment } from '../../models/feishu/_FeishuDepartment'
 import { _FeishuDepartmentMember } from '../../models/feishu/_FeishuDepartmentMember'
 import { _FeishuUser } from '../../models/feishu/_FeishuUser'
 import { FeishuDepartmentHandler } from './FeishuDepartmentHandler'
+import assert from '@fangcha/assert'
 
 interface Options {
   database: FCDatabase
@@ -59,6 +60,11 @@ export class FeishuServer {
     this.FeishuUser = FeishuUser
   }
 
+  public async checkFeishuValid() {
+    const rootDepartment = await this.FeishuDepartment.getRootDepartment()
+    return !!rootDepartment
+  }
+
   public async findDepartment(departmentId: string, transaction?: Transaction) {
     const searcher = new this.FeishuDepartment().fc_searcher()
     if (transaction) {
@@ -70,6 +76,7 @@ export class FeishuServer {
 
   public async getFullStructureInfo() {
     const rootDepartment = await this.FeishuDepartment.getRootDepartment()
+    assert.ok(!!rootDepartment, `Root Department Not Found`, 500)
     const handler = this.departmentHandler(rootDepartment)
     return handler.getStructureInfo(true)
   }

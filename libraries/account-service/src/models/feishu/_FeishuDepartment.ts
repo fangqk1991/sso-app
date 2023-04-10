@@ -1,7 +1,6 @@
 import { __FeishuDepartment } from '../auto-build/__FeishuDepartment'
 import { FilterOptions } from 'fc-feed'
 import { FeishuDepartmentModel } from '@fangcha/account-models'
-import assert from '@fangcha/assert'
 
 export class _FeishuDepartment extends __FeishuDepartment {
   public constructor() {
@@ -44,11 +43,9 @@ export class _FeishuDepartment extends __FeishuDepartment {
   }
 
   public static async getRootDepartment() {
-    const department = (await this.findOne({
+    return (await this.findOne({
       open_department_id: 0,
     }))!
-    assert.ok(!!department, `Root Department Not Found`, 500)
-    return department
   }
 
   public async getAllSubDepartments(withSelf = false) {

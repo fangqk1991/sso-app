@@ -2,7 +2,7 @@ import React from 'react'
 import { ErrorBoundary } from '@ant-design/pro-components'
 import { RouterProvider } from 'react-router-dom'
 import { MyRouter } from './MyRouter'
-import { AuthSdkHelper, SessionProvider, useSession, VisitorProvider } from '@fangcha/auth-react'
+import { AuthSdkHelper, SessionProvider, useSession, useSessionConfig, VisitorProvider } from '@fangcha/auth-react'
 import { AuthRouter } from '@fangcha/auth-react/router'
 import { ConfigProvider } from 'antd'
 import { AuthMode } from '@fangcha/account-models'
@@ -14,13 +14,14 @@ AuthSdkHelper.defaultRedirectUri = '/'
 
 export const App: React.FC = () => {
   const sessionCtx = useSession()
+  const config = useSessionConfig()
   if (!sessionCtx.session.userInfo) {
-    if (sessionCtx.session.config.authMode === AuthMode.Simple) {
+    if (config.authMode === AuthMode.Simple) {
       return (
         <ConfigProvider
           theme={{
             token: {
-              colorPrimary: sessionCtx.session.config.colorPrimary || '#0d6efd',
+              colorPrimary: config.colorPrimary || '#0d6efd',
             },
           }}
         >
@@ -40,7 +41,7 @@ export const App: React.FC = () => {
   return (
     <ErrorBoundary>
       <VisitorProvider>
-        <FeishuDepartmentProvider>
+        <FeishuDepartmentProvider feishuValid={config.feishuValid}>
           <RouterProvider router={MyRouter}></RouterProvider>
         </FeishuDepartmentProvider>
       </VisitorProvider>

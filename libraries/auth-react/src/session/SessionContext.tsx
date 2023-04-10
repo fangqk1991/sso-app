@@ -14,6 +14,7 @@ export interface SessionConfig {
   beianText: string
   colorPrimary?: string
   authMode: AuthMode
+  feishuValid?: boolean
 }
 
 export const _defaultTheme: SessionConfig = {
@@ -25,6 +26,7 @@ export const _defaultTheme: SessionConfig = {
   beianText: '',
   colorPrimary: '',
   authMode: AuthMode.Simple,
+  feishuValid: false,
 }
 
 export const _defaultSession: SessionInfo<SessionConfig> = {
@@ -44,6 +46,11 @@ export const SessionContext = React.createContext<Context>(null as any)
 
 export const useSession = (): Context => {
   return useContext(SessionContext)
+}
+
+export const useSessionConfig = (): SessionConfig => {
+  const sessionCtx = useSession()
+  return sessionCtx.session.config
 }
 
 export const SessionProvider = ({ children }: React.ComponentProps<any>) => {

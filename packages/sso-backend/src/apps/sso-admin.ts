@@ -66,6 +66,7 @@ const app = new WebApp({
 
     _FangchaState.frontendConfig = {
       ...SsoConfig.adminFrontendConfig,
+      feishuValid: await MyFeishuServer.checkFeishuValid(),
       authMode: SsoConfig.adminAuth.authMode,
     }
   },
