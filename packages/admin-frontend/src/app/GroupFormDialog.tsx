@@ -64,6 +64,42 @@ export class GroupFormDialog extends ReactDialog<Props, P_GroupParams> {
               }
             }}
           </ProFormDependency>
+          <ProFormDependency key='isFullDepartment' name={['departmentId']}>
+            {({ departmentId }) => {
+              if (!!departmentId) {
+                return (
+                  <ProFormRadio.Group
+                    name='isFullDepartment'
+                    label='关联属性'
+                    options={[
+                      {
+                        label: '含子孙部门',
+                        value: 1,
+                      },
+                      {
+                        label: '不含子孙部门',
+                        value: 0,
+                      },
+                    ]}
+                    radioType='button'
+                  />
+                )
+              }
+            }}
+          </ProFormDependency>
+          <ProFormDependency key='isFullDepartmentHint' name={['departmentId', 'isFullDepartment']}>
+            {({ departmentId, isFullDepartment }) => {
+              if (!!departmentId) {
+                return (
+                  <b className={'text-danger'}>
+                    {isFullDepartment
+                      ? '组成员包含该部门及其子孙部门的所有员工'
+                      : '组成员包含该部门一级节点（不包含子孙部门）的员工'}
+                  </b>
+                )
+              }
+            }}
+          </ProFormDependency>
         </ProForm>
       )
     }
