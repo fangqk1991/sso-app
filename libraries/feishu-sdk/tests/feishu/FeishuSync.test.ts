@@ -10,7 +10,10 @@ describe('Test FeishuSync.test.ts', () => {
     database: new FCDatabase().init(new DBOptionsBuilder(GlobalAppConfig.FangchaAuth.mysql.ssoDB).build()),
   })
   const feishuClient = new FeishuClient(GlobalAppConfig.FangchaAuth.FeishuSDK, CustomRequestFollower)
-  const feishuSync = new FeishuSync(feishuServer, feishuClient)
+  const feishuSync = new FeishuSync({
+    feishuServer: feishuServer,
+    feishuClient: feishuClient,
+  })
 
   it(`fetchRemoteDepartmentsAndUsers`, async () => {
     await feishuSync.fetchRemoteDepartmentsAndUsers()

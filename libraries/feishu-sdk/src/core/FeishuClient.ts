@@ -11,6 +11,7 @@ import {
 } from './RawFeishuModels'
 import { FeishuApis } from './FeishuApis'
 import { FeishuTokenKeeper } from './FeishuTokenKeeper'
+import { GuardPerformer } from '@fangcha/tools'
 
 export class FeishuClient extends ServiceProxy<FeishuConfig> {
   private _tokenKeeper: FeishuTokenKeeper
@@ -55,26 +56,30 @@ export class FeishuClient extends ServiceProxy<FeishuConfig> {
 
   public async getAllEmployees(params: { user_id_type?: 'open_id' | 'union_id' | 'user_id' } = {}) {
     return this.getAllPageItems<Raw_FeishuEmployee>(async (pageParams) => {
-      const request = await this.makeRequest(FeishuApis.EmployeePageDataGet)
-      request.setQueryParams({
-        ...params,
-        ...pageParams,
+      return await GuardPerformer.perform(async () => {
+        const request = await this.makeRequest(FeishuApis.EmployeePageDataGet)
+        request.setQueryParams({
+          ...params,
+          ...pageParams,
+        })
+        return await request.quickSend()
       })
-      return await request.quickSend()
     })
   }
 
   public async getDepartmentAllMembers(openDepartmentId: string) {
     return this.getAllPageItems<Raw_FeishuUser>(async (pageParams) => {
-      const request = await this.makeRequest(FeishuApis.DepartmentMemberPageDataGet)
-      request.setQueryParams({
-        department_id_type: 'open_department_id',
-        department_id: openDepartmentId,
-        user_id_type: 'union_id',
-        ...pageParams,
-        page_size: 50,
+      return await GuardPerformer.perform(async () => {
+        const request = await this.makeRequest(FeishuApis.DepartmentMemberPageDataGet)
+        request.setQueryParams({
+          department_id_type: 'open_department_id',
+          department_id: openDepartmentId,
+          user_id_type: 'union_id',
+          ...pageParams,
+          page_size: 50,
+        })
+        return await request.quickSend()
       })
-      return await request.quickSend()
     })
   }
 
@@ -90,14 +95,16 @@ export class FeishuClient extends ServiceProxy<FeishuConfig> {
 
   public async getDepartmentChildren(openDepartmentId: string) {
     return this.getAllPageItems<Raw_FeishuDepartment>(async (pageParams) => {
-      const request = await this.makeRequest(new CommonAPI(FeishuApis.DepartmentChildrenInfoGet, openDepartmentId))
-      request.setQueryParams({
-        user_id_type: 'union_id',
-        department_id_type: 'open_department_id',
-        ...pageParams,
-        page_size: 50,
+      return await GuardPerformer.perform(async () => {
+        const request = await this.makeRequest(new CommonAPI(FeishuApis.DepartmentChildrenInfoGet, openDepartmentId))
+        request.setQueryParams({
+          user_id_type: 'union_id',
+          department_id_type: 'open_department_id',
+          ...pageParams,
+          page_size: 50,
+        })
+        return await request.quickSend()
       })
-      return await request.quickSend()
     })
   }
 
