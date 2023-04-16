@@ -30,3 +30,11 @@ export interface FeishuDepartmentDetailInfo extends FeishuDepartmentModel {
   fullPathName: string
   pathDepartments: FeishuDepartmentModel[]
 }
+
+export interface FeishuUserModel {
+  unionId: string
+  userId: string
+  openId: string
+  name: string
+  isValid: number
+}

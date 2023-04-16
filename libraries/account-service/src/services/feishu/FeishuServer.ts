@@ -74,6 +74,13 @@ export class FeishuServer {
     return (await searcher.queryOne())!
   }
 
+  public async getMembersInfo(params: { unionIdList: string[] }) {
+    const searcher = new this.FeishuUser().fc_searcher()
+    searcher.processor().addConditionKeyInArray('union_id', params.unionIdList || [])
+    const items = await searcher.queryAllFeeds()
+    return items.map((item) => item.modelForClient())
+  }
+
   public async getFullStructureInfo() {
     const rootDepartment = await this.FeishuDepartment.getRootDepartment()
     assert.ok(!!rootDepartment, `Root Department Not Found`, 500)

@@ -9,4 +9,9 @@ factory.prepare(FeishuSdkApis.FullDepartmentDataGet, async (ctx) => {
   ctx.body = await feishuServer.getFullStructureInfo()
 })
 
+factory.prepare(FeishuSdkApis.MembersSearch, async (ctx) => {
+  const feishuServer = ctx.feishuServer as FeishuServer
+  ctx.body = await feishuServer.getMembersInfo(ctx.request.body)
+})
+
 export const DepartmentSpecs = factory.buildSpecs()
