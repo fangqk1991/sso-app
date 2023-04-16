@@ -4,7 +4,7 @@ import { DBProtocolV2, FCDatabase } from 'fc-sql'
 const _cols: string[] = [
   // prettier-ignore
   'group_id',
-  'member',
+  'user_id',
   'is_admin',
   'author',
   'create_time',
@@ -13,14 +13,14 @@ const _cols: string[] = [
 const _insertableCols: string[] = [
   // prettier-ignore
   'group_id',
-  'member',
+  'user_id',
   'is_admin',
   'author',
 ]
 const _modifiableCols: string[] = [
   // prettier-ignore
   'group_id',
-  'member',
+  'user_id',
   'is_admin',
   'author',
 ]
@@ -32,7 +32,7 @@ const _timestampTypeCols: string[] = [
 
 const dbOptions = {
   table: 'fc_group_member',
-  primaryKey: ['group_id', 'member'],
+  primaryKey: ['group_id', 'user_id'],
   cols: _cols,
   insertableCols: _insertableCols,
   modifiableCols: _modifiableCols,
@@ -45,9 +45,9 @@ export class __GroupMember extends FeedBase {
    */
   public groupId!: string
   /**
-   * @description [varchar(127)] 用户唯一标识；(group_id, member) 具备唯一性
+   * @description [varchar(127)] 用户唯一标识；(group_id, user_id) 具备唯一性
    */
-  public member!: string
+  public userId!: string
   /**
    * @description [tinyint] 是否为管理员
    */
@@ -105,7 +105,7 @@ export class __GroupMember extends FeedBase {
   public fc_propertyMapper() {
     return {
       groupId: 'group_id',
-      member: 'member',
+      userId: 'user_id',
       isAdmin: 'is_admin',
       author: 'author',
       createTime: 'create_time',

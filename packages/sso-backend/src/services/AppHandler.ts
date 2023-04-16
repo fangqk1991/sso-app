@@ -166,14 +166,14 @@ export class AppHandler {
     }
     {
       const searcher = new Group.GroupMember().fc_searcher()
-      searcher.processor().setColumns(['group_id', 'member'])
+      searcher.processor().setColumns(['group_id', 'user_id'])
       searcher.processor().addConditionKeyInArray(
         'group_id',
         fullInfo.groups.map((item) => item.groupId)
       )
       const items = await searcher.queryAllFeeds()
       for (const item of items) {
-        groupData[item.groupId].memberIdList.push(item.member)
+        groupData[item.groupId].memberIdList.push(item.userId)
       }
     }
     fullInfo.groups.forEach((group) => {
@@ -231,7 +231,7 @@ export class AppHandler {
       for (const memberParams of params.members) {
         const member = new MyPermissionServer.GroupMember()
         member.groupId = group.groupId
-        member.member = memberParams.member
+        member.userId = memberParams.member
         member.isAdmin = memberParams.isAdmin ? 1 : 0
         member.author = group.author
         await member.weakAddToDB(transaction)
@@ -331,7 +331,7 @@ export class AppHandler {
       for (const memberStr of memberList) {
         const member = new Group.GroupMember()
         member.groupId = group.groupId
-        member.member = memberStr
+        member.userId = memberStr
         member.author = author
         await member.weakAddToDB(transaction)
       }

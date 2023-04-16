@@ -2,7 +2,8 @@ import { __Group } from '../auto-build/__Group'
 import { FilterOptions } from 'fc-feed'
 import {
   FullGroupInfo,
-  GroupCalculator, GroupCategory,
+  GroupCalculator,
+  GroupCategory,
   GroupExportInfo,
   P_GroupDetail,
   P_GroupInfo,
@@ -105,7 +106,7 @@ export class _Group extends __Group {
         for (const memberParams of params.members) {
           const member = new GroupMember()
           member.groupId = group.groupId
-          member.member = memberParams.member
+          member.userId = memberParams.member
           member.isAdmin = memberParams.isAdmin ? 1 : 0
           member.author = group.author
           await member.weakAddToDB(transaction)
@@ -162,7 +163,7 @@ export class _Group extends __Group {
         const searcher = new GroupMember().fc_searcher()
         searcher.processor().addConditionKeyInArray('group_id', data.fullSubGroupIdList)
         const items = await searcher.queryAllFeeds()
-        data.fullMemberIdList = [...new Set(items.map((item) => item.member))]
+        data.fullMemberIdList = [...new Set(items.map((item) => item.userId))]
       }
     }
     return data
@@ -227,7 +228,7 @@ export class _Group extends __Group {
       searcher
         .processor()
         .addSpecialCondition(
-          `${tableName_group}.group_alias = ? OR EXISTS (SELECT ${tableName_group}.group_id FROM ${tableName_groupMember} WHERE ${tableName_group}.group_id = ${tableName_groupMember}.group_id AND ${tableName_groupMember}.member IN ("*", ?))`,
+          `${tableName_group}.group_alias = ? OR EXISTS (SELECT ${tableName_group}.group_id FROM ${tableName_groupMember} WHERE ${tableName_group}.group_id = ${tableName_groupMember}.group_id AND ${tableName_groupMember}.user_id IN ("*", ?))`,
           includingMember,
           includingMember,
           includingMember
