@@ -139,12 +139,12 @@ export const CommonAppApis = {
   } as Api,
   AppGroupMemberUpdate: {
     method: 'PUT',
-    route: '/api/v1/app/:appid/group/:groupId/member/:member',
+    route: '/api/v1/app/:appid/group/:groupId/member/:userId',
     description: '用户组成员修改',
   } as Api,
   AppGroupMemberDelete: {
     method: 'DELETE',
-    route: '/api/v1/app/:appid/group/:groupId/member/:member',
+    route: '/api/v1/app/:appid/group/:groupId/member/:userId',
     description: '用户组成员删除',
   } as Api,
 

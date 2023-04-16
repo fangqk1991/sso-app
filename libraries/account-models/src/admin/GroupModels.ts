@@ -44,8 +44,7 @@ export interface P_MemberParams {
 
 export interface P_MemberInfo {
   groupId: string
-  member: string
-  isAdmin: number
+  userId: string
   createTime: string
   updateTime: string
 }

@@ -16,8 +16,7 @@ export class _GroupMember extends __GroupMember {
   public modelForClient(): P_MemberInfo {
     return {
       groupId: this.groupId,
-      member: this.member,
-      isAdmin: this.isAdmin,
+      userId: this.member,
       createTime: this.createTime,
       updateTime: this.updateTime,
     }

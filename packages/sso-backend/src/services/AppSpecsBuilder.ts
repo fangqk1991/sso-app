@@ -250,7 +250,7 @@ export class AppSpecsBuilder {
     factory.prepare(CommonAppApis.AppGroupMemberListGet, async (ctx) => {
       const group = await this.makeHandler(ctx, true).prepareGroup()
       const items = await group.getMemberList()
-      ctx.body = items.map((item) => item.fc_pureModel())
+      ctx.body = items.map((item) => item.modelForClient())
     })
 
     factory.prepare(CommonAppApis.AppGroupMemberCreate, async (ctx) => {
@@ -268,7 +268,7 @@ export class AppSpecsBuilder {
       await handler.assertVisitorGroupMemberAdmin()
       const app = await handler.prepareApp()
       const group = await handler.prepareGroup()
-      const member = await group.findMember(ctx.params.member)
+      const member = await group.findMember(ctx.params.userId)
       assert.ok(!!member, '成员不存在')
       const { isAdmin } = ctx.request.body
       assert.ok([0, 1].includes(isAdmin), 'isAdmin 需要为 0 或 1')
@@ -281,7 +281,7 @@ export class AppSpecsBuilder {
       await handler.assertVisitorGroupMemberAdmin()
       const app = await handler.prepareApp()
       const group = await handler.prepareGroup()
-      await new AppHandler(app).removeGroupMember(group, ctx.params.member)
+      await new AppHandler(app).removeGroupMember(group, ctx.params.userId)
       ctx.status = 200
     })
 

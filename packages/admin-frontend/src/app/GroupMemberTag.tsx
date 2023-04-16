@@ -10,13 +10,13 @@ export const GroupMemberTag: React.FC<Props> = ({ member }) => {
   return (
     <Tag
       color={'geekblue'}
-      key={member.member}
+      key={member.userId}
       closable={true}
       onClose={(e) => {
         e.preventDefault()
       }}
     >
-      {member.member}
+      {member.userId}
     </Tag>
   )
 }

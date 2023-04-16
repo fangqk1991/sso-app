@@ -75,51 +75,26 @@ export const GroupMemberFragment: GroupFragmentProtocol = ({ appInfo, groupInfo,
       <Divider style={{ margin: '12px 0' }} />
       <div>
         {memberList.map((item) => (
-          <GroupMemberTag key={item.member} member={item} />
+          <GroupMemberTag key={item.userId} member={item} />
         ))}
         <hr />
         {memberList.map((item) => (
-          <Card size={'small'} style={{ minWidth: '150px', display: 'inline-block' }} key={item.member}>
+          <Card size={'small'} style={{ minWidth: '150px', display: 'inline-block' }} key={item.userId}>
             <Space size={'small'}>
-              <b>{item.member}</b>
-              {!!item.isAdmin && <Tag color='geekblue'>组管理员</Tag>}
+              <b>{item.userId}</b>
             </Space>
             <br />
             <Space size={'small'}>
-              <Button
-                type='link'
-                onClick={() => {
-                  const dialog = new SimplePickerDialog({
-                    curValue: item.isAdmin,
-                    options: NumBoolDescriptor.options(),
-                    title: `将 ${item.member} 设为管理员`,
-                  })
-                  dialog.show(async (val) => {
-                    const request = MyRequest(
-                      new CommonAPI(CommonAppApis.AppGroupMemberUpdate, groupInfo.appid, groupInfo.groupId, item.member)
-                    )
-                    request.setBodyData({
-                      isAdmin: val,
-                    })
-                    await request.quickSend()
-                    message.success(`设置成功`)
-                    onGroupInfoChanged()
-                  })
-                }}
-              >
-                编辑
-              </Button>
-
               <Button
                 danger
                 type='link'
                 onClick={() => {
                   const dialog = new ConfirmDialog({
-                    content: `确定要移除用户 ${item.member} 吗？`,
+                    content: `确定要移除用户 ${item.userId} 吗？`,
                   })
                   dialog.show(async () => {
                     const request = MyRequest(
-                      new CommonAPI(CommonAppApis.AppGroupMemberDelete, groupInfo.appid, groupInfo.groupId, item.member)
+                      new CommonAPI(CommonAppApis.AppGroupMemberDelete, groupInfo.appid, groupInfo.groupId, item.userId)
                     )
                     await request.quickSend()
                     message.success(`移除成功`)
