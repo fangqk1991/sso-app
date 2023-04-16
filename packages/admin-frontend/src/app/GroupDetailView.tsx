@@ -43,11 +43,19 @@ export const GroupDetailView: React.FC = () => {
             label: `基本信息`,
             key: 'basic-info',
             children: (
-              <GroupBasicInfoFragment
-                appInfo={appInfo}
-                groupInfo={groupInfo}
-                onGroupInfoChanged={() => setVersion(version + 1)}
-              />
+              <>
+                <GroupBasicInfoFragment
+                  appInfo={appInfo}
+                  groupInfo={groupInfo}
+                  onGroupInfoChanged={() => setVersion(version + 1)}
+                />
+                <Divider />
+                <GroupMemberFragment
+                  appInfo={appInfo}
+                  groupInfo={groupInfo}
+                  onGroupInfoChanged={() => setVersion(version + 1)}
+                />
+              </>
             ),
           },
           {
@@ -55,17 +63,6 @@ export const GroupDetailView: React.FC = () => {
             key: 'permission-info',
             children: (
               <GroupPermissionFragment
-                appInfo={appInfo}
-                groupInfo={groupInfo}
-                onGroupInfoChanged={() => setVersion(version + 1)}
-              />
-            ),
-          },
-          {
-            label: `成员信息`,
-            key: 'member-info',
-            children: (
-              <GroupMemberFragment
                 appInfo={appInfo}
                 groupInfo={groupInfo}
                 onGroupInfoChanged={() => setVersion(version + 1)}

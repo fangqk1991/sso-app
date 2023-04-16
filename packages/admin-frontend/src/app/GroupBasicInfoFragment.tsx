@@ -10,29 +10,35 @@ import { NumBoolDescriptor } from '@fangcha/tools'
 export const GroupBasicInfoFragment: GroupFragmentProtocol = ({ groupInfo, onGroupInfoChanged }) => {
   return (
     <>
-      <Button
-        type='primary'
-        onClick={() => {
-          const dialog = new GroupFormDialog({
-            title: '编辑用户组',
-            params: groupInfo,
-            forEditing: true,
-          })
-          dialog.show(async (params) => {
-            const request = MyRequest(
-              new CommonAPI(CommonAppApis.AppGroupInfoUpdate, groupInfo.appid, groupInfo.groupId)
-            )
-            request.setBodyData(params)
-            await request.quickSend()
-            message.success('编辑成功')
-            onGroupInfoChanged()
-          })
-        }}
+      <Descriptions
+        title={
+          <div>
+            <h4>基本信息</h4>
+            <Button
+              size={'small'}
+              type='primary'
+              onClick={() => {
+                const dialog = new GroupFormDialog({
+                  title: '编辑用户组',
+                  params: groupInfo,
+                  forEditing: true,
+                })
+                dialog.show(async (params) => {
+                  const request = MyRequest(
+                    new CommonAPI(CommonAppApis.AppGroupInfoUpdate, groupInfo.appid, groupInfo.groupId)
+                  )
+                  request.setBodyData(params)
+                  await request.quickSend()
+                  message.success('编辑成功')
+                  onGroupInfoChanged()
+                })
+              }}
+            >
+              编辑
+            </Button>
+          </div>
+        }
       >
-        编辑
-      </Button>
-      <Divider />
-      <Descriptions title='基本信息'>
         <Descriptions.Item label='ID'>{groupInfo.groupId}</Descriptions.Item>
         <Descriptions.Item label='Alias'>{groupInfo.groupAlias}</Descriptions.Item>
         <Descriptions.Item label='名称'>{groupInfo.name}</Descriptions.Item>

@@ -37,32 +37,37 @@ export const GroupMemberFragment: GroupFragmentProtocol = ({ appInfo, groupInfo,
           <Divider />
         </>
       )}
-      <Button
-        type='primary'
-        onClick={() => {
-          const dialog = new SimpleInputDialog({
-            title: '批量添加成员',
-            type: 'textarea',
-            description: '多个成员请用 , 或换行分割',
-          })
-          dialog.show(async (content) => {
-            const memberList = content
-              .split(/[,;\n]/)
-              .map((item) => item.trim())
-              .filter((item) => !!item)
-            const request = MyRequest(
-              new CommonAPI(CommonAppApis.AppGroupMemberCreate, groupInfo.appid, groupInfo.groupId)
-            )
-            request.setBodyData({ memberList: memberList })
-            await request.quickSend()
-            message.success('添加成功')
-            onGroupInfoChanged()
-          })
-        }}
-      >
-        添加成员
-      </Button>
-      <Divider />
+      <div>
+        <h4>成员信息</h4>
+
+        <Button
+          size={'small'}
+          type='primary'
+          onClick={() => {
+            const dialog = new SimpleInputDialog({
+              title: '批量添加成员',
+              type: 'textarea',
+              description: '多个成员请用 , 或换行分割',
+            })
+            dialog.show(async (content) => {
+              const memberList = content
+                .split(/[,;\n]/)
+                .map((item) => item.trim())
+                .filter((item) => !!item)
+              const request = MyRequest(
+                new CommonAPI(CommonAppApis.AppGroupMemberCreate, groupInfo.appid, groupInfo.groupId)
+              )
+              request.setBodyData({ memberList: memberList })
+              await request.quickSend()
+              message.success('添加成功')
+              onGroupInfoChanged()
+            })
+          }}
+        >
+          添加成员
+        </Button>
+      </div>
+      <Divider style={{ margin: '12px 0' }} />
       <div>
         {memberList.map((item) => (
           <Card size={'small'} style={{ minWidth: '150px', display: 'inline-block' }} key={item.member}>
