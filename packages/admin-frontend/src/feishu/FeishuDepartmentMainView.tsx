@@ -9,7 +9,7 @@ export const FeishuDepartmentMainView: React.FC = () => {
     <div>
       <h3>组织架构</h3>
       <Divider />
-      <DepartmentTreeView departmentNode={departmentCtx.departmentTree} defaultExpandAll={true} />
+      <DepartmentTreeView departmentNode={departmentCtx.departmentTree} defaultExpandAll={true} showMembers={true} />
     </div>
   )
 }

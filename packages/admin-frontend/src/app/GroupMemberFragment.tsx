@@ -33,13 +33,17 @@ export const GroupMemberFragment: GroupFragmentProtocol = ({ appInfo, groupInfo,
               ? '组成员包含该部门及其子孙部门的所有员工'
               : '组成员包含该部门一级节点（不包含子孙部门）的员工'}
           </p>
-          <DepartmentTreeView departmentNode={curDepartmentTree} defaultExpandAll={true} />
+          <DepartmentTreeView
+            departmentNode={curDepartmentTree}
+            defaultExpandAll={true}
+            showMembers={!!groupInfo.isFullDepartment}
+            showRootMembers={true}
+          />
           <Divider />
         </>
       )}
       <div>
         <h4>成员信息</h4>
-
         <Button
           size={'small'}
           type='primary'

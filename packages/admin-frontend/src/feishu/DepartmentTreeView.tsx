@@ -1,8 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import { Button, Space, Tag, Tree } from 'antd'
+import { Button, Space, Tree } from 'antd'
 import { FeishuDepartmentTree } from '@fangcha/account-models'
 import { DownOutlined } from '@ant-design/icons'
 import { DataNode } from 'antd/es/tree'
+import { FeishuUserTag } from './FeishuUserTag'
 
 interface Props {
   departmentNode: FeishuDepartmentTree
@@ -11,6 +12,8 @@ interface Props {
   defaultCheckedKeys?: (string | number)[]
   onCheckedKeysChanged?: (checkedKeys: (string | number)[]) => void
   readonly?: boolean
+  showMembers?: boolean
+  showRootMembers?: boolean
 }
 
 interface MyDataNode extends DataNode {
@@ -25,6 +28,8 @@ export const DepartmentTreeView: React.FC<Props> = ({
   defaultCheckedKeys,
   readonly = false,
   onCheckedKeysChanged,
+  showMembers,
+  showRootMembers,
 }) => {
   const rootNode = useMemo(() => {
     const rootNode: MyDataNode = {
@@ -123,17 +128,14 @@ export const DepartmentTreeView: React.FC<Props> = ({
               }}
             >
               <b>{meta.departmentName}</b>
-              {meta.memberList.length > 0 && (
-                <div>
-                  {meta.memberList.map((member) => {
-                    return (
-                      <Tag color={member.isLeader ? 'red' : 'geekblue'} key={member.unionId}>
-                        {member.name}
-                      </Tag>
-                    )
-                  })}
-                </div>
-              )}
+              {(showMembers || (showRootMembers && meta.openDepartmentId === departmentNode.openDepartmentId)) &&
+                meta.memberList.length > 0 && (
+                  <div>
+                    {meta.memberList.map((member) => (
+                      <FeishuUserTag key={member.unionId} member={member} />
+                    ))}
+                  </div>
+                )}
               {/*{meta.description && (*/}
               {/*  <Tooltip title={meta.description}>*/}
               {/*    <InfoCircleFilled style={{ marginLeft: '4px' }} />*/}
