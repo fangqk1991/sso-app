@@ -45,7 +45,7 @@ export class __GroupMember extends FeedBase {
    */
   public groupId!: string
   /**
-   * @description [varchar(32)] 用户唯一标识；(group_id, member) 具备唯一性
+   * @description [varchar(127)] 用户唯一标识；(group_id, member) 具备唯一性
    */
   public member!: string
   /**

@@ -43,7 +43,7 @@ export const GroupMemberFragment: GroupFragmentProtocol = ({ appInfo, groupInfo,
         </>
       )}
       <div>
-        <h4>成员信息</h4>
+        <h4>{groupInfo.groupCategory === GroupCategory.Department ? '额外成员信息' : '成员信息'}</h4>
         <Button
           size={'small'}
           type='primary'
