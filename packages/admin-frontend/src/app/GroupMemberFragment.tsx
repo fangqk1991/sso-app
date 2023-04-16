@@ -9,6 +9,7 @@ import { ConfirmDialog, SimpleInputDialog, SimplePickerDialog } from '@fangcha/r
 import { NumBoolDescriptor } from '@fangcha/tools'
 import { DepartmentTreeView } from '../feishu/DepartmentTreeView'
 import { useFeishuDepartmentCtx } from '../feishu/FeishuDepartmentContext'
+import { GroupMemberTag } from './GroupMemberTag'
 
 export const GroupMemberFragment: GroupFragmentProtocol = ({ appInfo, groupInfo, onGroupInfoChanged }) => {
   const [memberList, setMemberList] = useState<P_MemberInfo[]>([])
@@ -73,6 +74,10 @@ export const GroupMemberFragment: GroupFragmentProtocol = ({ appInfo, groupInfo,
       </div>
       <Divider style={{ margin: '12px 0' }} />
       <div>
+        {memberList.map((item) => (
+          <GroupMemberTag key={item.member} member={item} />
+        ))}
+        <hr />
         {memberList.map((item) => (
           <Card size={'small'} style={{ minWidth: '150px', display: 'inline-block' }} key={item.member}>
             <Space size={'small'}>
