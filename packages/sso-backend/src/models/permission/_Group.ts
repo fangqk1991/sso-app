@@ -188,7 +188,7 @@ export class _Group extends __Group {
     const GroupMember = this.getClass().GroupMember
     return (await GroupMember.findOne({
       group_id: this.groupId,
-      member: member,
+      user_id: member,
     }))!
   }
 
