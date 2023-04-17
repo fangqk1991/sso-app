@@ -7,19 +7,20 @@ import {
 } from '@fangcha/account-models'
 import { MyRequest } from '@fangcha/auth-react'
 
-interface UserMapper {
+export interface FeishuUserMapper {
   [unionId: string]: FeishuUserModel | null
 }
 
 interface Context {
   departmentTree: FeishuDepartmentTree
+  userMapper: FeishuUserMapper
   departmentMapper: { [openDepartmentId: string]: FeishuDepartmentTree }
   reloadDepartmentTree: () => void
   getDepartmentTree: (openDepartmentId: string | null) => FeishuDepartmentTree | null
   getDepartmentMembers: (openDepartmentId: string, withSubDepartments?: boolean) => FeishuDepartmentMemberModel[]
   getDepartmentName: (openDepartmentId: string) => string
   getFullDepartmentName: (openDepartmentId: string) => string
-  searchUsersInfo: (unionIdList: string[]) => Promise<UserMapper>
+  fillUserMapper: (unionIdList: string[]) => void
 }
 
 const FeishuDepartmentContext = React.createContext<Context>(null as any)
@@ -38,7 +39,7 @@ export const FeishuDepartmentProvider = ({ children, feishuValid }: React.Compon
     path: '',
     subDepartmentList: [],
   })
-  const [userMapper, setUserMapper] = useState<UserMapper>({})
+  const [userMapper, setUserMapper] = useState<FeishuUserMapper>({})
 
   const departmentMapper = useMemo(() => {
     const mapper: { [openDepartmentId: string]: FeishuDepartmentTree } = {}
@@ -57,6 +58,7 @@ export const FeishuDepartmentProvider = ({ children, feishuValid }: React.Compon
   }, [departmentTree])
 
   const departmentCtx: Context = {
+    userMapper: userMapper,
     departmentTree: departmentTree,
     departmentMapper: departmentMapper,
     reloadDepartmentTree: () => {
@@ -113,7 +115,7 @@ export const FeishuDepartmentProvider = ({ children, feishuValid }: React.Compon
         .map((item) => item.departmentName)
         .join(' > ')
     },
-    searchUsersInfo: async (unionIdList) => {
+    fillUserMapper: async (unionIdList) => {
       const todoUnionIdList = unionIdList.filter((unionId) => !userMapper[unionId])
       if (todoUnionIdList.length > 0) {
         const request = MyRequest(FeishuSdkApis.MembersSearch)
@@ -127,10 +129,6 @@ export const FeishuDepartmentProvider = ({ children, feishuValid }: React.Compon
         })
         setUserMapper(newMapper)
       }
-      return unionIdList.reduce((result, unionId) => {
-        result[unionId] = userMapper[unionId] || null
-        return result
-      }, {})
     },
   }
   useEffect(() => {

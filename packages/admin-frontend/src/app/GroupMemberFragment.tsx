@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { MyRequest } from '@fangcha/auth-react'
 import { CommonAPI } from '@fangcha/app-request'
 import { CommonAppApis } from '@web/sso-common/core-api'
-import { Button, Divider, message, Space } from 'antd'
+import { Button, Divider, message, Space, Tag } from 'antd'
 import { GroupFragmentProtocol } from './GroupFragmentProtocol'
 import { FullAccountModel, GroupCategory, P_MemberInfo } from '@fangcha/account-models'
 import { ConfirmDialog, SimpleInputDialog, TableView } from '@fangcha/react'
@@ -22,6 +22,10 @@ export const GroupMemberFragment: GroupFragmentProtocol = ({ appInfo, groupInfo,
         setMemberList(response)
       })
   }, [groupInfo])
+
+  useEffect(() => {
+    departmentCtx.fillUserMapper(memberList.map((item) => item.userId))
+  }, [memberList])
 
   return (
     <>
@@ -81,6 +85,23 @@ export const GroupMemberFragment: GroupFragmentProtocol = ({ appInfo, groupInfo,
           {
             title: 'User ID',
             render: (item: P_MemberInfo) => <>{item.userId}</>,
+          },
+          {
+            title: '用户信息',
+            render: (item: P_MemberInfo) => (
+              <>
+                {departmentCtx.userMapper[item.userId] &&
+                  (() => {
+                    const userInfo = departmentCtx.userMapper[item.userId]!
+                    return (
+                      <Space>
+                        <Tag>飞书用户</Tag>
+                        {userInfo.name}
+                      </Space>
+                    )
+                  })()}
+              </>
+            ),
           },
           {
             title: '备注',
