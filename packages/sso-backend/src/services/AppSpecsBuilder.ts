@@ -291,12 +291,19 @@ export class AppSpecsBuilder {
       routeTransform: this.protocol.routeTransform,
     })
 
-    factory.prepare(CommonSearchApis.StaffSearch, async (ctx) => {
+    factory.prepare(CommonSearchApis.AccountSearch, async (ctx) => {
       const FullAccount = MyAccountServer.FullAccount
       const searcher = new FullAccount().fc_searcher(ctx.request.query)
       searcher.processor().setLimitInfo(0, 5)
       const feeds = await searcher.queryAllFeeds()
       ctx.body = feeds.map((item) => item.toJSON())
+    })
+
+    factory.prepare(CommonSearchApis.StaffSearch, async (ctx) => {
+      const searcher = new MyFeishuServer.FeishuUser().fc_searcher(ctx.request.query)
+      searcher.processor().setLimitInfo(0, 5)
+      const feeds = await searcher.queryAllFeeds()
+      ctx.body = feeds.map((item) => item.modelForClient())
     })
 
     factory.prepare(CommonSearchApis.DepartmentSearch, async (ctx) => {

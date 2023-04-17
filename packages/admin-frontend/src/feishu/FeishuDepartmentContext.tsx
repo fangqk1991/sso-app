@@ -12,6 +12,7 @@ export interface FeishuUserMapper {
 }
 
 interface Context {
+  feishuValid: boolean
   departmentTree: FeishuDepartmentTree
   userMapper: FeishuUserMapper
   departmentMapper: { [openDepartmentId: string]: FeishuDepartmentTree }
@@ -31,6 +32,7 @@ export const useFeishuDepartmentCtx = () => {
 
 export const FeishuDepartmentProvider = ({ children, feishuValid }: React.ComponentProps<any>) => {
   const [departmentTree, setDepartmentTree] = useState<FeishuDepartmentTree>({
+    feishuValid: false,
     departmentName: 'ROOT',
     hash: '',
     memberList: [],
@@ -58,6 +60,7 @@ export const FeishuDepartmentProvider = ({ children, feishuValid }: React.Compon
   }, [departmentTree])
 
   const departmentCtx: Context = {
+    feishuValid: feishuValid,
     userMapper: userMapper,
     departmentTree: departmentTree,
     departmentMapper: departmentMapper,

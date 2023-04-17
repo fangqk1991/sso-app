@@ -9,6 +9,7 @@ import { ConfirmDialog, SimpleInputDialog, TableView } from '@fangcha/react'
 import { DepartmentTreeView } from '../feishu/DepartmentTreeView'
 import { useFeishuDepartmentCtx } from '../feishu/FeishuDepartmentContext'
 import { GroupMemberDialog } from './GroupMemberDialog'
+import { MemberPickerDialog } from './MemberPickerDialog'
 
 export const GroupMemberFragment: GroupFragmentProtocol = ({ appInfo, groupInfo, onGroupInfoChanged }) => {
   const [memberList, setMemberList] = useState<P_MemberInfo[]>([])
@@ -48,32 +49,53 @@ export const GroupMemberFragment: GroupFragmentProtocol = ({ appInfo, groupInfo,
       )}
       <div>
         <h4>{groupInfo.groupCategory === GroupCategory.Department ? '额外成员信息' : '成员信息'}</h4>
-        <Button
-          size={'small'}
-          type='primary'
-          onClick={() => {
-            const dialog = new SimpleInputDialog({
-              title: '批量添加成员',
-              type: 'textarea',
-              description: '多个成员请用 , 或换行分割',
-            })
-            dialog.show(async (content) => {
-              const memberList = content
-                .split(/[,;\n]/)
-                .map((item) => item.trim())
-                .filter((item) => !!item)
-              const request = MyRequest(
-                new CommonAPI(CommonAppApis.AppGroupMemberCreate, groupInfo.appid, groupInfo.groupId)
-              )
-              request.setBodyData({ memberList: memberList })
-              await request.quickSend()
-              message.success('添加成功')
-              onGroupInfoChanged()
-            })
-          }}
-        >
-          添加成员
-        </Button>
+        <Space>
+          {departmentCtx.feishuValid && (
+            <Button
+              size={'small'}
+              type='primary'
+              onClick={() => {
+                const dialog = new MemberPickerDialog({})
+                dialog.show(async (unionId) => {
+                  const request = MyRequest(
+                    new CommonAPI(CommonAppApis.AppGroupMemberCreate, groupInfo.appid, groupInfo.groupId)
+                  )
+                  request.setBodyData({ memberList: [unionId] })
+                  await request.quickSend()
+                  message.success('添加成功')
+                  onGroupInfoChanged()
+                })
+              }}
+            >
+              添加飞书成员
+            </Button>
+          )}
+          <Button
+            size={'small'}
+            onClick={() => {
+              const dialog = new SimpleInputDialog({
+                title: '批量添加成员',
+                type: 'textarea',
+                description: '多个成员请用 , 或换行分割',
+              })
+              dialog.show(async (content) => {
+                const memberList = content
+                  .split(/[,;\n]/)
+                  .map((item) => item.trim())
+                  .filter((item) => !!item)
+                const request = MyRequest(
+                  new CommonAPI(CommonAppApis.AppGroupMemberCreate, groupInfo.appid, groupInfo.groupId)
+                )
+                request.setBodyData({ memberList: memberList })
+                await request.quickSend()
+                message.success('添加成功')
+                onGroupInfoChanged()
+              })
+            }}
+          >
+            批量添加成员
+          </Button>
+        </Space>
       </div>
       <Divider style={{ margin: '12px 0' }} />
 
