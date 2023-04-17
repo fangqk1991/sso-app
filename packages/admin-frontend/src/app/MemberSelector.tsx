@@ -31,6 +31,7 @@ export const MemberSelector: React.FC<Props> = ({ name }) => {
       name={name}
       fieldProps={{
         showSearch: true,
+        filterOption: false,
         options: (users || []).map((item) => {
           return {
             label: item.name,
