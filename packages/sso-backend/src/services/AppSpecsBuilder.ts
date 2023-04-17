@@ -270,9 +270,7 @@ export class AppSpecsBuilder {
       const group = await handler.prepareGroup()
       const member = await group.findMember(ctx.params.userId)
       assert.ok(!!member, '成员不存在')
-      const { isAdmin } = ctx.request.body
-      assert.ok([0, 1].includes(isAdmin), 'isAdmin 需要为 0 或 1')
-      await new AppHandler(app).updateGroupMember(group, member, isAdmin)
+      await new AppHandler(app).updateGroupMember(group, member, ctx.request.body)
       ctx.status = 200
     })
 

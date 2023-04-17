@@ -8,6 +8,7 @@ import { FullAccountModel, GroupCategory, P_MemberInfo } from '@fangcha/account-
 import { ConfirmDialog, SimpleInputDialog, TableView } from '@fangcha/react'
 import { DepartmentTreeView } from '../feishu/DepartmentTreeView'
 import { useFeishuDepartmentCtx } from '../feishu/FeishuDepartmentContext'
+import { GroupMemberDialog } from './GroupMemberDialog'
 
 export const GroupMemberFragment: GroupFragmentProtocol = ({ appInfo, groupInfo, onGroupInfoChanged }) => {
   const [memberList, setMemberList] = useState<P_MemberInfo[]>([])
@@ -86,10 +87,40 @@ export const GroupMemberFragment: GroupFragmentProtocol = ({ appInfo, groupInfo,
             render: (item: P_MemberInfo) => <>{item.remarks}</>,
           },
           {
+            title: '创建时间',
+            render: (item: P_MemberInfo) => <span>{item.createTime}</span>,
+          },
+          {
             title: '操作',
             key: 'action',
             render: (item: P_MemberInfo) => (
               <Space size='small'>
+                <Button
+                  type='link'
+                  onClick={() => {
+                    const dialog = new GroupMemberDialog({
+                      title: '编辑成员',
+                      params: item,
+                      forEditing: true,
+                    })
+                    dialog.show(async (params) => {
+                      const request = MyRequest(
+                        new CommonAPI(
+                          CommonAppApis.AppGroupMemberUpdate,
+                          groupInfo.appid,
+                          groupInfo.groupId,
+                          item.userId
+                        )
+                      )
+                      request.setBodyData(params)
+                      await request.quickSend()
+                      message.success(`编辑成功`)
+                      onGroupInfoChanged()
+                    })
+                  }}
+                >
+                  编辑
+                </Button>
                 <Button
                   danger
                   type='link'

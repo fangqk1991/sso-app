@@ -38,8 +38,8 @@ export interface P_GroupDetail extends P_GroupInfo {
 }
 
 export interface P_MemberParams {
-  member: string
-  isAdmin: number
+  userId: string
+  remarks: string
 }
 
 export interface P_MemberInfo {

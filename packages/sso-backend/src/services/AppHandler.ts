@@ -6,6 +6,7 @@ import {
   GroupImportParams,
   P_AppParams,
   P_GroupParams,
+  P_MemberParams,
   P_Tmp_VisitorParams,
   PermissionsGrantParams,
 } from '@fangcha/account-models'
@@ -216,7 +217,7 @@ export class AppHandler {
     assert.ok(Array.isArray(params.permissionKeys), 'permissionKeys must be an array')
     assert.ok(Array.isArray(params.members), 'members must be an array')
     for (const memberParams of params.members) {
-      assert.ok(!!memberParams.member, 'members.*.member can not be empty')
+      assert.ok(!!memberParams.userId, 'members.*.userId can not be empty')
     }
     const group = await GroupHandler.makeGroupFeed(app.appid, params, transaction)
     const handler = async (transaction: Transaction) => {
@@ -231,8 +232,8 @@ export class AppHandler {
       for (const memberParams of params.members) {
         const member = new MyPermissionServer.GroupMember()
         member.groupId = group.groupId
-        member.userId = memberParams.member
-        member.isAdmin = memberParams.isAdmin ? 1 : 0
+        member.userId = memberParams.userId
+        member.remarks = memberParams.remarks || 'remarks'
         member.author = group.author
         await member.weakAddToDB(transaction)
       }
@@ -352,11 +353,16 @@ export class AppHandler {
     })
   }
 
-  public async updateGroupMember(group: _Group, member: _GroupMember, isAdmin: number) {
+  public async updateGroupMember(group: _Group, member: _GroupMember, params: Partial<P_MemberParams>) {
     const app = this.app
     const runner = app.dbSpec().database.createTransactionRunner()
     await runner.commit(async (transaction) => {
-      await member.updateLevel(isAdmin, transaction)
+      member.fc_edit()
+      if (params.remarks !== undefined) {
+        member.remarks = params.remarks
+      }
+      await member.updateToDB(transaction)
+
       await group.increaseVersion(transaction)
       await app.increaseVersion(transaction)
     })

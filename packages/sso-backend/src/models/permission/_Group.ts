@@ -106,8 +106,8 @@ export class _Group extends __Group {
         for (const memberParams of params.members) {
           const member = new GroupMember()
           member.groupId = group.groupId
-          member.userId = memberParams.member
-          member.isAdmin = memberParams.isAdmin ? 1 : 0
+          member.userId = memberParams.userId
+          member.remarks = memberParams.remarks || ''
           member.author = group.author
           await member.weakAddToDB(transaction)
         }
