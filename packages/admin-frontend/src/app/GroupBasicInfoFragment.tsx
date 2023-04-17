@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Descriptions, Divider, message } from 'antd'
+import { Button, Descriptions, message } from 'antd'
 import { GroupFragmentProtocol } from './GroupFragmentProtocol'
 import { GroupFormDialog } from './GroupFormDialog'
 import { MyRequest } from '@fangcha/auth-react'
