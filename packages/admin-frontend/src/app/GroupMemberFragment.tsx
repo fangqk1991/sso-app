@@ -2,13 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { MyRequest } from '@fangcha/auth-react'
 import { CommonAPI } from '@fangcha/app-request'
 import { CommonAppApis } from '@web/sso-common/core-api'
-import { Button, Card, Divider, message, Space } from 'antd'
+import { Button, Divider, message, Space } from 'antd'
 import { GroupFragmentProtocol } from './GroupFragmentProtocol'
-import { GroupCategory, P_MemberInfo } from '@fangcha/account-models'
-import { ConfirmDialog, SimpleInputDialog } from '@fangcha/react'
+import { FullAccountModel, GroupCategory, P_MemberInfo } from '@fangcha/account-models'
+import { ConfirmDialog, SimpleInputDialog, TableView } from '@fangcha/react'
 import { DepartmentTreeView } from '../feishu/DepartmentTreeView'
 import { useFeishuDepartmentCtx } from '../feishu/FeishuDepartmentContext'
-import { GroupMemberTag } from './GroupMemberTag'
 
 export const GroupMemberFragment: GroupFragmentProtocol = ({ appInfo, groupInfo, onGroupInfoChanged }) => {
   const [memberList, setMemberList] = useState<P_MemberInfo[]>([])
@@ -72,41 +71,57 @@ export const GroupMemberFragment: GroupFragmentProtocol = ({ appInfo, groupInfo,
         </Button>
       </div>
       <Divider style={{ margin: '12px 0' }} />
-      <div>
-        {memberList.map((item) => (
-          <GroupMemberTag key={item.userId} member={item} />
-        ))}
-        <hr />
-        {memberList.map((item) => (
-          <Card size={'small'} style={{ minWidth: '150px', display: 'inline-block' }} key={item.userId}>
-            <Space size={'small'}>
-              <b>{item.userId}</b>
-            </Space>
-            <br />
-            <Space size={'small'}>
-              <Button
-                danger
-                type='link'
-                onClick={() => {
-                  const dialog = new ConfirmDialog({
-                    content: `确定要移除用户 ${item.userId} 吗？`,
-                  })
-                  dialog.show(async () => {
-                    const request = MyRequest(
-                      new CommonAPI(CommonAppApis.AppGroupMemberDelete, groupInfo.appid, groupInfo.groupId, item.userId)
-                    )
-                    await request.quickSend()
-                    message.success(`移除成功`)
-                    onGroupInfoChanged()
-                  })
-                }}
-              >
-                移除
-              </Button>
-            </Space>
-          </Card>
-        ))}
-      </div>
+
+      <TableView
+        rowKey={(item: FullAccountModel) => {
+          return item.accountUid
+        }}
+        columns={[
+          {
+            title: 'User ID',
+            render: (item: P_MemberInfo) => <>{item.userId}</>,
+          },
+          {
+            title: '备注',
+            render: (item: P_MemberInfo) => <>{item.remarks}</>,
+          },
+          {
+            title: '操作',
+            key: 'action',
+            render: (item: P_MemberInfo) => (
+              <Space size='small'>
+                <Button
+                  danger
+                  type='link'
+                  onClick={() => {
+                    const dialog = new ConfirmDialog({
+                      content: `确定要移除用户 ${item.userId} 吗？`,
+                    })
+                    dialog.show(async () => {
+                      const request = MyRequest(
+                        new CommonAPI(
+                          CommonAppApis.AppGroupMemberDelete,
+                          groupInfo.appid,
+                          groupInfo.groupId,
+                          item.userId
+                        )
+                      )
+                      await request.quickSend()
+                      message.success(`移除成功`)
+                      onGroupInfoChanged()
+                    })
+                  }}
+                >
+                  移除
+                </Button>
+              </Space>
+            ),
+          },
+        ]}
+        loadOnePageItems={async () => {
+          return memberList
+        }}
+      />
     </>
   )
 }
