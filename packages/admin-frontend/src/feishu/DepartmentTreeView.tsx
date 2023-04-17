@@ -1,9 +1,10 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import { Button, Space, Tree } from 'antd'
+import { Button, Space, Tooltip, Tree } from 'antd'
 import { FeishuDepartmentTree } from '@fangcha/account-models'
-import { DownOutlined } from '@ant-design/icons'
+import { DownOutlined, InfoCircleFilled } from '@ant-design/icons'
 import { DataNode } from 'antd/es/tree'
 import { FeishuUserTag } from './FeishuUserTag'
+import { useFeishuDepartmentCtx } from './FeishuDepartmentContext'
 
 interface Props {
   departmentNode: FeishuDepartmentTree
@@ -31,7 +32,10 @@ export const DepartmentTreeView: React.FC<Props> = ({
   showMembers,
   showRootMembers,
 }) => {
-  const rootNode = useMemo(() => {
+  const departmentCtx = useFeishuDepartmentCtx()
+  const { rootNode, unionIdList, openDepartmentIdList } = useMemo(() => {
+    const openDepartmentIdList: string[] = []
+    const unionIdList: string[] = []
     const rootNode: MyDataNode = {
       val: departmentNode,
       title: departmentNode.departmentName,
@@ -43,7 +47,10 @@ export const DepartmentTreeView: React.FC<Props> = ({
     while (todoNodes.length > 0) {
       let nextTodoNodes: MyDataNode[] = []
       for (const node of todoNodes) {
-        const items = node.val.subDepartmentList || []
+        const department = node.val
+        openDepartmentIdList.push(department.openDepartmentId)
+        unionIdList.push(...department.memberList.map((item) => item.unionId))
+        const items = department.subDepartmentList || []
         node.children = items.map((item) => {
           return {
             val: item,
@@ -57,25 +64,14 @@ export const DepartmentTreeView: React.FC<Props> = ({
       }
       todoNodes = nextTodoNodes
     }
-    return rootNode
-  }, [departmentNode])
-  const allKeys = useMemo(() => {
-    const keys: string[] = []
-    let todoMetaList = [rootNode]
-    while (todoMetaList.length > 0) {
-      let nextTodoMetaList: MyDataNode[] = []
-      for (const todoMeta of todoMetaList) {
-        keys.push(todoMeta.val.openDepartmentId)
-        if (todoMeta.children) {
-          nextTodoMetaList = nextTodoMetaList.concat(todoMeta.children)
-        }
-      }
-      todoMetaList = nextTodoMetaList
+    return {
+      rootNode: rootNode,
+      unionIdList: unionIdList,
+      openDepartmentIdList: openDepartmentIdList,
     }
-    return keys
-  }, [rootNode])
+  }, [departmentNode])
 
-  const [expandedKeys, setExpandedKeys] = useState<(string | number)[]>(defaultExpandAll ? allKeys : [])
+  const [expandedKeys, setExpandedKeys] = useState<(string | number)[]>(defaultExpandAll ? openDepartmentIdList : [])
   const [checkedKeys, setCheckedKeys] = useState<(string | number)[]>()
 
   useEffect(() => {
@@ -83,13 +79,14 @@ export const DepartmentTreeView: React.FC<Props> = ({
   }, [checkable, defaultCheckedKeys])
 
   useEffect(() => {
-    setExpandedKeys(defaultExpandAll ? allKeys : [])
+    setExpandedKeys(defaultExpandAll ? openDepartmentIdList : [])
+    departmentCtx.fillUserMapper(unionIdList)
   }, [rootNode])
 
   return (
     <>
       <Space style={{ marginBottom: '8px' }}>
-        <Button type={'primary'} size={'small'} onClick={() => setExpandedKeys(allKeys)}>
+        <Button type={'primary'} size={'small'} onClick={() => setExpandedKeys(openDepartmentIdList)}>
           全部展开
         </Button>
         <Button size={'small'} onClick={() => setExpandedKeys([])}>
@@ -128,6 +125,12 @@ export const DepartmentTreeView: React.FC<Props> = ({
               }}
             >
               <b>{meta.departmentName}</b>
+              <span style={{ display: 'none' }}>
+                {' '}
+                <Tooltip placement='right' title={<>openDepartmentId: {meta.openDepartmentId}</>}>
+                  <InfoCircleFilled />
+                </Tooltip>
+              </span>
               {(showMembers || (showRootMembers && meta.openDepartmentId === departmentNode.openDepartmentId)) &&
                 meta.memberList.length > 0 && (
                   <div>
