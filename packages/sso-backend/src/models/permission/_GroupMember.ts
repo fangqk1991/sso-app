@@ -17,6 +17,7 @@ export class _GroupMember extends __GroupMember {
     return {
       groupId: this.groupId,
       userId: this.userId,
+      remarks: this.remarks,
       createTime: this.createTime,
       updateTime: this.updateTime,
     }

@@ -5,6 +5,7 @@ const _cols: string[] = [
   // prettier-ignore
   'group_id',
   'user_id',
+  'remarks',
   'is_admin',
   'author',
   'create_time',
@@ -14,6 +15,7 @@ const _insertableCols: string[] = [
   // prettier-ignore
   'group_id',
   'user_id',
+  'remarks',
   'is_admin',
   'author',
 ]
@@ -21,6 +23,7 @@ const _modifiableCols: string[] = [
   // prettier-ignore
   'group_id',
   'user_id',
+  'remarks',
   'is_admin',
   'author',
 ]
@@ -48,6 +51,10 @@ export class __GroupMember extends FeedBase {
    * @description [varchar(127)] 用户唯一标识；(group_id, user_id) 具备唯一性
    */
   public userId!: string
+  /**
+   * @description [varchar(255)] 备注
+   */
+  public remarks!: string
   /**
    * @description [tinyint] 是否为管理员
    */
@@ -98,6 +105,7 @@ export class __GroupMember extends FeedBase {
 
   public fc_defaultInit() {
     // This function is invoked by constructor of FCModel
+    this.remarks = ''
     this.isAdmin = 0
     this.author = ''
   }
@@ -106,6 +114,7 @@ export class __GroupMember extends FeedBase {
     return {
       groupId: 'group_id',
       userId: 'user_id',
+      remarks: 'remarks',
       isAdmin: 'is_admin',
       author: 'author',
       createTime: 'create_time',

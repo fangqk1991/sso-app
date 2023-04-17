@@ -45,6 +45,7 @@ export interface P_MemberParams {
 export interface P_MemberInfo {
   groupId: string
   userId: string
+  remarks: string
   createTime: string
   updateTime: string
 }

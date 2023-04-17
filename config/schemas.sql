@@ -174,7 +174,7 @@ CREATE TABLE IF NOT EXISTS fc_group_member
     group_id    CHAR(32)        NOT NULL COLLATE ascii_bin COMMENT '组 ID，SQL 外键 -> fc_group.group_id',
     FOREIGN KEY (group_id) REFERENCES fc_group (group_id) ON DELETE CASCADE,
     user_id     VARCHAR(127)    NOT NULL COLLATE ascii_bin COMMENT '用户唯一标识；(group_id, user_id) 具备唯一性',
-#     remarks     VARCHAR(255)    NOT NULL DEFAULT '' COMMENT '备注',
+    remarks     VARCHAR(255)    NOT NULL DEFAULT '' COMMENT '备注',
     is_admin    TINYINT         NOT NULL DEFAULT 0 COMMENT '是否为管理员',
     author      VARCHAR(127)    NOT NULL DEFAULT '' COMMENT '创建者',
     create_time TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
