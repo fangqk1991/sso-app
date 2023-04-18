@@ -1,10 +1,11 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import { Button, Space, Tooltip, Tree } from 'antd'
+import { Button, Space, Tree } from 'antd'
 import { FeishuDepartmentTree } from '@fangcha/account-models'
 import { DownOutlined, InfoCircleFilled } from '@ant-design/icons'
 import { DataNode } from 'antd/es/tree'
 import { FeishuUserTag } from './FeishuUserTag'
 import { useFeishuDepartmentCtx } from './FeishuDepartmentContext'
+import { FeishuDepartmentInfoDialog } from './FeishuDepartmentInfoDialog'
 
 interface Props {
   departmentNode: FeishuDepartmentTree
@@ -125,12 +126,22 @@ export const DepartmentTreeView: React.FC<Props> = ({
               }}
             >
               <b>{meta.departmentName}</b>
-              <span style={{ display: 'none' }}>
+              <span>
                 {' '}
-                <Tooltip placement='right' title={<>openDepartmentId: {meta.openDepartmentId}</>}>
-                  <InfoCircleFilled />
-                </Tooltip>
+                <InfoCircleFilled
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    FeishuDepartmentInfoDialog.previewData(meta)
+                  }}
+                />
               </span>
+
+              {/*<span style={{ display: 'none' }}>*/}
+              {/*  {' '}*/}
+              {/*  <Tooltip placement='right' title={<>openDepartmentId: {meta.openDepartmentId}</>}>*/}
+              {/*    <InfoCircleFilled />*/}
+              {/*  </Tooltip>*/}
+              {/*</span>*/}
               {(showMembers || (showRootMembers && meta.openDepartmentId === departmentNode.openDepartmentId)) &&
                 meta.memberList.length > 0 && (
                   <div>
