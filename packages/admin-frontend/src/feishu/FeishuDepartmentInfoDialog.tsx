@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { DialogProps, LoadingView, ReactDialog } from '@fangcha/react'
-import { FeishuDepartmentTree } from '@fangcha/account-models/lib'
+import { FeishuDepartmentTree } from '@fangcha/account-models'
 import { Table } from 'antd'
 
 interface Props extends DialogProps<any> {
