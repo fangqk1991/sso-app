@@ -34,7 +34,7 @@ export interface P_GroupDetail extends P_GroupInfo {
   }
   fullSubGroupIdList: string[]
 
-  fullMemberIdList: string[]
+  fullMemberIdList?: string[]
 }
 
 export interface P_MemberParams {

@@ -19,6 +19,7 @@ import { _GroupMember } from '../models/permission/_GroupMember'
 import { _GroupAccess } from '../models/permission/_GroupAccess'
 import { GroupHandler } from './GroupHandler'
 import { MyPermissionServer } from './MyPermissionServer'
+import { FeishuDepartmentCenter } from './FeishuDepartmentCenter'
 
 export class AppHandler {
   public readonly app: _App
@@ -177,6 +178,18 @@ export class AppHandler {
         groupData[item.groupId].memberIdList.push(item.userId)
       }
     }
+    {
+      const groups = fullInfo.groups.filter((item) => !!item.departmentId)
+      for (const item of groups) {
+        groupData[item.groupId].memberIdList = Array.from(
+          new Set(
+            groupData[item.groupId].memberIdList.concat(
+              FeishuDepartmentCenter.getMembersForDepartment(item.departmentId!, !!item.isFullDepartment)
+            )
+          )
+        )
+      }
+    }
     fullInfo.groups.forEach((group) => {
       group.fullMemberIdList = [
         ...new Set(
@@ -187,8 +200,9 @@ export class AppHandler {
       ]
     })
     fullInfo.groups.forEach((group) => {
-      group.memberIdList = group.fullMemberIdList
-      group.fullMemberIdList = []
+      group.memberIdList = group.fullMemberIdList || []
+
+      delete group.fullMemberIdList
     })
     return fullInfo
   }

@@ -1,6 +1,6 @@
 import { GlobalAppConfig } from 'fc-config'
 import { WebApp } from '@fangcha/backend-kit/lib/router'
-import { _FangchaState } from '@fangcha/backend-kit'
+import { _FangchaState, LoopPerformerHelper } from '@fangcha/backend-kit'
 import { SsoAdminSpecDocItems } from './admin/SsoAdminSpecDocItems'
 import { SsoConfig } from '../SsoConfig'
 import { WebAuthSdkPlugin } from '@fangcha/web-auth-sdk'
@@ -9,6 +9,7 @@ import { UserSystemCenter } from '../services/UserSystemCenter'
 import { AppHandler } from '../services/AppHandler'
 import { FeishuSdkPlugin } from '@fangcha/feishu-sdk'
 import { MyFeishuServer } from '../services/MyFeishuServer'
+import { FeishuDepartmentCenter } from '../services/FeishuDepartmentCenter'
 
 const app = new WebApp({
   env: GlobalAppConfig.Env,
@@ -69,6 +70,11 @@ const app = new WebApp({
       feishuValid: await MyFeishuServer.checkFeishuValid(),
       authMode: SsoConfig.adminAuth.authMode,
     }
+
+    await FeishuDepartmentCenter.reloadData()
+    LoopPerformerHelper.makeLoopPerformer(5 * 60 * 1000).execute(async () => {
+      await FeishuDepartmentCenter.reloadData()
+    })
   },
   checkHealth: async () => {},
 })

@@ -4,6 +4,7 @@ import { WebApp } from '@fangcha/backend-kit/lib/router'
 import { SsoPowerSpecDocItems } from './power/SsoPowerSpecDocItems'
 import { UserVisitorCenter } from '../services/UserVisitorCenter'
 import { LoopPerformerHelper } from '@fangcha/backend-kit'
+import { FeishuDepartmentCenter } from '../services/FeishuDepartmentCenter'
 
 const app = new WebApp({
   env: GlobalAppConfig.Env,
@@ -32,9 +33,12 @@ const app = new WebApp({
   plugins: [],
 
   appDidLoad: async () => {
-    await UserVisitorCenter.reloadVisitorsData()
+    await Promise.all([UserVisitorCenter.reloadVisitorsData(), FeishuDepartmentCenter.reloadData()])
     LoopPerformerHelper.loopHandle(async () => {
       await UserVisitorCenter.reloadVisitorsData()
+    })
+    LoopPerformerHelper.makeLoopPerformer(5 * 60 * 1000).execute(async () => {
+      await FeishuDepartmentCenter.reloadData()
     })
   },
   checkHealth: async () => {},
