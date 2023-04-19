@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { MyRequest } from '@fangcha/auth-react'
-import { Breadcrumb, Button, Descriptions, Divider, message, Spin, Tag } from 'antd'
+import { MyRequest, useVisitorCtx } from '@fangcha/auth-react'
+import { Breadcrumb, Button, Descriptions, Divider, message, Space, Spin, Tag } from 'antd'
 import { Admin_SsoClientApis } from '@web/sso-common/admin-api'
 import { SsoClientModel } from '@fangcha/sso-models'
 import { ClientFormDialog } from './ClientFormDialog'
@@ -11,6 +11,7 @@ export const ClientDetailView: React.FC = () => {
   const { clientId = '' } = useParams()
   const [version, setVersion] = useState(0)
   const [clientInfo, setClientInfo] = useState<SsoClientModel>()
+  const visitorCtx = useVisitorCtx()
 
   useEffect(() => {
     MyRequest(new CommonAPI(Admin_SsoClientApis.ClientInfoGet, clientId))
@@ -32,25 +33,50 @@ export const ClientDetailView: React.FC = () => {
         <Breadcrumb.Item>{clientInfo.name}</Breadcrumb.Item>
       </Breadcrumb>
       <Divider />
-      <Button
-        type='primary'
-        onClick={() => {
-          const dialog = new ClientFormDialog({
-            title: '编辑客户端信息',
-            params: clientInfo,
-            forEditing: true,
-          })
-          dialog.show(async (params) => {
-            const request = MyRequest(new CommonAPI(Admin_SsoClientApis.ClientInfoUpdate, clientInfo.clientId))
-            request.setBodyData(params)
-            await request.quickSend()
-            message.success('编辑成功')
-            setVersion(version + 1)
-          })
-        }}
-      >
-        编辑
-      </Button>
+      <Space>
+        <Button
+          type='primary'
+          onClick={() => {
+            const dialog = new ClientFormDialog({
+              title: '编辑客户端信息',
+              params: clientInfo,
+              forEditing: true,
+            })
+            dialog.show(async (params) => {
+              const request = MyRequest(new CommonAPI(Admin_SsoClientApis.ClientInfoUpdate, clientInfo.clientId))
+              request.setBodyData(params)
+              await request.quickSend()
+              message.success('编辑成功')
+              setVersion(version + 1)
+            })
+          }}
+        >
+          编辑
+        </Button>
+        {!!visitorCtx.userInfo.isAdmin && (
+          <Button
+            type='primary'
+            danger
+            onClick={() => {
+              const dialog = new ClientFormDialog({
+                title: '编辑客户端信息',
+                params: clientInfo,
+                forEditing: true,
+                forAdmin: true,
+              })
+              dialog.show(async (params) => {
+                const request = MyRequest(new CommonAPI(Admin_SsoClientApis.ClientInfoPowerUpdate, clientInfo.clientId))
+                request.setBodyData(params)
+                await request.quickSend()
+                message.success('编辑成功')
+                setVersion(version + 1)
+              })
+            }}
+          >
+            管理员编辑
+          </Button>
+        )}
+      </Space>
       <Divider />
       <Descriptions title='基本信息'>
         <Descriptions.Item label='clientId'>{clientInfo.clientId}</Descriptions.Item>

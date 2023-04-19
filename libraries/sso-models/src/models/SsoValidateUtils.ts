@@ -16,6 +16,10 @@ export class SsoValidateUtils {
       assert.ok(Array.isArray(params.redirectUriList), `redirectUriList 为文本数组`)
       options.redirectUriList = params.redirectUriList
     }
+    if (params.grantList !== undefined) {
+      assert.ok(Array.isArray(params.grantList), `grantList 为文本数组`)
+      options.grantList = params.grantList
+    }
     if (params.scopeList !== undefined) {
       assert.ok(Array.isArray(params.scopeList), `scopeList 为文本数组`)
       options.scopeList = params.scopeList

@@ -4,6 +4,7 @@ import { Admin_SsoClientApis } from '@web/sso-common/admin-api'
 import { MyClientManager } from '../../../services/MyClientManager'
 import { SsoClientSpecHandler } from './SsoClientSpecHandler'
 import { SsoClientParams } from '@fangcha/sso-models'
+import { UserAdminUtils } from '../UserAdminUtils'
 
 const factory = new SpecFactory('SSO Client')
 
@@ -39,12 +40,23 @@ factory.prepare(Admin_SsoClientApis.ClientInfoUpdate, async (ctx) => {
   const session = ctx.session as FangchaSession
   await new SsoClientSpecHandler(ctx).handle(async (client) => {
     const options = ctx.request.body as SsoClientParams
-    // if (!session.checkVisitorHasPermission(SsoAdminPermissionKey.OAuthApps)) {
-    //   delete options.scopeList
-    //   delete options.eventList
-    //   delete options.autoGranted
-    //   delete options.isPartner
-    // }
+    await client.updateInfos(
+      {
+        name: options.name,
+        redirectUriList: options.redirectUriList,
+        powerUsers: options.powerUsers,
+      },
+      session.curUserStr()
+    )
+    ctx.body = client.getModelForAdmin()
+  })
+})
+
+factory.prepare(Admin_SsoClientApis.ClientInfoPowerUpdate, async (ctx) => {
+  await UserAdminUtils.checkUserSystemAdmin(ctx)
+  const session = ctx.session as FangchaSession
+  await new SsoClientSpecHandler(ctx).handle(async (client) => {
+    const options = ctx.request.body as SsoClientParams
     await client.updateInfos(options, session.curUserStr())
     ctx.body = client.getModelForAdmin()
   })

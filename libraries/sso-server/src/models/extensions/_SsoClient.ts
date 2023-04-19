@@ -110,7 +110,7 @@ export class _SsoClient extends __SsoClient {
     }
   }
 
-  public async updateInfos(params: SsoClientParams, operator: string) {
+  public async updateInfos(params: Partial<SsoClientParams>, operator: string) {
     const powerUsers = params.powerUsers || []
     if (operator && !powerUsers.includes(operator)) {
       powerUsers.push(operator)
@@ -122,6 +122,9 @@ export class _SsoClient extends __SsoClient {
     this.fc_edit()
     if (options.name !== undefined) {
       this.name = options.name
+    }
+    if (Array.isArray(options.grantList)) {
+      this.grantsStr = options.grantList.join(',')
     }
     if (Array.isArray(options.scopeList)) {
       this.scopesStr = options.scopeList.join(',')
