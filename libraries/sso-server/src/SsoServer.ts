@@ -30,7 +30,7 @@ export class SsoServer extends SsoClientManager {
     this.cache = new RedisCache(options.redisConfig)
 
     this.authStorage = new AuthStorage(this.cache)
-    this.authModel = new AuthModel(this.authStorage, this.clientUtils)
+    this.authModel = new AuthModel(this.authStorage, this.clientUtils, this.accountServer)
     this.oAuth2Server = new OAuth2Server({
       model: this.authModel,
     })

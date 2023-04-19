@@ -2,8 +2,9 @@ import * as OAuth2Server from 'oauth2-server'
 import { AccessTokenData, AuthorizationCodeData, AuthStorage } from './AuthStorage'
 import { SsoClientCenter } from '../SsoClientCenter'
 import { AppException } from '@fangcha/app-error'
-import { VisitorCoreInfo } from '@fangcha/account-models'
+import { AccountErrorPhrase, CarrierType, VisitorCoreInfo } from '@fangcha/account-models'
 import { AuthScopeDescriptor, SsoClientFromOAuth, SsoErrorPhrase } from '@fangcha/sso-models'
+import { AccountServer } from '@fangcha/account'
 
 /**
  * @description
@@ -12,13 +13,17 @@ import { AuthScopeDescriptor, SsoClientFromOAuth, SsoErrorPhrase } from '@fangch
  * 框架固定了 redirectUri 参数: request.body.redirect_uri || request.query.redirect_uri;
  * 框架强制要求 redirectUri 匹配，未提供通配校验的选项
  */
-export class AuthModel implements OAuth2Server.AuthorizationCodeModel, OAuth2Server.RefreshTokenModel {
+export class AuthModel
+  implements OAuth2Server.AuthorizationCodeModel, OAuth2Server.RefreshTokenModel, OAuth2Server.PasswordModel
+{
   private readonly storage: AuthStorage
   private readonly clientCenter: SsoClientCenter
+  private readonly accountServer: AccountServer
 
-  public constructor(storage: AuthStorage, clientCenter: SsoClientCenter) {
+  public constructor(storage: AuthStorage, clientCenter: SsoClientCenter, accountServer: AccountServer) {
     this.storage = storage
     this.clientCenter = clientCenter
+    this.accountServer = accountServer
   }
 
   public async getAccessToken(accessTokenStr: string) {
@@ -120,5 +125,15 @@ export class AuthModel implements OAuth2Server.AuthorizationCodeModel, OAuth2Ser
 
   async revokeToken(token: OAuth2Server.RefreshToken | OAuth2Server.Token) {
     return this.storage.removeRefreshTokenData(token.refreshToken!)
+  }
+
+  async getUser(username: string, password: string): Promise<VisitorCoreInfo> {
+    const carrier = await this.accountServer.findCarrier(CarrierType.Email, username)
+    if (!carrier) {
+      throw AppException.exception(AccountErrorPhrase.AccountNotExists)
+    }
+    const account = await this.accountServer.findAccount(carrier.accountUid)
+    account.assertPasswordCorrect(password)
+    return await account.getVisitorCoreInfo()
   }
 }

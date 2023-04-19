@@ -1,4 +1,4 @@
-import { ApiOptions, axiosBuilder } from '@fangcha/app-request'
+import { ApiOptions, axiosBuilder, axiosGET } from '@fangcha/app-request'
 import AppError from '@fangcha/app-error'
 import { AxiosProxyConfig } from 'axios'
 import * as tunnel from 'tunnel'
@@ -62,6 +62,26 @@ export class OAuthClient extends ServiceProxy<OAuthClientConfig> {
     return tokenData.access_token
   }
 
+  public async getAccessTokenFromPassword(username: string, password: string) {
+    const request = this.makeRequest({
+      method: 'POST',
+      route: this._config.tokenPath,
+      description: '请求 OAuth Token',
+    })
+    if (this._config.tokenBaseURL) {
+      request.setBaseURL(this._config.tokenBaseURL)
+    }
+    request.setFormUrlEncoded({
+      client_id: this._config.clientId,
+      client_secret: this._config.clientSecret,
+      grant_type: 'password',
+      username: username,
+      password: password,
+      scope: this._config.scope || undefined,
+    })
+    return (await request.quickSend()) as OAuthToken
+  }
+
   public async getAccessTokenData(code: string) {
     const request = this.makeRequest({
       method: 'POST',
@@ -97,6 +117,12 @@ export class OAuthClient extends ServiceProxy<OAuthClientConfig> {
       refresh_token: refreshToken,
     })
     return (await request.quickSend()) as OAuthToken
+  }
+
+  public async getUserInfo(accessToken: string) {
+    const request = axiosGET(this._config.userInfoURL)
+    request.addHeader('Authorization', `Bearer ${accessToken}`)
+    return await request.quickSend()
   }
 
   protected makeRequest(commonApi: ApiOptions) {

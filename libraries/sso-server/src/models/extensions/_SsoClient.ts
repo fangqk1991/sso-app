@@ -89,10 +89,10 @@ export class _SsoClient extends __SsoClient {
       .filter((item) => !!item)
   }
 
-  public getModelForAdmin(): SsoClientModel {
+  public fullModelInfo(): SsoClientModel {
     return {
       clientId: this.clientId,
-      clientSecret: '****',
+      clientSecret: this.clientSecret,
       name: this.name,
       grantList: this.grantList(),
       scopeList: this.scopeList(),
@@ -108,6 +108,12 @@ export class _SsoClient extends __SsoClient {
       createTime: this.createTime,
       updateTime: this.updateTime,
     }
+  }
+
+  public getModelForAdmin(): SsoClientModel {
+    const data = this.fullModelInfo()
+    data.clientSecret = this.clientSecret.substring(0, 4) + '**********'
+    return data
   }
 
   public async updateInfos(params: Partial<SsoClientParams>, operator: string) {
