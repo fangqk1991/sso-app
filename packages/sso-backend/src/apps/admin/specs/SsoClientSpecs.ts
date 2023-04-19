@@ -62,6 +62,12 @@ factory.prepare(Admin_SsoClientApis.ClientInfoPowerUpdate, async (ctx) => {
   })
 })
 
+factory.prepare(Admin_SsoClientApis.ClientFullInfoRequest, async (ctx) => {
+  await new SsoClientSpecHandler(ctx).handle(async (client) => {
+    ctx.body = client.fullModelInfo()
+  })
+})
+
 factory.prepare(Admin_SsoClientApis.ClientDelete, async (ctx) => {
   await new SsoClientSpecHandler(ctx).handle(async (client) => {
     await client.deleteFromDB()

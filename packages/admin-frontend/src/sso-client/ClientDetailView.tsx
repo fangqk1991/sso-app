@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { MyRequest, useVisitorCtx } from '@fangcha/auth-react'
-import { Breadcrumb, Button, Descriptions, Divider, message, Space, Spin, Tag } from 'antd'
+import { Breadcrumb, Button, Descriptions, Divider, message, Modal, Space, Spin, Tag } from 'antd'
 import { Admin_SsoClientApis } from '@web/sso-common/admin-api'
 import { SsoClientModel } from '@fangcha/sso-models'
 import { ClientFormDialog } from './ClientFormDialog'
@@ -80,6 +80,24 @@ export const ClientDetailView: React.FC = () => {
       <Divider />
       <Descriptions title='基本信息'>
         <Descriptions.Item label='clientId'>{clientInfo.clientId}</Descriptions.Item>
+        <Descriptions.Item label='clientSecret'>
+          <Space>
+            <span>{clientInfo.clientSecret} </span>|
+            <Button
+              size={'small'}
+              onClick={async () => {
+                const request = MyRequest(new CommonAPI(Admin_SsoClientApis.ClientFullInfoRequest, clientInfo.clientId))
+                const data = await request.quickSend<SsoClientModel>()
+                Modal.info({
+                  title: 'Client Secret',
+                  content: data.clientSecret,
+                })
+              }}
+            >
+              显示
+            </Button>
+          </Space>
+        </Descriptions.Item>
         <Descriptions.Item label='名称'>{clientInfo.name}</Descriptions.Item>
         <Descriptions.Item label='grants'>
           <div>
