@@ -1,11 +1,37 @@
 import { MyFeishuServer } from './MyFeishuServer'
 import { FeishuDepartmentTree } from '@fangcha/account-models'
+import { LoopPerformer } from '@fangcha/tools'
 
 class _DepartmentCenter {
+  public feishuValid = false
+
   private _directDepartmentMembersMap: { [departmentId: number]: string[] } = {}
   private _fullDepartmentMembersMap: { [departmentId: number]: string[] } = {}
 
   constructor() {}
+
+  private _loopPerformer!: LoopPerformer
+  public autoReloadAppInfo() {
+    if (!this._loopPerformer) {
+      this._loopPerformer = new LoopPerformer({
+        period: 5 * 60 * 1000,
+        errorHandler: (e) => {
+          console.error(e)
+        },
+      })
+      this._loopPerformer.execute(async () => {
+        await this.reloadData()
+      })
+    }
+  }
+
+  public async startAutoReloading() {
+    this.feishuValid = await MyFeishuServer.checkFeishuValid()
+    if (this.feishuValid) {
+      await this.reloadData()
+      this.autoReloadAppInfo()
+    }
+  }
 
   public async reloadData() {
     const rootNode = await MyFeishuServer.getFullStructureInfo()

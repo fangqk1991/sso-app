@@ -39,13 +39,11 @@ const app = new WebApp({
   ],
 
   appDidLoad: async () => {
-    await Promise.all([UserVisitorCenter.reloadVisitorsData(), FeishuDepartmentCenter.reloadData()])
+    await Promise.all([UserVisitorCenter.reloadVisitorsData()])
     LoopPerformerHelper.loopHandle(async () => {
       await UserVisitorCenter.reloadVisitorsData()
     })
-    LoopPerformerHelper.makeLoopPerformer(5 * 60 * 1000).execute(async () => {
-      await FeishuDepartmentCenter.reloadData()
-    })
+    await FeishuDepartmentCenter.startAutoReloading()
   },
   checkHealth: async () => {},
 })
