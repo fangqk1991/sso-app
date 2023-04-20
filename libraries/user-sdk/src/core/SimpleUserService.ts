@@ -71,7 +71,7 @@ export class SimpleUserService<T extends UserAppChecker = UserAppChecker> {
   public autoReloadAppInfo() {
     if (!this._loopPerformer) {
       this._loopPerformer = new LoopPerformer({
-        period: 10 * 100,
+        period: 10 * 1000,
         errorHandler: (e) => {
           console.error(e)
         },
