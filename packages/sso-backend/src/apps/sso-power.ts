@@ -5,6 +5,8 @@ import { SsoPowerSpecDocItems } from './power/SsoPowerSpecDocItems'
 import { UserVisitorCenter } from '../services/UserVisitorCenter'
 import { LoopPerformerHelper } from '@fangcha/backend-kit'
 import { FeishuDepartmentCenter } from '../services/FeishuDepartmentCenter'
+import { FeishuSdkPlugin } from '@fangcha/feishu-sdk'
+import { MyFeishuServer } from '../services/MyFeishuServer'
 
 const app = new WebApp({
   env: GlobalAppConfig.Env,
@@ -30,7 +32,11 @@ const app = new WebApp({
       },
     },
   },
-  plugins: [],
+  plugins: [
+    FeishuSdkPlugin({
+      feishuServer: MyFeishuServer,
+    }),
+  ],
 
   appDidLoad: async () => {
     await Promise.all([UserVisitorCenter.reloadVisitorsData(), FeishuDepartmentCenter.reloadData()])
