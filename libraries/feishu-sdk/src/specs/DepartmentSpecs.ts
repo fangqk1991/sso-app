@@ -4,12 +4,12 @@ import { FeishuServer } from '@fangcha/account'
 
 const factory = new SpecFactory('Feishu Department')
 
-factory.prepare(FeishuSdkApis.FullDepartmentDataGet, async (ctx) => {
+factory.prepare(FeishuSdkApis.FullDepartmentTreeGet, async (ctx) => {
   const feishuServer = ctx.feishuServer as FeishuServer
   ctx.body = await feishuServer.getFullStructureInfo()
 })
 
-factory.prepare(FeishuSdkApis.MembersSearch, async (ctx) => {
+factory.prepare(FeishuSdkApis.FeishuStaffSearch, async (ctx) => {
   const feishuServer = ctx.feishuServer as FeishuServer
   ctx.body = await feishuServer.getMembersInfo(ctx.request.body)
 })

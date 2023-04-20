@@ -65,7 +65,7 @@ export const FeishuDepartmentProvider = ({ children, feishuValid }: React.Compon
     departmentTree: departmentTree,
     departmentMapper: departmentMapper,
     reloadDepartmentTree: () => {
-      MyRequest(FeishuSdkApis.FullDepartmentDataGet)
+      MyRequest(FeishuSdkApis.FullDepartmentTreeGet)
         .quickSend()
         .then((response) => {
           setDepartmentTree(response)
@@ -121,7 +121,7 @@ export const FeishuDepartmentProvider = ({ children, feishuValid }: React.Compon
     fillUserMapper: async (unionIdList) => {
       const todoUnionIdList = unionIdList.filter((unionId) => !userMapper[unionId])
       if (todoUnionIdList.length > 0) {
-        const request = MyRequest(FeishuSdkApis.MembersSearch)
+        const request = MyRequest(FeishuSdkApis.FeishuStaffSearch)
         request.setBodyData({
           unionIdList: todoUnionIdList,
         })
