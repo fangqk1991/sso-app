@@ -12,6 +12,7 @@ export const FeishuSdkApis = {
     method: 'POST',
     route: '/api/feishu-sdk/v1/search-staffs',
     description: '飞书员工信息查询',
+    detailInfo: `传递 unionIdList 或 userIdList 作为查询限制条件`,
     parameters: makeSwaggerBodyDataParameters(FeishuSwaggerModels.Swagger_FeishuStaffSearchParams),
     responseSchemaRef: FeishuSwaggerModels.Swagger_FeishuUserList,
   } as Api,

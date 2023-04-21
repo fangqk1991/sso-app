@@ -41,8 +41,8 @@ importers:
         specifier: ^1.5.0
         version: 1.5.0
       '@fangcha/router':
-        specifier: ^0.29.0
-        version: 0.29.0(@fangcha/backend-kit@0.60.0)
+        specifier: ^0.30.0
+        version: 0.30.0(@fangcha/backend-kit@0.60.0)
       '@fangcha/session':
         specifier: ^0.2.0
         version: 0.2.0(@fangcha/backend-kit@0.60.0)
@@ -369,7 +369,7 @@ importers:
         version: 0.60.0
       '@fangcha/router':
         specifier: '*'
-        version: 0.29.0(@fangcha/backend-kit@0.60.0)
+        version: 0.30.0(@fangcha/backend-kit@0.60.0)
       '@fangcha/sso-models':
         specifier: '*'
         version: link:../sso-models
@@ -2300,8 +2300,8 @@ packages:
       - supports-color
     dev: false
 
-  /@fangcha/router@0.29.0(@fangcha/backend-kit@0.60.0):
-    resolution: {integrity: sha512-qry4fuFcaQxMqoROHUYlPreJ+NK3OL8oXkIyKLRkAMDRqVhGnkSNcxOvMticU7jomWqGvzGEiyS76awEW/DFBw==}
+  /@fangcha/router@0.30.0(@fangcha/backend-kit@0.60.0):
+    resolution: {integrity: sha512-qHdlag6Be9FOV9WJGn4GL0eH7zp75ZfctUZtRzlqmUdq233ocleUNY8QWZbUgGwDp9GWfrCBQCdn0LsngFfoZg==}
     peerDependencies:
       '@fangcha/backend-kit': ^*
     dependencies:
@@ -2327,7 +2327,7 @@ packages:
       '@fangcha/backend-kit': '*'
     dependencies:
       '@fangcha/backend-kit': 0.60.0
-      '@fangcha/router': 0.29.0(@fangcha/backend-kit@0.60.0)
+      '@fangcha/router': 0.30.0(@fangcha/backend-kit@0.60.0)
       '@fangcha/tools': 1.24.0
     transitivePeerDependencies:
       - supports-color

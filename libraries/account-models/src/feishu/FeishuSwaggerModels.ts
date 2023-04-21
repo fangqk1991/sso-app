@@ -26,6 +26,13 @@ export const FeishuSwaggerModels = {
           },
           example: ['on_9267c52f317bb652285303ca6d629733', 'on_bda1e52aacc43b70143f56f0df6a0ae3'],
         },
+        userIdList: {
+          type: 'array',
+          items: {
+            type: 'string',
+          },
+          example: ['7674bgg9', 'af1bgc48'],
+        },
       },
     },
   } as SwaggerModelDefinitionV2,

@@ -74,9 +74,15 @@ export class FeishuServer {
     return (await searcher.queryOne())!
   }
 
-  public async getMembersInfo(params: { unionIdList: string[] }) {
+  public async getMembersInfo(params: { unionIdList?: string[]; userIdList?: string[] }) {
+    assert.ok(!!params.unionIdList || !!params.userIdList, 'unionIdList or userIdList must be defined')
     const searcher = new this.FeishuUser().fc_searcher()
-    searcher.processor().addConditionKeyInArray('union_id', params.unionIdList || [])
+    if (params.unionIdList) {
+      searcher.processor().addConditionKeyInArray('union_id', params.unionIdList || [])
+    }
+    if (params.userIdList) {
+      searcher.processor().addConditionKeyInArray('user_id', params.userIdList || [])
+    }
     const items = await searcher.queryAllFeeds()
     return items.map((item) => item.modelForClient())
   }
