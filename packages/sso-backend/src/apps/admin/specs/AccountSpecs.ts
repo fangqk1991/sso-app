@@ -25,6 +25,14 @@ factory.prepare(Admin_AccountApis.AccountPasswordReset, async (ctx) => {
   ctx.status = 200
 })
 
+factory.prepare(Admin_AccountApis.AccountBasicInfoUpdate, async (ctx) => {
+  const accountUid = ctx.params.accountUid
+  const account = await MyAccountServer.findAccount(accountUid)
+  assert.ok(!!account, `Account[${accountUid}] not exists`)
+  await account.updateInfos(ctx.request.body)
+  ctx.status = 200
+})
+
 factory.prepare(Admin_AccountApis.AccountCarrierUpdate, async (ctx) => {
   const { carrierUid } = ctx.request.body
   if (!ValidateUtils.validateEmail(carrierUid)) {

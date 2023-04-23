@@ -103,26 +103,28 @@ export class AccountServer {
   public async createAccount(fullParams: AccountFullParams) {
     fullParams = ValidateUtils.makePureEmailPasswordParams(fullParams)
 
-    const accountV2 = new this.Account()
-    accountV2.accountUid = makeUUID()
-    accountV2.password = this.makeSaltedPassword(fullParams.password)
-    accountV2.isEnabled = 1
-    accountV2.registerIp = fullParams.registerIp || ''
-    accountV2.nickName = fullParams.nickName || ''
+    const email = fullParams.email || ''
+
+    const account = new this.Account()
+    account.accountUid = makeUUID()
+    account.password = this.makeSaltedPassword(fullParams.password)
+    account.isEnabled = 1
+    account.registerIp = fullParams.registerIp || ''
+    account.nickName = fullParams.nickName || email.split('@')[0] || ''
 
     const carrier = new this.AccountCarrier()
     carrier.carrierType = CarrierType.Email
-    carrier.carrierUid = fullParams.email || ''
-    carrier.accountUid = accountV2.accountUid
+    carrier.carrierUid = email
+    carrier.accountUid = account.accountUid
     if (await carrier.checkExistsInDB()) {
       throw AppException.exception(AccountErrorPhrase.EmailAlreadyRegistered)
     }
 
-    const runner = await accountV2.dbSpec().database.createTransactionRunner()
+    const runner = await account.dbSpec().database.createTransactionRunner()
     await runner.commit(async (transaction) => {
-      await accountV2.addToDB(transaction)
+      await account.addToDB(transaction)
       await carrier.addToDB(transaction)
     })
-    return accountV2
+    return account
   }
 }

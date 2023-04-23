@@ -35,37 +35,93 @@ export const AccountListView: React.FC = () => {
         rowKey={(item: FullAccountModel) => {
           return item.accountUid
         }}
+        tableProps={{
+          size: 'small',
+        }}
         columns={[
           {
             title: 'Email',
             render: (item: FullAccountModel) => (
               <>
-                <b>{item.email}</b>
-                {item.email && (
-                  <Button
-                    danger
-                    type='link'
+                <Space>
+                  <b>{item.email}</b>
+                  <a
+                    className={'ant-btn-link'}
                     onClick={() => {
-                      const dialog = new ConfirmDialog({
-                        content: `确定解绑此账号 Email[${item.email}] 吗`,
+                      const dialog = new SimpleInputDialog({
+                        title: '输入新邮箱',
+                        curValue: item.email,
                       })
-                      dialog.show(async () => {
+                      dialog.show(async (content) => {
                         const request = MyRequest(
-                          new CommonAPI(Admin_AccountApis.AccountCarrierUnlink, item.accountUid, CarrierType.Email)
+                          new CommonAPI(Admin_AccountApis.AccountCarrierUpdate, item.accountUid, CarrierType.Email)
                         )
+                        request.setBodyData({
+                          carrierUid: content,
+                        })
                         await request.quickSend()
-                        message.success('解绑成功')
+                        message.success('变更成功')
                         setVersion(version + 1)
                       })
                     }}
                   >
-                    解绑
-                  </Button>
-                )}
+                    变更
+                  </a>
 
+                  {item.email && (
+                    <a
+                      style={{ color: '#ff4d4f' }}
+                      onClick={() => {
+                        const dialog = new ConfirmDialog({
+                          content: `确定解绑此账号 Email[${item.email}] 吗`,
+                        })
+                        dialog.show(async () => {
+                          const request = MyRequest(
+                            new CommonAPI(Admin_AccountApis.AccountCarrierUnlink, item.accountUid, CarrierType.Email)
+                          )
+                          await request.quickSend()
+                          message.success('解绑成功')
+                          setVersion(version + 1)
+                        })
+                      }}
+                    >
+                      解绑
+                    </a>
+                  )}
+                </Space>
                 <br />
                 <span>{item.accountUid}</span>
               </>
+            ),
+          },
+          {
+            title: '用户名',
+            render: (item: FullAccountModel) => (
+              <Space>
+                <span>{item.nickName}</span>|
+                <a
+                  className={'ant-btn-link'}
+                  onClick={() => {
+                    const dialog = new SimpleInputDialog({
+                      title: '编辑用户名',
+                      curValue: item.nickName,
+                    })
+                    dialog.show(async (content) => {
+                      const request = MyRequest(
+                        new CommonAPI(Admin_AccountApis.AccountBasicInfoUpdate, item.accountUid)
+                      )
+                      request.setBodyData({
+                        nickName: content,
+                      })
+                      await request.quickSend()
+                      message.success('变更成功')
+                      setVersion(version + 1)
+                    })
+                  }}
+                >
+                  编辑
+                </a>
+              </Space>
             ),
           },
           {
@@ -83,29 +139,6 @@ export const AccountListView: React.FC = () => {
             key: 'action',
             render: (item: FullAccountModel) => (
               <Space size='small'>
-                <Button
-                  type='link'
-                  onClick={() => {
-                    const dialog = new SimpleInputDialog({
-                      title: '输入新邮箱',
-                      curValue: item.email,
-                    })
-                    dialog.show(async (content) => {
-                      const request = MyRequest(
-                        new CommonAPI(Admin_AccountApis.AccountCarrierUpdate, item.accountUid, CarrierType.Email)
-                      )
-                      request.setBodyData({
-                        carrierUid: content,
-                      })
-                      await request.quickSend()
-                      message.success('变更成功')
-                      setVersion(version + 1)
-                    })
-                  }}
-                >
-                  变更邮箱
-                </Button>
-
                 <Button
                   type='link'
                   onClick={() => {

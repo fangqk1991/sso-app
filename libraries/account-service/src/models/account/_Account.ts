@@ -24,6 +24,14 @@ export class _Account extends __Account {
     }))!
   }
 
+  public async updateInfos(params: Partial<AccountModel>) {
+    this.fc_edit()
+    if (params.nickName !== undefined) {
+      this.nickName = params.nickName
+    }
+    await this.updateToDB()
+  }
+
   public async updateCarrier(carrierType: CarrierType, carrierUid: string) {
     const carrier = await this.findCarrier(carrierType)
     if (carrier) {

@@ -16,6 +16,11 @@ export const Admin_AccountApis = {
     route: '/api/v1/account/:accountUid/reset-password',
     description: 'Account Password Reset',
   } as Api,
+  AccountBasicInfoUpdate: {
+    method: 'PUT',
+    route: '/api/v1/account/:accountUid/basic-info',
+    description: 'Account Basic Info Update',
+  } as Api,
   AccountCarrierUpdate: {
     method: 'PUT',
     route: '/api/v1/account/:accountUid/carrier/:accountCarrier',
