@@ -75,12 +75,15 @@ export class FeishuServer {
   }
 
   public async getMembersInfo(params: { unionIdList?: string[]; userIdList?: string[] }) {
-    assert.ok(!!params.unionIdList || !!params.userIdList, 'unionIdList or userIdList must be defined')
+    assert.ok(
+      Array.isArray(params.unionIdList) || Array.isArray(params.userIdList),
+      'unionIdList or userIdList must be an array'
+    )
     const searcher = new this.FeishuUser().fc_searcher()
-    if (params.unionIdList) {
+    if (Array.isArray(params.unionIdList)) {
       searcher.processor().addConditionKeyInArray('union_id', params.unionIdList || [])
     }
-    if (params.userIdList) {
+    if (Array.isArray(params.userIdList)) {
       searcher.processor().addConditionKeyInArray('user_id', params.userIdList || [])
     }
     const items = await searcher.queryAllFeeds()
