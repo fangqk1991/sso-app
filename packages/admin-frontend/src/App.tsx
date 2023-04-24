@@ -38,17 +38,24 @@ export const App: React.FC = () => {
     }
   }
 
-  const userInfo = sessionCtx.session.userInfo
-  const watermarkText = config.useWatermark ? (userInfo.email || '').split('@')[0] : ''
-  const watermarkColor = config.watermarkColor || '#efefef'
-
   return (
     <ErrorBoundary>
       <VisitorProvider>
+        {config.useWatermark && (
+          <Watermark
+            style={{
+              width: '100vw',
+              height: '100vh',
+              position: 'fixed',
+              pointerEvents: 'none',
+              zIndex: 9999,
+            }}
+            content={(sessionCtx.session.userInfo.email || '').split('@')[0]}
+            font={{ color: config.watermarkColor || '#0000000a' }}
+          />
+        )}
         <FeishuDepartmentProvider feishuValid={config.feishuValid}>
-          <Watermark content={watermarkText} font={{ color: watermarkColor }}>
-            <RouterProvider router={MyRouter}></RouterProvider>
-          </Watermark>
+          <RouterProvider router={MyRouter}></RouterProvider>
         </FeishuDepartmentProvider>
       </VisitorProvider>
     </ErrorBoundary>
