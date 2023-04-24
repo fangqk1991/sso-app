@@ -15,6 +15,8 @@ export interface SessionConfig {
   colorPrimary?: string
   authMode: AuthMode
   feishuValid?: boolean
+  useWatermark?: boolean
+  watermarkColor?: string
 }
 
 export const _defaultTheme: SessionConfig = {
@@ -27,6 +29,8 @@ export const _defaultTheme: SessionConfig = {
   colorPrimary: '',
   authMode: AuthMode.Simple,
   feishuValid: false,
+  useWatermark: false,
+  watermarkColor: '',
 }
 
 export const _defaultSession: SessionInfo<SessionConfig> = {

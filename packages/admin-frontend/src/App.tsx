@@ -4,7 +4,7 @@ import { RouterProvider } from 'react-router-dom'
 import { MyRouter } from './MyRouter'
 import { AuthSdkHelper, SessionProvider, useSession, useSessionConfig, VisitorProvider } from '@fangcha/auth-react'
 import { AuthRouter } from '@fangcha/auth-react/router'
-import { ConfigProvider } from 'antd'
+import { ConfigProvider, Watermark } from 'antd'
 import { AuthMode } from '@fangcha/account-models'
 import { LoadingView } from '@fangcha/react'
 import { WebAuthApis } from '@fangcha/sso-models'
@@ -38,11 +38,17 @@ export const App: React.FC = () => {
     }
   }
 
+  const userInfo = sessionCtx.session.userInfo
+  const watermarkText = config.useWatermark ? (userInfo.email || '').split('@')[0] : ''
+  const watermarkColor = config.watermarkColor || '#efefef'
+
   return (
     <ErrorBoundary>
       <VisitorProvider>
         <FeishuDepartmentProvider feishuValid={config.feishuValid}>
-          <RouterProvider router={MyRouter}></RouterProvider>
+          <Watermark content={watermarkText} font={{ color: watermarkColor }}>
+            <RouterProvider router={MyRouter}></RouterProvider>
+          </Watermark>
         </FeishuDepartmentProvider>
       </VisitorProvider>
     </ErrorBoundary>
