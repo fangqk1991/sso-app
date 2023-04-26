@@ -4,6 +4,7 @@ import { MySsoServer } from '../services/MySsoServer'
 import { WebApp } from '@fangcha/backend-kit/lib/router'
 import { _FangchaState } from '@fangcha/backend-kit'
 import { SsoClientsAutoReloadPlugin, SsoWebPlugin } from '@fangcha/sso-server-sdk'
+import { SsoWebSpecDocItems } from './web/specs/SsoWebSpecDocItems'
 
 const app = new WebApp({
   env: GlobalAppConfig.Env,
@@ -20,6 +21,7 @@ const app = new WebApp({
       jwtSecret: SsoConfig.webJwtSecret,
     },
   },
+  mainDocItems: SsoWebSpecDocItems,
   plugins: [
     SsoWebPlugin({
       signupAble: SsoConfig.frontendConfig.signupAble,
