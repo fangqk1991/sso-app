@@ -81,8 +81,8 @@ factory.prepare(JointLoginApis.FeishuCallback, async (ctx) => {
         nickName: tokenData.name || tokenData.en_name || '',
         registerIp: session.realIP,
       })
-      await account.updateCarrier(CarrierType.Feishu, tokenData.union_id)
     }
+    await account.updateCarrier(CarrierType.Feishu, tokenData.union_id)
   }
   await new LoginService(ctx).onLoginSuccess(account)
 
