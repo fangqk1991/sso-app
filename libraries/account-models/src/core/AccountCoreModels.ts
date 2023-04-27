@@ -1,3 +1,5 @@
+import { CarrierType } from './CarrierType'
+
 export interface AccountSimpleParams {
   email: string
   password: string
@@ -33,4 +35,10 @@ export interface AccountModel {
 export interface FullAccountModel extends AccountModel {
   email: string
   phone: string
+}
+
+export interface AccountCarrierModel {
+  accountUid: string
+  carrierType: CarrierType
+  carrierUid: string
 }

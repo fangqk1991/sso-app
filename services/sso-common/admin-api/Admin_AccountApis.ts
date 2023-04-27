@@ -21,6 +21,11 @@ export const Admin_AccountApis = {
     route: '/api/v1/account/:accountUid/basic-info',
     description: 'Account Basic Info Update',
   } as Api,
+  AccountCarrierListGet: {
+    method: 'GET',
+    route: '/api/v1/account/:accountUid/carrier',
+    description: 'Account Carrier List Get',
+  } as Api,
   AccountCarrierUpdate: {
     method: 'PUT',
     route: '/api/v1/account/:accountUid/carrier/:accountCarrier',

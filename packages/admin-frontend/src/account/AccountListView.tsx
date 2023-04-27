@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import { MyRequest } from '@fangcha/auth-react'
 import { Button, Divider, message, Space } from 'antd'
 import { Admin_AccountApis } from '@web/sso-common/admin-api'
-import { ConfirmDialog, SimpleInputDialog, TableView } from '@fangcha/react'
+import { ConfirmDialog, InformationDialog, SimpleInputDialog, TableView } from '@fangcha/react'
 import { PageResult } from '@fangcha/tools'
 import { AccountFormDialog } from './AccountFormDialog'
-import { CarrierType, FullAccountModel } from '@fangcha/account-models'
+import { AccountCarrierModel, CarrierType, FullAccountModel } from '@fangcha/account-models'
 import { CommonAPI } from '@fangcha/app-request'
 
 export const AccountListView: React.FC = () => {
@@ -139,6 +139,23 @@ export const AccountListView: React.FC = () => {
             key: 'action',
             render: (item: FullAccountModel) => (
               <Space size='small'>
+                <Button
+                  type='link'
+                  onClick={async () => {
+                    const request = MyRequest(new CommonAPI(Admin_AccountApis.AccountCarrierListGet, item.accountUid))
+                    const items = await request.quickSend<AccountCarrierModel[]>()
+
+                    InformationDialog.previewData({
+                      title: '绑定情况',
+                      infos: items.map((item) => ({
+                        label: item.carrierType,
+                        value: item.carrierUid,
+                      })),
+                    })
+                  }}
+                >
+                  查看绑定
+                </Button>
                 <Button
                   type='link'
                   onClick={() => {

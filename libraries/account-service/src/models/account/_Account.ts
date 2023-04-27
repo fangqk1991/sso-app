@@ -32,6 +32,13 @@ export class _Account extends __Account {
     await this.updateToDB()
   }
 
+  public async getCarrierList() {
+    const AccountCarrier = this.getClass().AccountCarrier
+    const searcher = new AccountCarrier().fc_searcher()
+    searcher.processor().addConditionKV('account_uid', this.accountUid)
+    return searcher.queryAllFeeds()
+  }
+
   public async updateCarrier(carrierType: CarrierType, carrierUid: string) {
     const carrier = await this.findCarrier(carrierType)
     if (carrier) {
