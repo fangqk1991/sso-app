@@ -72,6 +72,8 @@ module.exports = {
       logoCss: 'linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%)',
       signupAble: false,
       beianText: '',
+      useEmailLogin: true,
+      useFeishuLogin: false,
     },
     FeishuSDK: {
       urlBase: 'https://open.feishu.cn',

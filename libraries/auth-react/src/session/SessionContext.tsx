@@ -17,6 +17,9 @@ export interface SessionConfig {
   feishuValid?: boolean
   useWatermark?: boolean
   watermarkColor?: string
+
+  useEmailLogin?: boolean
+  useFeishuLogin?: boolean
 }
 
 export const _defaultTheme: SessionConfig = {
@@ -31,6 +34,9 @@ export const _defaultTheme: SessionConfig = {
   feishuValid: false,
   useWatermark: false,
   watermarkColor: '',
+
+  useEmailLogin: true,
+  useFeishuLogin: false,
 }
 
 export const _defaultSession: SessionInfo<SessionConfig> = {
