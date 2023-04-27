@@ -5,6 +5,11 @@ import { CustomRequestFollower } from '@fangcha/backend-kit'
 describe('Test FeishuClient.test.ts', () => {
   const feishuClient = new FeishuClient(GlobalAppConfig.FangchaAuth.FeishuSDK, CustomRequestFollower)
 
+  it(`getUserToken`, async () => {
+    const response = await feishuClient.getUserToken('00aqc829b9db41819ff8d5e81cfeb43b')
+    console.info(response)
+  })
+
   it(`getAllEmployees`, async () => {
     const items = await feishuClient.getAllEmployees({
       // user_id_type: 'union_id',

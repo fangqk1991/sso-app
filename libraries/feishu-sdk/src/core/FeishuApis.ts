@@ -4,6 +4,16 @@ export const FeishuApis = {
     route: '/open-apis/auth/v3/tenant_access_token/internal',
     description: '自建应用获取 tenant_access_token',
   },
+  AuthorizeUri: {
+    method: 'GET',
+    route: '/open-apis/authen/v1/index',
+    description: '授权页地址',
+  },
+  UserAccessTokenRequest: {
+    method: 'POST',
+    route: '/open-apis/authen/v1/access_token',
+    description: '获取 user_access_token',
+  },
   EmployeePageDataGet: {
     method: 'GET',
     route: '/open-apis/ehr/v1/employees',

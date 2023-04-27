@@ -5,6 +5,12 @@ export interface TenantAccessTokenResponse {
   tenant_access_token: string
 }
 
+export interface FeishuResponse<T> {
+  code: number
+  msg: string // 'ok'
+  data: T
+}
+
 export interface FeishuPageDataResponse<T> {
   code: number
   msg: string // 'ok'
@@ -104,4 +110,27 @@ export interface FeishuUserStatus {
   is_activated: boolean // 是否激活
   is_exited: boolean // 是否主动退出，主动退出一段时间后用户会自动转为已离职
   is_unjoin: boolean // 是否未加入，需要用户自主确认才能加入团队
+}
+
+export interface FeishuUserToken {
+  access_token: string
+
+  expires_in: number
+  refresh_expires_in: number
+  refresh_token: string
+  sid: string
+  tenant_key: string
+  token_type: 'Bearer'
+
+  union_id: string
+  user_id: string
+  open_id: string
+
+  name: string
+  en_name: string
+  avatar_big: string
+  avatar_middle: string
+  avatar_thumb: string
+  avatar_url: string
+  enterprise_email: string
 }

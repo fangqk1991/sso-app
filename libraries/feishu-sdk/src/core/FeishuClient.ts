@@ -1,9 +1,11 @@
 import { RequestFollower, ServiceProxy } from '@fangcha/app-request-extensions'
 import { FeishuConfig } from './FeishuConfig'
-import { ApiOptions, axiosBuilder, CommonAPI } from '@fangcha/app-request'
+import { ApiOptions, AxiosBuilder, axiosBuilder, CommonAPI } from '@fangcha/app-request'
 import {
   FeishuDepartmentResponse,
   FeishuPageDataResponse,
+  FeishuResponse,
+  FeishuUserToken,
   Raw_FeishuDepartment,
   Raw_FeishuDepartmentTree,
   Raw_FeishuEmployee,
@@ -12,6 +14,7 @@ import {
 import { FeishuApis } from './FeishuApis'
 import { FeishuTokenKeeper } from './FeishuTokenKeeper'
 import { GuardPerformer } from '@fangcha/tools'
+import AppError from '@fangcha/app-error'
 
 export class FeishuClient extends ServiceProxy<FeishuConfig> {
   private _tokenKeeper: FeishuTokenKeeper
@@ -21,6 +24,18 @@ export class FeishuClient extends ServiceProxy<FeishuConfig> {
     this._tokenKeeper = new FeishuTokenKeeper(config, observerClass)
   }
 
+  public makeAuthorizeUri(options: { redirectUri: string; state: string }) {
+    const request = new AxiosBuilder()
+      .setBaseURL(this._config.urlBase)
+      .setApiOptions(FeishuApis.AuthorizeUri)
+      .setQueryParams({
+        app_id: this._config.appid,
+        redirect_uri: options.redirectUri,
+        state: options.state,
+      })
+    return request.getRequestUrl()
+  }
+
   public async makeRequest(commonApi: ApiOptions) {
     const accessToken = await this._tokenKeeper.requireTenantAccessToken()
     const request = axiosBuilder()
@@ -28,8 +43,33 @@ export class FeishuClient extends ServiceProxy<FeishuConfig> {
       .addHeader('Authorization', `Bearer ${accessToken}`)
       .setApiOptions(commonApi)
       .setTimeout(15000)
+    request.setErrorParser((client, error) => {
+      let message = error.message
+      if (client.axiosError?.response?.data && typeof client.axiosError?.response.data === 'object') {
+        const data = client.axiosError?.response.data as FeishuResponse<any>
+        error.extras = data
+        message = `${data.msg}[${data.code}]`
+      }
+      const errorPrefix = `API[${commonApi.description}] error:`
+      return new AppError(`${errorPrefix} ${message}`, error.statusCode, error.extras)
+    })
     this.onRequestMade(request)
     return request
+  }
+
+  public async getUserToken(code: string) {
+    const request = await this.makeRequest(FeishuApis.UserAccessTokenRequest)
+    request.setBodyData({
+      grant_type: 'authorization_code',
+      code: code,
+    })
+    const response = await request.quickSend<FeishuResponse<FeishuUserToken>>()
+    if (response.code !== 0) {
+      const message = `${response.msg}[${response.code}]`
+      const errorPrefix = `API[${FeishuApis.UserAccessTokenRequest.description}] error:`
+      throw new AppError(`${errorPrefix} ${message}`, 400, response)
+    }
+    return response.data
   }
 
   public async getAllPageItems<T>(

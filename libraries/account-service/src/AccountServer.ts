@@ -83,6 +83,13 @@ export class AccountServer {
     }))!
   }
 
+  public async findAccountWithCarrier(carrierType: CarrierType, carrierUid: string) {
+    const carrier = await this.findCarrier(carrierType, carrierUid)
+    if (carrier) {
+      return this.findAccount(carrier.accountUid)
+    }
+  }
+
   public async findCarrier(carrierType: CarrierType, carrierUid: string) {
     return (await this.AccountCarrier.findOne({
       carrier_type: carrierType,

@@ -6,6 +6,7 @@ export enum CarrierType {
   Google = 'Google',
   GitHub = 'GitHub',
   Wechat = 'Wechat',
+  Feishu = 'Feishu',
 }
 
 const values = [
@@ -14,6 +15,7 @@ const values = [
   CarrierType.Google,
   CarrierType.GitHub,
   CarrierType.Wechat,
+  CarrierType.Feishu,
 ]
 
 const describe = (code: CarrierType) => {
