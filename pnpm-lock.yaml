@@ -5,10 +5,10 @@ importers:
   .:
     dependencies:
       '@fangcha/account':
-        specifier: workspace:^*
+        specifier: workspace:^
         version: link:libraries/account-service
       '@fangcha/account-models':
-        specifier: workspace:^*
+        specifier: workspace:^
         version: link:libraries/account-models
       '@fangcha/ali-oss':
         specifier: ^1.2.0
@@ -47,13 +47,13 @@ importers:
         specifier: ^0.2.0
         version: 0.2.0(@fangcha/backend-kit@0.62.0)
       '@fangcha/sso-models':
-        specifier: workspace:^*
+        specifier: workspace:^
         version: link:libraries/sso-models
       '@fangcha/sso-server':
-        specifier: workspace:^*
+        specifier: workspace:^
         version: link:libraries/sso-server
       '@fangcha/sso-server-sdk':
-        specifier: workspace:^*
+        specifier: workspace:^
         version: link:libraries/sso-server-sdk
       '@fangcha/swagger':
         specifier: ^0.1.1
@@ -68,7 +68,7 @@ importers:
         specifier: ^5.0.0
         version: 5.0.0
       '@web/sso-common':
-        specifier: workspace:^*
+        specifier: workspace:^
         version: link:services/sso-common
       bcrypt:
         specifier: ^5.1.0
@@ -132,10 +132,10 @@ importers:
         specifier: ^0.2.0
         version: 0.2.0(@fangcha/vue@0.78.0)
       '@fangcha/auth-basic':
-        specifier: workspace:^*
+        specifier: workspace:^
         version: link:libraries/auth-basic
       '@fangcha/auth-vue':
-        specifier: workspace:^*
+        specifier: workspace:^
         version: link:libraries/auth-vue
       '@fangcha/eslint':
         specifier: ^0.8.0
@@ -335,7 +335,7 @@ importers:
   libraries/user-sdk:
     dependencies:
       '@fangcha/account-models':
-        specifier: workspace:^*
+        specifier: workspace:^
         version: link:../account-models
       '@fangcha/app-request':
         specifier: ^1.8.0
@@ -377,19 +377,19 @@ importers:
   packages/admin-frontend:
     devDependencies:
       '@fangcha/auth-react':
-        specifier: workspace:^*
+        specifier: workspace:^
         version: link:../../libraries/auth-react
 
   packages/sso-backend:
     dependencies:
       '@fangcha/feishu-sdk':
-        specifier: workspace:^*
+        specifier: workspace:^
         version: link:../../libraries/feishu-sdk
       '@fangcha/user-sdk':
-        specifier: workspace:^*
+        specifier: workspace:^
         version: link:../../libraries/user-sdk
       '@fangcha/web-auth-sdk':
-        specifier: workspace:^*
+        specifier: workspace:^
         version: link:../../libraries/web-auth-sdk
       oauth2-server:
         specifier: ^3.1.1
@@ -402,7 +402,7 @@ importers:
   packages/sso-frontend:
     devDependencies:
       '@fangcha/auth-react':
-        specifier: workspace:^*
+        specifier: workspace:^
         version: link:../../libraries/auth-react
       typescript:
         specifier: ^4.9.5
