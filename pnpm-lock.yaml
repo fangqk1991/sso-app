@@ -347,8 +347,8 @@ importers:
         specifier: ^1.2.0
         version: 1.2.0
       '@fangcha/tools':
-        specifier: ^1.24.0
-        version: 1.24.0
+        specifier: ^1.25.2
+        version: 1.25.2
 
   libraries/web-auth-sdk:
     dependencies:
@@ -2144,7 +2144,7 @@ packages:
     peerDependencies:
       '@fangcha/vue': '*'
     dependencies:
-      '@fangcha/tools': 1.24.0
+      '@fangcha/tools': 1.25.2
       '@fangcha/vue': 0.78.0
       notification-center-js: 0.3.0
     dev: true
@@ -2273,7 +2273,7 @@ packages:
     resolution: {integrity: sha512-m+wljZf+EBTbxHp97NPzOzAcJMZS6x3zGlur9441XOozfWfjFMt/v1mUwx/IQDjdHGbmN4I7d2Oobs0/wy5h/A==}
     dependencies:
       '@fangcha/swagger': 0.1.1
-      '@fangcha/tools': 1.24.0
+      '@fangcha/tools': 1.25.2
       '@types/ejs': 3.1.1
       ejs: 3.1.8
       fc-sql: 0.30.0
@@ -2311,7 +2311,7 @@ packages:
   /@fangcha/resque@1.5.0:
     resolution: {integrity: sha512-nyeL7+yE2c6MuCMrFOtZKjfJHOEYRPKWGTTM54rbJ0t06SChU8GHXdw13at4lpG5fPqxdUGRJPr4jWrlUTy/eg==}
     dependencies:
-      '@fangcha/tools': 1.24.0
+      '@fangcha/tools': 1.25.2
       ioredis: 4.28.5
       moment: 2.29.4
       shelljs: 0.8.5
@@ -2369,7 +2369,7 @@ packages:
     dependencies:
       '@fangcha/backend-kit': 0.62.0
       '@fangcha/router': 0.30.0(@fangcha/backend-kit@0.62.0)
-      '@fangcha/tools': 1.24.0
+      '@fangcha/tools': 1.25.2
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -2382,13 +2382,13 @@ packages:
     dependencies:
       moment: 2.29.4
       uuid: 9.0.0
+    dev: false
 
   /@fangcha/tools@1.25.2:
     resolution: {integrity: sha512-5X67S+UI1hlkMyTKN1boQJIq2SQwcpq2IEsQm6JMZAd79cRmx3dG5D8ma3e+5hxjlw9BLuGtp4zCQ5yiLNAyrg==}
     dependencies:
       moment: 2.29.4
       uuid: 9.0.0
-    dev: false
 
   /@fangcha/vue@0.78.0:
     resolution: {integrity: sha512-Twygon2K932QmG2TgneDJsyoZM/A90rlJ4t6FEIkAQ93tshmYVfoa2jnqkW8G48cZ/K6rnN/pm/7dxLQR22W8w==}
@@ -3627,7 +3627,7 @@ packages:
     hasBin: true
     dependencies:
       '@fangcha/ali-oss': 1.2.0
-      '@fangcha/tools': 1.24.0
+      '@fangcha/tools': 1.25.2
       shelljs: 0.8.5
     transitivePeerDependencies:
       - supports-color
