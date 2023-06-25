@@ -39,9 +39,9 @@ const dbOptions = {
 
 export class __AccountCarrierExtras extends FeedBase {
   /**
-   * @description [enum('Email','Phone','Google','GitHub','Wechat','Cocos')] 账号载体（登录方式）
+   * @description [varchar(16)] 账号载体（登录方式）
    */
-  public carrierType!: string | null
+  public carrierType!: string
   /**
    * @description [varchar(64)] 载体 ID
    */
@@ -92,7 +92,6 @@ export class __AccountCarrierExtras extends FeedBase {
 
   public fc_defaultInit() {
     // This function is invoked by constructor of FCModel
-    this.carrierType = null
     this.extrasInfo = ''
   }
 

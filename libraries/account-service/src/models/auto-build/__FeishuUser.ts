@@ -9,6 +9,7 @@ const _cols: string[] = [
   'email',
   'name',
   'is_valid',
+  'extras_info',
   'raw_data_str',
   'create_time',
   'update_time',
@@ -21,6 +22,7 @@ const _insertableCols: string[] = [
   'email',
   'name',
   'is_valid',
+  'extras_info',
   'raw_data_str',
 ]
 const _modifiableCols: string[] = [
@@ -30,6 +32,7 @@ const _modifiableCols: string[] = [
   'email',
   'name',
   'is_valid',
+  'extras_info',
   'raw_data_str',
   'create_time',
 ]
@@ -66,13 +69,17 @@ export class __FeishuUser extends FeedBase {
    */
   public email!: string
   /**
-   * @description [varchar(127)] 企业微信姓名
+   * @description [varchar(127)] 姓名
    */
   public name!: string
   /**
    * @description [tinyint] 是否活跃
    */
   public isValid!: number
+  /**
+   * @description [mediumtext] 附加信息，空 | JSON 字符串
+   */
+  public extrasInfo!: string
   /**
    * @description [mediumtext] 原始信息
    */
@@ -119,8 +126,8 @@ export class __FeishuUser extends FeedBase {
 
   public fc_defaultInit() {
     // This function is invoked by constructor of FCModel
-    this.name = ''
     this.isValid = 0
+    this.extrasInfo = ''
     this.rawDataStr = ''
   }
 
@@ -132,6 +139,7 @@ export class __FeishuUser extends FeedBase {
       email: 'email',
       name: 'name',
       isValid: 'is_valid',
+      extrasInfo: 'extras_info',
       rawDataStr: 'raw_data_str',
       createTime: 'create_time',
       updateTime: 'update_time',

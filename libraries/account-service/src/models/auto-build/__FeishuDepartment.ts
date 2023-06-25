@@ -10,6 +10,7 @@ const _cols: string[] = [
   'department_name',
   'path',
   'hash',
+  'extras_info',
   'raw_data_str',
   'create_time',
   'update_time',
@@ -23,6 +24,7 @@ const _insertableCols: string[] = [
   'department_name',
   'path',
   'hash',
+  'extras_info',
   'raw_data_str',
 ]
 const _modifiableCols: string[] = [
@@ -34,6 +36,7 @@ const _modifiableCols: string[] = [
   'department_name',
   'path',
   'hash',
+  'extras_info',
   'raw_data_str',
   'create_time',
 ]
@@ -81,6 +84,10 @@ export class __FeishuDepartment extends FeedBase {
    * @description [char(8)] MD5 摘要值
    */
   public hash!: string
+  /**
+   * @description [mediumtext] 附加信息，空 | JSON 字符串
+   */
+  public extrasInfo!: string
   /**
    * @description [mediumtext] 原始信息
    */
@@ -131,6 +138,7 @@ export class __FeishuDepartment extends FeedBase {
     this.departmentName = ''
     this.path = ''
     this.hash = ''
+    this.extrasInfo = ''
     this.rawDataStr = ''
   }
 
@@ -143,6 +151,7 @@ export class __FeishuDepartment extends FeedBase {
       departmentName: 'department_name',
       path: 'path',
       hash: 'hash',
+      extrasInfo: 'extras_info',
       rawDataStr: 'raw_data_str',
       createTime: 'create_time',
       updateTime: 'update_time',

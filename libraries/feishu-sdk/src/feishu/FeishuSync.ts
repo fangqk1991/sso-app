@@ -64,7 +64,7 @@ export class FeishuSync {
         bulkAdder.transaction = transaction
         bulkAdder.setTable(dbSpec.table)
         bulkAdder.useUpdateWhenDuplicate()
-        bulkAdder.setInsertKeys(dbSpec.insertableCols())
+        bulkAdder.setInsertKeys(dbSpec.insertableCols().filter((item) => item !== 'extras_info'))
         departmentNodeList.forEach((item) => {
           item.memberList.forEach((member) => {
             unionIdList.push(member.union_id)
