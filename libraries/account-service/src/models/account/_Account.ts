@@ -56,10 +56,15 @@ export class _Account extends __Account {
   }
 
   public async getVisitorCoreInfo(): Promise<VisitorCoreInfo> {
-    const carrier = await this.findCarrier(CarrierType.Email)
+    const carrierList = await this.getCarrierList()
+    const emailCarrier = carrierList.find((item) => item.carrierType === CarrierType.Email)
     return {
       accountUid: this.accountUid,
-      email: carrier ? carrier.carrierUid : '',
+      email: emailCarrier ? emailCarrier.carrierUid : '',
+      extras: carrierList.reduce((result, cur) => {
+        result[cur.carrierType] = cur.carrierUid
+        return result
+      }, {}),
     }
   }
 

@@ -40,6 +40,7 @@ factory.prepare(WebAuthApis.Login, async (ctx) => {
   const userInfo: VisitorCoreInfo = {
     accountUid: params.email,
     email: params.email,
+    extras: {},
   }
   let passed = false
   const simpleAuth = _WebAuthState.authProtocol.simpleAuth!
@@ -60,6 +61,7 @@ factory.prepare(WebAuthApis.Login, async (ctx) => {
     const account = await accountServer.findAccount(carrier.accountUid)
     account.assertPasswordCorrect(params.password)
     userInfo.accountUid = account.accountUid
+    Object.assign(userInfo, await account.getVisitorCoreInfo())
     passed = true
   }
   if (!passed) {

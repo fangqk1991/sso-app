@@ -15,6 +15,7 @@ export interface AccountFullParams extends AccountSimpleParams {
 export interface VisitorCoreInfo {
   accountUid: string
   email: string
+  extras: { [carrierType: string]: string }
 }
 
 export interface PasswordUpdateParams {

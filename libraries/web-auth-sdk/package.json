@@ -1,6 +1,6 @@
 {
   "name": "@fangcha/web-auth-sdk",
-  "version": "0.7.1",
+  "version": "0.8.0",
   "description": "Web Auth SDK.",
   "main": "src/index.ts",
   "publishConfig": {

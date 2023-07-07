@@ -1,6 +1,6 @@
 {
   "name": "@fangcha/sso-server",
-  "version": "0.30.0",
+  "version": "0.31.0",
   "description": "SSO Server.",
   "main": "src/index.ts",
   "publishConfig": {
