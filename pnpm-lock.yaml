@@ -83,8 +83,8 @@ importers:
         specifier: ^0.13.0
         version: 0.13.0
       fc-feed:
-        specifier: ^0.21.1
-        version: 0.21.1
+        specifier: ^0.24.0
+        version: 0.24.0
       fc-model:
         specifier: ^0.6.0
         version: 0.6.0
@@ -6172,8 +6172,8 @@ packages:
       lodash: 4.17.21
     dev: false
 
-  /fc-feed@0.21.1:
-    resolution: {integrity: sha512-d9OQ0vSuTDr7UXhwoFTuiT+fP3x6FCb5uvN8q/+q27RdRjn+Y8c89YDcm9gnczTmpdRtbcNd7odf0Avj+XGCCA==}
+  /fc-feed@0.24.0:
+    resolution: {integrity: sha512-oTAc+L5MAHGAa1a6sR3HF9Hkzr73TcI0WQk/t0ir7hQdfoMbkw7OHF2omq6PB65LQsdt6i+heQXGPIDpaeCvYA==}
     dependencies:
       fc-model: 0.6.0
       fc-sql: 0.30.1

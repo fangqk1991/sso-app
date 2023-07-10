@@ -27,7 +27,7 @@
     "@fangcha/app-request": "^1.8.0",
     "@fangcha/app-request-extensions": "^0.2.0",
     "fc-config": "^0.13.0",
-    "fc-feed": "^0.21.1",
+    "fc-feed": "^0.24.0",
     "fc-model": "^0.6.0",
     "fc-queue": "^0.4.0",
     "fc-sql": "^0.30.1",
