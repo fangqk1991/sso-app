@@ -88,6 +88,11 @@ module.exports = {
       username: '<username>',
       password: '<password>',
     },
+    openUserService: {
+      urlBase: 'http://localhost:2550',
+      username: '<username>',
+      password: '<password>',
+    },
   },
   test_oauthConfig: {
     baseURL: 'http://localhost:2699',
