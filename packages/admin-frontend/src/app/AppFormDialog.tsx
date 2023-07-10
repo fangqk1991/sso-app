@@ -46,6 +46,7 @@ export class AppFormDialog extends ReactDialog<Props, P_AppParams> {
             label='应用类型'
             options={AppTypeDescriptor.options()}
             radioType='button'
+            readonly={props.forEditing}
           />
           <ProFormText name='remarks' label='备注' />
           <ProFormSelect name='powerUserList' mode='tags' label='管理员' />
