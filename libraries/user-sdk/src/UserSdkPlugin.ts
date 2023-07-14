@@ -30,6 +30,9 @@ export const UserSdkPlugin = (config: BasicAuthConfig): AppPluginProtocol => {
         },
       })
     },
+    checkHealth: () => {
+      AdminUserCenter.assertValid()
+    },
     specDocItems: [UserSdkSpecDocItem],
   }
 }
