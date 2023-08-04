@@ -8,6 +8,8 @@ const _cols: string[] = [
   'open_id',
   'email',
   'name',
+  'city',
+  'employee_id',
   'is_valid',
   'extras_info',
   'raw_data_str',
@@ -21,6 +23,8 @@ const _insertableCols: string[] = [
   'open_id',
   'email',
   'name',
+  'city',
+  'employee_id',
   'is_valid',
   'extras_info',
   'raw_data_str',
@@ -31,6 +35,8 @@ const _modifiableCols: string[] = [
   'open_id',
   'email',
   'name',
+  'city',
+  'employee_id',
   'is_valid',
   'extras_info',
   'raw_data_str',
@@ -72,6 +78,14 @@ export class __FeishuUser extends FeedBase {
    * @description [varchar(127)] 姓名
    */
   public name!: string
+  /**
+   * @description [varchar(32)] 城市
+   */
+  public city!: string
+  /**
+   * @description [varchar(64)]
+   */
+  public employeeId!: string
   /**
    * @description [tinyint] 是否活跃
    */
@@ -126,6 +140,8 @@ export class __FeishuUser extends FeedBase {
 
   public fc_defaultInit() {
     // This function is invoked by constructor of FCModel
+    this.city = ''
+    this.employeeId = ''
     this.isValid = 0
     this.extrasInfo = ''
     this.rawDataStr = ''
@@ -138,6 +154,8 @@ export class __FeishuUser extends FeedBase {
       openId: 'open_id',
       email: 'email',
       name: 'name',
+      city: 'city',
+      employeeId: 'employee_id',
       isValid: 'is_valid',
       extrasInfo: 'extras_info',
       rawDataStr: 'raw_data_str',
