@@ -75,6 +75,8 @@ export class FeishuSync {
             feishuUser.unionId = member.union_id
             feishuUser.email = member.email || ''
             feishuUser.name = member.name || ''
+            feishuUser.city = member.city || ''
+            feishuUser.employeeId = member.employee_no || ''
             feishuUser.isValid = member.status.is_activated ? 1 : 0
             feishuUser.rawDataStr = JSON.stringify(member)
             bulkAdder.putObject(feishuUser.fc_encode())

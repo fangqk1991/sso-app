@@ -23,6 +23,8 @@ export class _FeishuUser extends __FeishuUser {
       userId: this.userId,
       openId: this.openId,
       name: this.name,
+      city: this.city,
+      employeeId: this.employeeId,
       isValid: this.isValid,
     }
   }
