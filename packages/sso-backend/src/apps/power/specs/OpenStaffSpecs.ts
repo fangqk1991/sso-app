@@ -15,7 +15,9 @@ factory.prepare(OpenStaffApis.SearchStaffsByEmployeeIds, async (ctx) => {
   const feeds = await searcher.queryAllFeeds()
   const staffData: { [employeeId: string]: FeishuUserModel } = {}
   feeds.forEach((feed) => {
-    staffData[feed.employeeId] = feed.modelForClient()
+    if (feed.employeeId) {
+      staffData[feed.employeeId] = feed.modelForClient()
+    }
   })
   ctx.body = staffData
 })

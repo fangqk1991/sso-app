@@ -13,4 +13,8 @@ describe('Test UserProxy.test.ts', () => {
   it(`getAppVersion`, async () => {
     loggerForDev.info(await userProxy.getAppVersion())
   })
+
+  it(`searchStaffsByEmployeeIds`, async () => {
+    loggerForDev.info(await userProxy.searchStaffsByEmployeeIds([]))
+  })
 })
