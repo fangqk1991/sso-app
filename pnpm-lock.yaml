@@ -83,8 +83,8 @@ importers:
         specifier: ^0.13.0
         version: 0.13.0
       fc-feed:
-        specifier: ^0.27.1
-        version: 0.27.1
+        specifier: ^0.28.0
+        version: 0.28.0
       fc-model:
         specifier: ^0.6.0
         version: 0.6.0
@@ -92,8 +92,8 @@ importers:
         specifier: ^0.4.0
         version: 0.4.0
       fc-sql:
-        specifier: ^0.32.0
-        version: 0.32.0
+        specifier: ^0.33.0
+        version: 0.33.0
       file-type:
         specifier: ^18.0.0
         version: 18.2.0
@@ -141,8 +141,8 @@ importers:
         specifier: ^0.8.0
         version: 0.8.0(typescript@4.9.5)
       '@fangcha/generator':
-        specifier: ^0.3.0
-        version: 0.3.0
+        specifier: ^0.4.0
+        version: 0.4.0
       '@fangcha/react':
         specifier: ^0.27.0
         version: 0.27.0(moment@2.29.4)(prop-types@15.8.1)(rc-field-form@1.27.4)
@@ -2269,14 +2269,14 @@ packages:
       - typescript
     dev: true
 
-  /@fangcha/generator@0.3.0:
-    resolution: {integrity: sha512-10rcMRhWl1M8FlC9uTtyQWWHz8gYCOqEERtJ7lOK4nLJgFMBdwd/VyfTs6W1wW0O3SEYCJoDBW5u5V82UjMXOg==}
+  /@fangcha/generator@0.4.0:
+    resolution: {integrity: sha512-lsuUoBYrBR8QKFc514pL0beyPYhzc73qUd8fef34qz5ozAi7/3Mqj5hpAAsDcne2Ma+megoYEngKJ1Oo9b0yZA==}
     dependencies:
       '@fangcha/swagger': 0.1.1
       '@fangcha/tools': 1.25.2
       '@types/ejs': 3.1.1
       ejs: 3.1.8
-      fc-sql: 0.31.1
+      fc-sql: 0.33.0
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -6172,11 +6172,11 @@ packages:
       lodash: 4.17.21
     dev: false
 
-  /fc-feed@0.27.1:
-    resolution: {integrity: sha512-7PqiA8FToHmsn4SIOxudoGOHsdcHmufMs5gFsLRLlZZVInWD+a3jsyn+CJDNjzxe65Qqbl33silFOJw1eWRc/Q==}
+  /fc-feed@0.28.0:
+    resolution: {integrity: sha512-sJjzSW/Jo9OIBshAkmgQRo+yqB6PBk40Y180e19prU9Gf5zOxPuX9DjycMlyuJKnONAP+cGG0g26YUHEW7sLVg==}
     dependencies:
       fc-model: 0.6.0
-      fc-sql: 0.32.0
+      fc-sql: 0.33.0
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -6189,25 +6189,14 @@ packages:
     resolution: {integrity: sha512-PJlpsjAOCg0RUbekTuJZlyBArs1/hMQnan0LeGLP57+wYXClZ0WJ7J7XeCaCXlkO9NZI05pu+4Xl58DUsyQKeg==}
     dev: false
 
-  /fc-sql@0.31.1:
-    resolution: {integrity: sha512-JUlqrB5ZoSDmSgM2Skz9LQLUKZhVvykm1nRqIlxIVscCmQIm1I/c6w9bo30FPMkfW5r0GtghYFBrF/hqQCjbxw==}
+  /fc-sql@0.33.0:
+    resolution: {integrity: sha512-O7iwlyXmGU4LEdM53HWC004P8laxxaF1+06RWnrFyDRntbi4IkdJBGVYbBqnU8QCBERMifnsfaHUOeG1c79pRQ==}
     dependencies:
       moment: 2.29.4
       mysql2: 3.1.0
       sequelize: 5.22.5
     transitivePeerDependencies:
       - supports-color
-    dev: true
-
-  /fc-sql@0.32.0:
-    resolution: {integrity: sha512-q7iTLz1R2G6sNE2BYwU0tb+sjZAJYIlEVoui0SczJp5z13lXZu2KGq05txb1rzXW9aHGcVmDLP5VtGQY4zS1BA==}
-    dependencies:
-      moment: 2.29.4
-      mysql2: 3.1.0
-      sequelize: 5.22.5
-    transitivePeerDependencies:
-      - supports-color
-    dev: false
 
   /file-entry-cache@6.0.1:
     resolution: {integrity: sha512-7Gps/XWymbLk2QLYK4NzpMOrYjMhdIxXuIvy2QBsLE6ljuodKvdkWs/cpyJJ3CVIVpH0Oi1Hvg1ovbMzLdFBBg==}
