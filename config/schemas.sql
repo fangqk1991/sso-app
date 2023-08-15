@@ -227,20 +227,19 @@ CREATE TABLE IF NOT EXISTS fc_feishu_department
 
 CREATE TABLE IF NOT EXISTS fc_feishu_user
 (
-    _rid          BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    union_id      VARCHAR(40)     NOT NULL COLLATE ascii_bin COMMENT '飞书 union_id',
-    user_id       VARCHAR(40)     NOT NULL COLLATE ascii_bin DEFAULT '' COMMENT '飞书 user_id',
-    open_id       VARCHAR(40)     NOT NULL COLLATE ascii_bin DEFAULT '' COMMENT '飞书 open_id',
-    email         VARCHAR(127)    NOT NULL COLLATE ascii_bin DEFAULT '' COMMENT '用户邮箱',
-    name          VARCHAR(127)    NOT NULL DEFAULT '' COMMENT '姓名',
-    city          VARCHAR(32)     NOT NULL DEFAULT '' COMMENT '城市',
-    work_location VARCHAR(32)     NOT NULL DEFAULT '' COMMENT '工作地',
-    employee_id   VARCHAR(64)     NOT NULL DEFAULT '' COMMENT '工号',
-    is_valid      TINYINT         NOT NULL DEFAULT '0' COMMENT '是否活跃',
-    extras_info   MEDIUMTEXT COMMENT '附加信息，空 | JSON 字符串',
-    raw_data_str  MEDIUMTEXT COMMENT '原始信息',
-    create_time   TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    update_time   TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    _rid         BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    union_id     VARCHAR(40)     NOT NULL COLLATE ascii_bin COMMENT '飞书 union_id',
+    user_id      VARCHAR(40)     NOT NULL COLLATE ascii_bin DEFAULT '' COMMENT '飞书 user_id',
+    open_id      VARCHAR(40)     NOT NULL COLLATE ascii_bin DEFAULT '' COMMENT '飞书 open_id',
+    email        VARCHAR(127)    NOT NULL COLLATE ascii_bin DEFAULT '' COMMENT '用户邮箱',
+    name         VARCHAR(127)    NOT NULL                   DEFAULT '' COMMENT '姓名',
+    city         VARCHAR(32)     NOT NULL                   DEFAULT '' COMMENT '城市',
+    employee_id  VARCHAR(64)     NOT NULL                   DEFAULT '' COMMENT '工号',
+    is_valid     TINYINT         NOT NULL                   DEFAULT '0' COMMENT '是否活跃',
+    extras_info  MEDIUMTEXT COMMENT '附加信息，空 | JSON 字符串',
+    raw_data_str MEDIUMTEXT COMMENT '原始信息',
+    create_time  TIMESTAMP       NOT NULL                   DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    update_time  TIMESTAMP       NOT NULL                   DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     UNIQUE (union_id),
     INDEX (name)
 ) ENGINE = InnoDB

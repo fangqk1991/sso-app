@@ -9,7 +9,6 @@ const _cols: string[] = [
   'email',
   'name',
   'city',
-  'work_location',
   'employee_id',
   'is_valid',
   'extras_info',
@@ -25,7 +24,6 @@ const _insertableCols: string[] = [
   'email',
   'name',
   'city',
-  'work_location',
   'employee_id',
   'is_valid',
   'extras_info',
@@ -38,7 +36,6 @@ const _modifiableCols: string[] = [
   'email',
   'name',
   'city',
-  'work_location',
   'employee_id',
   'is_valid',
   'extras_info',
@@ -85,10 +82,6 @@ export class __FeishuUser extends FeedBase {
    * @description [varchar(32)] 城市
    */
   public city!: string
-  /**
-   * @description [varchar(32)] 工作地
-   */
-  public workLocation!: string
   /**
    * @description [varchar(64)]
    */
@@ -152,7 +145,6 @@ export class __FeishuUser extends FeedBase {
     this.email = ''
     this.name = ''
     this.city = ''
-    this.workLocation = ''
     this.employeeId = ''
     this.isValid = 0
     this.extrasInfo = ''
@@ -167,7 +159,6 @@ export class __FeishuUser extends FeedBase {
       email: 'email',
       name: 'name',
       city: 'city',
-      workLocation: 'work_location',
       employeeId: 'employee_id',
       isValid: 'is_valid',
       extrasInfo: 'extras_info',
