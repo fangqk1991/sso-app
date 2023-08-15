@@ -335,7 +335,7 @@ importers:
   libraries/user-sdk:
     dependencies:
       '@fangcha/account-models':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../account-models
       '@fangcha/app-request':
         specifier: ^1.8.0
