@@ -147,6 +147,10 @@ export class __FeishuUser extends FeedBase {
 
   public fc_defaultInit() {
     // This function is invoked by constructor of FCModel
+    this.userId = ''
+    this.openId = ''
+    this.email = ''
+    this.name = ''
     this.city = ''
     this.workLocation = ''
     this.employeeId = ''

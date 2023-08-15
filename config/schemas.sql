@@ -229,9 +229,9 @@ CREATE TABLE IF NOT EXISTS fc_feishu_user
 (
     _rid          BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     union_id      VARCHAR(40)     NOT NULL COLLATE ascii_bin COMMENT '飞书 union_id',
-    user_id       VARCHAR(40)     NOT NULL COLLATE ascii_bin COMMENT '飞书 user_id',
-    open_id       VARCHAR(40)     NOT NULL COLLATE ascii_bin COMMENT '飞书 open_id',
-    email         VARCHAR(127)    NOT NULL COLLATE ascii_bin COMMENT '用户邮箱',
+    user_id       VARCHAR(40)     NOT NULL COLLATE ascii_bin DEFAULT '' COMMENT '飞书 user_id',
+    open_id       VARCHAR(40)     NOT NULL COLLATE ascii_bin DEFAULT '' COMMENT '飞书 open_id',
+    email         VARCHAR(127)    NOT NULL COLLATE ascii_bin DEFAULT '' COMMENT '用户邮箱',
     name          VARCHAR(127)    NOT NULL DEFAULT '' COMMENT '姓名',
     city          VARCHAR(32)     NOT NULL DEFAULT '' COMMENT '城市',
     work_location VARCHAR(32)     NOT NULL DEFAULT '' COMMENT '工作地',
