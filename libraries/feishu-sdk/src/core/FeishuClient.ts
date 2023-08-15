@@ -94,13 +94,19 @@ export class FeishuClient extends ServiceProxy<FeishuConfig> {
     return items
   }
 
-  public async getAllEmployees(params: { user_id_type?: 'open_id' | 'union_id' | 'user_id' } = {}) {
+  public async getAllEmployees(
+    params: {
+      user_id_type?: 'open_id' | 'union_id' | 'user_id'
+      view?: 'basic' | 'full'
+    } = {}
+  ) {
     return this.getAllPageItems<Raw_FeishuEmployee>(async (pageParams) => {
       return await GuardPerformer.perform(async () => {
         const request = await this.makeRequest(FeishuApis.EmployeePageDataGet)
         request.setQueryParams({
           ...params,
           ...pageParams,
+          page_size: 100,
         })
         return await request.quickSend()
       })

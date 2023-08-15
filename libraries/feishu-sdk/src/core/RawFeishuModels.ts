@@ -37,6 +37,9 @@ export interface Raw_FeishuEmployee {
     en_name: string
     name: string
     status: number
+    work_location?: {
+      name: string
+    }
   }
 }
 
