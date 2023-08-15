@@ -34,4 +34,9 @@ export const FeishuApis = {
     route: '/open-apis/contact/v3/users/find_by_department',
     description: '获取部门直属用户列表',
   },
+  UserInfoListGet: {
+    method: 'GET',
+    route: '/open-apis/contact/v3/users/batch',
+    description: '批量获取用户信息',
+  },
 }

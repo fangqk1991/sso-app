@@ -130,6 +130,31 @@ export class FeishuClient extends ServiceProxy<FeishuConfig> {
     })
   }
 
+  public async getUserInfoList(
+    unionIdList: string[],
+    stepCallback?: (records: Raw_FeishuUser[], offset: number) => Promise<void>
+  ) {
+    const items: Raw_FeishuUser[] = []
+    for (let i = 0; i < unionIdList.length; i += 50) {
+      const records = await GuardPerformer.perform(async () => {
+        const request = await this.makeRequest(FeishuApis.UserInfoListGet)
+        request.setQueryParams({
+          user_id_type: 'union_id',
+          user_ids: unionIdList.slice(i, i + 50),
+          department_id_type: 'open_department_id',
+          page_size: 50,
+        })
+        const response = await request.quickSend<FeishuPageDataResponse<Raw_FeishuUser>>()
+        return response.data.items
+      })
+      if (stepCallback) {
+        await stepCallback(records, i)
+      }
+      items.push(...records)
+    }
+    return items
+  }
+
   public async getDepartmentInfo(departmentId: string) {
     const request = await this.makeRequest(new CommonAPI(FeishuApis.DepartmentInfoGet, departmentId))
     request.setQueryParams({
