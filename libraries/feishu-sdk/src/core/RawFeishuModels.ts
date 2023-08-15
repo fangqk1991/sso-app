@@ -1,3 +1,5 @@
+import { FeishuEmployeeStatus } from './FeishuEmployeeStatus'
+
 export interface TenantAccessTokenResponse {
   code: number
   msg: string // 'ok'
@@ -36,7 +38,7 @@ export interface Raw_FeishuEmployee {
     employee_type: number
     en_name: string
     name: string
-    status: number
+    status: FeishuEmployeeStatus
     work_location?: {
       name: string
     }

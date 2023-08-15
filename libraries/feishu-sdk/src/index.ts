@@ -1,5 +1,6 @@
 export * from './core/FeishuClient'
 export * from './core/FeishuConfig'
 export * from './core/RawFeishuModels'
+export * from './core/FeishuEmployeeStatus'
 export * from './feishu/FeishuSync'
 export * from './feishu-sdk'
