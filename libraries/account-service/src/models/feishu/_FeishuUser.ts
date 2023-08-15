@@ -24,6 +24,7 @@ export class _FeishuUser extends __FeishuUser {
       openId: this.openId,
       name: this.name,
       city: this.city,
+      workLocation: this.workLocation,
       employeeId: this.employeeId,
       isValid: this.isValid,
     }

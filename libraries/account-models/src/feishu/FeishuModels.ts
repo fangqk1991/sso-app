@@ -37,6 +37,7 @@ export interface FeishuUserModel {
   openId: string
   name: string
   city: string
+  workLocation: string
   employeeId: string
   isValid: number
 }
