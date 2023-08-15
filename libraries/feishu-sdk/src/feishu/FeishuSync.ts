@@ -1,10 +1,11 @@
 import { _FeishuUser, FeishuServer } from '@fangcha/account'
 import { FeishuClient } from '../core/FeishuClient'
 import { Raw_FeishuDepartmentTree } from '../core/RawFeishuModels'
-import { SQLBulkAdder, SQLModifier } from 'fc-sql'
+import { SQLBulkAdder } from 'fc-sql'
 import { FeishuDepartmentMemberModel, FeishuDepartmentModel } from '@fangcha/account-models'
 import { DiffMapper, DiffType } from '@fangcha/tools'
 import { BotCore } from '@fangcha/bot-kit'
+import { FeishuEmployeeStatus } from '../core/FeishuEmployeeStatus'
 
 interface Options {
   feishuServer: FeishuServer
@@ -23,9 +24,61 @@ export class FeishuSync {
     this.botCore = options.botCore
   }
 
+  public async fetchRemoteEmployees() {
+    const feishuServer = this.feishuServer
+    const feishuClient = this.feishuClient
+
+    const allEmployees = await feishuClient.getAllEmployees({
+      // view: 'full',
+    })
+
+    const dbSpec = new feishuServer.FeishuUser().dbSpec()
+    const bulkAdder = new SQLBulkAdder(dbSpec.database)
+    bulkAdder.setTable(dbSpec.table)
+    bulkAdder.useUpdateWhenDuplicate()
+    bulkAdder.setInsertKeys(['union_id', 'is_valid'])
+    for (const member of allEmployees) {
+      const feishuUser = new feishuServer.FeishuUser()
+      feishuUser.unionId = member.user_id
+      feishuUser.isValid = [FeishuEmployeeStatus.Working, FeishuEmployeeStatus.WillQuit].includes(
+        member.system_fields.status
+      )
+        ? 1
+        : 0
+      bulkAdder.putObject(feishuUser.fc_encode())
+    }
+    await bulkAdder.execute()
+
+    await feishuClient.getUserInfoList(
+      allEmployees.map((item) => item.user_id),
+      async (records) => {
+        const dbSpec = new feishuServer.FeishuUser().dbSpec()
+        const bulkAdder = new SQLBulkAdder(dbSpec.database)
+        bulkAdder.setTable(dbSpec.table)
+        bulkAdder.useUpdateWhenDuplicate()
+        bulkAdder.setInsertKeys(dbSpec.insertableCols().filter((item) => !['extras_info', 'is_valid'].includes(item)))
+        for (const member of records) {
+          const feishuUser = new feishuServer.FeishuUser()
+          feishuUser.openId = member.open_id
+          feishuUser.userId = member.user_id
+          feishuUser.unionId = member.union_id
+          feishuUser.email = member.email || ''
+          feishuUser.name = member.name || ''
+          feishuUser.city = member.city || ''
+          feishuUser.employeeId = member.employee_no || ''
+          feishuUser.rawDataStr = JSON.stringify(member)
+          bulkAdder.putObject(feishuUser.fc_encode())
+        }
+        await bulkAdder.execute()
+      }
+    )
+  }
+
   public async fetchRemoteDepartmentsAndUsers() {
     const feishuServer = this.feishuServer
     const feishuClient = this.feishuClient
+
+    await this.fetchRemoteEmployees()
 
     const rootNode = await feishuClient.getDepartmentTree('0')
     rootNode.department.name = rootNode.department.name || 'ROOT'
@@ -56,41 +109,6 @@ export class FeishuSync {
         [],
         transaction
       )
-
-      {
-        const unionIdList: string[] = []
-        const dbSpec = new feishuServer.FeishuUser().dbSpec()
-        const bulkAdder = new SQLBulkAdder(dbSpec.database)
-        bulkAdder.transaction = transaction
-        bulkAdder.setTable(dbSpec.table)
-        bulkAdder.useUpdateWhenDuplicate()
-        bulkAdder.setInsertKeys(dbSpec.insertableCols().filter((item) => item !== 'extras_info'))
-        departmentNodeList.forEach((item) => {
-          item.memberList.forEach((member) => {
-            unionIdList.push(member.union_id)
-
-            const feishuUser = new feishuServer.FeishuUser()
-            feishuUser.openId = member.open_id
-            feishuUser.userId = member.user_id
-            feishuUser.unionId = member.union_id
-            feishuUser.email = member.email || ''
-            feishuUser.name = member.name || ''
-            feishuUser.city = member.city || ''
-            feishuUser.employeeId = member.employee_no || ''
-            feishuUser.isValid = member.status.is_activated ? 1 : 0
-            feishuUser.rawDataStr = JSON.stringify(member)
-            bulkAdder.putObject(feishuUser.fc_encode())
-          })
-        })
-        await bulkAdder.execute()
-
-        const modifier = new SQLModifier(database)
-        modifier.transaction = transaction
-        modifier.setTable(feishuServer.tableName_FeishuUser)
-        modifier.updateKV('is_valid', 0)
-        modifier.addConditionKeyNotInArray('union_id', unionIdList)
-        await modifier.execute()
-      }
 
       {
         const dbSpec = new feishuServer.FeishuDepartment().dbSpec()

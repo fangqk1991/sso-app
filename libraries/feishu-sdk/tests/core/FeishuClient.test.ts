@@ -12,7 +12,6 @@ describe('Test FeishuClient.test.ts', () => {
 
   it(`getAllEmployees`, async () => {
     const items = await feishuClient.getAllEmployees({
-      user_id_type: 'union_id',
       // view: 'full',
     })
     console.info(JSON.stringify(items, null, 2))

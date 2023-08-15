@@ -15,6 +15,10 @@ describe('Test FeishuSync.test.ts', () => {
     feishuClient: feishuClient,
   })
 
+  it(`fetchRemoteEmployees`, async () => {
+    await feishuSync.fetchRemoteEmployees()
+  })
+
   it(`fetchRemoteDepartmentsAndUsers`, async () => {
     await feishuSync.fetchRemoteDepartmentsAndUsers()
   })
