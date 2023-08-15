@@ -96,7 +96,6 @@ export class FeishuClient extends ServiceProxy<FeishuConfig> {
 
   public async getAllEmployees(
     params: {
-      user_id_type?: 'open_id' | 'union_id' | 'user_id'
       view?: 'basic' | 'full'
     } = {}
   ) {
@@ -106,6 +105,8 @@ export class FeishuClient extends ServiceProxy<FeishuConfig> {
         request.setQueryParams({
           ...params,
           ...pageParams,
+          department_id_type: 'open_department_id',
+          user_id_type: 'union_id',
           page_size: 100,
         })
         return await request.quickSend()
