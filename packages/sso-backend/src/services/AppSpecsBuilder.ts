@@ -300,7 +300,10 @@ export class AppSpecsBuilder {
     })
 
     factory.prepare(CommonSearchApis.StaffSearch, async (ctx) => {
-      const searcher = new MyFeishuServer.FeishuUser().fc_searcher(ctx.request.query)
+      const searcher = new MyFeishuServer.FeishuUser().fc_searcher({
+        ...ctx.request.query,
+        isValid: 1,
+      })
       searcher.processor().setLimitInfo(0, 5)
       const feeds = await searcher.queryAllFeeds()
       ctx.body = feeds.map((item) => item.modelForClient())

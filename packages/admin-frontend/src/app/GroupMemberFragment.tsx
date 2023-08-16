@@ -117,7 +117,7 @@ export const GroupMemberFragment: GroupFragmentProtocol = ({ appInfo, groupInfo,
                     const userInfo = departmentCtx.userMapper[item.userId]!
                     return (
                       <Space>
-                        <Tag>飞书用户</Tag>
+                        {userInfo.isValid ? <Tag color={'geekblue'}>飞书用户</Tag> : <Tag>飞书用户 (不在职)</Tag>}
                         {userInfo.name}
                       </Space>
                     )
