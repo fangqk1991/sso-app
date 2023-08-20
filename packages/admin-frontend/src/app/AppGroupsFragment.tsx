@@ -10,6 +10,7 @@ import { CommonAppApis } from '@web/sso-common/core-api'
 import { PageResult } from '@fangcha/tools'
 import { GroupFormDialog } from './GroupFormDialog'
 import { useFeishuDepartmentCtx } from '../feishu/FeishuDepartmentContext'
+import { formatTime } from '../core/formatTime'
 
 export const AppGroupsFragment: AppFragmentProtocol = ({ appInfo }) => {
   const departmentCtx = useFeishuDepartmentCtx()
@@ -78,9 +79,9 @@ export const AppGroupsFragment: AppFragmentProtocol = ({ appInfo }) => {
             title: '创建时间 / 更新时间',
             render: (item: P_GroupInfo) => (
               <>
-                <span>{item.createTime}</span>
+                <span>{formatTime(item.createTime)}</span>
                 <br />
-                <span>{item.updateTime}</span>
+                <span>{formatTime(item.updateTime)}</span>
               </>
             ),
           },

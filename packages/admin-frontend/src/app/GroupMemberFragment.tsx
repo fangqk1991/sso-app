@@ -10,6 +10,7 @@ import { DepartmentTreeView } from '../feishu/DepartmentTreeView'
 import { useFeishuDepartmentCtx } from '../feishu/FeishuDepartmentContext'
 import { GroupMemberDialog } from './GroupMemberDialog'
 import { MemberPickerDialog } from './MemberPickerDialog'
+import { formatTime } from '../core/formatTime'
 
 export const GroupMemberFragment: GroupFragmentProtocol = ({ appInfo, groupInfo, onGroupInfoChanged }) => {
   const [memberList, setMemberList] = useState<P_MemberInfo[]>([])
@@ -131,7 +132,7 @@ export const GroupMemberFragment: GroupFragmentProtocol = ({ appInfo, groupInfo,
           },
           {
             title: '创建时间',
-            render: (item: P_MemberInfo) => <span>{item.createTime}</span>,
+            render: (item: P_MemberInfo) => <span>{formatTime(item.createTime)}</span>,
           },
           {
             title: '操作',

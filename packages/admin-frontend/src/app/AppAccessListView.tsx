@@ -7,6 +7,7 @@ import { Link, useParams } from 'react-router-dom'
 import { P_AccessInfo, P_AppInfo } from '@fangcha/account-models'
 import { CommonAPI } from '@fangcha/app-request'
 import { CommonAppApis } from '@web/sso-common/core-api'
+import { formatTime } from '../core/formatTime'
 
 export const AppAccessListView: React.FC = () => {
   const { appid = '' } = useParams()
@@ -92,9 +93,9 @@ export const AppAccessListView: React.FC = () => {
             title: '创建时间 / 更新时间',
             render: (item: P_AccessInfo) => (
               <>
-                <span>{item.createTime}</span>
+                <span>{formatTime(item.createTime)}</span>
                 <br />
-                <span>{item.updateTime}</span>
+                <span>{formatTime(item.updateTime)}</span>
               </>
             ),
           },

@@ -8,6 +8,7 @@ import { CommonAppApis } from '@web/sso-common/core-api'
 import { AppFormDialog } from './AppFormDialog'
 import { TextPreviewDialog } from '@fangcha/react'
 import { AppFragmentProtocol } from './AppFragmentProtocol'
+import { formatTime } from '../core/formatTime'
 
 export const AppBasicInfoFragment: AppFragmentProtocol = ({ appInfo, onAppInfoChanged }) => {
   return (
@@ -39,8 +40,8 @@ export const AppBasicInfoFragment: AppFragmentProtocol = ({ appInfo, onAppInfoCh
         <Descriptions.Item label='备注'>{appInfo.remarks}</Descriptions.Item>
         <Descriptions.Item label='版本号'>{appInfo.version}</Descriptions.Item>
         <Descriptions.Item label='创建者'>{appInfo.author}</Descriptions.Item>
-        <Descriptions.Item label='创建时间'>{appInfo.createTime}</Descriptions.Item>
-        <Descriptions.Item label='更新时间'>{appInfo.updateTime}</Descriptions.Item>
+        <Descriptions.Item label='创建时间'>{formatTime(appInfo.createTime)}</Descriptions.Item>
+        <Descriptions.Item label='更新时间'>{formatTime(appInfo.updateTime)}</Descriptions.Item>
         <Descriptions.Item label='管理员'>
           <div>
             {appInfo.powerUserList.map((email) => {

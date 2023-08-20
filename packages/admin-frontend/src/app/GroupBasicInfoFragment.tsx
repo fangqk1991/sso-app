@@ -8,6 +8,7 @@ import { CommonAppApis } from '@web/sso-common/core-api'
 import { NumBoolDescriptor } from '@fangcha/tools'
 import { AppType } from '@fangcha/account-models'
 import { Link } from 'react-router-dom'
+import { formatTime } from '../core/formatTime'
 
 export const GroupBasicInfoFragment: GroupFragmentProtocol = ({ appInfo, groupInfo, onGroupInfoChanged }) => {
   return (
@@ -47,8 +48,8 @@ export const GroupBasicInfoFragment: GroupFragmentProtocol = ({ appInfo, groupIn
         <Descriptions.Item label='备注'>{groupInfo.remarks}</Descriptions.Item>
         <Descriptions.Item label='是否有效'>{NumBoolDescriptor.describe(groupInfo.isEnabled)}</Descriptions.Item>
         <Descriptions.Item label='创建者'>{groupInfo.author}</Descriptions.Item>
-        <Descriptions.Item label='创建时间'>{groupInfo.createTime}</Descriptions.Item>
-        <Descriptions.Item label='更新时间'>{groupInfo.updateTime}</Descriptions.Item>
+        <Descriptions.Item label='创建时间'>{formatTime(groupInfo.createTime)}</Descriptions.Item>
+        <Descriptions.Item label='更新时间'>{formatTime(groupInfo.updateTime)}</Descriptions.Item>
       </Descriptions>
       {appInfo.appType === AppType.Open && (
         <Link to={{ pathname: `/v1/app/${appInfo.appid}/group/${groupInfo.groupId}/access` }}>

@@ -9,6 +9,7 @@ import { AppTypeDescriptor, P_AppInfo } from '@fangcha/account-models'
 import { AppFormDialog } from './AppFormDialog'
 import { CommonAPI } from '@fangcha/app-request'
 import { CommonAppApis } from '@web/sso-common/core-api'
+import { formatTime } from '../core/formatTime'
 
 export const AppListView: React.FC = () => {
   const [version, setVersion] = useState(0)
@@ -89,9 +90,9 @@ export const AppListView: React.FC = () => {
             title: '创建时间 / 更新时间',
             render: (item: P_AppInfo) => (
               <>
-                <span>{item.createTime}</span>
+                <span>{formatTime(item.createTime)}</span>
                 <br />
-                <span>{item.updateTime}</span>
+                <span>{formatTime(item.updateTime)}</span>
               </>
             ),
           },

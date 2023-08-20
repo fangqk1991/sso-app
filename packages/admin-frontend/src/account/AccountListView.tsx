@@ -7,6 +7,7 @@ import { PageResult } from '@fangcha/tools'
 import { AccountFormDialog } from './AccountFormDialog'
 import { AccountCarrierModel, CarrierType, FullAccountModel } from '@fangcha/account-models'
 import { CommonAPI } from '@fangcha/app-request'
+import { formatTime } from '../core/formatTime'
 
 export const AccountListView: React.FC = () => {
   const [version, setVersion] = useState(0)
@@ -128,9 +129,9 @@ export const AccountListView: React.FC = () => {
             title: '创建时间 / 更新时间',
             render: (item: FullAccountModel) => (
               <>
-                <span>{item.createTime}</span>
+                <span>{formatTime(item.createTime)}</span>
                 <br />
-                <span>{item.updateTime}</span>
+                <span>{formatTime(item.updateTime)}</span>
               </>
             ),
           },
