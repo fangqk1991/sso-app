@@ -18,8 +18,8 @@ export const GroupBasicInfoFragment: GroupFragmentProtocol = ({ appInfo, groupIn
           <div>
             <h4>基本信息</h4>
             <Button
-              size={'small'}
               type='primary'
+              size={'small'}
               onClick={() => {
                 const dialog = new GroupFormDialog({
                   title: '编辑用户组',
@@ -49,13 +49,13 @@ export const GroupBasicInfoFragment: GroupFragmentProtocol = ({ appInfo, groupIn
         <Descriptions.Item label='是否有效'>{NumBoolDescriptor.describe(groupInfo.isEnabled)}</Descriptions.Item>
         <Descriptions.Item label='创建者'>{groupInfo.author}</Descriptions.Item>
         <Descriptions.Item label='创建时间'>{formatTime(groupInfo.createTime)}</Descriptions.Item>
-        <Descriptions.Item label='更新时间'>{formatTime(groupInfo.updateTime)}</Descriptions.Item>
+
+        {appInfo.appType === AppType.Open && (
+          <Descriptions.Item label='操作'>
+            <Link to={{ pathname: `/v1/app/${appInfo.appid}/group/${groupInfo.groupId}/access` }}>密钥管理</Link>
+          </Descriptions.Item>
+        )}
       </Descriptions>
-      {appInfo.appType === AppType.Open && (
-        <Link to={{ pathname: `/v1/app/${appInfo.appid}/group/${groupInfo.groupId}/access` }}>
-          <Button type={'primary'}>密钥管理</Button>
-        </Link>
-      )}
     </>
   )
 }

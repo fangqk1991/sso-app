@@ -5,7 +5,7 @@ import { CommonAppApis } from '@web/sso-common/core-api'
 import { Button, Divider, message, Space, Tag } from 'antd'
 import { GroupFragmentProtocol } from './GroupFragmentProtocol'
 import { FullAccountModel, GroupCategory, P_MemberInfo } from '@fangcha/account-models'
-import { ConfirmDialog, SimpleInputDialog, TableView } from '@fangcha/react'
+import { ConfirmDialog, SimpleInputDialog, TableView, TableViewColumn } from '@fangcha/react'
 import { DepartmentTreeView } from '../feishu/DepartmentTreeView'
 import { useFeishuDepartmentCtx } from '../feishu/FeishuDepartmentContext'
 import { GroupMemberDialog } from './GroupMemberDialog'
@@ -104,40 +104,44 @@ export const GroupMemberFragment: GroupFragmentProtocol = ({ appInfo, groupInfo,
         rowKey={(item: FullAccountModel) => {
           return item.accountUid
         }}
-        columns={[
+        columns={TableViewColumn.makeColumns<P_MemberInfo>([
           {
-            title: 'User ID',
-            render: (item: P_MemberInfo) => <>{item.userId}</>,
+            title: 'ID / Email',
+            render: (item) => <>{item.userId}</>,
           },
-          {
-            title: '用户信息',
-            render: (item: P_MemberInfo) => (
-              <>
-                {departmentCtx.userMapper[item.userId] &&
-                  (() => {
-                    const userInfo = departmentCtx.userMapper[item.userId]!
-                    return (
-                      <Space>
-                        {userInfo.isValid ? <Tag color={'geekblue'}>飞书用户</Tag> : <Tag>飞书用户 (不在职)</Tag>}
-                        {userInfo.name}
-                      </Space>
-                    )
-                  })()}
-              </>
-            ),
-          },
+          ...(departmentCtx.feishuValid
+            ? [
+                {
+                  title: '用户信息',
+                  render: (item: P_MemberInfo) => (
+                    <>
+                      {departmentCtx.userMapper[item.userId] &&
+                        (() => {
+                          const userInfo = departmentCtx.userMapper[item.userId]!
+                          return (
+                            <Space>
+                              {userInfo.isValid ? <Tag color={'geekblue'}>飞书用户</Tag> : <Tag>飞书用户 (不在职)</Tag>}
+                              {userInfo.name}
+                            </Space>
+                          )
+                        })()}
+                    </>
+                  ),
+                },
+              ]
+            : []),
           {
             title: '备注',
-            render: (item: P_MemberInfo) => <>{item.remarks}</>,
+            render: (item) => <>{item.remarks}</>,
           },
           {
             title: '创建时间',
-            render: (item: P_MemberInfo) => <span>{formatTime(item.createTime)}</span>,
+            render: (item) => <span>{formatTime(item.createTime)}</span>,
           },
           {
             title: '操作',
             key: 'action',
-            render: (item: P_MemberInfo) => (
+            render: (item) => (
               <Space size='small'>
                 <Button
                   type='link'
@@ -192,7 +196,7 @@ export const GroupMemberFragment: GroupFragmentProtocol = ({ appInfo, groupInfo,
               </Space>
             ),
           },
-        ]}
+        ])}
         loadOnePageItems={async () => {
           return memberList
         }}
