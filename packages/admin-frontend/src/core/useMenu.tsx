@@ -2,6 +2,7 @@ import { ApartmentOutlined, AppstoreOutlined, UserOutlined } from '@ant-design/i
 import { Route } from '@ant-design/pro-layout/es/typing'
 import { UserPermission } from '@web/sso-common/user-models'
 import { useSessionConfig, useVisitorCtx } from '@fangcha/auth-react'
+import { AppPages } from './AppPages'
 
 export const useMenu = () => {
   const visitorCtx = useVisitorCtx()
@@ -16,12 +17,12 @@ export const useMenu = () => {
         icon: <UserOutlined />,
         children: [
           {
-            path: '/v1/client',
+            path: AppPages.ClientListRoute,
             name: 'SSO 客户端',
             // hideInMenu: !visitorCtx.userInfo.isAdmin && !visitorCtx.hasPermission(UserPermission.M_User_SsoClient),
           },
           {
-            path: '/v1/account',
+            path: AppPages.AccountListRoute,
             name: '账号管理',
             hideInMenu: !visitorCtx.userInfo.isAdmin && !visitorCtx.hasPermission(UserPermission.M_User_Account),
           },
@@ -33,7 +34,7 @@ export const useMenu = () => {
         icon: <AppstoreOutlined />,
         children: [
           {
-            path: '/v1/app',
+            path: AppPages.AppListRoute,
             name: '权限应用',
             // hideInMenu:
             //   !visitorCtx.userInfo.isAdmin && !visitorCtx.hasPermission(UserPermission.M_DataHosting_PermissionApps),
@@ -47,7 +48,7 @@ export const useMenu = () => {
         hideInMenu: !config.feishuValid,
         children: [
           {
-            path: '/v1/enterprise/feishu',
+            path: AppPages.EnterpriseFeishuRoute,
             name: '飞书组织架构',
             hideInMenu: !config.feishuValid,
           },

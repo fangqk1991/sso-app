@@ -7,6 +7,7 @@ import { AppConfigFragment } from './AppConfigFragment'
 import { AppPermissionFragment } from './AppPermissionFragment'
 import { AppGroupsFragment } from './AppGroupsFragment'
 import { RouterLink, useQueryParams } from '@fangcha/react'
+import { AppPages } from '../core/AppPages'
 
 export const AppDetailView: React.FC = () => {
   const { appid = '' } = useParams()
@@ -20,7 +21,7 @@ export const AppDetailView: React.FC = () => {
     <div>
       <Breadcrumb>
         <Breadcrumb.Item>
-          <RouterLink route={'/v1/app'}>应用列表</RouterLink>
+          <RouterLink route={AppPages.AppListRoute}>应用列表</RouterLink>
         </Breadcrumb.Item>
         <Breadcrumb.Item>{appInfo.name}</Breadcrumb.Item>
       </Breadcrumb>

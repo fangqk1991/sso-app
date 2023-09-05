@@ -7,6 +7,7 @@ import { GroupBasicInfoFragment } from './GroupBasicInfoFragment'
 import { GroupPermissionFragment } from './GroupPermissionFragment'
 import { GroupMemberFragment } from './GroupMemberFragment'
 import { RouterLink, useQueryParams } from '@fangcha/react'
+import { AppPages } from '../core/AppPages'
 
 export const GroupDetailView: React.FC = () => {
   const { appid = '', groupId = '' } = useParams()
@@ -21,10 +22,10 @@ export const GroupDetailView: React.FC = () => {
     <div>
       <Breadcrumb>
         <Breadcrumb.Item>
-          <RouterLink route={'/v1/app'}>应用列表</RouterLink>
+          <RouterLink route={AppPages.AppListRoute}>应用列表</RouterLink>
         </Breadcrumb.Item>
         <Breadcrumb.Item>
-          <RouterLink route={'/v1/app/:appid'} params={{ appid: appInfo.appid }}>
+          <RouterLink route={AppPages.AppDetailRoute} params={{ appid: appInfo.appid }}>
             {appInfo.name}
           </RouterLink>
         </Breadcrumb.Item>

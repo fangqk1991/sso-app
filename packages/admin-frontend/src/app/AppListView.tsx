@@ -9,6 +9,7 @@ import { AppFormDialog } from './AppFormDialog'
 import { CommonAPI } from '@fangcha/app-request'
 import { CommonAppApis } from '@web/sso-common/core-api'
 import { formatTime } from '../core/formatTime'
+import { AppPages } from '../core/AppPages'
 
 export const AppListView: React.FC = () => {
   const [version, setVersion] = useState(0)
@@ -63,7 +64,7 @@ export const AppListView: React.FC = () => {
             render: (item: P_AppInfo) => (
               <>
                 <Space>
-                  <RouterLink route={'/v1/app/:appid'} params={{ appid: item.appid }}>
+                  <RouterLink route={AppPages.AppDetailRoute} params={{ appid: item.appid }}>
                     {item.name}
                   </RouterLink>
                   <Tag color='green'>{AppTypeDescriptor.describe(item.appType)}</Tag>

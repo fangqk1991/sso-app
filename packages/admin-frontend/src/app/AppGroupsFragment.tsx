@@ -10,6 +10,7 @@ import { PageResult } from '@fangcha/tools'
 import { GroupFormDialog } from './GroupFormDialog'
 import { useFeishuDepartmentCtx } from '../feishu/FeishuDepartmentContext'
 import { formatTime } from '../core/formatTime'
+import { AppPages } from '../core/AppPages'
 
 export const AppGroupsFragment: AppFragmentProtocol = ({ appInfo }) => {
   const departmentCtx = useFeishuDepartmentCtx()
@@ -65,7 +66,7 @@ export const AppGroupsFragment: AppFragmentProtocol = ({ appInfo }) => {
               <>
                 <Space>
                   <RouterLink
-                    route={'/v1/app/:appid/group/:groupId'}
+                    route={AppPages.GroupDetailRoute}
                     params={{ appid: appInfo.appid, groupId: item.groupId }}
                   >
                     {item.name}

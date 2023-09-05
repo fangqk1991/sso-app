@@ -9,6 +9,7 @@ import { NumBoolDescriptor } from '@fangcha/tools'
 import { AppType } from '@fangcha/account-models'
 import { formatTime } from '../core/formatTime'
 import { RouterLink } from '@fangcha/react'
+import { AppPages } from '../core/AppPages'
 
 export const GroupBasicInfoFragment: GroupFragmentProtocol = ({ appInfo, groupInfo, onGroupInfoChanged }) => {
   return (
@@ -53,7 +54,7 @@ export const GroupBasicInfoFragment: GroupFragmentProtocol = ({ appInfo, groupIn
         {appInfo.appType === AppType.Open && (
           <Descriptions.Item label='操作'>
             <RouterLink
-              route={'/v1/app/:appid/group/:groupId/access'}
+              route={AppPages.GroupAccessRoute}
               params={{ appid: appInfo.appid, groupId: groupInfo.groupId }}
             >
               密钥管理

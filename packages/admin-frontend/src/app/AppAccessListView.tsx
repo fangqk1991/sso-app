@@ -8,6 +8,7 @@ import { P_AccessInfo, P_AppInfo } from '@fangcha/account-models'
 import { CommonAPI } from '@fangcha/app-request'
 import { CommonAppApis } from '@web/sso-common/core-api'
 import { formatTime } from '../core/formatTime'
+import { AppPages } from '../core/AppPages'
 
 export const AppAccessListView: React.FC = () => {
   const { appid = '' } = useParams()
@@ -30,10 +31,10 @@ export const AppAccessListView: React.FC = () => {
     <div>
       <Breadcrumb>
         <Breadcrumb.Item>
-          <RouterLink route={'/v1/app'}>应用列表</RouterLink>
+          <RouterLink route={AppPages.AppListRoute}>应用列表</RouterLink>
         </Breadcrumb.Item>
         <Breadcrumb.Item>
-          <RouterLink route={'/v1/app/:appid'} params={{ appid: appInfo.appid }}>
+          <RouterLink route={AppPages.AppDetailRoute} params={{ appid: appInfo.appid }}>
             {appInfo.name}
           </RouterLink>
         </Breadcrumb.Item>

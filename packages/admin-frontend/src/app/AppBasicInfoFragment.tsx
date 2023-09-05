@@ -8,6 +8,7 @@ import { AppFormDialog } from './AppFormDialog'
 import { RouterLink, TextPreviewDialog } from '@fangcha/react'
 import { AppFragmentProtocol } from './AppFragmentProtocol'
 import { formatTime } from '../core/formatTime'
+import { AppPages } from '../core/AppPages'
 
 export const AppBasicInfoFragment: AppFragmentProtocol = ({ appInfo, onAppInfoChanged }) => {
   return (
@@ -68,7 +69,7 @@ export const AppBasicInfoFragment: AppFragmentProtocol = ({ appInfo, onAppInfoCh
         >
           预览数据
         </Button>
-        <RouterLink route={'/v1/app/:appid/access'} params={{ appid: appInfo.appid }}>
+        <RouterLink route={AppPages.AppAccessRoute} params={{ appid: appInfo.appid }}>
           密钥管理
         </RouterLink>
       </Space>

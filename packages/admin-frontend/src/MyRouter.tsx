@@ -12,6 +12,7 @@ import { AppAccessListView } from './app/AppAccessListView'
 import { GroupDetailView } from './app/GroupDetailView'
 import { FeishuDepartmentMainView } from './feishu/FeishuDepartmentMainView'
 import { GroupAccessListView } from './app/GroupAccessListView'
+import { AppPages } from './core/AppPages'
 
 export const MyRouter = createBrowserRouter([
   {
@@ -24,39 +25,39 @@ export const MyRouter = createBrowserRouter([
         element: <HomeView />,
       },
       {
-        path: '/v1/client',
+        path: AppPages.ClientListRoute,
         element: <ClientListView />,
       },
       {
-        path: '/v1/client/:clientId',
+        path: AppPages.ClientDetailRoute,
         element: <ClientDetailView />,
       },
       {
-        path: '/v1/account',
+        path: AppPages.AccountListRoute,
         element: <AccountListView />,
       },
       {
-        path: '/v1/app',
+        path: AppPages.AppListRoute,
         element: <AppListView />,
       },
       {
-        path: '/v1/app/:appid',
+        path: AppPages.AppDetailRoute,
         element: <AppDetailView />,
       },
       {
-        path: '/v1/app/:appid/access',
+        path: AppPages.AppAccessRoute,
         element: <AppAccessListView />,
       },
       {
-        path: '/v1/app/:appid/group/:groupId',
+        path: AppPages.GroupDetailRoute,
         element: <GroupDetailView />,
       },
       {
-        path: '/v1/app/:appid/group/:groupId/access',
+        path: AppPages.GroupAccessRoute,
         element: <GroupAccessListView />,
       },
       {
-        path: '/v1/enterprise/feishu',
+        path: AppPages.EnterpriseFeishuRoute,
         element: <FeishuDepartmentMainView />,
       },
       {

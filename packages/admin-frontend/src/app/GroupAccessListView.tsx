@@ -10,6 +10,7 @@ import { CommonAppApis } from '@web/sso-common/core-api'
 import { useAppInfo } from './useAppInfo'
 import { useGroupInfo } from './useGroupInfo'
 import { formatTime } from '../core/formatTime'
+import { AppPages } from '../core/AppPages'
 
 export const GroupAccessListView: React.FC = () => {
   const { appid = '', groupId = '' } = useParams()
@@ -24,16 +25,16 @@ export const GroupAccessListView: React.FC = () => {
     <div>
       <Breadcrumb>
         <Breadcrumb.Item>
-          <RouterLink route={'/v1/app'}>应用列表</RouterLink>
+          <RouterLink route={AppPages.AppListRoute}>应用列表</RouterLink>
         </Breadcrumb.Item>
         <Breadcrumb.Item>
-          <RouterLink route={'/v1/app/:appid'} params={{ appid: appInfo.appid }}>
+          <RouterLink route={AppPages.AppDetailRoute} params={{ appid: appInfo.appid }}>
             {appInfo.name}
           </RouterLink>
         </Breadcrumb.Item>
         <Breadcrumb.Item to={{ pathname: `/v1/app/${appInfo.appid}/group/${groupInfo.groupId}` }}>
           <RouterLink
-            route={'/v1/app/:appid/group/:groupId'}
+            route={AppPages.GroupDetailRoute}
             params={{ appid: appInfo.appid, groupId: groupInfo.groupId }}
           >
             {groupInfo.name}

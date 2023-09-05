@@ -6,6 +6,7 @@ import { RouterLink, TableView } from '@fangcha/react'
 import { SsoClientModel } from '@fangcha/sso-models'
 import { PageResult } from '@fangcha/tools'
 import { ClientFormDialog } from './ClientFormDialog'
+import { AppPages } from '../core/AppPages'
 
 export const ClientListView: React.FC = () => {
   const [version, setVersion] = useState(0)
@@ -47,7 +48,7 @@ export const ClientListView: React.FC = () => {
             title: 'Name',
             render: (item: SsoClientModel) => (
               <>
-                <RouterLink route={'/v1/client/:clientId'} params={{ clientId: item.clientId }}>
+                <RouterLink route={AppPages.ClientDetailRoute} params={{ clientId: item.clientId }}>
                   {item.name}
                 </RouterLink>
                 <br />

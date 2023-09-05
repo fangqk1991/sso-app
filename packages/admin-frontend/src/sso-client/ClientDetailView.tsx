@@ -7,6 +7,7 @@ import { ClientFormDialog } from './ClientFormDialog'
 import { useParams } from 'react-router-dom'
 import { CommonAPI } from '@fangcha/app-request'
 import { RouterLink } from '@fangcha/react'
+import { AppPages } from '../core/AppPages'
 
 export const ClientDetailView: React.FC = () => {
   const { clientId = '' } = useParams()
@@ -29,7 +30,7 @@ export const ClientDetailView: React.FC = () => {
     <div>
       <Breadcrumb>
         <Breadcrumb.Item>
-          <RouterLink route={'/v1/client'}>客户端管理</RouterLink>
+          <RouterLink route={AppPages.ClientListRoute}>客户端管理</RouterLink>
         </Breadcrumb.Item>
         <Breadcrumb.Item>{clientInfo.name}</Breadcrumb.Item>
       </Breadcrumb>
