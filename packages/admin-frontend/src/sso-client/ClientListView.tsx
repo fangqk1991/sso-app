@@ -2,11 +2,10 @@ import React, { useState } from 'react'
 import { MyRequest } from '@fangcha/auth-react'
 import { Button, Divider, Modal, Tag } from 'antd'
 import { Admin_SsoClientApis } from '@web/sso-common/admin-api'
-import { TableView } from '@fangcha/react'
+import { RouterLink, TableView } from '@fangcha/react'
 import { SsoClientModel } from '@fangcha/sso-models'
 import { PageResult } from '@fangcha/tools'
 import { ClientFormDialog } from './ClientFormDialog'
-import { Link } from 'react-router-dom'
 
 export const ClientListView: React.FC = () => {
   const [version, setVersion] = useState(0)
@@ -48,7 +47,9 @@ export const ClientListView: React.FC = () => {
             title: 'Name',
             render: (item: SsoClientModel) => (
               <>
-                <Link to={{ pathname: `/v1/client/${item.clientId}` }}>{item.name}</Link>
+                <RouterLink route={'/v1/client/:clientId'} params={{ clientId: item.clientId }}>
+                  {item.name}
+                </RouterLink>
                 <br />
                 <span>clientId: {item.clientId}</span>
               </>

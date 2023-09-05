@@ -4,6 +4,7 @@ import React from 'react'
 import { ConfigProvider, Dropdown } from 'antd'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { AuthSdkHelper, useSessionConfig, useVisitorCtx } from '@fangcha/auth-react'
+import { RouterLink } from '@fangcha/react'
 import { useMenu } from './useMenu'
 
 export const MainLayout: React.FC = () => {
@@ -91,15 +92,7 @@ export const MainLayout: React.FC = () => {
         actionsRender={() => {
           return []
         }}
-        menuItemRender={(item, dom) => (
-          <a
-            onClick={() => {
-              navigate(item.path || '/')
-            }}
-          >
-            {dom}
-          </a>
-        )}
+        menuItemRender={(item, dom) => <RouterLink route={item.path || '/'}>{dom}</RouterLink>}
       >
         <PageContainer
           header={{

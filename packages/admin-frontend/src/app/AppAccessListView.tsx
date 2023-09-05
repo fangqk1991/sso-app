@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { MyRequest } from '@fangcha/auth-react'
 import { Breadcrumb, Button, Divider, message, Modal, Space, Spin, Tag } from 'antd'
-import { ConfirmDialog, TableView } from '@fangcha/react'
+import { ConfirmDialog, RouterLink, TableView } from '@fangcha/react'
 import { PageResult } from '@fangcha/tools'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { P_AccessInfo, P_AppInfo } from '@fangcha/account-models'
 import { CommonAPI } from '@fangcha/app-request'
 import { CommonAppApis } from '@web/sso-common/core-api'
@@ -30,10 +30,12 @@ export const AppAccessListView: React.FC = () => {
     <div>
       <Breadcrumb>
         <Breadcrumb.Item>
-          <Link to={{ pathname: `/v1/app` }}>应用列表</Link>
+          <RouterLink route={'/v1/app'}>应用列表</RouterLink>
         </Breadcrumb.Item>
         <Breadcrumb.Item>
-          <Link to={{ pathname: `/v1/app/${appInfo.appid}` }}>{appInfo.name}</Link>
+          <RouterLink route={'/v1/app/:appid'} params={{ appid: appInfo.appid }}>
+            {appInfo.name}
+          </RouterLink>
         </Breadcrumb.Item>
         <Breadcrumb.Item>密钥管理</Breadcrumb.Item>
       </Breadcrumb>

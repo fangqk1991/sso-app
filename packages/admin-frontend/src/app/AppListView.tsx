@@ -2,9 +2,8 @@ import React, { useState } from 'react'
 import { MyRequest } from '@fangcha/auth-react'
 import { Button, Divider, message, Space, Tag } from 'antd'
 import { Admin_AppApis } from '@web/sso-common/admin-api'
-import { ConfirmDialog, JsonEditorDialog, TableView } from '@fangcha/react'
+import { ConfirmDialog, JsonEditorDialog, RouterLink, TableView } from '@fangcha/react'
 import { PageResult } from '@fangcha/tools'
-import { Link } from 'react-router-dom'
 import { AppTypeDescriptor, P_AppInfo } from '@fangcha/account-models'
 import { AppFormDialog } from './AppFormDialog'
 import { CommonAPI } from '@fangcha/app-request'
@@ -64,7 +63,9 @@ export const AppListView: React.FC = () => {
             render: (item: P_AppInfo) => (
               <>
                 <Space>
-                  <Link to={{ pathname: `/v1/app/${item.appid}` }}>{item.name}</Link>
+                  <RouterLink route={'/v1/app/:appid'} params={{ appid: item.appid }}>
+                    {item.name}
+                  </RouterLink>
                   <Tag color='green'>{AppTypeDescriptor.describe(item.appType)}</Tag>
                 </Space>
                 <br />

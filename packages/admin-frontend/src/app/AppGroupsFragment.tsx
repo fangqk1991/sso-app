@@ -2,9 +2,8 @@ import React, { useState } from 'react'
 import { AppFragmentProtocol } from './AppFragmentProtocol'
 import { Button, Divider, message, Space, Tag } from 'antd'
 import { MyRequest } from '@fangcha/auth-react'
-import { ConfirmDialog, JsonEditorDialog, TableView } from '@fangcha/react'
+import { ConfirmDialog, JsonEditorDialog, RouterLink, TableView } from '@fangcha/react'
 import { GroupCategory, P_GroupInfo } from '@fangcha/account-models'
-import { Link } from 'react-router-dom'
 import { CommonAPI } from '@fangcha/app-request'
 import { CommonAppApis } from '@web/sso-common/core-api'
 import { PageResult } from '@fangcha/tools'
@@ -65,7 +64,12 @@ export const AppGroupsFragment: AppFragmentProtocol = ({ appInfo }) => {
             render: (item: P_GroupInfo) => (
               <>
                 <Space>
-                  <Link to={{ pathname: `/v1/app/${appInfo.appid}/group/${item.groupId}` }}>{item.name}</Link>
+                  <RouterLink
+                    route={'/v1/app/:appid/group/:groupId'}
+                    params={{ appid: appInfo.appid, groupId: item.groupId }}
+                  >
+                    {item.name}
+                  </RouterLink>
                   {item.groupCategory === GroupCategory.Department && item.departmentId && (
                     <Tag color={'geekblue'}>{departmentCtx.getFullDepartmentName(item.departmentId)}</Tag>
                   )}

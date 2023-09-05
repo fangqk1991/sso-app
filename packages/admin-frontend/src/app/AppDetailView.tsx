@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { Breadcrumb, Divider, Spin, Tabs } from 'antd'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useAppInfo } from './useAppInfo'
 import { AppBasicInfoFragment } from './AppBasicInfoFragment'
 import { AppConfigFragment } from './AppConfigFragment'
 import { AppPermissionFragment } from './AppPermissionFragment'
 import { AppGroupsFragment } from './AppGroupsFragment'
-import { useQueryParams } from '@fangcha/react'
+import { RouterLink, useQueryParams } from '@fangcha/react'
 
 export const AppDetailView: React.FC = () => {
   const { appid = '' } = useParams()
@@ -20,7 +20,7 @@ export const AppDetailView: React.FC = () => {
     <div>
       <Breadcrumb>
         <Breadcrumb.Item>
-          <Link to={{ pathname: `/v1/app` }}>应用列表</Link>
+          <RouterLink route={'/v1/app'}>应用列表</RouterLink>
         </Breadcrumb.Item>
         <Breadcrumb.Item>{appInfo.name}</Breadcrumb.Item>
       </Breadcrumb>

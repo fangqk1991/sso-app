@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { Breadcrumb, Divider, Spin, Tabs } from 'antd'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useAppInfo } from './useAppInfo'
 import { useGroupInfo } from './useGroupInfo'
 import { GroupBasicInfoFragment } from './GroupBasicInfoFragment'
 import { GroupPermissionFragment } from './GroupPermissionFragment'
 import { GroupMemberFragment } from './GroupMemberFragment'
-import { useQueryParams } from '@fangcha/react'
+import { RouterLink, useQueryParams } from '@fangcha/react'
 
 export const GroupDetailView: React.FC = () => {
   const { appid = '', groupId = '' } = useParams()
@@ -21,10 +21,12 @@ export const GroupDetailView: React.FC = () => {
     <div>
       <Breadcrumb>
         <Breadcrumb.Item>
-          <Link to={{ pathname: `/v1/app` }}>应用列表</Link>
+          <RouterLink route={'/v1/app'}>应用列表</RouterLink>
         </Breadcrumb.Item>
         <Breadcrumb.Item>
-          <Link to={{ pathname: `/v1/app/${appInfo.appid}` }}>{appInfo.name}</Link>
+          <RouterLink route={'/v1/app/:appid'} params={{ appid: appInfo.appid }}>
+            {appInfo.name}
+          </RouterLink>
         </Breadcrumb.Item>
         <Breadcrumb.Item>{groupInfo.name}</Breadcrumb.Item>
       </Breadcrumb>

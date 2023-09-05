@@ -4,8 +4,9 @@ import { Breadcrumb, Button, Descriptions, Divider, message, Modal, Space, Spin,
 import { Admin_SsoClientApis } from '@web/sso-common/admin-api'
 import { SsoClientModel } from '@fangcha/sso-models'
 import { ClientFormDialog } from './ClientFormDialog'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { CommonAPI } from '@fangcha/app-request'
+import { RouterLink } from '@fangcha/react'
 
 export const ClientDetailView: React.FC = () => {
   const { clientId = '' } = useParams()
@@ -28,7 +29,7 @@ export const ClientDetailView: React.FC = () => {
     <div>
       <Breadcrumb>
         <Breadcrumb.Item>
-          <Link to={{ pathname: `/v1/client` }}>客户端管理</Link>
+          <RouterLink route={'/v1/client'}>客户端管理</RouterLink>
         </Breadcrumb.Item>
         <Breadcrumb.Item>{clientInfo.name}</Breadcrumb.Item>
       </Breadcrumb>

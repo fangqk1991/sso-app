@@ -7,8 +7,8 @@ import { CommonAPI } from '@fangcha/app-request'
 import { CommonAppApis } from '@web/sso-common/core-api'
 import { NumBoolDescriptor } from '@fangcha/tools'
 import { AppType } from '@fangcha/account-models'
-import { Link } from 'react-router-dom'
 import { formatTime } from '../core/formatTime'
+import { RouterLink } from '@fangcha/react'
 
 export const GroupBasicInfoFragment: GroupFragmentProtocol = ({ appInfo, groupInfo, onGroupInfoChanged }) => {
   return (
@@ -52,7 +52,12 @@ export const GroupBasicInfoFragment: GroupFragmentProtocol = ({ appInfo, groupIn
 
         {appInfo.appType === AppType.Open && (
           <Descriptions.Item label='操作'>
-            <Link to={{ pathname: `/v1/app/${appInfo.appid}/group/${groupInfo.groupId}/access` }}>密钥管理</Link>
+            <RouterLink
+              route={'/v1/app/:appid/group/:groupId/access'}
+              params={{ appid: appInfo.appid, groupId: groupInfo.groupId }}
+            >
+              密钥管理
+            </RouterLink>
           </Descriptions.Item>
         )}
       </Descriptions>

@@ -1,12 +1,11 @@
 import React from 'react'
 import { MyRequest } from '@fangcha/auth-react'
 import { Button, Descriptions, Divider, message, Space, Tag } from 'antd'
-import { Link } from 'react-router-dom'
 import { CommonAPI } from '@fangcha/app-request'
 import { AppTypeDescriptor } from '@fangcha/account-models'
 import { CommonAppApis } from '@web/sso-common/core-api'
 import { AppFormDialog } from './AppFormDialog'
-import { TextPreviewDialog } from '@fangcha/react'
+import { RouterLink, TextPreviewDialog } from '@fangcha/react'
 import { AppFragmentProtocol } from './AppFragmentProtocol'
 import { formatTime } from '../core/formatTime'
 
@@ -69,9 +68,9 @@ export const AppBasicInfoFragment: AppFragmentProtocol = ({ appInfo, onAppInfoCh
         >
           预览数据
         </Button>
-        <Link to={{ pathname: `/v1/app/${appInfo.appid}/access` }}>
-          <Button type={'primary'}>密钥管理</Button>
-        </Link>
+        <RouterLink route={'/v1/app/:appid/access'} params={{ appid: appInfo.appid }}>
+          密钥管理
+        </RouterLink>
       </Space>
     </>
   )
