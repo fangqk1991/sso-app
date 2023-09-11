@@ -10,6 +10,11 @@ describe('Test FeishuClient.test.ts', () => {
     console.info(response)
   })
 
+  it(`getAllUserGroups`, async () => {
+    const items = await feishuClient.getAllUserGroups()
+    console.info(JSON.stringify(items, null, 2))
+  })
+
   it(`getAllEmployees`, async () => {
     const items = await feishuClient.getAllEmployees({
       // view: 'full',

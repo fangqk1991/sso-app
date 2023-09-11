@@ -10,6 +10,7 @@ import {
   Raw_FeishuDepartmentTree,
   Raw_FeishuEmployee,
   Raw_FeishuUser,
+  Raw_FeishuUserGroup,
 } from './RawFeishuModels'
 import { FeishuApis } from './FeishuApis'
 import { FeishuTokenKeeper } from './FeishuTokenKeeper'
@@ -92,6 +93,21 @@ export class FeishuClient extends ServiceProxy<FeishuConfig> {
       }
     }
     return items
+  }
+
+  public async getAllUserGroups() {
+    return this.getAllPageItems(async (pageParams) => {
+      return await GuardPerformer.perform(async () => {
+        const request = await this.makeRequest(FeishuApis.ContactGroupPageDataGet)
+        request.setQueryParams({
+          ...pageParams,
+          page_size: 100,
+        })
+        const response = await request.quickSend<FeishuPageDataResponse<Raw_FeishuUserGroup>>()
+        response.data.items = response.data['grouplist'] || []
+        return response
+      })
+    })
   }
 
   public async getAllEmployees(

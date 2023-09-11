@@ -14,6 +14,11 @@ export const FeishuApis = {
     route: '/open-apis/authen/v1/access_token',
     description: '获取 user_access_token',
   },
+  ContactGroupPageDataGet: {
+    method: 'GET',
+    route: '/open-apis/contact/v3/group/simplelist',
+    description: '查询用户组列表',
+  },
   EmployeePageDataGet: {
     method: 'GET',
     route: '/open-apis/ehr/v1/employees',

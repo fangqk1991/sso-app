@@ -69,6 +69,17 @@ export interface Raw_FeishuUser {
   status: FeishuUserStatus
 }
 
+export interface Raw_FeishuUserGroup {
+  id: string
+  name: string
+  description: string
+  member_user_count: number
+  member_department_count: number
+  type: number
+  department_scope_list: string[]
+  group_id: string
+}
+
 /**
  * https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0
  * department_id 用来标识租户内一个唯一的部门，支持在创建部门时自定义。若不自定义则由系统默认生成唯一的 department_id。
