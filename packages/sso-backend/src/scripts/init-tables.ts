@@ -25,6 +25,7 @@ SafeTask.run(async () => {
     .replace(/\bfc_feishu_department\b/g, MyTableManager.tableName_FeishuDepartment())
     .replace(/\bfc_feishu_department_member\b/g, MyTableManager.tableName_FeishuDepartmentMember())
     .replace(/\bfc_feishu_user\b/g, MyTableManager.tableName_FeishuUser())
+    .replace(/\bfc_feishu_user_group\b/g, MyTableManager.tableName_FeishuUserGroup())
 
   const database = new FCDatabase()
   database.init({

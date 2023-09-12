@@ -4,6 +4,7 @@ import { _FeishuDepartmentMember } from '../../models/feishu/_FeishuDepartmentMe
 import { _FeishuUser } from '../../models/feishu/_FeishuUser'
 import { FeishuDepartmentHandler } from './FeishuDepartmentHandler'
 import assert from '@fangcha/assert'
+import { _FeishuUserGroup } from '../../models/feishu/_FeishuUserGroup'
 
 interface Options {
   database: FCDatabase
@@ -16,6 +17,9 @@ interface Options {
 
   // Default: fc_feishu_user
   tableName_FeishuUser?: string
+
+  // Default: fc_feishu_user_group
+  tableName_FeishuUserGroup?: string
 }
 
 export class FeishuServer {
@@ -24,10 +28,12 @@ export class FeishuServer {
   public readonly FeishuDepartment!: { new (): _FeishuDepartment } & typeof _FeishuDepartment
   public readonly FeishuDepartmentMember!: { new (): _FeishuDepartmentMember } & typeof _FeishuDepartmentMember
   public readonly FeishuUser!: { new (): _FeishuUser } & typeof _FeishuUser
+  public readonly FeishuUserGroup!: { new (): _FeishuUserGroup } & typeof _FeishuUserGroup
 
   public readonly tableName_FeishuDepartment: string
   public readonly tableName_FeishuDepartmentMember: string
   public readonly tableName_FeishuUser: string
+  public readonly tableName_FeishuUserGroup: string
 
   constructor(options: Options) {
     this.options = options
@@ -37,6 +43,7 @@ export class FeishuServer {
     this.tableName_FeishuDepartment = options.tableName_FeishuDepartment || 'fc_feishu_department'
     this.tableName_FeishuDepartmentMember = options.tableName_FeishuDepartmentMember || 'fc_feishu_department_member'
     this.tableName_FeishuUser = options.tableName_FeishuUser || 'fc_feishu_user'
+    this.tableName_FeishuUserGroup = options.tableName_FeishuUserGroup || 'fc_feishu_user_group'
 
     class FeishuDepartmentMember extends _FeishuDepartmentMember {}
     FeishuDepartmentMember.addStaticOptions({
@@ -58,6 +65,13 @@ export class FeishuServer {
       table: this.tableName_FeishuUser,
     })
     this.FeishuUser = FeishuUser
+
+    class FeishuUserGroup extends _FeishuUserGroup {}
+    FeishuUserGroup.addStaticOptions({
+      database: options.database,
+      table: this.tableName_FeishuUserGroup,
+    })
+    this.FeishuUserGroup = FeishuUserGroup
   }
 
   public async checkFeishuValid() {

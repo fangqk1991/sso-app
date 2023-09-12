@@ -15,6 +15,16 @@ describe('Test FeishuSync.test.ts', () => {
     feishuClient: feishuClient,
   })
 
+  it(`fetchFullUserGroups`, async () => {
+    await feishuSync.fetchFullUserGroups()
+
+    const searcher = new feishuServer.FeishuUserGroup().fc_searcher()
+    const items = await searcher.queryAllFeeds()
+    for (const item of items) {
+      console.info(JSON.stringify(item, null, 2))
+    }
+  })
+
   it(`fetchRemoteEmployees`, async () => {
     await feishuSync.fetchRemoteEmployees()
   })

@@ -1,8 +1,8 @@
 import { _FeishuUser, FeishuServer } from '@fangcha/account'
 import { FeishuClient } from '../core/FeishuClient'
 import { Raw_FeishuDepartmentTree } from '../core/RawFeishuModels'
-import { SQLBulkAdder } from 'fc-sql'
-import { FeishuDepartmentMemberModel, FeishuDepartmentModel } from '@fangcha/account-models'
+import { SQLBulkAdder, SQLModifier } from 'fc-sql'
+import { FeishuDepartmentMemberModel, FeishuDepartmentModel, FeishuUserGroupModel } from '@fangcha/account-models'
 import { DiffMapper, DiffType } from '@fangcha/tools'
 import { BotCore } from '@fangcha/bot-kit'
 import { FeishuEmployeeStatus } from '../core/FeishuEmployeeStatus'
@@ -22,6 +22,45 @@ export class FeishuSync {
     this.feishuServer = options.feishuServer
     this.feishuClient = options.feishuClient
     this.botCore = options.botCore
+  }
+
+  public async fetchFullUserGroups() {
+    const feishuServer = this.feishuServer
+    const feishuClient = this.feishuClient
+
+    const rawGroups = await feishuClient.getAllUserGroups()
+    const groups: FeishuUserGroupModel[] = rawGroups.map((item) => ({
+      groupId: item.id,
+      name: item.name,
+      description: item.description,
+      isValid: 1,
+      memberData: {
+        unionIdList: [],
+        departmentIdList: [],
+      },
+    }))
+
+    for (const group of groups) {
+      group.memberData = await feishuClient.getGroupAllMembersData(group.groupId)
+
+      const feishuUserGroup = new feishuServer.FeishuUserGroup()
+      feishuUserGroup.groupId = group.groupId
+      feishuUserGroup.name = group.name
+      feishuUserGroup.description = group.description
+      feishuUserGroup.isValid = group.isValid
+      feishuUserGroup.membersInfo = JSON.stringify(group.memberData)
+      await feishuUserGroup.strongAddToDB()
+    }
+
+    const dbSpec = new feishuServer.FeishuUserGroup().dbSpec()
+    const modifier = new SQLModifier(dbSpec.database)
+    modifier.setTable(dbSpec.table)
+    modifier.updateKV('is_valid', 0)
+    modifier.addConditionKeyNotInArray(
+      'group_id',
+      groups.map((item) => item.groupId)
+    )
+    await modifier.execute()
   }
 
   public async fetchRemoteEmployees() {
@@ -79,6 +118,7 @@ export class FeishuSync {
     const feishuClient = this.feishuClient
 
     await this.fetchRemoteEmployees()
+    await this.fetchFullUserGroups()
 
     const rootNode = await feishuClient.getDepartmentTree('0')
     rootNode.department.name = rootNode.department.name || 'ROOT'

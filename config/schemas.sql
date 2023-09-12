@@ -225,6 +225,21 @@ CREATE TABLE IF NOT EXISTS fc_feishu_department
   DEFAULT CHARSET = utf8mb4
   COLLATE utf8mb4_general_ci;
 
+CREATE TABLE IF NOT EXISTS fc_feishu_user_group
+(
+    _rid         BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    group_id     VARCHAR(40)     NOT NULL COLLATE ascii_bin COMMENT '飞书 group_id',
+    name         VARCHAR(127)    NOT NULL DEFAULT '' COMMENT '用户组名',
+    description  TEXT COMMENT '用户组描述',
+    members_info MEDIUMTEXT COMMENT '成员信息，空 | JSON 字符串',
+    is_valid     TINYINT         NOT NULL DEFAULT '0' COMMENT '是否活跃',
+    create_time  TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    update_time  TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    UNIQUE (group_id)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE utf8mb4_general_ci;
+
 CREATE TABLE IF NOT EXISTS fc_feishu_user
 (
     _rid         BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,

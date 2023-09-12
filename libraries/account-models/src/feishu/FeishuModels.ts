@@ -41,3 +41,14 @@ export interface FeishuUserModel {
   employeeId: string
   isValid: number
 }
+
+export interface FeishuUserGroupModel {
+  groupId: string
+  name: string
+  description: string
+  isValid: number
+  memberData: {
+    unionIdList: string[]
+    departmentIdList: string[]
+  }
+}

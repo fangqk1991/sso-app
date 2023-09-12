@@ -64,6 +64,14 @@ const generalDataSchemas: DBModelSchema[] = [
     reloadOnAdded: true,
     reloadOnUpdated: true,
   },
+  {
+    generator: generator,
+    tableName: 'fc_feishu_user_group',
+    outputFile: `${__dirname}/../src/models/auto-build/__FeishuUserGroup.ts`,
+    extFile: `${__dirname}/../src/models/feishu/_FeishuUserGroup.ts`,
+    reloadOnAdded: true,
+    reloadOnUpdated: true,
+  },
 ]
 
 SafeTask.run(async () => {
