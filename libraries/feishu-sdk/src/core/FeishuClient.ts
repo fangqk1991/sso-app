@@ -110,6 +110,55 @@ export class FeishuClient extends ServiceProxy<FeishuConfig> {
     })
   }
 
+  public async getGroupAllMembersData(groupId: string) {
+    const userItems = await this.getAllPageItems(async (pageParams) => {
+      return await GuardPerformer.perform(async () => {
+        const request = await this.makeRequest(new CommonAPI(FeishuApis.GroupMemberPageDataGet, groupId))
+        request.setQueryParams({
+          // member_type: 'department',
+          member_type: 'user',
+          member_id_type: 'union_id',
+          ...pageParams,
+          page_size: 100,
+        })
+        const response = await request.quickSend<
+          FeishuPageDataResponse<{
+            member_id: string
+            member_type: string
+            member_id_type: string
+          }>
+        >()
+        response.data.items = response.data['memberlist'] || []
+        return response
+      })
+    })
+    const departmentItems = await this.getAllPageItems(async (pageParams) => {
+      return await GuardPerformer.perform(async () => {
+        const request = await this.makeRequest(new CommonAPI(FeishuApis.GroupMemberPageDataGet, groupId))
+        request.setQueryParams({
+          member_type: 'department',
+          // member_type: 'user',
+          // member_id_type: 'union_id',
+          ...pageParams,
+          page_size: 100,
+        })
+        const response = await request.quickSend<
+          FeishuPageDataResponse<{
+            member_id: string
+            member_type: string
+            member_id_type: string
+          }>
+        >()
+        response.data.items = response.data['memberlist'] || []
+        return response
+      })
+    })
+    return {
+      unionIdList: userItems.map((item) => item.member_id),
+      departmentIdList: departmentItems.map((item) => item.member_id),
+    }
+  }
+
   public async getAllEmployees(
     params: {
       view?: 'basic' | 'full'

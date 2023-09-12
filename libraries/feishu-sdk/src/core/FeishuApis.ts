@@ -19,6 +19,11 @@ export const FeishuApis = {
     route: '/open-apis/contact/v3/group/simplelist',
     description: '查询用户组列表',
   },
+  GroupMemberPageDataGet: {
+    method: 'GET',
+    route: '/open-apis/contact/v3/group/:group_id/member/simplelist',
+    description: '查询用户组成员列表',
+  },
   EmployeePageDataGet: {
     method: 'GET',
     route: '/open-apis/ehr/v1/employees',
