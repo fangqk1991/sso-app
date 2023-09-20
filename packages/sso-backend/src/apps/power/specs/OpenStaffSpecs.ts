@@ -22,4 +22,20 @@ factory.prepare(OpenStaffApis.SearchStaffsByEmployeeIds, async (ctx) => {
   ctx.body = staffData
 })
 
+factory.prepare(OpenStaffApis.UserGroupMembersGet, async (ctx) => {
+  const userGroup = (await MyFeishuServer.FeishuUserGroup.findWithUid(ctx.params.groupId))!
+  assert.ok(!!userGroup, `Group[${ctx.params.groupId}] not exists`)
+
+  const membersData = userGroup.membersData()
+  const searcher = new MyFeishuServer.FeishuUser().fc_searcher()
+  searcher.processor().addConditionKeyInArray('union_id', membersData.unionIdList)
+
+  const membersList = await searcher.queryAllFeeds()
+  ctx.body = membersList.map((item) => ({
+    unionId: item.unionId,
+    employeeId: item.employeeId,
+    name: item.name,
+  }))
+})
+
 export const OpenStaffSpecs = factory.buildSpecs()

@@ -34,6 +34,11 @@ const OpenStaffApis = {
       },
     ],
   } as Api,
+  UserGroupMembersGet: {
+    method: 'GET',
+    route: '/api/v1/user-group/:groupId/member',
+    description: '查询指定组成员信息',
+  } as Api,
 }
 
 export class UserProxy extends BasicAuthProxy implements UserServiceProtocol {
@@ -55,5 +60,14 @@ export class UserProxy extends BasicAuthProxy implements UserServiceProtocol {
     const request = this.makeRequest(new CommonAPI(OpenStaffApis.SearchStaffsByEmployeeIds))
     request.setBodyData(employeeIds)
     return (await request.quickSend()) as { [employeeId: string]: FeishuUserModel }
+  }
+
+  public async getUserGroupMembers(groupId: string) {
+    const request = this.makeRequest(new CommonAPI(OpenStaffApis.UserGroupMembersGet, groupId))
+    return (await request.quickSend()) as {
+      unionId: string
+      employeeId: string
+      name: string
+    }[]
   }
 }

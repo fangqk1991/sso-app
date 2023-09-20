@@ -17,4 +17,8 @@ describe('Test UserProxy.test.ts', () => {
   it(`searchStaffsByEmployeeIds`, async () => {
     loggerForDev.info(await userProxy.searchStaffsByEmployeeIds([]))
   })
+
+  it(`getUserGroupMembers`, async () => {
+    loggerForDev.info(await userProxy.getUserGroupMembers('111'))
+  })
 })

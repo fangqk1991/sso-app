@@ -14,4 +14,9 @@ export const OpenStaffApis = {
       },
     ],
   } as Api,
+  UserGroupMembersGet: {
+    method: 'GET',
+    route: '/api/v1/user-group/:groupId/member',
+    description: '查询指定组成员信息',
+  } as Api,
 }
