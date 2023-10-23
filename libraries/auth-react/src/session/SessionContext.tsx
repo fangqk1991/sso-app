@@ -49,6 +49,7 @@ export const _defaultSession: SessionInfo<SessionConfig> = {
 
 interface Context {
   session: SessionInfo<SessionConfig>
+  userInfo: { email: string } | null
   reloadSession: () => void
 }
 
@@ -98,6 +99,7 @@ export const SessionProvider = ({ children }: React.ComponentProps<any>) => {
 
   const sessionCtx: Context = {
     session: session,
+    userInfo: session.userInfo,
     reloadSession: reloadSession,
   }
 
