@@ -1,4 +1,4 @@
-# auth-vue
+# auth-react
 ……
 
 ## Installation

@@ -50,7 +50,6 @@
   },
   "devDependencies": {
     "@fangcha/auth-basic": "workspace:^",
-    "@fangcha/auth-vue": "workspace:^",
     "@fangcha/eslint": "^0.8.0",
     "@fangcha/generator": "^0.7.0",
     "@fangcha/vue": "^0.78.0",
