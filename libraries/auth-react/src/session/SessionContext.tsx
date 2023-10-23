@@ -51,6 +51,7 @@ interface Context {
   session: SessionInfo<SessionConfig>
   userInfo: { email: string } | null
   reloadSession: () => void
+  setAllowAnonymous: (val: boolean) => void
 }
 
 export const SessionContext = React.createContext<Context>(null as any)
@@ -64,12 +65,13 @@ export const useSessionConfig = (): SessionConfig => {
   return sessionCtx.session.config
 }
 
-export const SessionProvider = ({
+export const SessionProvider: React.FC<{ allowAnonymous?: boolean }> = ({
   children,
-  allowAnonymous,
-}: React.ComponentProps<any> & { allowAnonymous?: boolean }) => {
+  allowAnonymous: defaultAllowAnonymous,
+}: React.ComponentProps<any>) => {
   const [session, setSession] = useState(_defaultSession)
   const [already, setAlready] = useState(false)
+  const [allowAnonymous, setAllowAnonymous] = useState(!!defaultAllowAnonymous)
 
   const reloadSession = () => {
     console.info('reload session')
@@ -92,7 +94,7 @@ export const SessionProvider = ({
           checkLogin: () => {
             return !!response.userInfo
           },
-          allowAnonymous: !!allowAnonymous,
+          allowAnonymous: allowAnonymous,
         })
         redirectTools.redirectIfNeed()
       })
@@ -105,6 +107,7 @@ export const SessionProvider = ({
     session: session,
     userInfo: session.userInfo,
     reloadSession: reloadSession,
+    setAllowAnonymous: setAllowAnonymous,
   }
 
   useEffect(() => {

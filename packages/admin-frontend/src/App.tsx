@@ -2,7 +2,7 @@ import React from 'react'
 import { ErrorBoundary } from '@ant-design/pro-components'
 import { RouterProvider } from 'react-router-dom'
 import { MyRouter } from './MyRouter'
-import { AuthSdkHelper, SessionProvider, useSession, useSessionConfig, VisitorProvider } from '@fangcha/auth-react'
+import { AuthSdkHelper, useSession, useSessionConfig, VisitorProvider } from '@fangcha/auth-react'
 import { AuthRouter } from '@fangcha/auth-react/router'
 import { ConfigProvider, Watermark } from 'antd'
 import { AuthMode } from '@fangcha/account-models'
@@ -17,6 +17,7 @@ export const App: React.FC = () => {
   const config = useSessionConfig()
   if (!sessionCtx.session.userInfo) {
     if (config.authMode === AuthMode.Simple) {
+      sessionCtx.setAllowAnonymous(false)
       return (
         <ConfigProvider
           theme={{
@@ -25,9 +26,7 @@ export const App: React.FC = () => {
             },
           }}
         >
-          <SessionProvider value={sessionCtx} allowAnonymous={false} >
-            <RouterProvider router={AuthRouter} />
-          </SessionProvider>
+          <RouterProvider router={AuthRouter} />
         </ConfigProvider>
       )
     } else {
