@@ -7,7 +7,7 @@ import { SessionProvider } from '@fangcha/auth-react'
 const app = ReactDOM.createRoot(document.getElementById('app')!)
 app.render(
   <React.StrictMode>
-    <SessionProvider>
+    <SessionProvider allowAnonymous={false}>
       <App />
     </SessionProvider>
   </React.StrictMode>

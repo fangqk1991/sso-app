@@ -12,6 +12,7 @@ interface Options {
   loginPagePath?: string
   signupPagePath?: string
   defaultRedirectUri?: string
+  allowAnonymous?: boolean
 }
 
 export class RedirectTools {
@@ -20,6 +21,7 @@ export class RedirectTools {
     signupPagePath: '/signup',
     defaultRedirectUri: '/profile',
     checkLogin: () => false,
+    allowAnonymous: false,
   }
 
   public constructor(options: Options) {
@@ -48,7 +50,7 @@ export class RedirectTools {
       if (inLoginPage) {
         window.location.href = this.redirectUri()
       }
-    } else {
+    } else if (!this._options.allowAnonymous) {
       if (window.location.pathname === '/') {
         window.location.href = this._options.loginPagePath
       } else if (!inLoginPage) {

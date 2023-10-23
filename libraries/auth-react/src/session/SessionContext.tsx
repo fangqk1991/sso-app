@@ -64,7 +64,10 @@ export const useSessionConfig = (): SessionConfig => {
   return sessionCtx.session.config
 }
 
-export const SessionProvider = ({ children }: React.ComponentProps<any>) => {
+export const SessionProvider = ({
+  children,
+  allowAnonymous,
+}: React.ComponentProps<any> & { allowAnonymous?: boolean }) => {
   const [session, setSession] = useState(_defaultSession)
   const [already, setAlready] = useState(false)
 
@@ -89,6 +92,7 @@ export const SessionProvider = ({ children }: React.ComponentProps<any>) => {
           checkLogin: () => {
             return !!response.userInfo
           },
+          allowAnonymous: !!allowAnonymous,
         })
         redirectTools.redirectIfNeed()
       })

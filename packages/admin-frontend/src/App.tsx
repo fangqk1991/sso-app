@@ -25,7 +25,7 @@ export const App: React.FC = () => {
             },
           }}
         >
-          <SessionProvider value={sessionCtx}>
+          <SessionProvider value={sessionCtx} allowAnonymous={false} >
             <RouterProvider router={AuthRouter} />
           </SessionProvider>
         </ConfigProvider>
