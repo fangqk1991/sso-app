@@ -53,11 +53,7 @@ interface Context {
   reloadSession: () => void
 }
 
-export const SessionContext = React.createContext<Context>({
-  session: _defaultSession,
-  userInfo: null,
-  reloadSession: () => {},
-})
+export const SessionContext = React.createContext<Context>(null as any)
 
 export const useSession = (): Context => {
   return useContext(SessionContext)
