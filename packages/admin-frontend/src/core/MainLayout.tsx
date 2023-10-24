@@ -3,16 +3,15 @@ import { PageContainer, ProLayout } from '@ant-design/pro-layout'
 import React from 'react'
 import { ConfigProvider, Dropdown } from 'antd'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
-import { AuthSdkHelper, useSessionConfig, useSessionCtx } from '@fangcha/auth-react'
+import { AuthSdkHelper, useSessionConfig, useVisitorCtx } from '@fangcha/auth-react'
 import { RouterLink } from '@fangcha/react'
 import { useMenu } from './useMenu'
-import { WebAuthApis } from '@fangcha/sso-models'
 
 export const MainLayout: React.FC = () => {
   const config = useSessionConfig()
-  const sessionCtx = useSessionCtx()
+  const visitorCtx = useVisitorCtx()
 
-  const { userInfo } = sessionCtx
+  const { userInfo } = visitorCtx
 
   const location = useLocation()
   const navigate = useNavigate()
@@ -47,13 +46,6 @@ export const MainLayout: React.FC = () => {
         avatarProps={{
           icon: <UserOutlined />,
           render: (avatarProps, avatar) => {
-            if (!userInfo) {
-              return (
-                <>
-                  <a href={WebAuthApis.RedirectLogin.route}>Login</a>
-                </>
-              )
-            }
             return (
               <Dropdown
                 menu={{

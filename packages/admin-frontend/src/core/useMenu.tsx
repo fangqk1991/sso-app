@@ -1,11 +1,11 @@
 import { ApartmentOutlined, AppstoreOutlined, UserOutlined } from '@ant-design/icons'
 import { Route } from '@ant-design/pro-layout/es/typing'
 import { UserPermission } from '@web/sso-common/user-models'
-import { useSessionConfig, useSessionCtx } from '@fangcha/auth-react'
+import { useSessionConfig, useVisitorCtx } from '@fangcha/auth-react'
 import { AppPages } from './AppPages'
 
 export const useMenu = () => {
-  const sessionCtx = useSessionCtx()
+  const visitorCtx = useVisitorCtx()
   const config = useSessionConfig()
 
   const myMenu: Route = {
@@ -24,7 +24,7 @@ export const useMenu = () => {
           {
             path: AppPages.AccountListRoute,
             name: '账号管理',
-            hideInMenu: !sessionCtx.userInfo.isAdmin && !sessionCtx.hasPermission(UserPermission.M_User_Account),
+            hideInMenu: !visitorCtx.userInfo.isAdmin && !visitorCtx.hasPermission(UserPermission.M_User_Account),
           },
         ],
       },
