@@ -4,6 +4,7 @@ import { AuthSdkHelper } from '../services/AuthSdkHelper'
 import { AuthMode } from '@fangcha/account-models'
 import { RedirectTools } from '@fangcha/auth-basic'
 import { RetainedSessionApis, SessionInfo } from '@fangcha/app-models'
+import { SessionUserInfo } from './SessionHTTP'
 
 export interface SessionConfig {
   appName: string
@@ -49,19 +50,20 @@ export const _defaultSession: SessionInfo<SessionConfig> = {
 
 interface Context {
   session: SessionInfo<SessionConfig>
-  userInfo: { email: string } | null
+  userInfo: SessionUserInfo
   reloadSession: () => void
+  hasPermission: (permissionKey: string) => boolean
   setAllowAnonymous: (val: boolean) => void
 }
 
 export const SessionContext = React.createContext<Context>(null as any)
 
-export const useSession = (): Context => {
+export const useSessionCtx = (): Context => {
   return useContext(SessionContext)
 }
 
 export const useSessionConfig = (): SessionConfig => {
-  const sessionCtx = useSession()
+  const sessionCtx = useSessionCtx()
   return sessionCtx.session.config
 }
 
@@ -105,9 +107,13 @@ export const SessionProvider: React.FC<{ allowAnonymous?: boolean }> = ({
 
   const sessionCtx: Context = {
     session: session,
-    userInfo: session.userInfo,
+    userInfo: session.userInfo as SessionUserInfo,
     reloadSession: reloadSession,
     setAllowAnonymous: setAllowAnonymous,
+    hasPermission: (permissionKey: string) => {
+      const userInfo = session.userInfo as SessionUserInfo
+      return userInfo && userInfo.permissionKeyMap && !!userInfo.permissionKeyMap[permissionKey]
+    },
   }
 
   useEffect(() => {

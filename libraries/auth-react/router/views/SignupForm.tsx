@@ -1,5 +1,5 @@
 import React from 'react'
-import { MyRequest, useSession, useSessionConfig } from '../../src'
+import { MyRequest, useSessionConfig, useSessionCtx } from '../../src'
 import { AccountSimpleParams } from '@fangcha/account-models'
 import { SignupApis } from '@fangcha/sso-models'
 import { Button, Form, Input, message } from 'antd'
@@ -7,7 +7,7 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons'
 import { Link, useLocation } from 'react-router-dom'
 
 export const SignupForm = () => {
-  const sessionCtx = useSession()
+  const sessionCtx = useSessionCtx()
   const config = useSessionConfig()
   const { search } = useLocation()
 

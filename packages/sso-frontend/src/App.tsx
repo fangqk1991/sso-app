@@ -1,4 +1,4 @@
-import { AuthSdkHelper, SessionContext, useSession, useSessionConfig } from '@fangcha/auth-react'
+import { AuthSdkHelper, SessionContext, useSessionConfig, useSessionCtx } from '@fangcha/auth-react'
 import { AuthRouter } from '@fangcha/auth-react/router'
 import React from 'react'
 import { ErrorBoundary } from './views/ErrorBoundary'
@@ -8,7 +8,7 @@ import { RouterProvider } from 'react-router-dom'
 AuthSdkHelper.forClientSDK = false
 
 export const App = () => {
-  const sessionCtx = useSession()
+  const sessionCtx = useSessionCtx()
   const config = useSessionConfig()
   document.title = config.appName || 'App'
 

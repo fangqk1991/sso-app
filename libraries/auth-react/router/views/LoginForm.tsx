@@ -1,5 +1,5 @@
 import React from 'react'
-import { AuthSdkHelper, useSession, useSessionConfig } from '../../src'
+import { AuthSdkHelper, useSessionConfig, useSessionCtx } from '../../src'
 import { AccountSimpleParams } from '@fangcha/account-models'
 import { Button, Divider, Form, Input, message } from 'antd'
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
@@ -7,7 +7,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { JointLoginApis } from '@web/sso-common/web-api'
 
 export const LoginForm = () => {
-  const sessionCtx = useSession()
+  const sessionCtx = useSessionCtx()
   const config = useSessionConfig()
   const { search } = useLocation()
 

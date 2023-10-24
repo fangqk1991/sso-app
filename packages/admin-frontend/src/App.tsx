@@ -2,7 +2,7 @@ import React from 'react'
 import { ErrorBoundary } from '@ant-design/pro-components'
 import { RouterProvider } from 'react-router-dom'
 import { MyRouter } from './MyRouter'
-import { AuthSdkHelper, useSession, useSessionConfig, VisitorProvider } from '@fangcha/auth-react'
+import { AuthSdkHelper, useSessionConfig, useSessionCtx } from '@fangcha/auth-react'
 import { AuthRouter } from '@fangcha/auth-react/router'
 import { ConfigProvider, Watermark } from 'antd'
 import { AuthMode } from '@fangcha/account-models'
@@ -13,7 +13,7 @@ import { FeishuDepartmentProvider } from './feishu/FeishuDepartmentContext'
 AuthSdkHelper.defaultRedirectUri = '/'
 
 export const App: React.FC = () => {
-  const sessionCtx = useSession()
+  const sessionCtx = useSessionCtx()
   const config = useSessionConfig()
   if (!sessionCtx.session.userInfo) {
     if (config.authMode === AuthMode.Simple) {
@@ -39,24 +39,22 @@ export const App: React.FC = () => {
 
   return (
     <ErrorBoundary>
-      <VisitorProvider>
-        {config.useWatermark && (
-          <Watermark
-            style={{
-              width: '100vw',
-              height: '100vh',
-              position: 'fixed',
-              pointerEvents: 'none',
-              zIndex: 9999,
-            }}
-            content={(sessionCtx.session.userInfo.email || '').split('@')[0]}
-            font={{ color: config.watermarkColor || '#0000000a' }}
-          />
-        )}
-        <FeishuDepartmentProvider feishuValid={config.feishuValid}>
-          <RouterProvider router={MyRouter}></RouterProvider>
-        </FeishuDepartmentProvider>
-      </VisitorProvider>
+      {config.useWatermark && (
+        <Watermark
+          style={{
+            width: '100vw',
+            height: '100vh',
+            position: 'fixed',
+            pointerEvents: 'none',
+            zIndex: 9999,
+          }}
+          content={(sessionCtx.session.userInfo.email || '').split('@')[0]}
+          font={{ color: config.watermarkColor || '#0000000a' }}
+        />
+      )}
+      <FeishuDepartmentProvider feishuValid={config.feishuValid}>
+        <RouterProvider router={MyRouter}></RouterProvider>
+      </FeishuDepartmentProvider>
     </ErrorBoundary>
   )
 }
