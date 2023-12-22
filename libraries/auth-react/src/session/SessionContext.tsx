@@ -60,6 +60,14 @@ export const useSession = (): Context => {
   return useContext(SessionContext)
 }
 
+export const useUserInfo = <T extends any = any>(strict = false): T => {
+  const sessionCtx = useSession()
+  if (strict) {
+    return sessionCtx.userInfo as T
+  }
+  return (sessionCtx.userInfo || {}) as T
+}
+
 export const useSessionConfig = (): SessionConfig => {
   const sessionCtx = useSession()
   return sessionCtx.session.config
