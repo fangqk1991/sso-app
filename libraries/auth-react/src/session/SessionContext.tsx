@@ -60,7 +60,13 @@ export const useSession = (): Context => {
   return useContext(SessionContext)
 }
 
-export const useUserInfo = <T extends any = any>(strict = false): T => {
+export const useUserInfo = <
+  T extends any = {
+    email: string
+  }
+>(
+  strict = false
+): T => {
   const sessionCtx = useSession()
   if (strict) {
     return sessionCtx.userInfo as T
