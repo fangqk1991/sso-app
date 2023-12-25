@@ -4,7 +4,7 @@ import { AccountSimpleParams } from '@fangcha/account-models'
 import { Button, Divider, Form, Input, message } from 'antd'
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
 import { Link, useLocation } from 'react-router-dom'
-import { JointLoginApis } from '@web/sso-common/web-api'
+import { JointLoginApis } from '@fangcha/sso-models'
 
 export const LoginForm = () => {
   const sessionCtx = useSession()

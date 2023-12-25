@@ -1,5 +1,4 @@
 import { SpecFactory } from '@fangcha/router'
-import { JointLoginApis } from '@web/sso-common/web-api'
 import { _SessionApp, FangchaSession } from '@fangcha/session'
 import { MyFeishuSdkClient } from '../../../services/MyFeishuSdkClient'
 import { LoginService, SsoServer } from '@fangcha/sso-server'
@@ -7,6 +6,7 @@ import assert from '@fangcha/assert'
 import { GlobalAppConfig } from 'fc-config'
 import { makeRandomStr } from '@fangcha/tools'
 import { CarrierType } from '@fangcha/account-models'
+import { JointLoginApis } from '@fangcha/sso-models'
 
 const factory = new SpecFactory('Feishu Login', { skipAuth: true })
 
