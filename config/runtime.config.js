@@ -62,6 +62,7 @@ module.exports = {
     },
     adminFrontendConfig: {
       appName: envData.adminFE_appName,
+      colorPrimary: envData.adminFE_colorPrimary,
       background: envData.adminFE_background,
       logoCss: envData.adminFE_logoCss,
       navBackground: envData.adminFE_navBackground,

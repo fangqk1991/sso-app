@@ -31,7 +31,17 @@ const InnerContainer: React.FC<React.ComponentProps<any>> = ({ children }) => {
       </ConfigProvider>
     )
   }
-  return children
+  return (
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: ReactTheme.colorPrimary,
+        },
+      }}
+    >
+      {children}
+    </ConfigProvider>
+  )
 }
 
 export const LaunchContainer: React.FC<Props> = ({ children }) => {

@@ -39,6 +39,7 @@ module.exports = {
     },
     adminFrontendConfig: {
       appName: 'Fangcha SSO Admin',
+      colorPrimary: '',
       background: 'linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%)',
       logoCss: 'linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%)',
       navBackground: '#EA3323',
