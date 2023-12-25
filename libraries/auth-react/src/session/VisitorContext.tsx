@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { SessionHTTP, SessionUserInfo } from './SessionHTTP'
+import { SessionHTTP } from './SessionHTTP'
+import { SessionUserInfo } from '@fangcha/app-models'
 
 interface Context {
   userInfo: SessionUserInfo

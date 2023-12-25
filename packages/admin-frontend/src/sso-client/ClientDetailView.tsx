@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { MyRequest, useVisitorCtx } from '@fangcha/auth-react'
+import { MyRequest, useUserInfo } from '@fangcha/auth-react'
 import { Breadcrumb, Button, Descriptions, Divider, message, Modal, Space, Spin, Tag } from 'antd'
 import { Admin_SsoClientApis } from '@web/sso-common/admin-api'
 import { SsoClientModel } from '@fangcha/sso-models'
@@ -13,7 +13,7 @@ export const ClientDetailView: React.FC = () => {
   const { clientId = '' } = useParams()
   const [version, setVersion] = useState(0)
   const [clientInfo, setClientInfo] = useState<SsoClientModel>()
-  const visitorCtx = useVisitorCtx()
+  const userInfo = useUserInfo()
 
   useEffect(() => {
     MyRequest(new CommonAPI(Admin_SsoClientApis.ClientInfoGet, clientId))
@@ -55,7 +55,7 @@ export const ClientDetailView: React.FC = () => {
         >
           编辑
         </Button>
-        {!!visitorCtx.userInfo.isAdmin && (
+        {!!userInfo.isAdmin && (
           <Button
             type='primary'
             danger

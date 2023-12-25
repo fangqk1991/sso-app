@@ -1,7 +1,7 @@
 import React from 'react'
 import { RouterProvider } from 'react-router-dom'
 import { MyRouter } from './MyRouter'
-import { AuthSdkHelper, useSession, useSessionConfig, VisitorProvider } from '@fangcha/auth-react'
+import { AuthSdkHelper, useSession, useSessionConfig } from '@fangcha/auth-react'
 import { Watermark } from 'antd'
 import { FeishuDepartmentProvider } from './feishu/FeishuDepartmentContext'
 
@@ -14,7 +14,7 @@ export const App: React.FC = () => {
     return null
   }
   return (
-    <VisitorProvider>
+    <>
       {config.useWatermark && (
         <Watermark
           style={{
@@ -31,6 +31,6 @@ export const App: React.FC = () => {
       <FeishuDepartmentProvider feishuValid={config.feishuValid}>
         <RouterProvider router={MyRouter}></RouterProvider>
       </FeishuDepartmentProvider>
-    </VisitorProvider>
+    </>
   )
 }

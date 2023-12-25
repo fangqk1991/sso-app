@@ -1,14 +1,5 @@
 import { MyRequest } from '../services/MyRequest'
-import { RetainedSessionApis, SessionInfo } from '@fangcha/app-models'
-
-export interface SessionUserInfo {
-  email: string
-  isAdmin?: boolean
-  permissionKeyMap: {
-    [p: string]: 1
-  }
-  [p: string]: any
-}
+import { RetainedSessionApis, SessionInfo, SessionUserInfo } from '@fangcha/app-models'
 
 export class SessionHTTP {
   public static async getSessionInfo<Config = {}>() {
