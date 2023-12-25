@@ -1,13 +1,13 @@
 import ReactDOM from 'react-dom/client'
 import React from 'react'
 import { App } from './App'
-import { SessionProvider } from '@fangcha/auth-react'
+import { FullLaunchContainer } from '@fangcha/auth-react/router'
 
 const app = ReactDOM.createRoot(document.getElementById('app')!)
 app.render(
   <React.StrictMode>
-    <SessionProvider allowAnonymous={true}>
+    <FullLaunchContainer allowAnonymous={true}>
       <App />
-    </SessionProvider>
+    </FullLaunchContainer>
   </React.StrictMode>
 )
