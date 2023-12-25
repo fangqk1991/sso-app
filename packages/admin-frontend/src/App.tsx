@@ -33,7 +33,17 @@ export const App: React.FC = () => {
       window.location.href = `${WebAuthApis.RedirectLogin.route}?redirectUri=${encodeURIComponent(
         window.location.href
       )}`
-      return <LoadingView style={{ height: '100vh' }} text='跳转中……' />
+      return (
+        <ConfigProvider
+          theme={{
+            token: {
+              colorPrimary: config.colorPrimary || '#0d6efd',
+            },
+          }}
+        >
+          <LoadingView style={{ height: '100vh' }} text='跳转中……' />
+        </ConfigProvider>
+      )
     }
   }
 
