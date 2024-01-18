@@ -17,7 +17,7 @@ const InnerContainer: React.FC<React.ComponentProps<any>> = ({ children }) => {
   const config = useSessionConfig()
   ReactTheme.colorPrimary = config.colorPrimary || ReactTheme.colorPrimary || '#0d6efd'
 
-  if (!sessionCtx.session.userInfo) {
+  if (!sessionCtx.allowAnonymous && !sessionCtx.session.userInfo) {
     window.location.href = `${WebAuthApis.RedirectLogin.route}?redirectUri=${encodeURIComponent(window.location.href)}`
     return (
       <ConfigProvider
@@ -44,10 +44,10 @@ const InnerContainer: React.FC<React.ComponentProps<any>> = ({ children }) => {
   )
 }
 
-export const LaunchContainer: React.FC<Props> = ({ children }) => {
+export const LaunchContainer: React.FC<Props> = ({ children, allowAnonymous }) => {
   return (
     <ErrorBoundary>
-      <SessionProvider allowAnonymous={false}>
+      <SessionProvider allowAnonymous={allowAnonymous}>
         <InnerContainer>{children}</InnerContainer>
       </SessionProvider>
     </ErrorBoundary>
