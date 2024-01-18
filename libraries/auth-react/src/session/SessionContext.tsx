@@ -51,6 +51,7 @@ interface Context {
   session: SessionInfo<SessionConfig>
   userInfo: SessionUserInfo | null
   reloadSession: () => void
+  allowAnonymous?: boolean
   setAllowAnonymous: (val: boolean) => void
   hasPermission: (permissionKey: string) => boolean
 }
@@ -116,6 +117,7 @@ export const SessionProvider: React.FC<{ allowAnonymous?: boolean }> = ({
     session: session,
     userInfo: session.userInfo,
     reloadSession: reloadSession,
+    allowAnonymous: allowAnonymous,
     setAllowAnonymous: setAllowAnonymous,
     hasPermission: (permissionKey: string) => {
       return (

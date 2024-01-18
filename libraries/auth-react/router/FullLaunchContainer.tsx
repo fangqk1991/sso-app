@@ -33,7 +33,7 @@ const InnerContainer: React.FC<React.ComponentProps<any>> = ({ children }) => {
           <RouterProvider router={AuthRouter} />
         </ConfigProvider>
       )
-    } else {
+    } else if (!sessionCtx.allowAnonymous) {
       window.location.href = `${WebAuthApis.RedirectLogin.route}?redirectUri=${encodeURIComponent(
         window.location.href
       )}`
@@ -64,10 +64,10 @@ const InnerContainer: React.FC<React.ComponentProps<any>> = ({ children }) => {
   )
 }
 
-export const FullLaunchContainer: React.FC<Props> = ({ children }) => {
+export const FullLaunchContainer: React.FC<Props> = ({ children, allowAnonymous }) => {
   return (
     <ErrorBoundary>
-      <SessionProvider allowAnonymous={false}>
+      <SessionProvider allowAnonymous={allowAnonymous}>
         <InnerContainer>{children}</InnerContainer>
       </SessionProvider>
     </ErrorBoundary>
