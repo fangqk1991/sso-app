@@ -7,7 +7,8 @@ import { UserSdkSpecDocItem } from './specs/UserSdkSpecs'
 
 export const UserSdkPlugin = (config: BasicAuthConfig): AppPluginProtocol => {
   return {
-    appDidLoad: async () => {
+    appDidLoad: async () => {},
+    appWillLoad: async () => {
       const userProxy = new UserProxy(config, CustomRequestFollower)
       AdminUserCenter.useAutoReloadingChecker(userProxy)
       await AdminUserCenter.waitForReady()
