@@ -6,6 +6,7 @@ import { ConfigProvider } from 'antd'
 import { RouterProvider } from 'react-router-dom'
 
 AuthSdkHelper.forClientSDK = false
+AuthSdkHelper.defaultRedirectUri = '/profile'
 
 export const App = () => {
   const sessionCtx = useSession()
