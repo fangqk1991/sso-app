@@ -1,10 +1,10 @@
 import React from 'react'
 import { ErrorBoundary } from '@ant-design/pro-components'
 import { ConfigProvider } from 'antd'
-import { LoadingView, ReactTheme } from '@fangcha/react'
-import { WebAuthApis } from '@fangcha/sso-models'
+import { ReactTheme } from '@fangcha/react'
 import { AuthSdkHelper } from './services/AuthSdkHelper'
 import { SessionProvider, useSession, useSessionConfig } from './session/SessionContext'
+import { RedirectingView } from './RedirectingView'
 
 AuthSdkHelper.defaultRedirectUri = '/'
 
@@ -18,18 +18,7 @@ const InnerContainer: React.FC<React.ComponentProps<any>> = ({ children }) => {
   ReactTheme.colorPrimary = config.colorPrimary || ReactTheme.colorPrimary || '#0d6efd'
 
   if (!sessionCtx.allowAnonymous && !sessionCtx.session.userInfo) {
-    window.location.href = `${WebAuthApis.RedirectLogin.route}?redirectUri=${encodeURIComponent(window.location.href)}`
-    return (
-      <ConfigProvider
-        theme={{
-          token: {
-            colorPrimary: ReactTheme.colorPrimary,
-          },
-        }}
-      >
-        <LoadingView style={{ height: '100vh' }} text='跳转中……' />
-      </ConfigProvider>
-    )
+    return <RedirectingView />
   }
   return (
     <ConfigProvider

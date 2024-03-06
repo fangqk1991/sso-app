@@ -1,17 +1,17 @@
 import React from 'react'
 import { RouterProvider } from 'react-router-dom'
 import { MyRouter } from './MyRouter'
-import { AuthSdkHelper, useSession, useSessionConfig } from '@fangcha/auth-react'
+import { AuthSdkHelper, RedirectingView, useSessionConfig, useUserInfo } from '@fangcha/auth-react'
 import { Watermark } from 'antd'
 import { FeishuDepartmentProvider } from './feishu/FeishuDepartmentContext'
 
 AuthSdkHelper.defaultRedirectUri = '/'
 
 export const App: React.FC = () => {
-  const sessionCtx = useSession()
   const config = useSessionConfig()
-  if (!sessionCtx.session.userInfo) {
-    return null
+  const userInfo = useUserInfo(true)
+  if (!userInfo) {
+    return <RedirectingView />
   }
   return (
     <>
@@ -24,7 +24,7 @@ export const App: React.FC = () => {
             pointerEvents: 'none',
             zIndex: 9999,
           }}
-          content={(sessionCtx.session.userInfo.email || '').split('@')[0]}
+          content={(userInfo.email || '').split('@')[0]}
           font={{ color: config.watermarkColor || '#0000000a' }}
         />
       )}

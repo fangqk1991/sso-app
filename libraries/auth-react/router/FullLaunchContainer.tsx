@@ -3,10 +3,9 @@ import { ErrorBoundary } from '@ant-design/pro-components'
 import { RouterProvider } from 'react-router-dom'
 import { ConfigProvider } from 'antd'
 import { AuthMode } from '@fangcha/account-models'
-import { LoadingView, ReactTheme } from '@fangcha/react'
-import { AuthSdkHelper, SessionProvider, useSession, useSessionConfig } from '../src'
+import { ReactTheme } from '@fangcha/react'
+import { AuthSdkHelper, RedirectingView, SessionProvider, useSession, useSessionConfig } from '../src'
 import { AuthRouter } from './AuthRouter'
-import { WebAuthApis } from '@fangcha/sso-models'
 
 AuthSdkHelper.defaultRedirectUri = '/'
 
@@ -34,20 +33,7 @@ const InnerContainer: React.FC<React.ComponentProps<any>> = ({ children }) => {
         </ConfigProvider>
       )
     } else if (!sessionCtx.allowAnonymous) {
-      window.location.href = `${WebAuthApis.RedirectLogin.route}?redirectUri=${encodeURIComponent(
-        window.location.href
-      )}`
-      return (
-        <ConfigProvider
-          theme={{
-            token: {
-              colorPrimary: ReactTheme.colorPrimary,
-            },
-          }}
-        >
-          <LoadingView style={{ height: '100vh' }} text='跳转中……' />
-        </ConfigProvider>
-      )
+      return <RedirectingView />
     }
   }
 
