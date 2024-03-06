@@ -1,7 +1,7 @@
 import { FCDatabase } from 'fc-sql'
 import { AccountErrorPhrase, AccountFullParams, CarrierType, ValidateUtils } from '@fangcha/account-models'
 import { makeUUID } from '@fangcha/tools'
-import * as bcrypt from 'bcrypt'
+import * as bcrypt from 'bcryptjs'
 import { AppException } from '@fangcha/app-error'
 import { _Account } from './models/account/_Account'
 import { _AccountCarrier } from './models/account/_AccountCarrier'

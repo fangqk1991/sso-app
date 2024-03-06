@@ -1,6 +1,6 @@
 {
   "name": "@fangcha/account",
-  "version": "0.33.0",
+  "version": "0.34.0",
   "description": "Account Server.",
   "main": "src/index.ts",
   "publishConfig": {
@@ -20,9 +20,11 @@
   "author": "fang <me@fangqk.com>",
   "license": "MIT",
   "peerDependencies": {
-    "@fangcha/account-models": "*",
-    "bcrypt": "^5.1.0",
-    "@types/bcrypt": "^5.0.0"
+    "@fangcha/account-models": "*"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "@types/bcryptjs": "^2.4.6"
   },
   "files": [
     "lib/*",
