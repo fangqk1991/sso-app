@@ -72,8 +72,8 @@ export const DepartmentTreeView: React.FC<Props> = ({
     }
   }, [departmentNode])
 
-  const [expandedKeys, setExpandedKeys] = useState<(string | number)[]>(defaultExpandAll ? openDepartmentIdList : [])
-  const [checkedKeys, setCheckedKeys] = useState<(string | number)[]>()
+  const [expandedKeys, setExpandedKeys] = useState<React.Key[]>(defaultExpandAll ? openDepartmentIdList : [])
+  const [checkedKeys, setCheckedKeys] = useState<React.Key[]>()
 
   useEffect(() => {
     setCheckedKeys(checkable ? defaultCheckedKeys || [] : [])

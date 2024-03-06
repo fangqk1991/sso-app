@@ -70,8 +70,8 @@ export const PermissionTreeView: React.FC<Props> = ({
     return keys
   }, [permissionMeta])
 
-  const [expandedKeys, setExpandedKeys] = useState<(string | number)[]>(defaultExpandAll ? allKeys : [])
-  const [checkedKeys, setCheckedKeys] = useState<(string | number)[]>()
+  const [expandedKeys, setExpandedKeys] = useState<React.Key[]>(defaultExpandAll ? allKeys : [])
+  const [checkedKeys, setCheckedKeys] = useState<React.Key[]>()
   useEffect(() => {
     setCheckedKeys(checkable ? defaultCheckedKeys || [] : [])
   }, [checkable, defaultCheckedKeys])
