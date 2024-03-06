@@ -52,8 +52,9 @@ docker run -d --restart=unless-stopped \
 * Demo 账号: sso-admin-demo@fangcha.net
 * Demo 密码: sVUhtonaLp4N0M2EKIm5nLbtoxSwDdBN
 
-![](https://image.fangqk.com/2022-11-15/sso-demo-client.png)
-![](https://image.fangqk.com/2022-11-15/sso-demo-user.png)
+![](https://image.fangqk.com/2024-03-06/sso-client.png)
+![](https://image.fangqk.com/2024-03-06/sso-account.png)
+![](https://image.fangqk.com/2024-03-06/permission-app.png)
 
 ### SSO Admin 登录鉴权
 * 可以使用普通认证方式或对接标准 SSO
