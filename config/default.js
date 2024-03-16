@@ -75,6 +75,7 @@ module.exports = {
       beianText: '',
       useEmailLogin: true,
       useFeishuLogin: false,
+      useGoogleLogin: false,
     },
     FeishuSDK: {
       urlBase: 'https://open.feishu.cn',
@@ -82,6 +83,20 @@ module.exports = {
       appSecret: '<appSecret>',
     },
     feishuSyncNotifyBotKey: '',
+    OverseasProxy: false,
+    JointLogin: {
+      Google: {
+        baseURL: 'https://accounts.google.com',
+        clientId: '<clientId>',
+        clientSecret: '<clientSecret>',
+        authorizePath: '/o/oauth2/auth',
+        tokenBaseURL: 'https://oauth2.googleapis.com',
+        tokenPath: '/token',
+        logoutPath: '',
+        scope: 'email profile',
+        callbackUri: '<callbackUri>',
+      },
+    },
   },
   UserSDK: {
     adminUserService: {

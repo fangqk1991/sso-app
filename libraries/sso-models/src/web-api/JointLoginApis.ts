@@ -21,4 +21,14 @@ export const JointLoginApis = {
     route: '/api/v1/joint-login/feishu/callback',
     description: '飞书联合回调',
   } as Api,
+  GoogleLogin: {
+    method: 'GET',
+    route: '/api/v1/joint-login/google/login',
+    description: 'Google 登录跳转',
+  },
+  GoogleCallback: {
+    method: 'GET',
+    route: '/api/v1/joint-login/google/callback',
+    description: 'Google 联合回调',
+  } as Api,
 }

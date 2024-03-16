@@ -1,7 +1,7 @@
 import React from 'react'
 import { AuthSdkHelper, useSession, useSessionConfig } from '../../src'
 import { AccountSimpleParams } from '@fangcha/account-models'
-import { Button, Divider, Form, Input, message } from 'antd'
+import { Button, Divider, Form, Input, message, Space } from 'antd'
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
 import { Link, useLocation } from 'react-router-dom'
 import { JointLoginApis } from '@fangcha/sso-models'
@@ -46,17 +46,31 @@ export const LoginForm = () => {
           </Form.Item>
         </Form>
       )}
-      {config.useFeishuLogin && (
+      {(config.useGoogleLogin || config.useFeishuLogin) && (
         <>
           <Divider />
-          <Button
-            type={'link'}
-            onClick={() => {
-              window.location.href = JointLoginApis.FeishuLogin.route
-            }}
-          >
-            飞书登录
-          </Button>
+          <Space>
+            {config.useGoogleLogin && (
+              <Button
+                type={'link'}
+                onClick={() => {
+                  window.location.href = JointLoginApis.GoogleLogin.route
+                }}
+              >
+                Google 登录
+              </Button>
+            )}
+            {config.useFeishuLogin && (
+              <Button
+                type={'link'}
+                onClick={() => {
+                  window.location.href = JointLoginApis.FeishuLogin.route
+                }}
+              >
+                飞书登录
+              </Button>
+            )}
+          </Space>
         </>
       )}
       {config.signupAble && (
