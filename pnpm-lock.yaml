@@ -77,8 +77,8 @@ importers:
         specifier: ^1.8.2
         version: 1.8.2
       crypto-js:
-        specifier: ^4.0.0
-        version: 4.1.1
+        specifier: ^4.2.0
+        version: 4.2.0
       fc-config:
         specifier: ^0.13.0
         version: 0.13.0
@@ -183,8 +183,8 @@ importers:
         specifier: ^12.0.1
         version: 12.0.1
       ali-oss-lazy-upload:
-        specifier: ^0.4.0
-        version: 0.4.0
+        specifier: ^0.5.0
+        version: 0.5.0
       concurrently:
         specifier: ^6.3.0
         version: 6.5.1
@@ -3646,8 +3646,8 @@ packages:
       uri-js: 4.4.1
     dev: true
 
-  /ali-oss-lazy-upload@0.4.0:
-    resolution: {integrity: sha512-DCq42Mfsh3RldrWysM2xuLJaKNXlBcAKhyLoYnTvr33o4n8FnnxXl1RQuEtl/vgpVBmumPOD6r+NpO6d2RLTfQ==}
+  /ali-oss-lazy-upload@0.5.0:
+    resolution: {integrity: sha512-ugaIPRO+INEEzGd0Mdadqke+XE8bUAkhcCciBpn5o5DBgjkhdi+bfUw0WiK4Ct42srTKUudvpqcUZK9ZUvliIw==}
     hasBin: true
     dependencies:
       '@fangcha/ali-oss': 1.4.0
@@ -4974,8 +4974,8 @@ packages:
       randomfill: 1.0.4
     dev: true
 
-  /crypto-js@4.1.1:
-    resolution: {integrity: sha512-o2JlM7ydqd3Qk9CA0L4NL6mTzU2sdx96a+oOfPu8Mkl/PK51vSyoi8/rQ8NknZtk44vq15lmhAj9CIAGwgeWKw==}
+  /crypto-js@4.2.0:
+    resolution: {integrity: sha512-KALDyEYgpY+Rlob/iriUtjV6d5Eq+Y191A5g4UqLAi8CyGP9N1+FdVbkc1SxKc2r4YAYqG8JzO2KGL+AizD70Q==}
     dev: false
 
   /css-box-model@1.2.1:

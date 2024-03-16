@@ -1,3 +1,4 @@
+import './assets/bootstrap-like.scss'
 export * from './services/MyRequest'
 export * from './services/AuthSdkHelper'
 export * from './session/SessionContext'
