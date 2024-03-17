@@ -44,6 +44,9 @@ module.exports = {
       logoCss: envData.FE_logoCss,
       signupAble: envData.FE_signupAble,
       beianText: envData.FE_beianText,
+
+      useFeishuLogin: envData.FE_useFeishuLogin !== undefined ? (`${envData.FE_useFeishuLogin}` === 'true') : undefined,
+      useGoogleLogin: envData.FE_useGoogleLogin !== undefined ? (`${envData.FE_useGoogleLogin}` === 'true') : undefined,
     },
     adminAuth: {
       authMode: envData.authMode,
