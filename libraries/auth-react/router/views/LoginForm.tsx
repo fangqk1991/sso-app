@@ -5,6 +5,8 @@ import { Button, Divider, Form, Input, message, Space } from 'antd'
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
 import { Link, useLocation } from 'react-router-dom'
 import { JointLoginApis } from '@fangcha/sso-models'
+const IconGoogle = require('../assets/icon-google.svg').default
+const IconFeishu = require('../assets/icon-feishu.png').default
 
 export const LoginForm = () => {
   const sessionCtx = useSession()
@@ -49,26 +51,32 @@ export const LoginForm = () => {
       {(config.useGoogleLogin || config.useFeishuLogin) && (
         <>
           <Divider />
-          <Space>
+          <Space
+            styles={{
+              item: {
+                marginLeft: '4px',
+                marginRight: '4px',
+                // height: '40px',
+              },
+            }}
+          >
             {config.useGoogleLogin && (
-              <Button
-                type={'link'}
+              <a
                 onClick={() => {
                   window.location.href = JointLoginApis.GoogleLogin.route
                 }}
               >
-                Google 登录
-              </Button>
+                <img height={40} src={IconGoogle} alt={'Google Login'} />
+              </a>
             )}
             {config.useFeishuLogin && (
-              <Button
-                type={'link'}
+              <a
                 onClick={() => {
                   window.location.href = JointLoginApis.FeishuLogin.route
                 }}
               >
-                飞书登录
-              </Button>
+                <img height={40} src={IconFeishu} alt={'Feishu Login'} />
+              </a>
             )}
           </Space>
         </>
