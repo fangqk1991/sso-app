@@ -75,5 +75,18 @@ module.exports = {
       appSecret: envData.Feishu_appSecret,
     },
     feishuSyncNotifyBotKey: envData.Feishu_syncNotifyBotKey,
+    JointLogin: {
+      Google: {
+        baseURL: 'https://accounts.google.com',
+        clientId: envData.Google_clientId,
+        clientSecret: envData.Google_clientSecret,
+        authorizePath: '/o/oauth2/auth',
+        tokenBaseURL: 'https://oauth2.googleapis.com',
+        tokenPath: '/token',
+        logoutPath: '',
+        scope: 'email profile',
+        callbackUri: envData.Google_callbackUri,
+      },
+    },
   },
 }
