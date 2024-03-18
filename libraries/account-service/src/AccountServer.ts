@@ -1,5 +1,5 @@
 import { FCDatabase } from 'fc-sql'
-import { AccountErrorPhrase, AccountFullParams, CarrierType, ValidateUtils } from '@fangcha/account-models'
+import { AccountErrorPhrase, AccountFullParams, CarrierType } from '@fangcha/account-models'
 import { makeUUID } from '@fangcha/tools'
 import * as bcrypt from 'bcryptjs'
 import { AppException } from '@fangcha/app-error'
@@ -108,13 +108,11 @@ export class AccountServer {
   }
 
   public async createAccount(fullParams: AccountFullParams) {
-    fullParams = ValidateUtils.makePureEmailPasswordParams(fullParams)
-
     const email = fullParams.email || ''
 
     const account = new this.Account()
     account.accountUid = makeUUID()
-    account.password = this.makeSaltedPassword(fullParams.password)
+    account.password = fullParams.password ? this.makeSaltedPassword(fullParams.password) : ''
     account.isEnabled = 1
     account.registerIp = fullParams.registerIp || ''
     account.nickName = fullParams.nickName || email.split('@')[0] || ''

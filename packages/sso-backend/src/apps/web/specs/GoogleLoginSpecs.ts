@@ -2,7 +2,6 @@ import { SpecFactory } from '@fangcha/router'
 import { FangchaSession } from '@fangcha/session'
 import { LoginService, SsoServer } from '@fangcha/sso-server'
 import assert from '@fangcha/assert'
-import { makeRandomStr } from '@fangcha/tools'
 import { CarrierType } from '@fangcha/account-models'
 import { JointLoginApis } from '@fangcha/sso-models'
 import { MyJointGoogle } from '../../../services/MyJointGoogle'
@@ -38,7 +37,7 @@ factory.prepare(JointLoginApis.GoogleCallback, async (ctx) => {
     if (!account) {
       account = await accountServer.createAccount({
         email: email,
-        password: makeRandomStr(16),
+        password: '',
         nickName: tokenData.name || '',
         registerIp: session.realIP,
       })

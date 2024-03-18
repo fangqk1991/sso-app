@@ -4,7 +4,6 @@ import { MyFeishuSdkClient } from '../../../services/MyFeishuSdkClient'
 import { LoginService, SsoServer } from '@fangcha/sso-server'
 import assert from '@fangcha/assert'
 import { GlobalAppConfig } from 'fc-config'
-import { makeRandomStr } from '@fangcha/tools'
 import { CarrierType } from '@fangcha/account-models'
 import { JointLoginApis } from '@fangcha/sso-models'
 
@@ -77,7 +76,7 @@ factory.prepare(JointLoginApis.FeishuCallback, async (ctx) => {
     if (!account) {
       account = await accountServer.createAccount({
         email: email,
-        password: makeRandomStr(16),
+        password: '',
         nickName: tokenData.name || tokenData.en_name || '',
         registerIp: session.realIP,
       })

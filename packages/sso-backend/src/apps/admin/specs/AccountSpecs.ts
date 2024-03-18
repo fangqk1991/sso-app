@@ -12,7 +12,8 @@ factory.prepare(Admin_AccountApis.AccountPageDataGet, async (ctx) => {
 })
 
 factory.prepare(Admin_AccountApis.AccountCreate, async (ctx) => {
-  const account = await MyAccountServer.createAccount(ctx.request.body)
+  const fullParams = ValidateUtils.makePureEmailPasswordParams(ctx.request.body)
+  const account = await MyAccountServer.createAccount(fullParams)
   ctx.body = account.modelForClient()
 })
 
