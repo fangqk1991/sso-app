@@ -1,12 +1,15 @@
 import { AxiosBuilder } from '@fangcha/app-request'
 import { ErrorModel } from '@fangcha/app-error'
 import { WebAuthApis } from '@fangcha/sso-models'
+import { sleep } from '@fangcha/tools'
 
 interface ClassOptions {
   loginUrl?: string
   alertHandler?: (errMsg: string) => void
   errorMsgParser?: (responseData: any) => string
 }
+
+let redirecting = false
 
 export class HttpRequest extends AxiosBuilder {
   protected static _classOptions: Required<ClassOptions> = {
@@ -37,13 +40,22 @@ export class HttpRequest extends AxiosBuilder {
     this.addHeader('x-requested-with', 'XMLHttpRequest')
     this.setErrorHandler((err) => {
       const responseData = this.axiosResponse?.data as ErrorModel
-      const errMessage = options.errorMsgParser(responseData)
       switch (err.statusCode) {
         case 401: {
           if (this.useRedirecting) {
-            if (options.loginUrl !== window.location.pathname) {
-              window.location.href = `${options.loginUrl}?redirectUri=${encodeURIComponent(window.location.href)}`
+            if (!redirecting) {
+              options.alertHandler('请先登录')
+              if (options.loginUrl !== window.location.pathname) {
+                redirecting = true
+                sleep(500).then(
+                  () =>
+                    (window.location.href = `${options.loginUrl}?redirectUri=${encodeURIComponent(
+                      window.location.href
+                    )}`)
+                )
+              }
             }
+            throw err
           }
           break
         }
@@ -51,6 +63,7 @@ export class HttpRequest extends AxiosBuilder {
           break
         }
       }
+      const errMessage = options.errorMsgParser(responseData)
       if (!this._mute) {
         options.alertHandler(errMessage)
       }
