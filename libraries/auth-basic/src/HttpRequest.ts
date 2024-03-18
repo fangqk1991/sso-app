@@ -37,13 +37,13 @@ export class HttpRequest extends AxiosBuilder {
     this.addHeader('x-requested-with', 'XMLHttpRequest')
     this.setErrorHandler((err) => {
       const responseData = this.axiosResponse?.data as ErrorModel
+      const errMessage = options.errorMsgParser(responseData)
       switch (err.statusCode) {
         case 401: {
           if (this.useRedirecting) {
             if (options.loginUrl !== window.location.pathname) {
               window.location.href = `${options.loginUrl}?redirectUri=${encodeURIComponent(window.location.href)}`
             }
-            return
           }
           break
         }
@@ -51,7 +51,6 @@ export class HttpRequest extends AxiosBuilder {
           break
         }
       }
-      const errMessage = options.errorMsgParser(responseData)
       if (!this._mute) {
         options.alertHandler(errMessage)
       }
