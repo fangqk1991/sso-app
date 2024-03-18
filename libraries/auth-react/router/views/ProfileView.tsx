@@ -2,16 +2,16 @@ import React, { useContext, useEffect, useState } from 'react'
 import { AuthSdkHelper, MyRequest, SessionContext } from '../../src'
 import { Button, message } from 'antd'
 import { ProfileApis } from '@fangcha/sso-models'
-import { PasswordFormDialog } from './PasswordFormDialog'
 import { sleep } from '@fangcha/tools'
-import { VisitorCoreInfo } from '@fangcha/account-models'
-import { LoadingView } from '@fangcha/react'
+import { AccountProfile } from '@fangcha/account-models'
+import { FlexibleFormDialog, LoadingView } from '@fangcha/react'
+import { ProFormText } from '@ant-design/pro-components'
 
 export const ProfileView = () => {
   const { session } = useContext(SessionContext)
   const userInfo = session.userInfo!
 
-  const [profile, setProfile] = useState<VisitorCoreInfo>()
+  const [profile, setProfile] = useState<AccountProfile>()
 
   useEffect(() => {
     const request = MyRequest(ProfileApis.ProfileInfoGet)
@@ -21,6 +21,7 @@ export const ProfileView = () => {
   if (!profile) {
     return <LoadingView />
   }
+  const emptyPassword = profile.emptyPassword
 
   return (
     <div className='fc-sso-form'>
@@ -29,7 +30,15 @@ export const ProfileView = () => {
       <Button
         style={{ width: '100%', marginBottom: '16px' }}
         onClick={() => {
-          const dialog = new PasswordFormDialog({})
+          const dialog = new FlexibleFormDialog({
+            title: '设置密码',
+            formBody: (
+              <>
+                {!emptyPassword && <ProFormText.Password name='curPassword' label='当前密码' />}
+                <ProFormText.Password name='newPassword' label='新密码' />
+              </>
+            ),
+          })
           dialog.show(async (params) => {
             const request = MyRequest(ProfileApis.PasswordUpdate)
             request.setBodyData(params)
@@ -41,7 +50,7 @@ export const ProfileView = () => {
           })
         }}
       >
-        修改密码
+        {emptyPassword ? '设置密码' : '修改密码'}
       </Button>
 
       <Button

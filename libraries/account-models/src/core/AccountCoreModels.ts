@@ -43,3 +43,8 @@ export interface AccountCarrierModel {
   carrierType: CarrierType
   carrierUid: string
 }
+
+export interface AccountProfile extends VisitorCoreInfo {
+  nickName: string
+  emptyPassword?: boolean
+}
