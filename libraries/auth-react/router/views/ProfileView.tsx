@@ -1,16 +1,30 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { AuthSdkHelper, MyRequest, SessionContext } from '../../src'
 import { Button, message } from 'antd'
 import { ProfileApis } from '@fangcha/sso-models'
 import { PasswordFormDialog } from './PasswordFormDialog'
 import { sleep } from '@fangcha/tools'
+import { VisitorCoreInfo } from '@fangcha/account-models'
+import { LoadingView } from '@fangcha/react'
 
 export const ProfileView = () => {
   const { session } = useContext(SessionContext)
   const userInfo = session.userInfo!
+
+  const [profile, setProfile] = useState<VisitorCoreInfo>()
+
+  useEffect(() => {
+    const request = MyRequest(ProfileApis.ProfileInfoGet)
+    request.quickSend().then((response) => setProfile(response))
+  }, [session.userInfo])
+
+  if (!profile) {
+    return <LoadingView />
+  }
+
   return (
     <div className='fc-sso-form'>
-      {userInfo && <div className='mb-4'>Email: {userInfo.email}</div>}
+      <div className='mb-4'>Email: {profile.email}</div>
 
       <Button
         style={{ width: '100%', marginBottom: '16px' }}
