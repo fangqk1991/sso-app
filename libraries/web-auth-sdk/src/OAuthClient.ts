@@ -1,7 +1,6 @@
 import { ApiOptions, axiosBuilder, axiosGET } from '@fangcha/app-request'
 import AppError from '@fangcha/app-error'
 import { AxiosProxyConfig } from 'axios'
-import * as tunnel from 'tunnel'
 import { OAuthToken } from './OAuthModels'
 import { ServiceProxy } from '@fangcha/app-request-extensions'
 import { OAuthClientConfig } from './OAuthClientConfig'
@@ -129,19 +128,6 @@ export class OAuthClient extends ServiceProxy<OAuthClientConfig> {
     const request = axiosBuilder().setBaseURL(this._config.baseURL).setApiOptions(commonApi).setTimeout(15000)
     request.addHeader('Accept', 'application/json')
     this.onRequestMade(request)
-    if (this._proxyConfig) {
-      if (request.getRequestUrl().startsWith('https://')) {
-        const httpsAgent = tunnel.httpsOverHttp({ proxy: this._proxyConfig })
-        request.addAxiosConfig({
-          proxy: false,
-          httpsAgent: httpsAgent,
-        })
-      } else {
-        request.addAxiosConfig({
-          proxy: this._proxyConfig,
-        })
-      }
-    }
     const errorPrefix = `API[${commonApi.description}] error:`
     request.setErrorParser((_client, error) => {
       const message = error.message
