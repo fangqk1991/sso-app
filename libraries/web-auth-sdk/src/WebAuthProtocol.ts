@@ -20,4 +20,5 @@ export interface WebAuthProtocol {
   jwtOptions: JwtOptions
   simpleAuth?: SimpleAuthProtocol
   ssoAuth?: OAuthClientConfig
+  tokenAliveSeconds?: number
 }

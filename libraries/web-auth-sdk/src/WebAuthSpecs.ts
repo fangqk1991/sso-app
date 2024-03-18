@@ -9,7 +9,7 @@ import { Context } from 'koa'
 import { axiosGET } from '@fangcha/app-request'
 import { CustomRequestFollower } from '@fangcha/backend-kit'
 import { OAuthClient } from './OAuthClient'
-import { WebAuthApis } from '@fangcha/sso-models'
+import { SsoConstants, WebAuthApis } from '@fangcha/sso-models'
 
 const makeOAuthClient = (ctx: Context) => {
   const ssoAuth = _WebAuthState.authProtocol.ssoAuth!
@@ -67,7 +67,7 @@ factory.prepare(WebAuthApis.Login, async (ctx) => {
   if (!passed) {
     throw AppException.exception(AccountErrorPhrase.PasswordIncorrect)
   }
-  const aliveSeconds = 24 * 3600
+  const aliveSeconds = _WebAuthState.authProtocol.tokenAliveSeconds || SsoConstants.JWTExpireTime / 1000
   const jwt = jsonwebtoken.sign(userInfo, _WebAuthState.authProtocol.jwtOptions.jwtSecret, { expiresIn: aliveSeconds })
   ctx.cookies.set(_WebAuthState.authProtocol.jwtOptions.jwtKey, jwt, { maxAge: aliveSeconds * 1000 })
   ctx.status = 200
@@ -117,7 +117,7 @@ factory.prepare(WebAuthApis.RedirectHandleSSO, async (ctx) => {
   const request = axiosGET(ssoAuth.userInfoURL)
   request.addHeader('Authorization', `Bearer ${accessToken}`)
   const userInfo = await request.quickSend()
-  const aliveSeconds = 24 * 3600
+  const aliveSeconds = _WebAuthState.authProtocol.tokenAliveSeconds || SsoConstants.JWTExpireTime / 1000
   const jwt = jsonwebtoken.sign(userInfo, _WebAuthState.authProtocol.jwtOptions.jwtSecret, { expiresIn: aliveSeconds })
   ctx.cookies.set(_WebAuthState.authProtocol.jwtOptions.jwtKey, jwt, { maxAge: aliveSeconds * 1000 })
   const session = ctx.session as FangchaSession
