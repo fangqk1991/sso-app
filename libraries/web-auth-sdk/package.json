@@ -1,6 +1,6 @@
 {
   "name": "@fangcha/web-auth-sdk",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "description": "Web Auth SDK.",
   "main": "src/index.ts",
   "publishConfig": {
@@ -21,7 +21,7 @@
     "@fangcha/router": "*",
     "@fangcha/sso-models": "*",
     "@fangcha/app-request": "^1.9.0",
-    "@fangcha/app-request-extensions": "^0.3.0",
+    "@fangcha/app-request-extensions": "^0.4.0",
     "@fangcha/backend-kit": "^0.66.0"
   },
   "author": "fang <me@fangqk.com>",

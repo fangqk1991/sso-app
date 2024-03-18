@@ -18,7 +18,7 @@
   "peerDependencies": {
     "@fangcha/account-models": "*",
     "@fangcha/app-request": "^1.9.0",
-    "@fangcha/app-request-extensions": "^0.3.0",
+    "@fangcha/app-request-extensions": "^0.4.0",
     "@fangcha/tools": "^1.40.0"
   },
   "keywords": [

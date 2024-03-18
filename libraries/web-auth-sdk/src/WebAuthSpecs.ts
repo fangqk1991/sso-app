@@ -10,6 +10,7 @@ import { axiosGET } from '@fangcha/app-request'
 import { CustomRequestFollower } from '@fangcha/backend-kit'
 import { OAuthClient } from './OAuthClient'
 import { SsoConstants, WebAuthApis } from '@fangcha/sso-models'
+import { HttpUtils } from '@fangcha/app-request-extensions'
 
 const makeOAuthClient = (ctx: Context) => {
   const ssoAuth = _WebAuthState.authProtocol.ssoAuth!
@@ -116,6 +117,7 @@ factory.prepare(WebAuthApis.RedirectHandleSSO, async (ctx) => {
 
   const request = axiosGET(ssoAuth.userInfoURL)
   request.addHeader('Authorization', `Bearer ${accessToken}`)
+  HttpUtils.fixHttpsProxy(request)
   const userInfo = await request.quickSend()
   const aliveSeconds = _WebAuthState.authProtocol.tokenAliveSeconds || SsoConstants.JWTExpireTime / 1000
   const jwt = jsonwebtoken.sign(userInfo, _WebAuthState.authProtocol.jwtOptions.jwtSecret, { expiresIn: aliveSeconds })

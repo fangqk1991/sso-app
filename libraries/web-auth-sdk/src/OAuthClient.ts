@@ -121,6 +121,7 @@ export class OAuthClient extends ServiceProxy<OAuthClientConfig> {
   public async getUserInfo(accessToken: string) {
     const request = axiosGET(this._config.userInfoURL)
     request.addHeader('Authorization', `Bearer ${accessToken}`)
+    this.onRequestMade(request)
     return await request.quickSend()
   }
 
