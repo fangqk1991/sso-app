@@ -256,8 +256,8 @@ importers:
         specifier: ^1.9.0
         version: 1.9.0
       '@fangcha/app-request-extensions':
-        specifier: ^0.3.0
-        version: 0.3.0
+        specifier: ^0.4.0
+        version: 0.4.0
 
   libraries/sso-models:
     dependencies:
@@ -295,8 +295,8 @@ importers:
         specifier: ^1.9.0
         version: 1.9.0
       '@fangcha/app-request-extensions':
-        specifier: ^0.3.0
-        version: 0.3.0
+        specifier: ^0.4.0
+        version: 0.4.0
       '@fangcha/assert':
         specifier: ^1.2.0
         version: 1.2.0
@@ -2155,20 +2155,6 @@ packages:
 
   /@fangcha/app-models@0.3.0:
     resolution: {integrity: sha512-c9OqLXYn3UCsMf0PMz0xZOFuEhPtNuPzhB1ttUgiOFhlTW2IxIp9vThY1X+NWs7sJK+QQOi/EkmsVQZTgUMLWQ==}
-    dev: false
-
-  /@fangcha/app-request-extensions@0.3.0:
-    resolution: {integrity: sha512-Z7xKjk5ZMknibBeWgrq5xGfSwHloIG7RKJxjUoxzk6xL+gZiSYzhetvrVihz3tnoUcgkORWtImqybFhDn9T1rQ==}
-    dependencies:
-      '@fangcha/app-error': 1.6.0
-      '@fangcha/app-request': 1.9.0
-      '@fangcha/logger': 0.5.0
-      '@fangcha/tools': 1.40.0
-      https-proxy-agent: 7.0.4
-      log4js: 6.7.1
-    transitivePeerDependencies:
-      - debug
-      - supports-color
     dev: false
 
   /@fangcha/app-request-extensions@0.4.0:
