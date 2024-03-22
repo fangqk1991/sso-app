@@ -1,6 +1,6 @@
 {
   "name": "@fangcha/user-sdk",
-  "version": "0.20.0",
+  "version": "0.21.0",
   "description": "User SDK.",
   "main": "src/index.ts",
   "publishConfig": {
@@ -19,7 +19,7 @@
     "@fangcha/account-models": "*",
     "@fangcha/app-request": "^1.9.0",
     "@fangcha/app-request-extensions": "^0.4.0",
-    "@fangcha/tools": "^1.40.0"
+    "@fangcha/tools": "^1.40.1"
   },
   "keywords": [
     "SSO"
