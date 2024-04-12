@@ -16,7 +16,7 @@ export class HttpRequest extends AxiosBuilder {
     loginUrl: WebAuthApis.RedirectLogin.route,
     alertHandler: () => {},
     errorMsgParser: (responseData: any) => {
-      let errMessage = responseData?.phrase
+      let errMessage = responseData?.message || responseData?.phrase
       if (!errMessage) {
         errMessage = typeof responseData === 'string' ? responseData : 'Unknown error'
       }
