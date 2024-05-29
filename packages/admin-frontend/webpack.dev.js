@@ -11,6 +11,9 @@ module.exports = new WebpackBuilder()
       proxy: {
         '/api': `http://localhost:${GlobalAppConfig.FangchaAuth.adminPort}`,
       },
+      client: {
+        overlay: false,
+      },
     },
   })
   .build()
