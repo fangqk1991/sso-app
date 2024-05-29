@@ -138,8 +138,8 @@ importers:
         specifier: ^0.7.0
         version: 0.7.0
       '@fangcha/react':
-        specifier: ^0.67.0
-        version: 0.67.0(moment@2.29.4)(rc-field-form@1.41.0)
+        specifier: ^0.63.0
+        version: 0.63.0(moment@2.29.4)(rc-field-form@1.41.0)
       '@fangcha/webpack':
         specifier: ^0.16.0
         version: 0.16.0(eslint@8.36.0)(lodash@4.17.21)(react-dom@18.2.0)(react@18.2.0)(typescript@4.9.5)
@@ -2229,8 +2229,8 @@ packages:
     resolution: {integrity: sha512-MU3qBd3otnxALF7jhqLBg2zb9gsjkVFey9cU2u4KlTsB3WkwZ5Qy+ytk75CIUv/QlEilc2pXkVqRdMrhpvlh7A==}
     dev: false
 
-  /@fangcha/react@0.67.0(moment@2.29.4)(rc-field-form@1.41.0):
-    resolution: {integrity: sha512-GfE8UgqWf1A6leTmV+qQfTL8MKLwIp8ll4TFEJ7yzzrS00Vm3eWwGuvKd6hlwq3Lg0S3G0lqc6YOypCc/8KAbA==}
+  /@fangcha/react@0.63.0(moment@2.29.4)(rc-field-form@1.41.0):
+    resolution: {integrity: sha512-YhJczkhksdi4A84jrS5Reimg6yUkJ0jxBnj4XJVrtWgRmLCN1Nb090zlJN4WWBN0KHGs7W6uLI35p5U5JO3kbA==}
     dependencies:
       '@ant-design/pro-components': 2.6.43(antd@5.12.8)(rc-field-form@1.41.0)(react-dom@18.2.0)(react@18.2.0)
       '@emotion/react': 11.10.6(react@18.2.0)

@@ -51,7 +51,7 @@
     "@fangcha/auth-basic": "workspace:^",
     "@fangcha/eslint": "^0.8.0",
     "@fangcha/generator": "^0.7.0",
-    "@fangcha/react": "^0.67.0",
+    "@fangcha/react": "^0.63.0",
     "@fangcha/webpack": "^0.16.0",
     "@types/ali-oss": "^6.0.10",
     "@types/assert": "^1.4.6",

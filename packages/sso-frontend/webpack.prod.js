@@ -5,9 +5,9 @@ module.exports = new WebpackBuilder()
   .setDevMode(false)
   .setPublicPath('/')
   .setEntry('./src/index.tsx')
-  .setExtras({
-    optimization: {
-      minimize: false,
-    },
-  })
+  // .setExtras({
+  //   optimization: {
+  //     minimize: false,
+  //   },
+  // })
   .build()
