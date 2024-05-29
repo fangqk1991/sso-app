@@ -117,13 +117,14 @@ export class AccountServer {
     account.registerIp = fullParams.registerIp || ''
     account.nickName = fullParams.nickName || email.split('@')[0] || ''
 
+    if (await this.AccountCarrier.findOne({ carrier_type: CarrierType.Email, carrier_uid: email })) {
+      throw AppException.exception(AccountErrorPhrase.EmailAlreadyRegistered)
+    }
+
     const carrier = new this.AccountCarrier()
     carrier.carrierType = CarrierType.Email
     carrier.carrierUid = email
     carrier.accountUid = account.accountUid
-    if (await carrier.checkExistsInDB()) {
-      throw AppException.exception(AccountErrorPhrase.EmailAlreadyRegistered)
-    }
 
     const runner = await account.dbSpec().database.createTransactionRunner()
     await runner.commit(async (transaction) => {
