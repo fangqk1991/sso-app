@@ -12,10 +12,6 @@
     "build": "rm -rf ./lib/ && tsc",
     "prepublish": "pnpm build"
   },
-  "peerDependencies": {
-    "@fangcha/app-request": "^1.9.0",
-    "@fangcha/app-request-extensions": "^0.4.0"
-  },
   "keywords": [
     "SSO"
   ],

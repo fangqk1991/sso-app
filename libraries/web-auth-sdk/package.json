@@ -19,10 +19,7 @@
     "@fangcha/account-models": "*",
     "@fangcha/account": "*",
     "@fangcha/router": "*",
-    "@fangcha/sso-models": "*",
-    "@fangcha/app-request": "^1.9.0",
-    "@fangcha/app-request-extensions": "^0.4.0",
-    "@fangcha/backend-kit": "^0.66.0"
+    "@fangcha/sso-models": "*"
   },
   "author": "fang <me@fangqk.com>",
   "license": "MIT",

@@ -19,9 +19,5 @@
   "scripts": {
     "build": "rm -rf ./lib/ && tsc",
     "prepublish": "pnpm build"
-  },
-  "peerDependencies": {
-    "@fangcha/app-request": "*",
-    "@fangcha/app-error": "*"
   }
 }

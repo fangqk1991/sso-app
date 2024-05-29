@@ -17,9 +17,9 @@
   },
   "peerDependencies": {
     "@fangcha/account-models": "*",
-    "@fangcha/app-request": "^1.9.0",
-    "@fangcha/app-request-extensions": "^0.4.0",
-    "@fangcha/tools": "^1.40.1"
+    "@fangcha/app-request": "^1.10.0",
+    "@fangcha/app-request-extensions": "^0.5.0",
+    "@fangcha/tools": "^1.42.0"
   },
   "keywords": [
     "SSO"
