@@ -31,4 +31,14 @@ export const JointLoginApis = {
     route: '/api/v1/joint-login/google/callback',
     description: 'Google 联合回调',
   } as Api,
+  WechatLoginPrepare: {
+    method: 'POST',
+    route: '/api/v0/joint-login/wechat/prepare',
+    description: '微信登录信息准备',
+  },
+  WechatCallback: {
+    method: 'GET',
+    route: '/api/v1/joint-login/wechat/callback',
+    description: 'Wechat 联合回调',
+  } as Api,
 }

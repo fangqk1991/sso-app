@@ -85,6 +85,12 @@ module.exports = {
     feishuSyncNotifyBotKey: '',
     OverseasProxy: false,
     JointLogin: {
+      Wechat: {
+        baseUrl: 'https://api.weixin.qq.com',
+        appid: '<appid>',
+        secret: '<some secret>',
+        redirectUri: '<redirectUri>',
+      },
       Google: {
         baseURL: 'https://accounts.google.com',
         clientId: '<clientId>',
