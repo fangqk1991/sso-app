@@ -7,6 +7,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { JointLoginApis } from '@fangcha/sso-models'
 const IconGoogle = require('../assets/icon-google.svg').default
 const IconFeishu = require('../assets/icon-feishu.png').default
+const IconWechat = require('../assets/icon-wechat.svg').default
 
 export const LoginForm = () => {
   const sessionCtx = useSession()
@@ -48,7 +49,7 @@ export const LoginForm = () => {
           </Form.Item>
         </Form>
       )}
-      {(config.useGoogleLogin || config.useFeishuLogin) && (
+      {(config.useGoogleLogin || config.useFeishuLogin || config.useWechatLogin) && (
         <>
           <Divider />
           <Space
@@ -67,6 +68,15 @@ export const LoginForm = () => {
                 }}
               >
                 <img height={40} src={IconGoogle} alt={'Google Login'} />
+              </a>
+            )}
+            {config.useWechatLogin && (
+              <a
+                onClick={() => {
+                  // window.location.href = JointLoginApis.GoogleLogin.route
+                }}
+              >
+                <img height={40} src={IconWechat} alt={'Wechat Login'} />
               </a>
             )}
             {config.useFeishuLogin && (

@@ -20,6 +20,7 @@ export interface SessionConfig {
 
   useEmailLogin?: boolean
   useFeishuLogin?: boolean
+  useWechatLogin?: boolean
   useGoogleLogin?: boolean
 }
 
@@ -38,6 +39,7 @@ export const _defaultTheme: SessionConfig = {
 
   useEmailLogin: true,
   useFeishuLogin: false,
+  useWechatLogin: false,
   useGoogleLogin: false,
 }
 
