@@ -62,20 +62,13 @@ export const LoginForm = () => {
             }}
           >
             {config.useGoogleLogin && (
-              <a
-                onClick={() => {
-                  window.location.href = JointLoginApis.GoogleLogin.route
-                }}
-              >
+              <a href={JointLoginApis.GoogleLogin.route}>
                 <img height={40} src={IconGoogle} alt={'Google Login'} />
               </a>
             )}
             {config.useWechatLogin && (
-              <a
-                onClick={() => {
-                  // window.location.href = JointLoginApis.GoogleLogin.route
-                }}
-              >
+              <a href={JointLoginApis.WechatLogin.route}>
+                {/*https://developers.weixin.qq.com/doc/oplatform/Website_App/WeChat_Login/Wechat_Login.html*/}
                 <img height={40} src={IconWechat} alt={'Wechat Login'} />
               </a>
             )}

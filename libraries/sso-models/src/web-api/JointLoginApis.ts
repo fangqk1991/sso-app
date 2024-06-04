@@ -36,6 +36,11 @@ export const JointLoginApis = {
     route: '/api/v0/joint-login/wechat/prepare',
     description: '微信登录信息准备',
   },
+  WechatLogin: {
+    method: 'GET',
+    route: '/api/v1/joint-login/wechat/login',
+    description: 'Wechat 登录跳转',
+  },
   WechatCallback: {
     method: 'GET',
     route: '/api/v1/joint-login/wechat/callback',

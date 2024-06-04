@@ -23,6 +23,15 @@ factory.prepare(JointLoginApis.WechatLoginPrepare, async (ctx) => {
   }
 })
 
+factory.prepare(JointLoginApis.WechatLogin, async (ctx) => {
+  const ssoServer = ctx.ssoServer as SsoServer
+  const session = ctx.session as FangchaSession
+  const ticket = await ssoServer.makeJointOAuthHandler(ctx).handleOAuthRequest({
+    redirectUri: session.getRefererUrl(),
+  })
+  ctx.redirect(MyJointWechat.getAuthorizeUri(ticket))
+})
+
 factory.prepare(JointLoginApis.WechatCallback, async (ctx) => {
   const code = ctx.request.query.code as string
   const ticket = ctx.request.query.state as string
