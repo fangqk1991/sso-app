@@ -47,4 +47,5 @@ export interface AccountCarrierModel {
 export interface AccountProfile extends VisitorCoreInfo {
   nickName: string
   emptyPassword?: boolean
+  emptyEmail?: boolean
 }

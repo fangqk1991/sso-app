@@ -7,6 +7,7 @@ import { _Account } from './models/account/_Account'
 import { _AccountCarrier } from './models/account/_AccountCarrier'
 import { _AccountCarrierExtras } from './models/account/_AccountCarrierExtras'
 import { _FullAccount } from './models/account/_FullAccount'
+import assert from '@fangcha/assert'
 
 interface Options {
   database: FCDatabase
@@ -105,6 +106,21 @@ export class AccountServer {
     account.fc_edit()
     account.password = this.makeSaltedPassword(newPassword)
     await account.updateToDB()
+  }
+
+  public async updateEmail(account: _Account, email: string) {
+    const userInfo = await account.getVisitorCoreInfo()
+    assert.ok(!userInfo.email || !!userInfo.email.match(/^\w{12}@wechat.qq$/), `本账号 email 已设置`)
+
+    if (await this.AccountCarrier.findOne({ carrier_type: CarrierType.Email, carrier_uid: email })) {
+      throw AppException.exception(AccountErrorPhrase.EmailAlreadyRegistered)
+    }
+
+    const carrier = new this.AccountCarrier()
+    carrier.carrierType = CarrierType.Email
+    carrier.carrierUid = email
+    carrier.accountUid = account.accountUid
+    await carrier.strongAddToDB()
   }
 
   public async createAccount(fullParams: AccountFullParams) {

@@ -1,6 +1,6 @@
 {
   "name": "@fangcha/sso-models",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "description": "SSO Models.",
   "main": "src/index.ts",
   "publishConfig": {

@@ -9,14 +9,33 @@ const factory = new SpecFactory('Profile')
 factory.prepare(ProfileApis.ProfileInfoGet, async (ctx) => {
   const session = ctx.session as SsoSession
   const account = await session.prepareAccountV2()
+  const userInfo = await account.getVisitorCoreInfo()
   const profile: AccountProfile = {
-    ...session.getAuthInfo(),
+    ...userInfo,
     nickName: account.nickName,
   }
   if (!account.password) {
     profile.emptyPassword = true
   }
+  if (userInfo.email.match(/^\w{12}@wechat.qq$/)) {
+    profile.emptyEmail = true
+  }
   ctx.body = profile
+})
+
+factory.prepare(ProfileApis.EmailUpdate, async (ctx) => {
+  const { email } = ctx.request.body
+  assert.ok(!!email, `email can not be empty`)
+
+  const session = ctx.session as SsoSession
+
+  const account = await session.prepareAccountV2()
+
+  const ssoServer = ctx.ssoServer as SsoServer
+  await ssoServer.accountServer.updateEmail(account, email)
+  await session.reloadAuthInfo(ctx)
+
+  ctx.status = 200
 })
 
 factory.prepare(ProfileApis.PasswordUpdate, async (ctx) => {

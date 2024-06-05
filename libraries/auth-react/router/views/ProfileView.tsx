@@ -1,31 +1,55 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { AuthSdkHelper, MyRequest, SessionContext } from '../../src'
+import React, { useEffect, useState } from 'react'
+import { AuthSdkHelper, MyRequest, useSession, useUserInfo } from '../../src'
 import { Button, message } from 'antd'
 import { ProfileApis } from '@fangcha/sso-models'
 import { sleep } from '@fangcha/tools'
 import { AccountProfile } from '@fangcha/account-models'
-import { FlexibleFormDialog, LoadingView } from '@fangcha/react'
+import { FlexibleFormDialog, LoadingView, SimpleInputDialog } from '@fangcha/react'
 import { ProFormText } from '@ant-design/pro-components'
 
 export const ProfileView = () => {
-  const { session } = useContext(SessionContext)
-  const userInfo = session.userInfo!
+  const sessionCtx = useSession()
+  const userInfo = useUserInfo()
 
   const [profile, setProfile] = useState<AccountProfile>()
 
   useEffect(() => {
     const request = MyRequest(ProfileApis.ProfileInfoGet)
     request.quickSend().then((response) => setProfile(response))
-  }, [session.userInfo])
+  }, [userInfo])
 
   if (!profile) {
     return <LoadingView />
   }
   const emptyPassword = profile.emptyPassword
+  const emptyEmail = profile.emptyEmail
 
   return (
-    <div className='fc-sso-form'>
-      <div className='mb-4'>Email: {profile.email}</div>
+    <div className='fc-sso-form' style={{ marginTop: '40px' }}>
+      {emptyEmail ? (
+        <Button
+          type={'primary'}
+          style={{ width: '100%', marginBottom: '16px' }}
+          onClick={() => {
+            const dialog = new SimpleInputDialog({
+              title: '新的邮箱',
+            })
+            dialog.show(async (email) => {
+              const request = MyRequest(ProfileApis.EmailUpdate)
+              request.setBodyData({
+                email: email,
+              })
+              await request.quickSend()
+              message.success('邮箱设置成功')
+              sessionCtx.reloadSession()
+            })
+          }}
+        >
+          设置邮箱
+        </Button>
+      ) : (
+        <div className='mb-4'>Email: {profile.email}</div>
+      )}
 
       <Button
         style={{ width: '100%', marginBottom: '16px' }}
@@ -54,7 +78,7 @@ export const ProfileView = () => {
       </Button>
 
       <Button
-        type='primary'
+        danger={true}
         style={{ width: '100%' }}
         onClick={() => {
           window.location.href = AuthSdkHelper.logoutUrl()
