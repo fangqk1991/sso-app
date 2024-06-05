@@ -57,6 +57,7 @@ factory.prepare(JointLoginApis.WechatCallback, async (ctx) => {
   const wechatProxy = ticket.startsWith('MP:') ? MyJointWechatMP : MyJointWechat
 
   const userInfo = await wechatProxy.getUserInfoFromAuthorizationCode(code)
+  accountServer.AccountCarrierExtras.recordCarrierExtras(CarrierType.Wechat, userInfo.unionid, userInfo)
 
   let account = await accountServer.findAccountWithCarrier(CarrierType.Wechat, userInfo.unionid)
   if (!account) {
