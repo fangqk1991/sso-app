@@ -7,6 +7,7 @@ import { RedisCache } from '@fangcha/tools/lib/redis'
 export interface JointStateParams {
   redirectUri: string
   accountUid?: string
+  prefix?: string
 }
 
 export class JointOAuthHandler {
@@ -29,7 +30,7 @@ export class JointOAuthHandler {
   }
 
   public async handleOAuthRequest(params: JointStateParams) {
-    const ticket = makeUUID()
+    const ticket = params.prefix ? `${params.prefix}:${makeUUID()}` : makeUUID()
     await this.cache.cache(
       JointOAuthHandler.redisKeyPartForJointOAuth(ticket),
       JSON.stringify(params),

@@ -92,6 +92,12 @@ module.exports = {
         secret: '<some secret>',
         redirectUri: '<redirectUri>',
       },
+      WechatMP: {
+        baseUrl: 'https://api.weixin.qq.com',
+        appid: '<appid>',
+        secret: '<some secret>',
+        redirectUri: '<redirectUri>',
+      },
       Google: {
         baseURL: 'https://accounts.google.com',
         clientId: '<clientId>',

@@ -45,9 +45,9 @@ module.exports = {
       signupAble: envData.FE_signupAble,
       beianText: envData.FE_beianText,
 
-      useFeishuLogin: envData.FE_useFeishuLogin !== undefined ? (`${envData.FE_useFeishuLogin}` === 'true') : undefined,
-      useGoogleLogin: envData.FE_useGoogleLogin !== undefined ? (`${envData.FE_useGoogleLogin}` === 'true') : undefined,
-      useWechatLogin: envData.FE_useWechatLogin !== undefined ? (`${envData.FE_useWechatLogin}` === 'true') : undefined,
+      useFeishuLogin: envData.FE_useFeishuLogin !== undefined ? `${envData.FE_useFeishuLogin}` === 'true' : undefined,
+      useGoogleLogin: envData.FE_useGoogleLogin !== undefined ? `${envData.FE_useGoogleLogin}` === 'true' : undefined,
+      useWechatLogin: envData.FE_useWechatLogin !== undefined ? `${envData.FE_useWechatLogin}` === 'true' : undefined,
     },
     adminAuth: {
       authMode: envData.authMode,
@@ -80,6 +80,18 @@ module.exports = {
     },
     feishuSyncNotifyBotKey: envData.Feishu_syncNotifyBotKey,
     JointLogin: {
+      Wechat: {
+        baseUrl: 'https://api.weixin.qq.com',
+        appid: envData.Wechat_appid,
+        secret: envData.Wechat_secret,
+        redirectUri: envData.Wechat_redirectUri,
+      },
+      WechatMP: {
+        baseUrl: 'https://api.weixin.qq.com',
+        appid: envData.WechatMP_appid,
+        secret: envData.WechatMP_secret,
+        redirectUri: envData.WechatMP_redirectUri,
+      },
       Google: {
         baseURL: 'https://accounts.google.com',
         clientId: envData.Google_clientId,

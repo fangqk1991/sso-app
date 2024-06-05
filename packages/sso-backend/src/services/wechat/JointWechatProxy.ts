@@ -15,6 +15,19 @@ export class JointWechatProxy extends ServiceProxy<JointWechatConfig> {
     return request
   }
 
+  public mp_getAuthorizeUri(state?: string) {
+    const options = this._config
+
+    const queryString = qs.stringify({
+      appid: options.appid,
+      redirect_uri: options.redirectUri,
+      response_type: 'code',
+      scope: 'snsapi_userinfo',
+      state: state || '',
+    })
+    return `https://open.weixin.qq.com/connect/oauth2/authorize?${queryString}#wechat_redirect`
+  }
+
   public getAuthorizeUri(state?: string) {
     const options = this._config
 

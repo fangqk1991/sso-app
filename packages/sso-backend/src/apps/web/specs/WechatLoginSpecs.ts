@@ -5,7 +5,7 @@ import assert from '@fangcha/assert'
 import { CarrierType } from '@fangcha/account-models'
 import { JointLoginApis } from '@fangcha/sso-models'
 import { SsoConfig } from '../../../SsoConfig'
-import { MyJointWechat } from '../../../services/MyJointWechat'
+import { MyJointWechat, MyJointWechatMP } from '../../../services/MyJointWechat'
 import { md5 } from '@fangcha/tools'
 
 const factory = new SpecFactory('Wechat Login', { skipAuth: true })
@@ -23,10 +23,21 @@ factory.prepare(JointLoginApis.WechatLoginPrepare, async (ctx) => {
   }
 })
 
+factory.prepare(JointLoginApis.WechatMPLogin, async (ctx) => {
+  const ssoServer = ctx.ssoServer as SsoServer
+  const session = ctx.session as FangchaSession
+  const ticket = await ssoServer.makeJointOAuthHandler(ctx).handleOAuthRequest({
+    prefix: 'MP',
+    redirectUri: session.getRefererUrl(),
+  })
+  ctx.redirect(MyJointWechatMP.mp_getAuthorizeUri(ticket))
+})
+
 factory.prepare(JointLoginApis.WechatLogin, async (ctx) => {
   const ssoServer = ctx.ssoServer as SsoServer
   const session = ctx.session as FangchaSession
   const ticket = await ssoServer.makeJointOAuthHandler(ctx).handleOAuthRequest({
+    prefix: 'WEB',
     redirectUri: session.getRefererUrl(),
   })
   ctx.redirect(MyJointWechat.getAuthorizeUri(ticket))
@@ -43,11 +54,13 @@ factory.prepare(JointLoginApis.WechatCallback, async (ctx) => {
   const ssoServer = ctx.ssoServer as SsoServer
   const accountServer = ssoServer.accountServer
 
-  const userInfo = await MyJointWechat.getUserInfoFromAuthorizationCode(code)
+  const wechatProxy = ticket.startsWith('MP:') ? MyJointWechatMP : MyJointWechat
+
+  const userInfo = await wechatProxy.getUserInfoFromAuthorizationCode(code)
 
   let account = await accountServer.findAccountWithCarrier(CarrierType.Wechat, userInfo.unionid)
   if (!account) {
-    const email = md5(userInfo.unionid).substring(0, 12)
+    const email = `${md5(userInfo.unionid).substring(0, 12)}@wechat.qq`
     account = await accountServer.findAccountWithCarrier(CarrierType.Email, email)
     if (!account) {
       account = await accountServer.createAccount({

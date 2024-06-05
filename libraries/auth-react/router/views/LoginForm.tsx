@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { AuthSdkHelper, useSession, useSessionConfig } from '../../src'
 import { AccountSimpleParams } from '@fangcha/account-models'
 import { Button, Divider, Form, Input, message, Space } from 'antd'
@@ -13,6 +13,8 @@ export const LoginForm = () => {
   const sessionCtx = useSession()
   const config = useSessionConfig()
   const { search } = useLocation()
+
+  const inWechat = useMemo(() => navigator.userAgent.indexOf('MicroMessenger') !== -1, [])
 
   const onSubmit = async (params: AccountSimpleParams) => {
     await AuthSdkHelper.submitLogin(params)
@@ -66,8 +68,8 @@ export const LoginForm = () => {
                 <img height={40} src={IconGoogle} alt={'Google Login'} />
               </a>
             )}
-            {config.useWechatLogin && (
-              <a href={JointLoginApis.WechatLogin.route}>
+            {config.useWechatLogin && inWechat && (
+              <a href={inWechat ? JointLoginApis.WechatMPLogin.route : JointLoginApis.WechatLogin.route}>
                 {/*https://developers.weixin.qq.com/doc/oplatform/Website_App/WeChat_Login/Wechat_Login.html*/}
                 <img height={40} src={IconWechat} alt={'Wechat Login'} />
               </a>
