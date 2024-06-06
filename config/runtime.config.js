@@ -48,6 +48,7 @@ module.exports = {
       useFeishuLogin: envData.FE_useFeishuLogin !== undefined ? `${envData.FE_useFeishuLogin}` === 'true' : undefined,
       useGoogleLogin: envData.FE_useGoogleLogin !== undefined ? `${envData.FE_useGoogleLogin}` === 'true' : undefined,
       useWechatLogin: envData.FE_useWechatLogin !== undefined ? `${envData.FE_useWechatLogin}` === 'true' : undefined,
+      useWechatMPLogin: envData.FE_useWechatMPLogin !== undefined ? `${envData.FE_useWechatMPLogin}` === 'true' : undefined,
     },
     adminAuth: {
       authMode: envData.authMode,

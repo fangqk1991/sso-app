@@ -51,7 +51,7 @@ export const LoginForm = () => {
           </Form.Item>
         </Form>
       )}
-      {(config.useGoogleLogin || config.useFeishuLogin || config.useWechatLogin) && (
+      {(config.useGoogleLogin || config.useFeishuLogin || config.useWechatLogin || config.useWechatMPLogin) && (
         <>
           <Divider />
           <Space
@@ -68,8 +68,14 @@ export const LoginForm = () => {
                 <img height={40} src={IconGoogle} alt={'Google Login'} />
               </a>
             )}
-            {config.useWechatLogin && inWechat && (
-              <a href={inWechat ? JointLoginApis.WechatMPLogin.route : JointLoginApis.WechatLogin.route}>
+            {inWechat && config.useWechatMPLogin && (
+              <a href={JointLoginApis.WechatMPLogin.route}>
+                {/*https://developers.weixin.qq.com/doc/oplatform/Website_App/WeChat_Login/Wechat_Login.html*/}
+                <img height={40} src={IconWechat} alt={'Wechat Login'} />
+              </a>
+            )}
+            {!inWechat && config.useWechatLogin && (
+              <a href={JointLoginApis.WechatLogin.route}>
                 {/*https://developers.weixin.qq.com/doc/oplatform/Website_App/WeChat_Login/Wechat_Login.html*/}
                 <img height={40} src={IconWechat} alt={'Wechat Login'} />
               </a>

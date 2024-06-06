@@ -77,6 +77,7 @@ module.exports = {
       useFeishuLogin: false,
       useGoogleLogin: false,
       useWechatLogin: false,
+      useWechatMPLogin: false,
     },
     FeishuSDK: {
       urlBase: 'https://open.feishu.cn',
