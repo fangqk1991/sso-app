@@ -71,7 +71,7 @@ factory.prepare(JointLoginApis.WechatCallback, async (ctx) => {
         nickName: userInfo.nickname || '',
         registerIp: session.realIP,
       })
-      _FangchaState.botProxy.notify(`[微信] ${userInfo.nickname} 注册了账号.`)
+      _FangchaState.botProxy.notify(`[微信] ${account.nickName} 注册了账号.`)
     }
     await account.updateCarrier(CarrierType.Wechat, userInfo.unionid)
   }

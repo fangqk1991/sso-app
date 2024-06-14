@@ -5,6 +5,7 @@ import assert from '@fangcha/assert'
 import { CarrierType } from '@fangcha/account-models'
 import { JointLoginApis } from '@fangcha/sso-models'
 import { MyJointGoogle } from '../../../services/MyJointGoogle'
+import { _FangchaState } from '@fangcha/backend-kit'
 
 const factory = new SpecFactory('Google Login', { skipAuth: true })
 
@@ -41,6 +42,7 @@ factory.prepare(JointLoginApis.GoogleCallback, async (ctx) => {
         nickName: tokenData.name || '',
         registerIp: session.realIP,
       })
+      _FangchaState.botProxy.notify(`[Google] ${email} ${account.nickName} 注册了账号.`)
     }
     await account.updateCarrier(CarrierType.Google, tokenData.sub)
   }
