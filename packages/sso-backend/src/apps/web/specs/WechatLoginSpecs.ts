@@ -7,6 +7,7 @@ import { JointLoginApis } from '@fangcha/sso-models'
 import { SsoConfig } from '../../../SsoConfig'
 import { MyJointWechat, MyJointWechatMP } from '../../../services/MyJointWechat'
 import { md5 } from '@fangcha/tools'
+import { _FangchaState } from '@fangcha/backend-kit'
 
 const factory = new SpecFactory('Wechat Login', { skipAuth: true })
 
@@ -70,6 +71,7 @@ factory.prepare(JointLoginApis.WechatCallback, async (ctx) => {
         nickName: userInfo.nickname || '',
         registerIp: session.realIP,
       })
+      _FangchaState.botProxy.notify(`[微信] ${userInfo.nickname} 注册了账号.`)
     }
     await account.updateCarrier(CarrierType.Wechat, userInfo.unionid)
   }

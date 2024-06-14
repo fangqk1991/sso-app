@@ -18,7 +18,7 @@ factory.prepare(SignupApis.SimpleSignup, async (ctx) => {
   const account = await ssoServer.accountServer.createAccount(fullParams)
   await new LoginService(ctx).onLoginSuccess(account)
   const email = session.getAuthInfo().email
-  _FangchaState.botProxy.notify(`${email} 在 ${session.getRefererUrl()} 注册了账号.`)
+  _FangchaState.botProxy.notify(`${email} 注册了账号.`)
   ctx.status = 200
 })
 
