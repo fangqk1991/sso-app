@@ -1,6 +1,6 @@
 import { CustomRequestFollower } from '@fangcha/backend-kit'
 import { GlobalAppConfig } from 'fc-config'
-import { WeixinTokenKeeper } from '../src/core/WeixinTokenKeeper'
+import { WeixinTokenKeeper } from '../src/official-mp/WeixinTokenKeeper'
 
 const weixinTokenKeeper = new WeixinTokenKeeper(GlobalAppConfig.FangchaAuth.JointLogin.WechatMP, CustomRequestFollower)
 

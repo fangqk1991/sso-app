@@ -1,6 +1,6 @@
 import { CustomRequestFollower } from '@fangcha/backend-kit'
 import { GlobalAppConfig } from 'fc-config'
-import { WeixinMpProxy } from '../src'
+import { WeixinMpProxy } from '../src/official-mp/WeixinMpProxy'
 
 const mpProxy = new WeixinMpProxy(GlobalAppConfig.FangchaAuth.JointLogin.WechatMP, CustomRequestFollower)
 
