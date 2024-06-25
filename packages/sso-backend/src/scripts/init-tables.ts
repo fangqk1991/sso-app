@@ -27,6 +27,9 @@ SafeTask.run(async () => {
     .replace(/\bfc_feishu_user\b/g, MyTableManager.tableName_FeishuUser())
     .replace(/\bfc_feishu_user_group\b/g, MyTableManager.tableName_FeishuUserGroup())
 
+    .replace(/\bfc_weixin_user\b/g, MyTableManager.tableName_WeixinUser())
+    .replace(/\bfc_weixin_openid\b/g, MyTableManager.tableName_WeixinOpenid())
+
   const database = new FCDatabase()
   database.init({
     ...SsoConfig.mysql.ssoDB,

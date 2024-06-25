@@ -66,6 +66,14 @@ export class TableManager {
   public tableName_FeishuUserGroup() {
     return this.prefix + 'fc_feishu_user_group'
   }
+
+  public tableName_WeixinUser() {
+    return this.prefix + 'fc_weixin_user'
+  }
+
+  public tableName_WeixinOpenid() {
+    return this.prefix + 'fc_weixin_openid'
+  }
 }
 
 export const MyTableManager = new TableManager(SsoConfig.sqlTablePrefix)
