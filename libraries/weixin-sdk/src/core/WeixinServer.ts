@@ -1,6 +1,6 @@
 import { FCDatabase } from 'fc-sql'
-import { _WeixinUser } from '../../models/weixin/_WeixinUser'
-import { _WeixinOpenid } from '../../models/weixin/_WeixinOpenid'
+import { _WeixinUser } from '../models/weixin/_WeixinUser'
+import { _WeixinOpenid } from '../models/weixin/_WeixinOpenid'
 
 interface Options {
   database: FCDatabase

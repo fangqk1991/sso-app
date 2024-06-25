@@ -10,7 +10,8 @@
   "repository": "https://github.com/fangqk1991/sso-app.git",
   "scripts": {
     "build": "rm -rf ./lib/ && tsc",
-    "prepublish": "pnpm build"
+    "prepublish": "pnpm build",
+    "rebuild-models": "ts-node ./tools/rebuild-models.ts"
   },
   "keywords": [
     "SSO"
