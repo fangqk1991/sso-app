@@ -1,3 +1,3 @@
-export * from './core/WeixinMpProxy'
+export * from './official-mp/WeixinMpProxy'
 export * from './services/WeixinServer'
 export * from './weixin-sdk'
