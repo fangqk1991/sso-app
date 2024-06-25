@@ -1,5 +1,6 @@
 export * from './AccountServer'
 export * from './services/feishu/FeishuServer'
+export * from './services/weixin/WeixinServer'
 export * from './models/feishu/_FeishuUser'
 export * from './models/feishu/_FeishuDepartment'
 export * from './models/feishu/_FeishuDepartmentMember'

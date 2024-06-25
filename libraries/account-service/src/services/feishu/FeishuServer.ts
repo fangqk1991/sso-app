@@ -5,8 +5,6 @@ import { _FeishuUser } from '../../models/feishu/_FeishuUser'
 import { FeishuDepartmentHandler } from './FeishuDepartmentHandler'
 import assert from '@fangcha/assert'
 import { _FeishuUserGroup } from '../../models/feishu/_FeishuUserGroup'
-import { _WeixinUser } from '../../models/weixin/_WeixinUser'
-import { _WeixinOpenid } from '../../models/weixin/_WeixinOpenid'
 
 interface Options {
   database: FCDatabase
@@ -22,12 +20,6 @@ interface Options {
 
   // Default: fc_feishu_user_group
   tableName_FeishuUserGroup?: string
-
-  // Default: fc_weixin_user
-  tableName_WeixinUser?: string
-
-  // Default: fc_weixin_openid
-  tableName_WeixinOpenid?: string
 }
 
 export class FeishuServer {
@@ -38,15 +30,10 @@ export class FeishuServer {
   public readonly FeishuUser!: { new (): _FeishuUser } & typeof _FeishuUser
   public readonly FeishuUserGroup!: { new (): _FeishuUserGroup } & typeof _FeishuUserGroup
 
-  public readonly WeixinUser!: { new (): _WeixinUser } & typeof _WeixinUser
-  public readonly WeixinOpenid!: { new (): _WeixinOpenid } & typeof _WeixinOpenid
-
   public readonly tableName_FeishuDepartment: string
   public readonly tableName_FeishuDepartmentMember: string
   public readonly tableName_FeishuUser: string
   public readonly tableName_FeishuUserGroup: string
-  public readonly tableName_WeixinUser: string
-  public readonly tableName_WeixinOpenid: string
 
   constructor(options: Options) {
     this.options = options
@@ -57,8 +44,6 @@ export class FeishuServer {
     this.tableName_FeishuDepartmentMember = options.tableName_FeishuDepartmentMember || 'fc_feishu_department_member'
     this.tableName_FeishuUser = options.tableName_FeishuUser || 'fc_feishu_user'
     this.tableName_FeishuUserGroup = options.tableName_FeishuUserGroup || 'fc_feishu_user_group'
-    this.tableName_WeixinUser = options.tableName_WeixinUser || 'fc_weixin_user'
-    this.tableName_WeixinOpenid = options.tableName_WeixinOpenid || 'fc_weixin_openid'
 
     class FeishuDepartmentMember extends _FeishuDepartmentMember {}
     FeishuDepartmentMember.addStaticOptions({
@@ -87,20 +72,6 @@ export class FeishuServer {
       table: this.tableName_FeishuUserGroup,
     })
     this.FeishuUserGroup = FeishuUserGroup
-
-    class WeixinUser extends _WeixinUser {}
-    WeixinUser.addStaticOptions({
-      database: options.database,
-      table: this.tableName_WeixinUser,
-    })
-    this.WeixinUser = WeixinUser
-
-    class WeixinOpenid extends _WeixinOpenid {}
-    WeixinOpenid.addStaticOptions({
-      database: options.database,
-      table: this.tableName_WeixinOpenid,
-    })
-    this.WeixinOpenid = WeixinOpenid
   }
 
   public async checkFeishuValid() {
