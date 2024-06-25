@@ -1,8 +1,8 @@
 import { AppPluginProtocol } from '@fangcha/backend-kit'
 import { _RouterState } from '@fangcha/backend-kit/lib/router'
 import assert from '@fangcha/assert'
-import { FeishuServer } from '@fangcha/account'
 import { FeishuSdkDocItem } from '../specs'
+import { FeishuServer } from '../services/FeishuServer'
 
 export interface FeishuSdkOptions {
   feishuServer: FeishuServer

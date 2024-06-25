@@ -1,6 +1,6 @@
 import { MyDatabase } from './MyDatabase'
-import { FeishuServer } from '@fangcha/account'
 import { MyTableManager } from './MyTableManager'
+import { FeishuServer } from '@fangcha/feishu-sdk'
 
 export const MyFeishuServer = new FeishuServer({
   database: MyDatabase.ssoDB,

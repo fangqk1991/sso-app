@@ -1,7 +1,7 @@
-import { _FeishuDepartment } from '../../models/feishu/_FeishuDepartment'
+import { _FeishuDepartment } from '../models/feishu/_FeishuDepartment'
 import { FeishuDepartmentTree } from '@fangcha/account-models'
 import { FeishuServer } from './FeishuServer'
-import { _FeishuUser } from '../../models/feishu/_FeishuUser'
+import { _FeishuUser } from '../models/feishu/_FeishuUser'
 
 export class FeishuDepartmentHandler {
   department: _FeishuDepartment

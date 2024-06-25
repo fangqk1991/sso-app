@@ -1,9 +1,8 @@
 import { GlobalAppConfig } from 'fc-config'
 import { CustomRequestFollower } from '@fangcha/backend-kit'
-import { FeishuServer } from '@fangcha/account'
 import { FCDatabase } from 'fc-sql'
 import { DBOptionsBuilder } from '@fangcha/tools/lib/database'
-import { FeishuClient, FeishuSync } from '../../src'
+import { FeishuClient, FeishuServer, FeishuSync } from '../../src'
 
 describe('Test FeishuSync.test.ts', () => {
   const feishuServer = new FeishuServer({

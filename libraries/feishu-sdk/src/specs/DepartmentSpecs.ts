@@ -1,6 +1,6 @@
 import { SpecFactory } from '@fangcha/router'
 import { FeishuSdkApis } from '@fangcha/account-models'
-import { FeishuServer } from '@fangcha/account'
+import { FeishuServer } from '../services/FeishuServer'
 
 const factory = new SpecFactory('Feishu Department')
 

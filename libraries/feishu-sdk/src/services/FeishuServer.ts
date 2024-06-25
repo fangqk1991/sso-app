@@ -1,10 +1,10 @@
 import { FCDatabase, Transaction } from 'fc-sql'
-import { _FeishuDepartment } from '../../models/feishu/_FeishuDepartment'
-import { _FeishuDepartmentMember } from '../../models/feishu/_FeishuDepartmentMember'
-import { _FeishuUser } from '../../models/feishu/_FeishuUser'
+import { _FeishuDepartment } from '../models/feishu/_FeishuDepartment'
+import { _FeishuDepartmentMember } from '../models/feishu/_FeishuDepartmentMember'
+import { _FeishuUser } from '../models/feishu/_FeishuUser'
 import { FeishuDepartmentHandler } from './FeishuDepartmentHandler'
 import assert from '@fangcha/assert'
-import { _FeishuUserGroup } from '../../models/feishu/_FeishuUserGroup'
+import { _FeishuUserGroup } from '../models/feishu/_FeishuUserGroup'
 
 interface Options {
   database: FCDatabase
