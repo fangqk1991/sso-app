@@ -72,6 +72,22 @@ const generalDataSchemas: DBModelSchema[] = [
     reloadOnAdded: true,
     reloadOnUpdated: true,
   },
+  {
+    generator: generator,
+    tableName: 'fc_weixin_user',
+    outputFile: `${__dirname}/../src/models/auto-build/__WeixinUser.ts`,
+    extFile: `${__dirname}/../src/models/weixin/_WeixinUser.ts`,
+    reloadOnAdded: true,
+    reloadOnUpdated: true,
+  },
+  {
+    generator: generator,
+    tableName: 'fc_weixin_openid',
+    outputFile: `${__dirname}/../src/models/auto-build/__WeixinOpenid.ts`,
+    extFile: `${__dirname}/../src/models/weixin/_WeixinOpenid.ts`,
+    reloadOnAdded: true,
+    reloadOnUpdated: true,
+  },
 ]
 
 SafeTask.run(async () => {
