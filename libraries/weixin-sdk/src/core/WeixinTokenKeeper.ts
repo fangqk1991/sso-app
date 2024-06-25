@@ -2,15 +2,15 @@ import { RequestFollower, ServiceProxy } from '@fangcha/app-request-extensions'
 import { ChannelTask } from '@fangcha/tools'
 import { ApiOptions, axiosBuilder } from '@fangcha/app-request'
 import { WeixinMpApis } from './WeixinMpApis'
-import { WeixinMpConfig } from './WeixinMpConfig'
+import { WeixinBaseConfig } from './WeixinBaseConfig'
 import AppError from '@fangcha/app-error'
 
-export class WeixinTokenKeeper extends ServiceProxy<WeixinMpConfig> {
+export class WeixinTokenKeeper extends ServiceProxy<WeixinBaseConfig> {
   private _accessToken: string = ''
   private _expireTs: number = 0
   private _refreshTokenTask: ChannelTask<string>
 
-  constructor(config: WeixinMpConfig, observerClass?: { new (requestId?: string): RequestFollower }) {
+  constructor(config: WeixinBaseConfig, observerClass?: { new (requestId?: string): RequestFollower }) {
     super(config, observerClass)
 
     this._refreshTokenTask = new ChannelTask(async () => {

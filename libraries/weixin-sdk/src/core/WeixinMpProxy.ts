@@ -1,15 +1,15 @@
 import { RequestFollower, ServiceProxy } from '@fangcha/app-request-extensions'
 import { ApiOptions, axiosBuilder, CommonAPI } from '@fangcha/app-request'
-import { WeixinMpConfig } from './WeixinMpConfig'
+import { WeixinBaseConfig } from './WeixinBaseConfig'
 import { WeixinTokenKeeper } from './WeixinTokenKeeper'
 import AppError from '@fangcha/app-error'
 import { WeixinMpApis } from './WeixinMpApis'
 import { WeixinMpUser } from './WeixinMpModels'
 
-export class WeixinMpProxy extends ServiceProxy<WeixinMpConfig> {
+export class WeixinMpProxy extends ServiceProxy<WeixinBaseConfig> {
   protected _tokenKeeper: WeixinTokenKeeper
 
-  constructor(config: WeixinMpConfig, observerClass?: { new (requestId?: string): RequestFollower }) {
+  constructor(config: WeixinBaseConfig, observerClass?: { new (requestId?: string): RequestFollower }) {
     super(config, observerClass)
     this._tokenKeeper = new WeixinTokenKeeper(config, observerClass)
   }
