@@ -7,6 +7,8 @@ import { LoopPerformerHelper } from '@fangcha/backend-kit'
 import { FeishuDepartmentCenter } from '../services/FeishuDepartmentCenter'
 import { FeishuSdkPlugin } from '@fangcha/feishu-sdk'
 import { MyFeishuServer } from '../services/MyFeishuServer'
+import { WeixinSdkPlugin } from '@fangcha/weixin-sdk'
+import { MyWeixinServer } from '../services/MyWeixinServer'
 
 const app = new WebApp({
   env: GlobalAppConfig.Env,
@@ -35,6 +37,9 @@ const app = new WebApp({
   plugins: [
     FeishuSdkPlugin({
       feishuServer: MyFeishuServer,
+    }),
+    WeixinSdkPlugin({
+      weixinServer: MyWeixinServer,
     }),
   ],
 
