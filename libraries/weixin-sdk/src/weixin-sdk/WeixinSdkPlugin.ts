@@ -1,7 +1,7 @@
 import { AppPluginProtocol } from '@fangcha/backend-kit'
 import { _RouterState } from '@fangcha/backend-kit/lib/router'
 import assert from '@fangcha/assert'
-import { WeixinServer } from '../core/WeixinServer'
+import { WeixinServer } from '../services/WeixinServer'
 
 export interface WeixinSdkOptions {
   weixinServer: WeixinServer
