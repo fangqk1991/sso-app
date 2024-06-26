@@ -5,6 +5,7 @@ const _cols: string[] = [
   // prettier-ignore
   'openid',
   'union_id',
+  'appid',
   'created_at',
   'updated_at',
 ]
@@ -12,10 +13,12 @@ const _insertableCols: string[] = [
   // prettier-ignore
   'openid',
   'union_id',
+  'appid',
 ]
 const _modifiableCols: string[] = [
   // prettier-ignore
   'union_id',
+  'appid',
   'created_at',
 ]
 const _timestampTypeCols: string[] = [
@@ -42,6 +45,10 @@ export class __WeixinOpenid extends FeedBase {
    * @description [varchar(64)] 微信 union_id
    */
   public unionId!: string
+  /**
+   * @description [varchar(64)] appid
+   */
+  public appid!: string
   /**
    * @description [timestamp] 创建时间
    */
@@ -90,6 +97,7 @@ export class __WeixinOpenid extends FeedBase {
     return {
       openid: 'openid',
       unionId: 'union_id',
+      appid: 'appid',
       createdAt: 'created_at',
       updatedAt: 'updated_at',
     }

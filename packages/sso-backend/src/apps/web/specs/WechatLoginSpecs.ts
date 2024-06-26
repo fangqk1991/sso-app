@@ -8,6 +8,7 @@ import { SsoConfig } from '../../../SsoConfig'
 import { MyJointWechat, MyJointWechatMP } from '../../../services/MyJointWechat'
 import { md5 } from '@fangcha/tools'
 import { _FangchaState } from '@fangcha/backend-kit'
+import { WeixinServer } from '@fangcha/weixin-sdk'
 
 const factory = new SpecFactory('Wechat Login', { skipAuth: true })
 
@@ -55,10 +56,22 @@ factory.prepare(JointLoginApis.WechatCallback, async (ctx) => {
   const ssoServer = ctx.ssoServer as SsoServer
   const accountServer = ssoServer.accountServer
 
-  const wechatProxy = ticket.startsWith('MP:') ? MyJointWechatMP : MyJointWechat
+  const isOfficialMP = ticket.startsWith('MP:')
+  const wechatProxy = isOfficialMP ? MyJointWechatMP : MyJointWechat
 
   const userInfo = await wechatProxy.getUserInfoFromAuthorizationCode(code)
   accountServer.AccountCarrierExtras.recordCarrierExtras(CarrierType.Wechat, userInfo.unionid, userInfo)
+  if (ctx.weixinServer) {
+    const weixinServer = ctx.weixinServer as WeixinServer
+    weixinServer.WeixinOpenid.recordOpenid({
+      openid: userInfo.openid,
+      unionId: userInfo.unionid,
+      appid: wechatProxy.appid(),
+    })
+    if (isOfficialMP) {
+      weixinServer.WeixinUser.recordUserInfo(userInfo)
+    }
+  }
 
   let account = await accountServer.findAccountWithCarrier(CarrierType.Wechat, userInfo.unionid)
   if (!account) {

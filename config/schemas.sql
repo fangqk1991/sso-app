@@ -299,9 +299,12 @@ CREATE TABLE IF NOT EXISTS fc_weixin_openid
     _rid       BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     openid     VARCHAR(64)     NOT NULL COLLATE ascii_bin COMMENT 'Open ID',
     union_id   VARCHAR(64)     NOT NULL COLLATE ascii_bin COMMENT '微信 union_id',
+    appid      VARCHAR(64)     NOT NULL COLLATE ascii_bin COMMENT 'appid',
     created_at TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     updated_at TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    UNIQUE (openid)
+    UNIQUE (openid),
+    INDEX (union_id),
+    INDEX (appid)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE utf8mb4_general_ci;

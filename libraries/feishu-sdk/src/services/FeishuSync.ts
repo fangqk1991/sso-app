@@ -1,7 +1,7 @@
 import { FeishuClient } from '../core/FeishuClient'
 import { Raw_FeishuDepartmentTree } from '../core/RawFeishuModels'
 import { SQLBulkAdder, SQLModifier } from 'fc-sql'
-import { FeishuDepartmentMemberModel, FeishuDepartmentModel, FeishuUserGroupModel } from '@fangcha/account-models/lib'
+import { FeishuDepartmentMemberModel, FeishuDepartmentModel, FeishuUserGroupModel } from '@fangcha/account-models'
 import { DiffMapper, DiffType } from '@fangcha/tools'
 import { BotCore } from '@fangcha/bot-kit'
 import { FeishuEmployeeStatus } from '../core/FeishuEmployeeStatus'

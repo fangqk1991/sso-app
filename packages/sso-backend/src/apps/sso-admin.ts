@@ -10,8 +10,6 @@ import { AppHandler } from '../services/AppHandler'
 import { FeishuSdkPlugin } from '@fangcha/feishu-sdk'
 import { MyFeishuServer } from '../services/MyFeishuServer'
 import { FeishuDepartmentCenter } from '../services/FeishuDepartmentCenter'
-import { WeixinSdkPlugin } from '@fangcha/weixin-sdk'
-import { MyWeixinServer } from '../services/MyWeixinServer'
 
 const app = new WebApp({
   env: GlobalAppConfig.Env,
@@ -43,9 +41,6 @@ const app = new WebApp({
     }),
     FeishuSdkPlugin({
       feishuServer: MyFeishuServer,
-    }),
-    WeixinSdkPlugin({
-      weixinServer: MyWeixinServer,
     }),
   ],
 

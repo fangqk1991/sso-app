@@ -1,14 +1,19 @@
 import { ApiOptions, AxiosBuilder, axiosBuilder } from '@fangcha/app-request'
 import { JointWechatApis } from './JointWechatApis'
 import AppError from '@fangcha/app-error'
-import { JointWechatConfig, WechatTokenData, WechatUserInfo } from './JointWechatModels'
+import { JointWechatConfig, WechatTokenData } from './JointWechatModels'
 import { ServiceProxy } from '@fangcha/app-request-extensions'
 import * as qs from 'query-string'
+import { WeixinMpUser } from '@fangcha/weixin-sdk'
 
 /**
  * https://developers.weixin.qq.com/doc/oplatform/Website_App/WeChat_Login/Wechat_Login.html
  */
 export class JointWechatProxy extends ServiceProxy<JointWechatConfig> {
+  public appid() {
+    return this._config.appid
+  }
+
   private makeRequest(commonApi: ApiOptions) {
     const request = axiosBuilder().setBaseURL(this._config.baseUrl).setApiOptions(commonApi).setTimeout(15000)
     this.onRequestMade(request)
@@ -66,7 +71,7 @@ export class JointWechatProxy extends ServiceProxy<JointWechatConfig> {
       openid: 'OPENID',
       access_token: accessToken,
     })
-    return await this.sendRequest<WechatUserInfo>(request)
+    return await this.sendRequest<WeixinMpUser>(request)
   }
 
   public async getUserInfoFromAuthorizationCode(code: string) {

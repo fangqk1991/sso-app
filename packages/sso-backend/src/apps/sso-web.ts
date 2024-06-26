@@ -5,6 +5,8 @@ import { WebApp } from '@fangcha/backend-kit/lib/router'
 import { _FangchaState } from '@fangcha/backend-kit'
 import { SsoClientsAutoReloadPlugin, SsoWebPlugin } from '@fangcha/sso-server-sdk'
 import { SsoWebSpecDocItems } from './web/specs/SsoWebSpecDocItems'
+import { WeixinSdkPlugin } from '@fangcha/weixin-sdk'
+import { MyWeixinServer } from '../services/MyWeixinServer'
 
 const app = new WebApp({
   env: GlobalAppConfig.Env,
@@ -28,6 +30,9 @@ const app = new WebApp({
       ssoServer: MySsoServer,
     }),
     SsoClientsAutoReloadPlugin(MySsoServer),
+    WeixinSdkPlugin({
+      weixinServer: MyWeixinServer,
+    }),
   ],
 
   appDidLoad: async () => {
