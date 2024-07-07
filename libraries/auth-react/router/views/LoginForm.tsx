@@ -1,20 +1,15 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import { AuthSdkHelper, useSession, useSessionConfig } from '../../src'
 import { AccountSimpleParams } from '@fangcha/account-models'
-import { Button, Divider, Form, Input, message, Space } from 'antd'
+import { Button, Divider, Form, Input, message } from 'antd'
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
 import { Link, useLocation } from 'react-router-dom'
-import { JointLoginApis } from '@fangcha/sso-models'
-const IconGoogle = require('../assets/icon-google.svg').default
-const IconFeishu = require('../assets/icon-feishu.png').default
-const IconWechat = require('../assets/icon-wechat.svg').default
+import { JointLoginPanel } from './JointLoginPanel'
 
 export const LoginForm = () => {
   const sessionCtx = useSession()
   const config = useSessionConfig()
   const { search } = useLocation()
-
-  const inWechat = useMemo(() => navigator.userAgent.indexOf('MicroMessenger') !== -1, [])
 
   const onSubmit = async (params: AccountSimpleParams) => {
     await AuthSdkHelper.submitLogin(params)
@@ -51,47 +46,7 @@ export const LoginForm = () => {
           </Form.Item>
         </Form>
       )}
-      {(config.useGoogleLogin || config.useFeishuLogin || config.useWechatLogin || config.useWechatMPLogin) && (
-        <>
-          <Divider />
-          <Space
-            styles={{
-              item: {
-                marginLeft: '4px',
-                marginRight: '4px',
-                // height: '40px',
-              },
-            }}
-          >
-            {config.useGoogleLogin && (
-              <a href={JointLoginApis.GoogleLogin.route}>
-                <img height={40} src={IconGoogle} alt={'Google Login'} />
-              </a>
-            )}
-            {inWechat && config.useWechatMPLogin && (
-              <a href={JointLoginApis.WechatMPLogin.route}>
-                {/*https://developers.weixin.qq.com/doc/oplatform/Website_App/WeChat_Login/Wechat_Login.html*/}
-                <img height={40} src={IconWechat} alt={'Wechat Login'} />
-              </a>
-            )}
-            {!inWechat && config.useWechatLogin && (
-              <a href={JointLoginApis.WechatLogin.route}>
-                {/*https://developers.weixin.qq.com/doc/oplatform/Website_App/WeChat_Login/Wechat_Login.html*/}
-                <img height={40} src={IconWechat} alt={'Wechat Login'} />
-              </a>
-            )}
-            {config.useFeishuLogin && (
-              <a
-                onClick={() => {
-                  window.location.href = JointLoginApis.FeishuLogin.route
-                }}
-              >
-                <img height={40} src={IconFeishu} alt={'Feishu Login'} />
-              </a>
-            )}
-          </Space>
-        </>
-      )}
+      <JointLoginPanel />
       {config.signupAble && (
         <>
           <Divider />

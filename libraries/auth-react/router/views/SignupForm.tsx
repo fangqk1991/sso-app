@@ -2,9 +2,10 @@ import React from 'react'
 import { MyRequest, useSession, useSessionConfig } from '../../src'
 import { AccountSimpleParams } from '@fangcha/account-models'
 import { SignupApis } from '@fangcha/sso-models'
-import { Button, Form, Input, message } from 'antd'
+import { Button, Divider, Form, Input, message } from 'antd'
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
 import { Link, useLocation } from 'react-router-dom'
+import { JointLoginPanel } from './JointLoginPanel'
 
 export const SignupForm = () => {
   const sessionCtx = useSession()
@@ -47,6 +48,8 @@ export const SignupForm = () => {
           </Button>
         </Form.Item>
       </Form>
+      <JointLoginPanel />
+      <Divider />
       <p className='extras'>
         <Link to={{ pathname: '/login', search: search }}> {'>>'} 已有账号，点击登录</Link>
       </p>
