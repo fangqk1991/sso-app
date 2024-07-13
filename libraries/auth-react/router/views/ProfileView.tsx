@@ -26,6 +26,7 @@ export const ProfileView = () => {
 
   return (
     <div className='fc-sso-form' style={{ marginTop: '40px' }}>
+      <div className='mb-4'>{profile.nickName}</div>
       {emptyEmail ? (
         <Button
           type={'primary'}
@@ -48,7 +49,7 @@ export const ProfileView = () => {
           设置邮箱
         </Button>
       ) : (
-        <div className='mb-4'>Email: {profile.email}</div>
+        <div className='mb-4'>{profile.email}</div>
       )}
 
       <Button

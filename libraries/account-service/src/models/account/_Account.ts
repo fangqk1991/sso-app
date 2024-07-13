@@ -61,6 +61,7 @@ export class _Account extends __Account {
     return {
       accountUid: this.accountUid,
       email: emailCarrier ? emailCarrier.carrierUid : '',
+      nickName: this.nickName || '',
       extras: carrierList.reduce((result, cur) => {
         result[cur.carrierType] = cur.carrierUid
         return result

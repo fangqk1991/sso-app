@@ -17,6 +17,7 @@ export const useVisitorCtx = () => {
 export const VisitorProvider = ({ children }: React.ComponentProps<any>) => {
   const [userInfo, setUserInfo] = useState<SessionUserInfo>({
     email: '',
+    nickName: '',
     isAdmin: false,
     permissionKeyMap: {},
   })
@@ -29,7 +30,7 @@ export const VisitorProvider = ({ children }: React.ComponentProps<any>) => {
       })
     },
     hasPermission: (permissionKey: string) => {
-      return userInfo.permissionKeyMap && !!userInfo.permissionKeyMap[permissionKey]
+      return !!userInfo.permissionKeyMap && !!userInfo.permissionKeyMap[permissionKey]
     },
   }
   useEffect(() => {

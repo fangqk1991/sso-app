@@ -127,7 +127,7 @@ export const SessionProvider: React.FC<{ allowAnonymous?: boolean }> = ({
     setAllowAnonymous: setAllowAnonymous,
     hasPermission: (permissionKey: string) => {
       return (
-        !!session.userInfo && session.userInfo.permissionKeyMap && !!session.userInfo.permissionKeyMap[permissionKey]
+        !!session.userInfo && !!session.userInfo.permissionKeyMap && !!session.userInfo.permissionKeyMap[permissionKey]
       )
     },
   }

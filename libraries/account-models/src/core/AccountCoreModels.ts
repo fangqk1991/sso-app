@@ -1,4 +1,5 @@
 import { CarrierType } from './CarrierType'
+import { SessionUserInfo } from '@fangcha/app-models'
 
 export interface AccountSimpleParams {
   email: string
@@ -12,9 +13,10 @@ export interface AccountFullParams extends AccountSimpleParams {
   registerIp?: string
 }
 
-export interface VisitorCoreInfo {
+export interface VisitorCoreInfo extends SessionUserInfo {
   accountUid: string
   email: string
+  nickName: string
   extras: { [carrierType: string]: string }
 }
 

@@ -41,6 +41,7 @@ factory.prepare(WebAuthApis.Login, async (ctx) => {
   const userInfo: VisitorCoreInfo = {
     accountUid: params.email,
     email: params.email,
+    nickName: '',
     extras: {},
   }
   let passed = false

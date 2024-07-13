@@ -14,6 +14,7 @@ export class SsoSession extends FangchaSession {
   private _authInfo: VisitorCoreInfo = {
     accountUid: '',
     email: '',
+    nickName: '',
     extras: {},
   }
   private _ssoServer!: SsoServer
@@ -34,6 +35,7 @@ export class SsoSession extends FangchaSession {
     const result: VisitorCoreInfo = {
       accountUid: '',
       email: '',
+      nickName: '',
       extras: {},
     }
     const authInfo = (
@@ -44,6 +46,7 @@ export class SsoSession extends FangchaSession {
     if (authInfo) {
       result.accountUid = authInfo.accountUid
       result.email = authInfo.email
+      result.nickName = authInfo.nickName
       result.extras = authInfo.extras || {}
     }
     return result
