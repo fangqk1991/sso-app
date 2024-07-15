@@ -4,7 +4,7 @@ import { WeixinBaseConfig } from './WeixinBaseConfig'
 import { WeixinTokenKeeper } from './WeixinTokenKeeper'
 import AppError from '@fangcha/app-error'
 import { WeixinMpApis } from './WeixinMpApis'
-import { MpTemplate, WeixinMpUser } from './WeixinMpModels'
+import { MpTemplate, MpTemplateMsgParams, WeixinMpUser } from './WeixinMpModels'
 import assert from '@fangcha/assert'
 
 export class WeixinMpProxy extends ServiceProxy<WeixinBaseConfig> {
@@ -106,7 +106,7 @@ export class WeixinMpProxy extends ServiceProxy<WeixinBaseConfig> {
     return response.template_list
   }
 
-  public async sendTemplateMessage(params: any) {
+  public async sendTemplateMessage(params: MpTemplateMsgParams) {
     const request = await this.makeRequest(new CommonAPI(WeixinMpApis.TemplateMessageSend))
     request.setBodyData(params)
     const response = await request.quickSend<{

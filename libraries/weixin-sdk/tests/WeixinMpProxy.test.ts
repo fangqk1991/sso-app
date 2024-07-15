@@ -41,12 +41,6 @@ describe('Test WeixinMpProxy.test.ts', () => {
     await mpProxy.sendTemplateMessage({
       touser: GlobalAppConfig.test_weixinMP.mpOpenid,
       template_id: GlobalAppConfig.test_weixinMP.mpTemplateId,
-      // url: 'http://weixin.qq.com/download',
-      // miniprogram: {
-      //   appid: 'xiaochengxuappid12345',
-      //   pagepath: 'index?foo=bar',
-      // },
-      // client_msg_id: 'MSG_000001',
       data: {
         // keyword1: {
         //   value: '巧克力',

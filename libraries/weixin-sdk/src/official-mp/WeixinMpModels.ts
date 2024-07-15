@@ -26,3 +26,13 @@ export interface MpTemplate {
   content: string
   example: string
 }
+
+export interface MpTemplateMsgParams {
+  touser: string
+  template_id: string
+  data: {
+    [p: string]: string
+  }
+  url?: string
+  client_msg_id?: string // 防重入 ID。对于同一个openid + client_msg_id，只发送一条消息，10分钟有效，超过 10 分钟不保证效果。若无防重入需求，可不填
+}
