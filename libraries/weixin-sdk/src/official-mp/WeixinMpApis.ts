@@ -55,4 +55,12 @@ export const WeixinMpApis = {
     route: '/cgi-bin/template/get_all_private_template',
     description: '获取模板列表',
   },
+  /**
+   * https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Template_Message_Interface.html#%E5%8F%91%E9%80%81%E6%A8%A1%E6%9D%BF%E6%B6%88%E6%81%AF
+   */
+  TemplateMessageSend: {
+    method: 'POST',
+    route: '/cgi-bin/message/template/send',
+    description: '发送模板消息',
+  },
 }

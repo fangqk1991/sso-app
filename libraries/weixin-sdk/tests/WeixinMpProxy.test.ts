@@ -36,4 +36,28 @@ describe('Test WeixinMpProxy.test.ts', () => {
     const response = await mpProxy.getAllTemplates()
     console.info(response)
   })
+
+  it(`sendTemplateMessage`, async () => {
+    await mpProxy.sendTemplateMessage({
+      touser: GlobalAppConfig.test_weixinMP.mpOpenid,
+      template_id: GlobalAppConfig.test_weixinMP.mpTemplateId,
+      // url: 'http://weixin.qq.com/download',
+      // miniprogram: {
+      //   appid: 'xiaochengxuappid12345',
+      //   pagepath: 'index?foo=bar',
+      // },
+      // client_msg_id: 'MSG_000001',
+      data: {
+        // keyword1: {
+        //   value: '巧克力',
+        // },
+        // keyword2: {
+        //   value: '39.8元',
+        // },
+        // keyword3: {
+        //   value: '2014年9月22日',
+        // },
+      },
+    })
+  })
 })

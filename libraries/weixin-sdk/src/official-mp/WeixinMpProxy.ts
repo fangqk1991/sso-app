@@ -5,6 +5,7 @@ import { WeixinTokenKeeper } from './WeixinTokenKeeper'
 import AppError from '@fangcha/app-error'
 import { WeixinMpApis } from './WeixinMpApis'
 import { MpTemplate, WeixinMpUser } from './WeixinMpModels'
+import assert from '@fangcha/assert'
 
 export class WeixinMpProxy extends ServiceProxy<WeixinBaseConfig> {
   protected _tokenKeeper: WeixinTokenKeeper
@@ -103,5 +104,16 @@ export class WeixinMpProxy extends ServiceProxy<WeixinBaseConfig> {
       template_list: MpTemplate[]
     }>()
     return response.template_list
+  }
+
+  public async sendTemplateMessage(params: any) {
+    const request = await this.makeRequest(new CommonAPI(WeixinMpApis.TemplateMessageSend))
+    request.setBodyData(params)
+    const response = await request.quickSend<{
+      errcode: number // 0
+      errmsg: string // 'ok'
+      msgid: number // 200228332
+    }>()
+    assert.ok(response.errcode === 0, `[${response.errcode}] ${response.errmsg}`)
   }
 }
