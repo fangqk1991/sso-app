@@ -39,4 +39,20 @@ export const WeixinMpApis = {
     route: '/cgi-bin/user/info/batchget',
     description: '批量获取用户信息',
   },
+  /**
+   * https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Template_Message_Interface.html#1
+   */
+  IndustryInfoGet: {
+    method: 'GET',
+    route: '/cgi-bin/template/get_industry',
+    description: '获取设置的行业信息',
+  },
+  /**
+   * https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Template_Message_Interface.html#%E8%8E%B7%E5%8F%96%E6%A8%A1%E6%9D%BF%E5%88%97%E8%A1%A8
+   */
+  AllTemplatesGet: {
+    method: 'GET',
+    route: '/cgi-bin/template/get_all_private_template',
+    description: '获取模板列表',
+  },
 }

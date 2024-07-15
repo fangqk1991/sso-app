@@ -26,4 +26,14 @@ describe('Test WeixinMpProxy.test.ts', () => {
     const userList = await mpProxy.getUserInfosBatch(openIdList)
     console.info(userList)
   })
+
+  it(`getIndustryInfo`, async () => {
+    const response = await mpProxy.getIndustryInfo()
+    console.info(response)
+  })
+
+  it(`getAllTemplates`, async () => {
+    const response = await mpProxy.getAllTemplates()
+    console.info(response)
+  })
 })

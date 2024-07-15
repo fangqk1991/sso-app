@@ -17,3 +17,12 @@ export interface WeixinMpUser {
   qr_scene: number // 0,
   qr_scene_str: string
 }
+
+export interface MpTemplate {
+  template_id: string
+  title: string
+  primary_industry: string
+  deputy_industry: string
+  content: string
+  example: string
+}

@@ -4,7 +4,7 @@ import { WeixinBaseConfig } from './WeixinBaseConfig'
 import { WeixinTokenKeeper } from './WeixinTokenKeeper'
 import AppError from '@fangcha/app-error'
 import { WeixinMpApis } from './WeixinMpApis'
-import { WeixinMpUser } from './WeixinMpModels'
+import { MpTemplate, WeixinMpUser } from './WeixinMpModels'
 
 export class WeixinMpProxy extends ServiceProxy<WeixinBaseConfig> {
   protected _tokenKeeper: WeixinTokenKeeper
@@ -86,5 +86,22 @@ export class WeixinMpProxy extends ServiceProxy<WeixinBaseConfig> {
       user_info_list: WeixinMpUser[]
     }>()
     return response.user_info_list
+  }
+
+  public async getIndustryInfo() {
+    const request = await this.makeRequest(new CommonAPI(WeixinMpApis.IndustryInfoGet))
+    const response = await request.quickSend<{
+      primary_industry: { first_class: string; second_class: string }
+      secondary_industry: { first_class: string; second_class: string }
+    }>()
+    return response
+  }
+
+  public async getAllTemplates() {
+    const request = await this.makeRequest(new CommonAPI(WeixinMpApis.AllTemplatesGet))
+    const response = await request.quickSend<{
+      template_list: MpTemplate[]
+    }>()
+    return response.template_list
   }
 }
