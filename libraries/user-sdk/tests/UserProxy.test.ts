@@ -21,4 +21,22 @@ describe('Test UserProxy.test.ts', () => {
   it(`getUserGroupMembers`, async () => {
     loggerForDev.info(await userProxy.getUserGroupMembers('111'))
   })
+
+  it(`pushNotification`, async () => {
+    await userProxy.pushNotification({
+      openId: GlobalAppConfig.test_weixinMP.mpOpenid,
+      templateId: GlobalAppConfig.test_weixinMP.mpTemplateId,
+      params: {
+        // keyword1: {
+        //   value: '巧克力',
+        // },
+        // keyword2: {
+        //   value: '39.8元',
+        // },
+        // keyword3: {
+        //   value: '2014年9月22日',
+        // },
+      },
+    })
+  })
 })
