@@ -116,4 +116,38 @@ export class WeixinMpProxy extends ServiceProxy<WeixinBaseConfig> {
     }>()
     assert.ok(response.errcode === 0, `[${response.errcode}] ${response.errmsg}`)
   }
+
+  public async createMenu(data: any) {
+    const request = await this.makeRequest(new CommonAPI(WeixinMpApis.MenuCreate))
+    request.setBodyData(data)
+    const response = await request.quickSend<{
+      errcode: number // 0
+      errmsg: string // 'ok'
+      msgid: number // 200228332
+    }>()
+    assert.ok(response.errcode === 0, `[${response.errcode}] ${response.errmsg}`)
+  }
+
+  public async getMenuInfo() {
+    const request = await this.makeRequest(new CommonAPI(WeixinMpApis.MenuInfoGet))
+    const response = await request.quickSend<{
+      menu: {
+        menuid: number
+      }
+      conditionalmenu: {
+        menuid: number
+      }[]
+    }>()
+    return response
+  }
+
+  public async deleteMenu() {
+    const request = await this.makeRequest(new CommonAPI(WeixinMpApis.MenuDelete))
+    const response = await request.quickSend<{
+      errcode: number // 0
+      errmsg: string // 'ok'
+      msgid: number // 200228332
+    }>()
+    assert.ok(response.errcode === 0, `[${response.errcode}] ${response.errmsg}`)
+  }
 }

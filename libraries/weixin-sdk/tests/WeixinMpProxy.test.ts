@@ -54,4 +54,18 @@ describe('Test WeixinMpProxy.test.ts', () => {
       },
     })
   })
+
+  it(`getMenuInfo`, async () => {
+    const menuInfo = await mpProxy.getMenuInfo()
+    console.info(JSON.stringify(menuInfo, null, 2))
+  })
+
+  it(`deleteMenu`, async () => {
+    await mpProxy.deleteMenu()
+  })
+
+  it(`createMenu`, async () => {
+    await mpProxy.deleteMenu()
+    await mpProxy.createMenu(GlobalAppConfig.menuData)
+  })
 })

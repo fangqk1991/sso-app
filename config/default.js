@@ -139,4 +139,43 @@ module.exports = {
     email: '<email>',
     password: '<password>',
   },
+  menuData: {
+    button: [
+      {
+        name: 'QDII',
+        sub_button: [
+          {
+            type: 'view',
+            name: 'LOF 观察',
+            url: 'https://stock.datawich.com/v1/app/qdii_watch',
+          },
+          {
+            type: 'view',
+            name: 'ETF 投机',
+            url: 'https://stock.datawich.com/v1/app/qdii_gaze',
+          },
+        ],
+      },
+      {
+        name: '新股数据',
+        sub_button: [
+          {
+            type: 'view',
+            name: '美股打新',
+            url: 'https://stock.datawich.com/v1/app/ipo_us',
+          },
+          {
+            type: 'view',
+            name: '港股打新',
+            url: 'https://stock.datawich.com/v1/app/ipo_hk',
+          },
+          {
+            type: 'view',
+            name: '微牛招股中',
+            url: 'https://stock.datawich.com/v1/app/webull_offering',
+          },
+        ],
+      },
+    ],
+  },
 }

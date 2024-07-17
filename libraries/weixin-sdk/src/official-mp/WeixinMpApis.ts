@@ -63,4 +63,28 @@ export const WeixinMpApis = {
     route: '/cgi-bin/message/template/send',
     description: '发送模板消息',
   },
+  /**
+   * https://developers.weixin.qq.com/doc/offiaccount/Custom_Menus/Creating_Custom-Defined_Menu.html
+   */
+  MenuCreate: {
+    method: 'POST',
+    route: '/cgi-bin/menu/create',
+    description: '创建菜单',
+  },
+  /**
+   * https://developers.weixin.qq.com/doc/offiaccount/Custom_Menus/Getting_Custom_Menu_Configurations.html
+   */
+  MenuInfoGet: {
+    method: 'GET',
+    route: '/cgi-bin/menu/get',
+    description: '获取自定义菜单配置',
+  },
+  /**
+   * https://developers.weixin.qq.com/doc/offiaccount/Custom_Menus/Deleting_Custom-Defined_Menu.html
+   */
+  MenuDelete: {
+    method: 'GET',
+    route: '/cgi-bin/menu/delete',
+    description: '删除当前使用的自定义菜单',
+  },
 }
