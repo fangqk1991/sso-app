@@ -29,11 +29,11 @@ importers:
         specifier: ^1.2.0
         version: 1.2.0
       '@fangcha/backend-kit':
-        specifier: ^0.68.0
-        version: 0.68.0(@fangcha/app-request-extensions@0.6.0)(@fangcha/app-request@1.11.0)
+        specifier: ^0.69.0
+        version: 0.69.0(@fangcha/app-request-extensions@0.6.0)(@fangcha/app-request@1.11.0)
       '@fangcha/bot-kit':
-        specifier: ^0.4.0
-        version: 0.4.0(@fangcha/app-request-extensions@0.6.0)(@fangcha/app-request@1.11.0)
+        specifier: ^0.5.0
+        version: 0.5.0(@fangcha/app-request-extensions@0.6.0)(@fangcha/app-request@1.11.0)
       '@fangcha/logger':
         specifier: ^0.5.0
         version: 0.5.0
@@ -45,7 +45,7 @@ importers:
         version: 0.4.0
       '@fangcha/router':
         specifier: ^0.33.0
-        version: 0.33.0(@fangcha/backend-kit@0.68.0)
+        version: 0.33.0(@fangcha/backend-kit@0.69.0)
       '@fangcha/session':
         specifier: ^0.4.0
         version: 0.4.0(@fangcha/router@0.33.0)(@fangcha/tools@1.42.0)
@@ -291,7 +291,7 @@ importers:
         version: link:../account-models
       '@fangcha/router':
         specifier: '*'
-        version: 0.30.0(@fangcha/backend-kit@0.68.0)
+        version: 0.30.0(@fangcha/backend-kit@0.69.0)
       '@fangcha/sso-models':
         specifier: '*'
         version: link:../sso-models
@@ -2126,10 +2126,6 @@ packages:
     resolution: {integrity: sha512-8X/WE1W+YRePXzlK8hALIkMNPsfB7fOydzsDHdjj9Gd19YWTF5Z4A8NTSQDAKvDrngFkh73aPWKUq12EXo2a7g==}
     dev: false
 
-  /@fangcha/app-models@0.3.0:
-    resolution: {integrity: sha512-c9OqLXYn3UCsMf0PMz0xZOFuEhPtNuPzhB1ttUgiOFhlTW2IxIp9vThY1X+NWs7sJK+QQOi/EkmsVQZTgUMLWQ==}
-    dev: false
-
   /@fangcha/app-models@0.4.0:
     resolution: {integrity: sha512-tNGNvB4y0Tyz/yu73AeGLrDZfAMTei3JXk0BLdS9NL7Px9MzX1tzOzErWVJdGWqCdvsFcP+XyutVXy2kd3TkzA==}
     dev: false
@@ -2165,23 +2161,23 @@ packages:
       '@fangcha/app-error': 1.6.0
     dev: false
 
-  /@fangcha/backend-kit@0.68.0(@fangcha/app-request-extensions@0.6.0)(@fangcha/app-request@1.11.0):
-    resolution: {integrity: sha512-dwsDWl3rKOo+sCiy4LJgKntkYu+fSp+Va9zRLFPdiAIeH1BtFZHZUtQr0SFK9cfVsowQHnJk7Pqrjc10mMCXFA==}
+  /@fangcha/backend-kit@0.69.0(@fangcha/app-request-extensions@0.6.0)(@fangcha/app-request@1.11.0):
+    resolution: {integrity: sha512-DmROEMzuaYg1hBHgAo6214PjSmdBu9KenFTDPUdj+xT1xo8eq4e26hAXzOBIGn8v2NV9UkVAXDNmTiYI/xvGTQ==}
     peerDependencies:
       '@fangcha/app-request': '*'
       '@fangcha/app-request-extensions': '*'
     dependencies:
       '@fangcha/app-error': 1.6.0
-      '@fangcha/app-models': 0.3.0
+      '@fangcha/app-models': 0.4.0
       '@fangcha/app-request': 1.11.0
       '@fangcha/app-request-extensions': 0.6.0
       '@fangcha/assert': 1.2.0
-      '@fangcha/bot-kit': 0.4.0(@fangcha/app-request-extensions@0.6.0)(@fangcha/app-request@1.11.0)
+      '@fangcha/bot-kit': 0.5.0(@fangcha/app-request-extensions@0.6.0)(@fangcha/app-request@1.11.0)
       moment: 2.29.4
     dev: false
 
-  /@fangcha/bot-kit@0.4.0(@fangcha/app-request-extensions@0.6.0)(@fangcha/app-request@1.11.0):
-    resolution: {integrity: sha512-PDjNTeYHHSSpSg43f2P7mXHzCuAPH0QqaQkhVzMlz0dAOB6fausrZlDQRx5aA3v4SgaapHdnVyHZaymUamj6+w==}
+  /@fangcha/bot-kit@0.5.0(@fangcha/app-request-extensions@0.6.0)(@fangcha/app-request@1.11.0):
+    resolution: {integrity: sha512-Hx9HRKm1A1kPC+EKVFtv4KgLoziSWGi7Uiogd4eFSjsx+PJqg9CYnR3uWbT+aVGNRGeaBuyA5Bn5CTbzFfbmRg==}
     peerDependencies:
       '@fangcha/app-request': '*'
       '@fangcha/app-request-extensions': '*'
@@ -2278,13 +2274,13 @@ packages:
       - supports-color
     dev: false
 
-  /@fangcha/router@0.30.0(@fangcha/backend-kit@0.68.0):
+  /@fangcha/router@0.30.0(@fangcha/backend-kit@0.69.0):
     resolution: {integrity: sha512-qHdlag6Be9FOV9WJGn4GL0eH7zp75ZfctUZtRzlqmUdq233ocleUNY8QWZbUgGwDp9GWfrCBQCdn0LsngFfoZg==}
     peerDependencies:
       '@fangcha/backend-kit': ^*
     dependencies:
       '@fangcha/app-error': 1.6.0
-      '@fangcha/backend-kit': 0.68.0(@fangcha/app-request-extensions@0.6.0)(@fangcha/app-request@1.11.0)
+      '@fangcha/backend-kit': 0.69.0(@fangcha/app-request-extensions@0.6.0)(@fangcha/app-request@1.11.0)
       '@fangcha/swagger': 0.1.1
       '@fangcha/tools': 1.24.0
       '@koa/router': 12.0.0
@@ -2299,13 +2295,13 @@ packages:
       - supports-color
     dev: false
 
-  /@fangcha/router@0.33.0(@fangcha/backend-kit@0.68.0):
+  /@fangcha/router@0.33.0(@fangcha/backend-kit@0.69.0):
     resolution: {integrity: sha512-UzannQ4LT1OyH1vKxfXngv8Mx34VhjzO/ywgdyluH0N/5Yppaj/lIj9kXTDt6r7mNhHkj6d3y4oJvvBYBV9d5Q==}
     peerDependencies:
       '@fangcha/backend-kit': '*'
     dependencies:
       '@fangcha/app-error': 1.6.0
-      '@fangcha/backend-kit': 0.68.0(@fangcha/app-request-extensions@0.6.0)(@fangcha/app-request@1.11.0)
+      '@fangcha/backend-kit': 0.69.0(@fangcha/app-request-extensions@0.6.0)(@fangcha/app-request@1.11.0)
       '@fangcha/swagger': 0.2.0
       '@fangcha/tools': 1.42.0
       '@koa/router': 12.0.0
@@ -2326,7 +2322,7 @@ packages:
       '@fangcha/router': '*'
       '@fangcha/tools': '*'
     dependencies:
-      '@fangcha/router': 0.33.0(@fangcha/backend-kit@0.68.0)
+      '@fangcha/router': 0.33.0(@fangcha/backend-kit@0.69.0)
       '@fangcha/tools': 1.42.0
     dev: false
 
