@@ -16,6 +16,7 @@ export const useVisitorCtx = () => {
 
 export const VisitorProvider = ({ children }: React.ComponentProps<any>) => {
   const [userInfo, setUserInfo] = useState<SessionUserInfo>({
+    accountUid: '',
     email: '',
     nickName: '',
     isAdmin: false,
