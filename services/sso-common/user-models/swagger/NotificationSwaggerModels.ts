@@ -1,5 +1,5 @@
 import { SwaggerModelDefinitionV2, TypicalSwaggerModel } from '@fangcha/swagger'
-import { NotificationParams } from '../NotificationModels'
+import { NotificationBatchNotifyParams, NotificationParams } from '../NotificationModels'
 
 export const NotificationSwaggerModelData = {
   Swagger_NotificationParams: {
@@ -33,6 +33,31 @@ export const NotificationSwaggerModelData = {
       },
     },
   } as TypicalSwaggerModel<NotificationParams>,
+  Swagger_NotificationBatchParams: {
+    name: 'Swagger_NotificationBatchParams',
+    schema: {
+      type: 'object',
+      properties: {
+        templateId: {
+          type: 'string',
+          example: '',
+        },
+        params: {
+          type: 'object',
+        },
+        url: {
+          type: 'string',
+          example: '',
+        },
+        accountUidList: {
+          type: 'array',
+          items: {
+            type: 'string',
+          },
+        },
+      },
+    },
+  } as TypicalSwaggerModel<NotificationBatchNotifyParams>,
 }
 
 export const NotificationSwaggerModels: SwaggerModelDefinitionV2[] = Object.keys(NotificationSwaggerModelData).map(

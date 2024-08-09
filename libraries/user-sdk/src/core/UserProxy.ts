@@ -3,7 +3,7 @@ import { AppFullInfo, FeishuUserModel } from '@fangcha/account-models'
 import { UserServiceProtocol } from './UserServiceProtocol'
 import { BasicAuthProxy, RequestFollower } from '@fangcha/app-request-extensions'
 import { Api, buildSwaggerSchema } from '@fangcha/swagger'
-import { NotificationParams } from './NotificationModels'
+import { NotificationBatchNotifyParams, NotificationParams } from './NotificationModels'
 
 const OpenAppApis = {
   AppFullInfo: {
@@ -26,6 +26,11 @@ const OpenNotificationApis = {
     method: 'POST',
     route: '/api/v1/notification/wechat-template-messages',
     description: '推送微信模板消息',
+  } as Api,
+  WechatTemplateMessagesNotifyBatch: {
+    method: 'POST',
+    route: '/api/v1/notification/wechat-template-messages-batch-notify',
+    description: '(批量)推送微信模板消息',
   } as Api,
 }
 
@@ -90,6 +95,12 @@ export class UserProxy extends BasicAuthProxy implements UserServiceProtocol {
 
   public async pushNotification(params: NotificationParams) {
     const request = this.makeRequest(new CommonAPI(OpenNotificationApis.WechatTemplateMessagesNotify))
+    request.setBodyData(params)
+    await request.quickSend()
+  }
+
+  public async pushNotificationBatch(params: NotificationBatchNotifyParams) {
+    const request = this.makeRequest(new CommonAPI(OpenNotificationApis.WechatTemplateMessagesNotifyBatch))
     request.setBodyData(params)
     await request.quickSend()
   }

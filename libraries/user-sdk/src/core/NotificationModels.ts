@@ -6,3 +6,10 @@ export interface NotificationParams {
   unionId?: string
   openId?: string
 }
+
+export interface NotificationBatchNotifyParams {
+  templateId: string
+  params: {}
+  url?: string
+  accountUidList: string[]
+}

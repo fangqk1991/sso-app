@@ -40,6 +40,24 @@ describe('Test UserProxy.test.ts', () => {
     })
   })
 
+  it(`pushNotificationBatch`, async () => {
+    await userProxy.pushNotificationBatch({
+      accountUidList: ['30ef93c6399e42d19bb228fd4666e32a'],
+      templateId: GlobalAppConfig.test_weixinMP.mpTemplateId,
+      params: {
+        // keyword1: {
+        //   value: '巧克力',
+        // },
+        // keyword2: {
+        //   value: '39.8元',
+        // },
+        // keyword3: {
+        //   value: '2014年9月22日',
+        // },
+      },
+    })
+  })
+
   it(`checkAccountWechatSubscription`, async () => {
     await userProxy.checkAccountWechatSubscription('30ef93c6399e42d19bb228fd4666e32a')
   })

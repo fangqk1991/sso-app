@@ -5,7 +5,7 @@ import { MyWeixinServer } from '../../../services/MyWeixinServer'
 import assert from '@fangcha/assert'
 import { MyAccountServer } from '../../../services/MyAccountServer'
 import { CarrierType } from '@fangcha/account-models'
-import { NotificationParams } from '@web/sso-common/user-models'
+import { NotificationBatchNotifyParams, NotificationParams } from '@web/sso-common/user-models'
 
 const factory = new SpecFactory('通知中心')
 
@@ -37,6 +37,34 @@ factory.prepare(OpenNotificationApis.WechatTemplateMessagesNotify, async (ctx) =
     data: options.params,
     url: options.url,
   })
+  ctx.status = 200
+})
+
+factory.prepare(OpenNotificationApis.WechatTemplateMessagesNotifyBatch, async (ctx) => {
+  const options = ctx.request.body as NotificationBatchNotifyParams
+  const accountUidList = options.accountUidList || []
+  assert.ok(!!accountUidList, 'Weixin openId missing.')
+
+  const searcher = new MyAccountServer.AccountCarrier().fc_searcher()
+  searcher.processor().addConditionKV('carrier_type', CarrierType.Wechat)
+  searcher.processor().addConditionKeyInArray('account_uid', accountUidList)
+  const carrierList = await searcher.queryFeeds()
+
+  const searcher2 = new MyWeixinServer.WeixinUser().fc_searcher()
+  searcher2.processor().addConditionKeyInArray(
+    'union_id',
+    carrierList.map((item) => item.carrierUid)
+  )
+  const wxUserList = await searcher2.queryFeeds()
+
+  for (const wxUser of wxUserList.filter((item) => !!item.officialOpenid)) {
+    await MyMpWechatProxy.sendTemplateMessage({
+      touser: wxUser.officialOpenid!,
+      template_id: options.templateId,
+      data: options.params,
+      url: options.url,
+    })
+  }
   ctx.status = 200
 })
 
