@@ -3,6 +3,7 @@ import { NotificationSwaggerModels, UserSwaggerModelList, } from '@web/sso-commo
 import { OpenAppSpecs } from './specs/OpenAppSpecs'
 import { OpenStaffSpecs } from './specs/OpenStaffSpecs'
 import { OpenNotificationSpecs } from './specs/OpenNotificationSpecs'
+import { OpenUserSpecs } from './specs/OpenUserSpecs'
 
 export const SsoPowerSpecDocItems: SwaggerDocItem[] = [
   {
@@ -18,6 +19,14 @@ export const SsoPowerSpecDocItems: SwaggerDocItem[] = [
     name: 'Staffs',
     pageURL: '/api-docs/v1/staff',
     specs: OpenStaffSpecs,
+    description: ['* 鉴权方式: Basic Auth', '* Username: 相关应用的 Appid', '* Password: 相关应用的任一密钥'].join(
+      '\n'
+    ),
+  },
+  {
+    name: 'Staffs',
+    pageURL: '/api-docs/v1/user',
+    specs: OpenUserSpecs,
     description: ['* 鉴权方式: Basic Auth', '* Username: 相关应用的 Appid', '* Password: 相关应用的任一密钥'].join(
       '\n'
     ),

@@ -39,4 +39,8 @@ describe('Test UserProxy.test.ts', () => {
       },
     })
   })
+
+  it(`checkAccountWechatSubscription`, async () => {
+    await userProxy.checkAccountWechatSubscription('30ef93c6399e42d19bb228fd4666e32a')
+  })
 })

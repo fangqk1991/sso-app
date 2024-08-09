@@ -50,6 +50,14 @@ const OpenStaffApis = {
   } as Api,
 }
 
+const OpenUserApis = {
+  WechatSubscriptionCheck: {
+    method: 'POST',
+    route: '/api/v1/user/:accountUid/check-wechat-mp-subscription',
+    description: '检查是否订阅服务号',
+  } as Api,
+}
+
 export class UserProxy extends BasicAuthProxy implements UserServiceProtocol {
   public async getAppFullInfo() {
     const request = this.makeRequest(new CommonAPI(OpenAppApis.AppFullInfo))
@@ -83,6 +91,11 @@ export class UserProxy extends BasicAuthProxy implements UserServiceProtocol {
   public async pushNotification(params: NotificationParams) {
     const request = this.makeRequest(new CommonAPI(OpenNotificationApis.WechatTemplateMessagesNotify))
     request.setBodyData(params)
+    await request.quickSend()
+  }
+
+  public async checkAccountWechatSubscription(accountUid: string) {
+    const request = this.makeRequest(new CommonAPI(OpenUserApis.WechatSubscriptionCheck, accountUid))
     await request.quickSend()
   }
 }
