@@ -1,9 +1,9 @@
 import { Api } from '@fangcha/swagger'
 
 export const JointBindApis = {
-  WechatLoginBindPrepare: {
+  WechatLoginBindGoto: {
     method: 'GET',
-    route: '/api/v1/joint-bind/wechat/prepare',
+    route: '/api/v1/joint-bind/wechat/goto',
     description: 'Wechat 登录绑定',
   },
   JointLoginUnlink: {

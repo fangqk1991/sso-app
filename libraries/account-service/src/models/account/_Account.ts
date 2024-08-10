@@ -39,6 +39,22 @@ export class _Account extends __Account {
     return searcher.queryAllFeeds()
   }
 
+  public async linkCarrier(carrierType: CarrierType, carrierUid: string) {
+    const AccountCarrier = this.getClass().AccountCarrier
+    const carrier = new AccountCarrier()
+    carrier.carrierType = carrierType
+    carrier.carrierUid = carrierUid
+    carrier.accountUid = this.accountUid
+    await carrier.addToDB()
+  }
+
+  public async unlinkCarrier(carrierType: CarrierType) {
+    const carrier = await this.findCarrier(carrierType)
+    if (carrier) {
+      await carrier.deleteFromDB()
+    }
+  }
+
   public async updateCarrier(carrierType: CarrierType, carrierUid: string) {
     const carrier = await this.findCarrier(carrierType)
     if (carrier) {

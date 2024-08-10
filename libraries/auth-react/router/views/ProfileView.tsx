@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { AuthSdkHelper, MyRequest, useSession, useSessionConfig, useUserInfo } from '../../src'
 import { Button, List, message, Switch } from 'antd'
-import { JointLoginApis, ProfileApis } from '@fangcha/sso-models'
+import { JointBindApis, ProfileApis } from '@fangcha/sso-models'
 import { sleep } from '@fangcha/tools'
 import { AccountProfile, CarrierType } from '@fangcha/account-models'
 import { ConfirmDialog, FlexibleFormDialog, LoadingView, SimpleInputDialog } from '@fangcha/react'
@@ -103,23 +103,13 @@ export const ProfileView = () => {
                   checked={!!profile.extras[CarrierType.Wechat]}
                   onChange={async (checked) => {
                     if (checked) {
-                      // const request = MyRequest(EventSubscriptionApis.SubscriptionCreate)
-                      // request.setBodyData({
-                      //   event: SubscriptionEvent.QDII_Watch,
-                      //   objectId: stock.code,
-                      //   objectName: stock.name,
-                      //   params: {},
-                      //   isEnabled: 1,
-                      // } as EventSubscriptionParams)
-                      // await request.quickSend()
-                      // message.success('关注成功')
-                      // setVersion(version + 1)
+                      window.location.href = `${JointBindApis.WechatLoginBindGoto.route}?formMP=${inWechat ? '1' : ''}`
                     } else {
                       const dialog = new ConfirmDialog({
                         content: `确定要解除绑定吗？`,
                       })
                       dialog.show(async () => {
-                        const request = MyRequest(new CommonAPI(JointLoginApis.WechatUnbind))
+                        const request = MyRequest(new CommonAPI(JointBindApis.JointLoginUnlink, CarrierType.Wechat))
                         await request.quickSend()
                         message.success(`解绑成功`)
                         sessionCtx.reloadSession()

@@ -56,41 +56,49 @@ factory.prepare(JointLoginApis.WechatCallback, async (ctx) => {
   const ssoServer = ctx.ssoServer as SsoServer
   const accountServer = ssoServer.accountServer
 
+  const { redirectUri, accountUid } = await ssoServer.makeJointOAuthHandler(ctx).handleOAuthCallback(ticket)
+
   const isOfficialMP = ticket.startsWith('MP:')
   const wechatProxy = isOfficialMP ? MyJointWechatMP : MyJointWechat
-
   const userInfo = await wechatProxy.getUserInfoFromAuthorizationCode(code)
-  accountServer.AccountCarrierExtras.recordCarrierExtras(CarrierType.Wechat, userInfo.unionid, userInfo)
-  if (ctx.weixinServer) {
-    const weixinServer = ctx.weixinServer as WeixinServer
-    weixinServer.WeixinOpenid.recordOpenid({
-      openid: userInfo.openid,
-      unionId: userInfo.unionid,
-      appid: wechatProxy.appid(),
-    })
-    if (isOfficialMP) {
-      weixinServer.WeixinUser.recordUserInfo(userInfo)
-    }
-  }
 
-  let account = await accountServer.findAccountWithCarrier(CarrierType.Wechat, userInfo.unionid)
-  if (!account) {
-    const email = `${md5(userInfo.unionid).substring(0, 12)}@wechat.qq`
-    account = await accountServer.findAccountWithCarrier(CarrierType.Email, email)
-    if (!account) {
-      account = await accountServer.createAccount({
-        email: email,
-        password: '',
-        nickName: userInfo.nickname || '',
-        registerIp: session.realIP,
+  if (!accountUid) {
+    accountServer.AccountCarrierExtras.recordCarrierExtras(CarrierType.Wechat, userInfo.unionid, userInfo)
+    if (ctx.weixinServer) {
+      const weixinServer = ctx.weixinServer as WeixinServer
+      weixinServer.WeixinOpenid.recordOpenid({
+        openid: userInfo.openid,
+        unionId: userInfo.unionid,
+        appid: wechatProxy.appid(),
       })
-      _FangchaState.botProxy.notify(`[微信] ${account.nickName} 注册了账号.`)
+      if (isOfficialMP) {
+        weixinServer.WeixinUser.recordUserInfo(userInfo)
+      }
     }
-    await account.updateCarrier(CarrierType.Wechat, userInfo.unionid)
-  }
-  await new LoginService(ctx).onLoginSuccess(account!)
 
-  const { redirectUri } = await ssoServer.makeJointOAuthHandler(ctx).handleOAuthCallback(ticket)
+    let account = await accountServer.findAccountWithCarrier(CarrierType.Wechat, userInfo.unionid)
+    if (!account) {
+      const email = `${md5(userInfo.unionid).substring(0, 12)}@wechat.qq`
+      account = await accountServer.findAccountWithCarrier(CarrierType.Email, email)
+      if (!account) {
+        account = await accountServer.createAccount({
+          email: email,
+          password: '',
+          nickName: userInfo.nickname || '',
+          registerIp: session.realIP,
+        })
+        _FangchaState.botProxy.notify(`[微信] ${account.nickName} 注册了账号.`)
+      }
+      await account.updateCarrier(CarrierType.Wechat, userInfo.unionid)
+    }
+  }
+
+  await new LoginService(ctx).handleJointBindOrLogin({
+    carrierType: CarrierType.Wechat,
+    carrierUid: userInfo.unionid,
+    accountUid,
+  })
+
   ctx.redirect(redirectUri)
 })
 

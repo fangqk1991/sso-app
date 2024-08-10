@@ -3,25 +3,23 @@ import { SsoServer, SsoSession } from '@fangcha/sso-server'
 import assert from '@fangcha/assert'
 import { CarrierTypeDescriptor } from '@fangcha/account-models'
 import { JointBindApis } from '@fangcha/sso-models'
-import { SsoConfig } from '../../../SsoConfig'
+import { MyJointWechat, MyJointWechatMP } from '../../../services/MyJointWechat'
 
 const factory = new SpecFactory('Joint Bind')
 
-factory.prepare(JointBindApis.WechatLoginBindPrepare, async (ctx) => {
+factory.prepare(JointBindApis.WechatLoginBindGoto, async (ctx) => {
   const session = ctx.session as SsoSession
   const ssoServer = ctx.ssoServer as SsoServer
-  const options = SsoConfig.JointLogin.Wechat
   const account = await session.prepareAccountV2()
+  const isOfficialMP = !!ctx.request.query['formMP']
 
   const ticket = await ssoServer.makeJointOAuthHandler(ctx).handleOAuthRequest({
+    prefix: isOfficialMP ? 'MP' : undefined,
     redirectUri: ctx.session.getRefererUrl(),
     accountUid: account.accountUid,
   })
-  ctx.body = {
-    appid: options.appid,
-    redirectUri: options.redirectUri,
-    state: ticket,
-  }
+  const wechatProxy = isOfficialMP ? MyJointWechatMP : MyJointWechat
+  ctx.redirect(wechatProxy.getAuthorizeUri(ticket))
 })
 
 factory.prepare(JointBindApis.JointLoginUnlink, async (ctx) => {
