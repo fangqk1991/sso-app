@@ -1,11 +1,12 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { AuthSdkHelper, MyRequest, useSession, useSessionConfig, useUserInfo } from '../../src'
-import { Button, List, message } from 'antd'
-import { ProfileApis } from '@fangcha/sso-models'
+import { Button, List, message, Switch } from 'antd'
+import { JointLoginApis, ProfileApis } from '@fangcha/sso-models'
 import { sleep } from '@fangcha/tools'
-import { AccountProfile } from '@fangcha/account-models'
-import { FlexibleFormDialog, LoadingView, SimpleInputDialog } from '@fangcha/react'
+import { AccountProfile, CarrierType } from '@fangcha/account-models'
+import { ConfirmDialog, FlexibleFormDialog, LoadingView, SimpleInputDialog } from '@fangcha/react'
 import { ProFormText } from '@ant-design/pro-components'
+import { CommonAPI } from '@fangcha/app-request'
 
 export const ProfileView = () => {
   const sessionCtx = useSession()
@@ -96,7 +97,36 @@ export const ProfileView = () => {
           {(inWechat && config.useWechatMPLogin) ||
             (!inWechat && config.useWechatLogin && (
               <List.Item style={{ display: 'flex' }}>
-                <span>微信</span> <span>未绑定</span>
+                <span>微信</span>
+                <Switch
+                  size={'small'}
+                  checked={!!profile.extras[CarrierType.Wechat]}
+                  onChange={async (checked) => {
+                    if (checked) {
+                      // const request = MyRequest(EventSubscriptionApis.SubscriptionCreate)
+                      // request.setBodyData({
+                      //   event: SubscriptionEvent.QDII_Watch,
+                      //   objectId: stock.code,
+                      //   objectName: stock.name,
+                      //   params: {},
+                      //   isEnabled: 1,
+                      // } as EventSubscriptionParams)
+                      // await request.quickSend()
+                      // message.success('关注成功')
+                      // setVersion(version + 1)
+                    } else {
+                      const dialog = new ConfirmDialog({
+                        content: `确定要解除绑定吗？`,
+                      })
+                      dialog.show(async () => {
+                        const request = MyRequest(new CommonAPI(JointLoginApis.WechatUnbind))
+                        await request.quickSend()
+                        message.success(`解绑成功`)
+                        sessionCtx.reloadSession()
+                      })
+                    }
+                  }}
+                />
               </List.Item>
             ))}
           {config.useFeishuLogin && (

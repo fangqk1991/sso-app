@@ -35,20 +35,29 @@ export const JointLoginApis = {
     method: 'POST',
     route: '/api/v0/joint-login/wechat/prepare',
     description: '微信登录信息准备',
+    skipAuth: true,
   },
   WechatLogin: {
     method: 'GET',
     route: '/api/v1/joint-login/wechat/login',
     description: 'Wechat 登录跳转',
+    skipAuth: true,
   },
   WechatMPLogin: {
     method: 'GET',
     route: '/api/v1/joint-login/wechat/mp-login',
     description: 'Wechat MP 登录跳转',
+    skipAuth: true,
   },
   WechatCallback: {
     method: 'GET',
     route: '/api/v1/joint-login/wechat/callback',
     description: 'Wechat 联合回调',
+    skipAuth: true,
+  } as Api,
+  WechatUnbind: {
+    method: 'DELETE',
+    route: '/api/v1/joint-login/wechat/unbind',
+    description: 'Wechat 解除绑定',
   } as Api,
 }
