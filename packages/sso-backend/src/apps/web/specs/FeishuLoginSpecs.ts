@@ -67,25 +67,33 @@ factory.prepare(JointLoginApis.FeishuCallback, async (ctx) => {
   const ssoServer = ctx.ssoServer as SsoServer
   const accountServer = ssoServer.accountServer
 
+  const { redirectUri, accountUid } = await ssoServer.makeJointOAuthHandler(ctx).handleOAuthCallback(ticket as string)
+
   const tokenData = await MyFeishuSdkClient.getUserToken(code)
 
-  let account = await accountServer.findAccountWithCarrier(CarrierType.Feishu, tokenData.union_id)
-  if (!account) {
-    const email = tokenData.enterprise_email || `${tokenData.union_id}@email.com`
-    account = await accountServer.findAccountWithCarrier(CarrierType.Email, email)
+  if (!accountUid) {
+    let account = await accountServer.findAccountWithCarrier(CarrierType.Feishu, tokenData.union_id)
     if (!account) {
-      account = await accountServer.createAccount({
-        email: email,
-        password: '',
-        nickName: tokenData.name || tokenData.en_name || '',
-        registerIp: session.realIP,
-      })
+      const email = tokenData.enterprise_email || `${tokenData.union_id}@email.com`
+      account = await accountServer.findAccountWithCarrier(CarrierType.Email, email)
+      if (!account) {
+        account = await accountServer.createAccount({
+          email: email,
+          password: '',
+          nickName: tokenData.name || tokenData.en_name || '',
+          registerIp: session.realIP,
+        })
+      }
+      await account.updateCarrier(CarrierType.Feishu, tokenData.union_id)
     }
-    await account.updateCarrier(CarrierType.Feishu, tokenData.union_id)
   }
-  await new LoginService(ctx).onLoginSuccess(account)
 
-  const { redirectUri } = await ssoServer.makeJointOAuthHandler(ctx).handleOAuthCallback(ticket as string)
+  await new LoginService(ctx).handleJointBindOrLogin({
+    carrierType: CarrierType.Feishu,
+    carrierUid: tokenData.union_id,
+    accountUid,
+  })
+
   ctx.redirect(redirectUri)
 })
 

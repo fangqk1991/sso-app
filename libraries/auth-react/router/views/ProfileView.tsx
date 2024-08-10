@@ -121,7 +121,26 @@ export const ProfileView = () => {
             ))}
           {config.useFeishuLogin && (
             <List.Item style={{ display: 'flex' }}>
-              <span>飞书</span> <span>未绑定</span>
+              <span>飞书</span>{' '}
+              <Switch
+                size={'small'}
+                checked={!!profile.extras[CarrierType.Feishu]}
+                onChange={async (checked) => {
+                  if (checked) {
+                    window.location.href = JointBindApis.FeishuLoginBindGoto.route
+                  } else {
+                    const dialog = new ConfirmDialog({
+                      content: `确定要解除绑定吗？`,
+                    })
+                    dialog.show(async () => {
+                      const request = MyRequest(new CommonAPI(JointBindApis.JointLoginUnlink, CarrierType.Feishu))
+                      await request.quickSend()
+                      message.success(`解绑成功`)
+                      sessionCtx.reloadSession()
+                    })
+                  }
+                }}
+              />
             </List.Item>
           )}
         </List>

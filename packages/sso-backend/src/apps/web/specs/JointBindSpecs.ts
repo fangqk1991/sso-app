@@ -2,8 +2,10 @@ import { SpecFactory } from '@fangcha/router'
 import { SsoServer, SsoSession } from '@fangcha/sso-server'
 import assert from '@fangcha/assert'
 import { CarrierTypeDescriptor } from '@fangcha/account-models'
-import { JointBindApis } from '@fangcha/sso-models'
+import { JointBindApis, JointLoginApis } from '@fangcha/sso-models'
 import { MyJointWechat, MyJointWechatMP } from '../../../services/MyJointWechat'
+import { MyFeishuSdkClient } from '../../../services/MyFeishuSdkClient'
+import { _SessionApp } from '@fangcha/session'
 
 const factory = new SpecFactory('Joint Bind')
 
@@ -20,6 +22,24 @@ factory.prepare(JointBindApis.WechatLoginBindGoto, async (ctx) => {
   })
   const wechatProxy = isOfficialMP ? MyJointWechatMP : MyJointWechat
   ctx.redirect(wechatProxy.getAuthorizeUri(ticket))
+})
+
+factory.prepare(JointBindApis.FeishuLoginBindGoto, async (ctx) => {
+  const session = ctx.session as SsoSession
+  const ssoServer = ctx.ssoServer as SsoServer
+  const account = await session.prepareAccountV2()
+
+  const ticket = await ssoServer.makeJointOAuthHandler(ctx).handleOAuthRequest({
+    redirectUri: ctx.session.getRefererUrl(),
+    accountUid: account.accountUid,
+  })
+
+  ctx.redirect(
+    MyFeishuSdkClient.makeAuthorizeUri({
+      redirectUri: `${_SessionApp.getBaseURL(ctx.host)}${JointLoginApis.FeishuCallback.route}`,
+      state: ticket,
+    })
+  )
 })
 
 factory.prepare(JointBindApis.JointLoginUnlink, async (ctx) => {

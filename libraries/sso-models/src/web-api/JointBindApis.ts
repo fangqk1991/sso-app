@@ -6,6 +6,11 @@ export const JointBindApis = {
     route: '/api/v1/joint-bind/wechat/goto',
     description: 'Wechat 登录绑定',
   },
+  FeishuLoginBindGoto: {
+    method: 'GET',
+    route: '/api/v1/joint-bind/feishu/goto',
+    description: '飞书登录绑定',
+  },
   JointLoginUnlink: {
     method: 'DELETE',
     route: '/api/v1/joint-bind/:carrierType',
