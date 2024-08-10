@@ -1,6 +1,6 @@
 import { SpecFactory } from '@fangcha/router'
 import { FangchaSession } from '@fangcha/session'
-import { LoginService, SsoServer, SsoSession } from '@fangcha/sso-server'
+import { LoginService, SsoServer } from '@fangcha/sso-server'
 import assert from '@fangcha/assert'
 import { CarrierType } from '@fangcha/account-models'
 import { JointLoginApis } from '@fangcha/sso-models'
@@ -10,7 +10,7 @@ import { md5 } from '@fangcha/tools'
 import { _FangchaState } from '@fangcha/backend-kit'
 import { WeixinServer } from '@fangcha/weixin-sdk'
 
-const factory = new SpecFactory('Wechat Login')
+const factory = new SpecFactory('Wechat Login', { skipAuth: true })
 
 factory.prepare(JointLoginApis.WechatLoginPrepare, async (ctx) => {
   const ssoServer = ctx.ssoServer as SsoServer
@@ -92,14 +92,6 @@ factory.prepare(JointLoginApis.WechatCallback, async (ctx) => {
 
   const { redirectUri } = await ssoServer.makeJointOAuthHandler(ctx).handleOAuthCallback(ticket)
   ctx.redirect(redirectUri)
-})
-
-factory.prepare(JointLoginApis.WechatUnbind, async (ctx) => {
-  const session = ctx.session as SsoSession
-  const account = await session.prepareAccountV2()
-  const carrier = await account.findCarrier(CarrierType.Wechat)
-  await carrier.deleteFromDB()
-  ctx.status = 200
 })
 
 export const WechatLoginSpecs = factory.buildSpecs()

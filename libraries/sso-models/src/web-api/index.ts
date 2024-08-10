@@ -1,4 +1,5 @@
 export * from './LoginApis'
+export * from './JointBindApis'
 export * from './SignupApis'
 export * from './ProfileApis'
 export * from './SessionApis'

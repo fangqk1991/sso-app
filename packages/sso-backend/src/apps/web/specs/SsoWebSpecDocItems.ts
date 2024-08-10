@@ -2,6 +2,7 @@ import { SwaggerDocItem } from '@fangcha/router'
 import { FeishuLoginSpecs } from './FeishuLoginSpecs'
 import { GoogleLoginSpecs } from './GoogleLoginSpecs'
 import { WechatLoginSpecs } from './WechatLoginSpecs'
+import { JointBindSpecs } from './JointBindSpecs'
 
 export const SsoWebSpecDocItems: SwaggerDocItem[] = [
   {
@@ -18,5 +19,10 @@ export const SsoWebSpecDocItems: SwaggerDocItem[] = [
     name: 'Wechat',
     pageURL: '/api-docs/v1/joint-wechat',
     specs: WechatLoginSpecs,
+  },
+  {
+    name: 'Bind',
+    pageURL: '/api-docs/v1/joint-bind',
+    specs: JointBindSpecs,
   },
 ]
