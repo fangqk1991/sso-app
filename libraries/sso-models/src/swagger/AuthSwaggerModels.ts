@@ -34,6 +34,22 @@ export const AuthSwaggerModelData = {
       },
     },
   } as TypicalSwaggerModel<VisitorCoreInfo>,
+  Swagger_ProfileUpdateParams: {
+    name: 'Swagger_ProfileUpdateParams',
+    schema: {
+      type: 'object',
+      properties: {
+        nickName: {
+          type: 'string',
+          example: 'xxx',
+        },
+        email: {
+          type: 'string',
+          example: 'xxx@xxxx.com',
+        },
+      },
+    },
+  } as TypicalSwaggerModel<{ nickName: string; email: string }>,
   Swagger_EmailUpdateParams: {
     name: 'Swagger_EmailUpdateParams',
     schema: {

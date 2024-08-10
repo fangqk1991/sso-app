@@ -8,6 +8,12 @@ export const ProfileApis = {
     description: '获取个人信息',
     responseSchemaRef: AuthSwaggerModelData.Swagger_VisitorCoreInfo,
   } as Api,
+  ProfileInfoUpdate: {
+    method: 'PUT',
+    route: '/api/v1/profile',
+    description: '修改个人信息',
+    parameters: makeSwaggerBodyDataParameters(AuthSwaggerModelData.Swagger_ProfileUpdateParams),
+  } as Api,
   EmailUpdate: {
     method: 'PUT',
     route: '/api/v1/profile/email',

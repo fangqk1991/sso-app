@@ -17,10 +17,29 @@ factory.prepare(ProfileApis.ProfileInfoGet, async (ctx) => {
   if (!account.password) {
     profile.emptyPassword = true
   }
-  if (userInfo.email.match(/^\w{12}@wechat.qq$/)) {
+  if (!userInfo.email || userInfo.email.match(/^\w{12}@wechat.qq$/)) {
     profile.emptyEmail = true
   }
   ctx.body = profile
+})
+
+factory.prepare(ProfileApis.ProfileInfoUpdate, async (ctx) => {
+  const { nickName } = ctx.request.body
+  // assert.ok(!!email, `email can not be empty`)
+  assert.ok(!!nickName, `nickName can not be empty`)
+
+  const session = ctx.session as SsoSession
+
+  const account = await session.prepareAccountV2()
+  account.fc_edit()
+  account.nickName = nickName
+  await account.updateToDB()
+
+  // const ssoServer = ctx.ssoServer as SsoServer
+  // await ssoServer.accountServer.updateEmail(account, email)
+  await session.reloadAuthInfo(ctx)
+
+  ctx.status = 200
 })
 
 factory.prepare(ProfileApis.EmailUpdate, async (ctx) => {

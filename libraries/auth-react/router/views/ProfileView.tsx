@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import { AuthSdkHelper, MyRequest, useSession, useUserInfo } from '../../src'
-import { Button, message, List, Typography } from 'antd'
-import { JointLoginApis, ProfileApis } from '@fangcha/sso-models'
+import React, { useEffect, useMemo, useState } from 'react'
+import { AuthSdkHelper, MyRequest, useSession, useSessionConfig, useUserInfo } from '../../src'
+import { Button, List, message } from 'antd'
+import { ProfileApis } from '@fangcha/sso-models'
 import { sleep } from '@fangcha/tools'
 import { AccountProfile } from '@fangcha/account-models'
 import { FlexibleFormDialog, LoadingView, SimpleInputDialog } from '@fangcha/react'
@@ -10,8 +10,10 @@ import { ProFormText } from '@ant-design/pro-components'
 export const ProfileView = () => {
   const sessionCtx = useSession()
   const userInfo = useUserInfo()
+  const config = useSessionConfig()
 
   const [profile, setProfile] = useState<AccountProfile>()
+  const inWechat = useMemo(() => navigator.userAgent.indexOf('MicroMessenger') !== -1, [])
 
   useEffect(() => {
     const request = MyRequest(ProfileApis.ProfileInfoGet)
@@ -27,12 +29,42 @@ export const ProfileView = () => {
   return (
     <div>
       <div style={{ padding: '15px' }}>
-        <List style={{ margin: '40px auto', maxWidth: '500px' }} header={<b>账号信息</b>} bordered>
+        <List
+          style={{ margin: '40px auto', maxWidth: '500px' }}
+          header={
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <b>账号信息</b>{' '}
+              <a
+                onClick={() => {
+                  const dialog = new FlexibleFormDialog({
+                    title: '账号信息',
+                    formBody: (
+                      <>
+                        <ProFormText name='nickName' label='昵称' />
+                      </>
+                    ),
+                    placeholder: userInfo,
+                  })
+                  dialog.show(async (params) => {
+                    const request = MyRequest(ProfileApis.ProfileInfoUpdate)
+                    request.setBodyData(params)
+                    await request.quickSend()
+                    message.success('修改成功')
+                    sessionCtx.reloadSession()
+                  })
+                }}
+              >
+                修改
+              </a>
+            </div>
+          }
+          bordered
+        >
           <List.Item style={{ display: 'flex' }}>
-            <b>昵称</b> <span>{profile.nickName}</span>
+            <span>昵称</span> <span>{profile.nickName}</span>
           </List.Item>
           <List.Item style={{ display: 'flex' }}>
-            <b>邮箱</b>
+            <span>邮箱</span>
             {emptyEmail ? (
               <a
                 onClick={() => {
@@ -56,15 +88,22 @@ export const ProfileView = () => {
               <span>{profile.email}</span>
             )}
           </List.Item>
-          <List.Item style={{ display: 'flex' }}>
-            <b>Google</b> <span>未绑定</span>
-          </List.Item>
-          <List.Item style={{ display: 'flex' }}>
-            <b>微信</b> <span>未绑定</span>
-          </List.Item>
-          <List.Item style={{ display: 'flex' }}>
-            <b>飞书</b> <span>未绑定</span>
-          </List.Item>
+          {config.useGoogleLogin && (
+            <List.Item style={{ display: 'flex' }}>
+              <span>Google</span> <span>未绑定</span>
+            </List.Item>
+          )}
+          {(inWechat && config.useWechatMPLogin) ||
+            (!inWechat && config.useWechatLogin && (
+              <List.Item style={{ display: 'flex' }}>
+                <span>微信</span> <span>未绑定</span>
+              </List.Item>
+            ))}
+          {config.useFeishuLogin && (
+            <List.Item style={{ display: 'flex' }}>
+              <span>飞书</span> <span>未绑定</span>
+            </List.Item>
+          )}
         </List>
       </div>
       <div className='fc-sso-form'>
