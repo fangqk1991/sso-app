@@ -29,26 +29,34 @@ factory.prepare(JointLoginApis.GoogleCallback, async (ctx) => {
   const ssoServer = ctx.ssoServer as SsoServer
   const accountServer = ssoServer.accountServer
 
+  const { redirectUri, accountUid } = await ssoServer.makeJointOAuthHandler(ctx).handleOAuthCallback(ticket)
+
   const tokenData = await MyJointGoogle.getUserInfoFromAuthorizationCode(code)
 
-  let account = await accountServer.findAccountWithCarrier(CarrierType.Google, tokenData.sub)
-  if (!account && tokenData.email) {
-    const email = tokenData.email
-    account = await accountServer.findAccountWithCarrier(CarrierType.Email, email)
-    if (!account) {
-      account = await accountServer.createAccount({
-        email: email,
-        password: '',
-        nickName: tokenData.name || '',
-        registerIp: session.realIP,
-      })
-      _FangchaState.botProxy.notify(`[Google] ${email} ${account.nickName} 注册了账号.`)
+  if (!accountUid) {
+    let account = await accountServer.findAccountWithCarrier(CarrierType.Google, tokenData.sub)
+    if (!account && tokenData.email) {
+      const email = tokenData.email
+      account = await accountServer.findAccountWithCarrier(CarrierType.Email, email)
+      if (!account) {
+        account = await accountServer.createAccount({
+          email: email,
+          password: '',
+          nickName: tokenData.name || '',
+          registerIp: session.realIP,
+        })
+        _FangchaState.botProxy.notify(`[Google] ${email} ${account.nickName} 注册了账号.`)
+      }
+      await account.updateCarrier(CarrierType.Google, tokenData.sub)
     }
-    await account.updateCarrier(CarrierType.Google, tokenData.sub)
   }
-  await new LoginService(ctx).onLoginSuccess(account!)
 
-  const { redirectUri } = await ssoServer.makeJointOAuthHandler(ctx).handleOAuthCallback(ticket)
+  await new LoginService(ctx).handleJointBindOrLogin({
+    carrierType: CarrierType.Google,
+    carrierUid: tokenData.sub,
+    accountUid,
+  })
+
   ctx.redirect(redirectUri)
 })
 

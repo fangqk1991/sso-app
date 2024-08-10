@@ -1,6 +1,11 @@
 import { Api } from '@fangcha/swagger'
 
 export const JointBindApis = {
+  GoogleLoginBindGoto: {
+    method: 'GET',
+    route: '/api/v1/joint-bind/google/goto',
+    description: 'Google 登录绑定',
+  },
   WechatLoginBindGoto: {
     method: 'GET',
     route: '/api/v1/joint-bind/wechat/goto',
