@@ -113,31 +113,30 @@ export const ProfileView = () => {
               />
             </List.Item>
           )}
-          {(inWechat && config.useWechatMPLogin) ||
-            (!inWechat && config.useWechatLogin && (
-              <List.Item style={{ display: 'flex' }}>
-                <span>微信</span>
-                <Switch
-                  size={'small'}
-                  checked={!!profile.extras[CarrierType.Wechat]}
-                  onChange={async (checked) => {
-                    if (checked) {
-                      window.location.href = `${JointBindApis.WechatLoginBindGoto.route}?formMP=${inWechat ? '1' : ''}`
-                    } else {
-                      const dialog = new ConfirmDialog({
-                        content: `确定要解除绑定吗？`,
-                      })
-                      dialog.show(async () => {
-                        const request = MyRequest(new CommonAPI(JointBindApis.JointLoginUnlink, CarrierType.Wechat))
-                        await request.quickSend()
-                        message.success(`解绑成功`)
-                        sessionCtx.reloadSession()
-                      })
-                    }
-                  }}
-                />
-              </List.Item>
-            ))}
+          {((inWechat && config.useWechatMPLogin) || (!inWechat && config.useWechatLogin)) && (
+            <List.Item style={{ display: 'flex' }}>
+              <span>微信</span>
+              <Switch
+                size={'small'}
+                checked={!!profile.extras[CarrierType.Wechat]}
+                onChange={async (checked) => {
+                  if (checked) {
+                    window.location.href = `${JointBindApis.WechatLoginBindGoto.route}?formMP=${inWechat ? '1' : ''}`
+                  } else {
+                    const dialog = new ConfirmDialog({
+                      content: `确定要解除绑定吗？`,
+                    })
+                    dialog.show(async () => {
+                      const request = MyRequest(new CommonAPI(JointBindApis.JointLoginUnlink, CarrierType.Wechat))
+                      await request.quickSend()
+                      message.success(`解绑成功`)
+                      sessionCtx.reloadSession()
+                    })
+                  }
+                }}
+              />
+            </List.Item>
+          )}
           {config.useFeishuLogin && (
             <List.Item style={{ display: 'flex' }}>
               <span>飞书</span>
