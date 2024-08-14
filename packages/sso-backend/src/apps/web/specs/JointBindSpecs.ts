@@ -33,8 +33,7 @@ factory.prepare(JointBindApis.WechatLoginBindGoto, async (ctx) => {
     redirectUri: ctx.session.getRefererUrl(),
     accountUid: account.accountUid,
   })
-  const wechatProxy = isOfficialMP ? MyJointWechatMP : MyJointWechat
-  ctx.redirect(wechatProxy.getAuthorizeUri(ticket))
+  ctx.redirect(isOfficialMP ? MyJointWechatMP.mp_getAuthorizeUri(ticket) : MyJointWechat.getAuthorizeUri(ticket))
 })
 
 factory.prepare(JointBindApis.FeishuLoginBindGoto, async (ctx) => {
