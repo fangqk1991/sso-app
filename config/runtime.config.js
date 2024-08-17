@@ -4,7 +4,17 @@ const retainedUserData = {}
 if (envData.Auth_User) {
   retainedUserData[envData.Auth_User] = envData.Auth_Password
 }
+
+const dynamicQueues = []
 const Feishu_useDepartmentSyncing = !!envData.Feishu_useDepartmentSyncing
+if (Feishu_useDepartmentSyncing) {
+  dynamicQueues.push('FeishuQueue')
+}
+const Wechat_useWechatMPSyncing = !!envData.Wechat_useWechatMPSyncing
+if (Wechat_useWechatMPSyncing) {
+  dynamicQueues.push('WeixinMPQueue')
+}
+const useTask = Feishu_useDepartmentSyncing || Wechat_useWechatMPSyncing
 
 module.exports = {
   FangchaAuth: {
@@ -35,7 +45,7 @@ module.exports = {
     ssoResque: {
       redisHost: envData.Resque_redisHost,
       redisPort: envData.Resque_redisPort,
-      dynamicQueues: Feishu_useDepartmentSyncing ? ['FeishuQueue'] : [],
+      dynamicQueues: dynamicQueues,
     },
     sqlTablePrefix: envData.DB_tableNamePrefix,
     frontendConfig: {
@@ -48,7 +58,8 @@ module.exports = {
       useFeishuLogin: envData.FE_useFeishuLogin !== undefined ? `${envData.FE_useFeishuLogin}` === 'true' : undefined,
       useGoogleLogin: envData.FE_useGoogleLogin !== undefined ? `${envData.FE_useGoogleLogin}` === 'true' : undefined,
       useWechatLogin: envData.FE_useWechatLogin !== undefined ? `${envData.FE_useWechatLogin}` === 'true' : undefined,
-      useWechatMPLogin: envData.FE_useWechatMPLogin !== undefined ? `${envData.FE_useWechatMPLogin}` === 'true' : undefined,
+      useWechatMPLogin:
+        envData.FE_useWechatMPLogin !== undefined ? `${envData.FE_useWechatMPLogin}` === 'true' : undefined,
     },
     adminAuth: {
       authMode: envData.authMode,
@@ -72,8 +83,8 @@ module.exports = {
       logoCss: envData.adminFE_logoCss,
       navBackground: envData.adminFE_navBackground,
     },
-    useResque: Feishu_useDepartmentSyncing,
-    useSchedule: Feishu_useDepartmentSyncing,
+    useResque: useTask,
+    useSchedule: useTask,
     FeishuSDK: {
       urlBase: 'https://open.feishu.cn',
       appid: envData.Feishu_appid,

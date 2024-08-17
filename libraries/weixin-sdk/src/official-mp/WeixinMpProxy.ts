@@ -15,6 +15,10 @@ export class WeixinMpProxy extends ServiceProxy<WeixinBaseConfig> {
     this._tokenKeeper = new WeixinTokenKeeper(config, observerClass)
   }
 
+  public appid() {
+    return this._config.appid
+  }
+
   public async makeRequest(commonApi: ApiOptions) {
     const accessToken = await this._tokenKeeper.requireAccessToken()
     const request = axiosBuilder()

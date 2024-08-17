@@ -12,4 +12,9 @@ export class SsoResque {
     const resqueJob = ResqueJob.generate('FeishuQueue', 'FeishuDepartmentSyncTask')
     await resqueJob.addToQueue()
   }
+
+  public static async enqueue_WeixinMPSyncTask() {
+    const resqueJob = ResqueJob.generate('WeixinMPQueue', 'WeixinMPSyncTask')
+    await resqueJob.addToQueue()
+  }
 }

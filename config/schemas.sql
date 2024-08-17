@@ -285,7 +285,7 @@ CREATE TABLE IF NOT EXISTS fc_weixin_user
     _rid            BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     union_id        VARCHAR(64)     NOT NULL COLLATE ascii_bin COMMENT '微信 union_id',
     official_openid VARCHAR(64)     NULL COLLATE ascii_bin COMMENT '公众号 Open ID',
-    nick_name       VARCHAR(255)    NOT NULL DEFAULT '昵称',
+    nick_name       VARCHAR(255)    NOT NULL DEFAULT '' COMMENT '昵称',
     head_img_url    TEXT COLLATE ascii_bin,
     created_at      TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     updated_at      TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',

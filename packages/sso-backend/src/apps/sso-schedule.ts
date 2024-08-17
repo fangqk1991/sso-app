@@ -21,6 +21,15 @@ const app = new FangchaApp({
           await SsoResque.enqueue_FeishuDepartmentSyncTask()
         },
       },
+
+      {
+        name: '同步微信订阅用户信息',
+        // 每天一次
+        cronRule: '0 0 * * *',
+        handler: async () => {
+          await SsoResque.enqueue_WeixinMPSyncTask()
+        },
+      },
     ]),
   ],
 })
