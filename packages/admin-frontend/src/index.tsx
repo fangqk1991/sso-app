@@ -6,7 +6,7 @@ import { FullLaunchContainer } from '@fangcha/auth-react/router'
 const app = ReactDOM.createRoot(document.getElementById('app')!)
 app.render(
   <React.StrictMode>
-    <FullLaunchContainer allowAnonymous={true}>
+    <FullLaunchContainer allowAnonymous={true} strictVersion={true}>
       <App />
     </FullLaunchContainer>
   </React.StrictMode>

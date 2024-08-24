@@ -81,9 +81,10 @@ export const useSessionConfig = (): SessionConfig => {
   return sessionCtx.session.config
 }
 
-export const SessionProvider: React.FC<{ allowAnonymous?: boolean }> = ({
+export const SessionProvider: React.FC<{ allowAnonymous?: boolean; strictVersion?: boolean }> = ({
   children,
   allowAnonymous: defaultAllowAnonymous,
+  strictVersion,
 }: React.ComponentProps<any>) => {
   const [session, setSession] = useState(_defaultSession)
   const [already, setAlready] = useState(false)
@@ -103,6 +104,16 @@ export const SessionProvider: React.FC<{ allowAnonymous?: boolean }> = ({
             ...response.config,
           },
         })
+
+        if (
+          strictVersion &&
+          (response.codeVersion || '').match(/^\w{8}$/) &&
+          response.codeVersion !== window['commitSHA']
+        ) {
+          window.location.reload()
+          return
+        }
+
         setAlready(true)
 
         const redirectTools = new RedirectTools({

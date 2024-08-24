@@ -10,6 +10,7 @@ import { AuthRouter } from './AuthRouter'
 AuthSdkHelper.defaultRedirectUri = '/'
 
 interface Props extends React.ComponentProps<any> {
+  strictVersion?: boolean
   allowAnonymous?: boolean
 }
 
@@ -50,10 +51,10 @@ const InnerContainer: React.FC<React.ComponentProps<any>> = ({ children }) => {
   )
 }
 
-export const FullLaunchContainer: React.FC<Props> = ({ children, allowAnonymous }) => {
+export const FullLaunchContainer: React.FC<Props> = ({ children, allowAnonymous, strictVersion }) => {
   return (
     <ErrorBoundary>
-      <SessionProvider allowAnonymous={allowAnonymous}>
+      <SessionProvider allowAnonymous={allowAnonymous} strictVersion={strictVersion}>
         <InnerContainer>{children}</InnerContainer>
       </SessionProvider>
     </ErrorBoundary>
