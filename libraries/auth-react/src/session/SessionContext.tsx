@@ -111,7 +111,7 @@ export const SessionProvider: React.FC<{ allowAnonymous?: boolean; strictVersion
           (response.codeVersion || '').match(/^\w{8}$/) &&
           response.codeVersion !== window['commitSHA']
         ) {
-          message.warning('发现新版本，正在更新...', () => window.location.reload())
+          message.warning('发现新版本，正在更新...', 1.5, () => window.location.reload())
           return
         }
 
