@@ -4,6 +4,7 @@ import { AuthSdkHelper } from '../services/AuthSdkHelper'
 import { AuthMode } from '@fangcha/account-models'
 import { RedirectTools } from '@fangcha/auth-basic'
 import { RetainedSessionApis, SessionInfo, SessionUserInfo } from '@fangcha/app-models'
+import { message } from 'antd'
 
 export interface SessionConfig {
   appName: string
@@ -110,7 +111,7 @@ export const SessionProvider: React.FC<{ allowAnonymous?: boolean; strictVersion
           (response.codeVersion || '').match(/^\w{8}$/) &&
           response.codeVersion !== window['commitSHA']
         ) {
-          window.location.reload()
+          message.warning('发现新版本，正在更新...', () => window.location.reload())
           return
         }
 
