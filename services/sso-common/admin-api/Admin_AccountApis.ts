@@ -36,4 +36,10 @@ export const Admin_AccountApis = {
     route: '/api/v1/account/:accountUid/carrier/:accountCarrier',
     description: 'Account Carrier Delete',
   } as Api,
+  AccountLoginSimulate: {
+    method: 'POST',
+    route: '/api/v1/account/:accountUid/simulate',
+    description: 'Account Login Simulate',
+    skipAuth: true,
+  } as Api,
 }

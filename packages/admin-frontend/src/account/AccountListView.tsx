@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react'
 import { MyRequest } from '@fangcha/auth-react'
-import { Button, Divider, message, Space, Input } from 'antd'
+import { Button, Input, message, Modal, Space } from 'antd'
 import { Admin_AccountApis } from '@web/sso-common/admin-api'
 import { ConfirmDialog, InformationDialog, SimpleInputDialog, TableView, useQueryParams } from '@fangcha/react'
 import { PageResult } from '@fangcha/tools'
@@ -173,8 +173,8 @@ export const AccountListView: React.FC = () => {
             key: 'action',
             render: (item: FullAccountModel) => (
               <Space size='small'>
-                <Button
-                  type='link'
+                <a
+                  className={'text-success'}
                   onClick={async () => {
                     const request = MyRequest(new CommonAPI(Admin_AccountApis.AccountCarrierListGet, item.accountUid))
                     const items = await request.quickSend<AccountCarrierModel[]>()
@@ -189,9 +189,8 @@ export const AccountListView: React.FC = () => {
                   }}
                 >
                   查看绑定
-                </Button>
-                <Button
-                  type='link'
+                </a>
+                <a
                   onClick={() => {
                     const dialog = new SimpleInputDialog({
                       title: '输入新密码',
@@ -209,7 +208,24 @@ export const AccountListView: React.FC = () => {
                   }}
                 >
                   重置密码
-                </Button>
+                </a>
+                <a
+                  className={'text-danger'}
+                  onClick={async () => {
+                    const request = MyRequest(new CommonAPI(Admin_AccountApis.AccountLoginSimulate, item.accountUid))
+                    const { url } = await request.quickSend<{ url: string }>()
+                    Modal.success({
+                      title: '模拟登录链接',
+                      content: (
+                        <a href={url} target={'_blank'}>
+                          {url}
+                        </a>
+                      ),
+                    })
+                  }}
+                >
+                  模拟登录
+                </a>
               </Space>
             ),
           },
