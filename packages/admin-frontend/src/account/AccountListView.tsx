@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { MyRequest } from '@fangcha/auth-react'
-import { Button, Divider, message, Space } from 'antd'
+import { Button, Divider, message, Space, Input } from 'antd'
 import { Admin_AccountApis } from '@web/sso-common/admin-api'
-import { ConfirmDialog, InformationDialog, SimpleInputDialog, TableView } from '@fangcha/react'
+import { ConfirmDialog, InformationDialog, SimpleInputDialog, TableView, useQueryParams } from '@fangcha/react'
 import { PageResult } from '@fangcha/tools'
 import { AccountFormDialog } from './AccountFormDialog'
 import { AccountCarrierModel, CarrierType, FullAccountModel } from '@fangcha/account-models'
@@ -11,26 +11,59 @@ import { formatTime } from '../core/formatTime'
 
 export const AccountListView: React.FC = () => {
   const [version, setVersion] = useState(0)
+  const { queryParams, updateQueryParams, setQueryParams } = useQueryParams<{
+    $keywords: string
+  }>()
+
+  const keywordsSearchBar = useMemo(() => {
+    return (
+      <Input.Search
+        key={queryParams.$keywords}
+        defaultValue={queryParams.$keywords}
+        placeholder='Keywords'
+        onSearch={(keywords: string) => {
+          updateQueryParams({
+            $keywords: keywords,
+          })
+        }}
+        allowClear
+        enterButton
+      />
+    )
+  }, [queryParams.$keywords])
+
   return (
     <div>
       <h3>账号管理</h3>
-      <Divider />
-      <Button
-        type='primary'
-        onClick={() => {
-          const dialog = new AccountFormDialog({})
-          dialog.show(async (params) => {
-            const request = MyRequest(Admin_AccountApis.AccountCreate)
-            request.setBodyData(params)
-            await request.quickSend()
-            message.success('创建成功')
-            setVersion(version + 1)
-          })
-        }}
-      >
-        创建账号
-      </Button>
-      <Divider />
+      <div className={'my-3'}>
+        <Space wrap={true}>
+          {keywordsSearchBar}
+          <Button
+            onClick={() => {
+              setQueryParams({})
+            }}
+          >
+            重置过滤器
+          </Button>
+        </Space>
+      </div>
+      <div className={'mb-3'}>
+        <Button
+          type='primary'
+          onClick={() => {
+            const dialog = new AccountFormDialog({})
+            dialog.show(async (params) => {
+              const request = MyRequest(Admin_AccountApis.AccountCreate)
+              request.setBodyData(params)
+              await request.quickSend()
+              message.success('创建成功')
+              setVersion(version + 1)
+            })
+          }}
+        >
+          创建账号
+        </Button>
+      </div>
       <TableView
         version={version}
         rowKey={(item: FullAccountModel) => {
@@ -186,7 +219,10 @@ export const AccountListView: React.FC = () => {
         }}
         loadData={async (retainParams) => {
           const request = MyRequest(Admin_AccountApis.AccountPageDataGet)
-          request.setQueryParams(retainParams)
+          request.setQueryParams({
+            ...retainParams,
+            ...queryParams,
+          })
           return request.quickSend<PageResult<FullAccountModel>>()
         }}
       />
