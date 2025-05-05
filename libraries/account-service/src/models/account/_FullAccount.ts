@@ -41,6 +41,8 @@ export class _FullAccount extends FeedBase {
       insertableCols: [],
       modifiableCols: [],
       timestampTypeCols: [],
+      exactSearchCols: ['account.account_uid'],
+      fuzzySearchCols: ['email_carrier.carrier_uid', 'phone_carrier.carrier_uid', 'account.nick_name'],
     })
   }
 
