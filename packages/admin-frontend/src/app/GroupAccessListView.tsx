@@ -1,7 +1,15 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { MyRequest } from '@fangcha/auth-react'
 import { Breadcrumb, Button, Divider, message, Modal, Space, Spin, Tag } from 'antd'
-import { ConfirmDialog, RouterLink, TableView } from '@fangcha/react'
+import {
+  ConfirmDialog,
+  RouterLink,
+  TablePageOptions,
+  TableParamsHelper,
+  TableViewV2,
+  useLoadingData,
+  useQueryParams,
+} from '@fangcha/react'
 import { PageResult } from '@fangcha/tools'
 import { useParams } from 'react-router-dom'
 import { P_GroupAccessInfo } from '@fangcha/account-models'
@@ -17,6 +25,36 @@ export const GroupAccessListView: React.FC = () => {
   const [version, setVersion] = useState(0)
   const appInfo = useAppInfo(appid, version)!
   const groupInfo = useGroupInfo(appid, groupId, version)!
+
+  const { queryParams, updateQueryParams, setQueryParams } = useQueryParams<{
+    $keywords: string
+  }>()
+
+  const pageParams = useMemo(
+    (): TablePageOptions => ({
+      pageSize: 10,
+      sortKey: 'createTime',
+      sortDirection: 'descending',
+      ...queryParams,
+    }),
+    [queryParams]
+  )
+
+  const { loading, data: pageResult } = useLoadingData<PageResult<P_GroupAccessInfo>>(
+    async () => {
+      if (!appInfo || !groupInfo) {
+        return { offset: 0, length: 20, totalCount: 0, items: [] }
+      }
+      const request = MyRequest(
+        new CommonAPI(CommonAppApis.AppGroupAccessPageDataGet, groupInfo.appid, groupInfo.groupId)
+      )
+      request.setQueryParams(TableParamsHelper.transferQueryParams(pageParams))
+      return request.quickSend()
+    },
+    [version, pageParams, appInfo, groupInfo],
+    { offset: 0, length: 20, totalCount: 0, items: [] }
+  )
+
   if (!appInfo || !groupInfo) {
     return <Spin size='large' />
   }
@@ -33,10 +71,7 @@ export const GroupAccessListView: React.FC = () => {
           </RouterLink>
         </Breadcrumb.Item>
         <Breadcrumb.Item to={{ pathname: `/v1/app/${appInfo.appid}/group/${groupInfo.groupId}` }}>
-          <RouterLink
-            route={AppPages.GroupDetailRoute}
-            params={{ appid: appInfo.appid, groupId: groupInfo.groupId }}
-          >
+          <RouterLink route={AppPages.GroupDetailRoute} params={{ appid: appInfo.appid, groupId: groupInfo.groupId }}>
             {groupInfo.name}
           </RouterLink>
         </Breadcrumb.Item>
@@ -63,10 +98,13 @@ export const GroupAccessListView: React.FC = () => {
       </Button>
 
       <Divider />
-      <TableView
-        version={version}
+      <TableViewV2
         rowKey={(item: P_GroupAccessInfo) => {
           return item.accessId
+        }}
+        tableProps={{
+          size: 'small',
+          loading: loading,
         }}
         columns={[
           {
@@ -145,17 +183,11 @@ export const GroupAccessListView: React.FC = () => {
             ),
           },
         ]}
-        defaultSettings={{
-          pageSize: 10,
-          sortKey: 'createTime',
-          sortDirection: 'descending',
-        }}
-        loadData={async (retainParams) => {
-          const request = MyRequest(
-            new CommonAPI(CommonAppApis.AppGroupAccessPageDataGet, groupInfo.appid, groupInfo.groupId)
-          )
-          request.setQueryParams(retainParams)
-          return request.quickSend<PageResult<P_GroupAccessInfo>>()
+        initialSettings={pageParams}
+        pageResult={pageResult}
+        onParamsChanged={(params) => {
+          // console.info('onParamsChanged', params)
+          updateQueryParams(params as any)
         }}
       />
     </div>

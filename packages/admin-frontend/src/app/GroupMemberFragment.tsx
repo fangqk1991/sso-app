@@ -5,7 +5,7 @@ import { CommonAppApis } from '@web/sso-common/core-api'
 import { Button, Divider, message, Space, Tag } from 'antd'
 import { GroupFragmentProtocol } from './GroupFragmentProtocol'
 import { FullAccountModel, GroupCategory, P_MemberInfo } from '@fangcha/account-models'
-import { ConfirmDialog, SimpleInputDialog, TableView, TableViewColumn } from '@fangcha/react'
+import { ConfirmDialog, SimpleInputDialog, TableViewColumn, TableViewV2 } from '@fangcha/react'
 import { DepartmentTreeView } from '../feishu/DepartmentTreeView'
 import { useFeishuDepartmentCtx } from '../feishu/FeishuDepartmentContext'
 import { GroupMemberDialog } from './GroupMemberDialog'
@@ -100,7 +100,10 @@ export const GroupMemberFragment: GroupFragmentProtocol = ({ appInfo, groupInfo,
       </div>
       <Divider style={{ margin: '12px 0' }} />
 
-      <TableView
+      <TableViewV2
+        tableProps={{
+          size: 'small',
+        }}
         rowKey={(item: FullAccountModel) => {
           return item.accountUid
         }}
@@ -197,9 +200,7 @@ export const GroupMemberFragment: GroupFragmentProtocol = ({ appInfo, groupInfo,
             ),
           },
         ])}
-        loadOnePageItems={async () => {
-          return memberList
-        }}
+        items={memberList}
       />
     </>
   )

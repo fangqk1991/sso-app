@@ -1,8 +1,15 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { MyRequest } from '@fangcha/auth-react'
 import { Button, Divider, Modal, Tag } from 'antd'
 import { Admin_SsoClientApis } from '@web/sso-common/admin-api'
-import { RouterLink, TableView } from '@fangcha/react'
+import {
+  RouterLink,
+  TablePageOptions,
+  TableParamsHelper,
+  TableViewV2,
+  useLoadingData,
+  useQueryParams
+} from '@fangcha/react'
 import { SsoClientModel } from '@fangcha/sso-models'
 import { PageResult } from '@fangcha/tools'
 import { ClientFormDialog } from './ClientFormDialog'
@@ -10,6 +17,30 @@ import { AppPages } from '../core/AppPages'
 
 export const ClientListView: React.FC = () => {
   const [version, setVersion] = useState(0)
+  const { queryParams, updateQueryParams, setQueryParams } = useQueryParams<{
+    $keywords: string
+  }>()
+
+  const pageParams = useMemo(
+    (): TablePageOptions => ({
+      pageSize: 10,
+      sortKey: 'createTime',
+      sortDirection: 'descending',
+      ...queryParams,
+    }),
+    [queryParams]
+  )
+
+  const { loading, data: pageResult } = useLoadingData<PageResult<SsoClientModel>>(
+    async () => {
+      const request = MyRequest(Admin_SsoClientApis.ClientPageDataGet)
+      request.setQueryParams(TableParamsHelper.transferQueryParams(pageParams))
+      return request.quickSend()
+    },
+    [version, pageParams],
+    { offset: 0, length: 20, totalCount: 0, items: [] }
+  )
+
   return (
     <div>
       <h3>客户端管理</h3>
@@ -38,8 +69,11 @@ export const ClientListView: React.FC = () => {
         创建客户端
       </Button>
       <Divider />
-      <TableView
-        version={version}
+      <TableViewV2
+        tableProps={{
+          size: 'small',
+          loading: loading,
+        }}
         rowKey={(item: SsoClientModel) => {
           return item.clientId
         }}
@@ -103,15 +137,11 @@ export const ClientListView: React.FC = () => {
             ),
           },
         ]}
-        defaultSettings={{
-          pageSize: 10,
-          sortKey: 'createTime',
-          sortDirection: 'descending',
-        }}
-        loadData={async (retainParams) => {
-          const request = MyRequest(Admin_SsoClientApis.ClientPageDataGet)
-          request.setQueryParams(retainParams)
-          return request.quickSend<PageResult<SsoClientModel>>()
+        initialSettings={pageParams}
+        pageResult={pageResult}
+        onParamsChanged={(params) => {
+          // console.info('onParamsChanged', params)
+          updateQueryParams(params as any)
         }}
       />
     </div>

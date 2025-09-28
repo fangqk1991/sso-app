@@ -1,8 +1,17 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { AppFragmentProtocol } from './AppFragmentProtocol'
 import { Button, Divider, message, Space, Tag } from 'antd'
 import { MyRequest } from '@fangcha/auth-react'
-import { ConfirmDialog, JsonEditorDialog, RouterLink, TableView } from '@fangcha/react'
+import {
+  ConfirmDialog,
+  JsonEditorDialog,
+  RouterLink,
+  TablePageOptions,
+  TableParamsHelper,
+  TableViewV2,
+  useLoadingData,
+  useQueryParams,
+} from '@fangcha/react'
 import { GroupCategory, P_GroupInfo } from '@fangcha/account-models'
 import { CommonAPI } from '@fangcha/app-request'
 import { CommonAppApis } from '@web/sso-common/core-api'
@@ -15,6 +24,30 @@ import { AppPages } from '../core/AppPages'
 export const AppGroupsFragment: AppFragmentProtocol = ({ appInfo }) => {
   const departmentCtx = useFeishuDepartmentCtx()
   const [version, setVersion] = useState(0)
+  const { queryParams, updateQueryParams, setQueryParams } = useQueryParams<{
+    $keywords: string
+  }>()
+
+  const pageParams = useMemo(
+    (): TablePageOptions => ({
+      pageSize: 10,
+      sortKey: 'createTime',
+      sortDirection: 'descending',
+      ...queryParams,
+    }),
+    [queryParams]
+  )
+
+  const { loading, data: pageResult } = useLoadingData<PageResult<P_GroupInfo>>(
+    async () => {
+      const request = MyRequest(new CommonAPI(CommonAppApis.AppGroupPageDataGet, appInfo.appid))
+      request.setQueryParams(TableParamsHelper.transferQueryParams(pageParams))
+      return request.quickSend()
+    },
+    [version, pageParams, appInfo.appid],
+    { offset: 0, length: 20, totalCount: 0, items: [] }
+  )
+
   return (
     <div>
       <Space>
@@ -54,8 +87,11 @@ export const AppGroupsFragment: AppFragmentProtocol = ({ appInfo }) => {
         </Button>
       </Space>
       <Divider />
-      <TableView
-        version={version}
+      <TableViewV2
+        tableProps={{
+          size: 'small',
+          loading: loading,
+        }}
         rowKey={(item: P_GroupInfo) => {
           return item.groupId
         }}
@@ -153,15 +189,11 @@ export const AppGroupsFragment: AppFragmentProtocol = ({ appInfo }) => {
             ),
           },
         ]}
-        defaultSettings={{
-          pageSize: 10,
-          sortKey: 'createTime',
-          sortDirection: 'descending',
-        }}
-        loadData={async (retainParams) => {
-          const request = MyRequest(new CommonAPI(CommonAppApis.AppGroupPageDataGet, appInfo.appid))
-          request.setQueryParams(retainParams)
-          return request.quickSend<PageResult<P_GroupInfo>>()
+        initialSettings={pageParams}
+        pageResult={pageResult}
+        onParamsChanged={(params) => {
+          // console.info('onParamsChanged', params)
+          updateQueryParams(params as any)
         }}
       />
     </div>

@@ -1,8 +1,17 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { MyRequest } from '@fangcha/auth-react'
 import { Button, Divider, message, Space, Tag } from 'antd'
 import { Admin_AppApis } from '@web/sso-common/admin-api'
-import { ConfirmDialog, JsonEditorDialog, RouterLink, TableView } from '@fangcha/react'
+import {
+  ConfirmDialog,
+  JsonEditorDialog,
+  RouterLink,
+  TablePageOptions,
+  TableParamsHelper,
+  TableViewV2,
+  useLoadingData,
+  useQueryParams,
+} from '@fangcha/react'
 import { PageResult } from '@fangcha/tools'
 import { AppTypeDescriptor, P_AppInfo } from '@fangcha/account-models'
 import { AppFormDialog } from './AppFormDialog'
@@ -13,6 +22,30 @@ import { AppPages } from '../core/AppPages'
 
 export const AppListView: React.FC = () => {
   const [version, setVersion] = useState(0)
+  const { queryParams, updateQueryParams, setQueryParams } = useQueryParams<{
+    $keywords: string
+  }>()
+
+  const pageParams = useMemo(
+    (): TablePageOptions => ({
+      pageSize: 10,
+      sortKey: 'createTime',
+      sortDirection: 'descending',
+      ...queryParams,
+    }),
+    [queryParams]
+  )
+
+  const { loading, data: pageResult } = useLoadingData<PageResult<P_AppInfo>>(
+    async () => {
+      const request = MyRequest(Admin_AppApis.AppPageDataGet)
+      request.setQueryParams(TableParamsHelper.transferQueryParams(pageParams))
+      return request.quickSend()
+    },
+    [version, pageParams],
+    { offset: 0, length: 20, totalCount: 0, items: [] }
+  )
+
   return (
     <div>
       <h3>应用列表</h3>
@@ -53,8 +86,11 @@ export const AppListView: React.FC = () => {
         </Button>
       </Space>
       <Divider />
-      <TableView
-        version={version}
+      <TableViewV2
+        tableProps={{
+          size: 'small',
+          loading: loading,
+        }}
         rowKey={(item: P_AppInfo) => {
           return item.appid
         }}
@@ -144,15 +180,11 @@ export const AppListView: React.FC = () => {
             ),
           },
         ]}
-        defaultSettings={{
-          pageSize: 10,
-          sortKey: 'createTime',
-          sortDirection: 'descending',
-        }}
-        loadData={async (retainParams) => {
-          const request = MyRequest(Admin_AppApis.AppPageDataGet)
-          request.setQueryParams(retainParams)
-          return request.quickSend<PageResult<P_AppInfo>>()
+        initialSettings={pageParams}
+        pageResult={pageResult}
+        onParamsChanged={(params) => {
+          // console.info('onParamsChanged', params)
+          updateQueryParams(params as any)
         }}
       />
     </div>

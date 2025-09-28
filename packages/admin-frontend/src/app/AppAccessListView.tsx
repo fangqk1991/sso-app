@@ -1,7 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { MyRequest } from '@fangcha/auth-react'
 import { Breadcrumb, Button, Divider, message, Modal, Space, Spin, Tag } from 'antd'
-import { ConfirmDialog, RouterLink, TableView } from '@fangcha/react'
+import {
+  ConfirmDialog,
+  RouterLink,
+  TablePageOptions,
+  TableParamsHelper,
+  TableViewV2,
+  useLoadingData,
+  useQueryParams,
+} from '@fangcha/react'
 import { PageResult } from '@fangcha/tools'
 import { useParams } from 'react-router-dom'
 import { P_AccessInfo, P_AppInfo } from '@fangcha/account-models'
@@ -22,6 +30,33 @@ export const AppAccessListView: React.FC = () => {
         setAppInfo(response)
       })
   }, [version])
+
+  const { queryParams, updateQueryParams, setQueryParams } = useQueryParams<{
+    $keywords: string
+  }>()
+
+  const pageParams = useMemo(
+    (): TablePageOptions => ({
+      pageSize: 10,
+      sortKey: 'createTime',
+      sortDirection: 'descending',
+      ...queryParams,
+    }),
+    [queryParams]
+  )
+
+  const { loading, data: pageResult } = useLoadingData<PageResult<P_AccessInfo>>(
+    async () => {
+      if (!appInfo) {
+        return { offset: 0, length: 20, totalCount: 0, items: [] }
+      }
+      const request = MyRequest(new CommonAPI(CommonAppApis.AppAccessPageDataGet, appInfo.appid))
+      request.setQueryParams(TableParamsHelper.transferQueryParams(pageParams))
+      return request.quickSend<PageResult<P_AccessInfo>>()
+    },
+    [version, pageParams, appInfo],
+    { offset: 0, length: 20, totalCount: 0, items: [] }
+  )
 
   if (!appInfo) {
     return <Spin size='large' />
@@ -58,10 +93,13 @@ export const AppAccessListView: React.FC = () => {
       </Button>
 
       <Divider />
-      <TableView
-        version={version}
+      <TableViewV2
         rowKey={(item: P_AccessInfo) => {
           return item.accessId
+        }}
+        tableProps={{
+          size: 'small',
+          loading: loading,
         }}
         columns={[
           {
@@ -130,15 +168,11 @@ export const AppAccessListView: React.FC = () => {
             ),
           },
         ]}
-        defaultSettings={{
-          pageSize: 10,
-          sortKey: 'createTime',
-          sortDirection: 'descending',
-        }}
-        loadData={async (retainParams) => {
-          const request = MyRequest(new CommonAPI(CommonAppApis.AppAccessPageDataGet, appInfo.appid))
-          request.setQueryParams(retainParams)
-          return request.quickSend<PageResult<P_AccessInfo>>()
+        initialSettings={pageParams}
+        pageResult={pageResult}
+        onParamsChanged={(params) => {
+          // console.info('onParamsChanged', params)
+          updateQueryParams(params as any)
         }}
       />
     </div>
