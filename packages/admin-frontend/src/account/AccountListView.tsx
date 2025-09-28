@@ -2,7 +2,15 @@ import React, { useMemo, useState } from 'react'
 import { MyRequest } from '@fangcha/auth-react'
 import { Button, Input, message, Modal, Space } from 'antd'
 import { Admin_AccountApis } from '@web/sso-common/admin-api'
-import { ConfirmDialog, InformationDialog, SimpleInputDialog, TableView, useQueryParams } from '@fangcha/react'
+import {
+  ConfirmDialog,
+  InformationDialog,
+  SimpleInputDialog,
+  TableParamsHelper,
+  TableViewV2,
+  useLoadingData,
+  useQueryParams,
+} from '@fangcha/react'
 import { PageResult } from '@fangcha/tools'
 import { AccountFormDialog } from './AccountFormDialog'
 import { AccountCarrierModel, CarrierType, FullAccountModel } from '@fangcha/account-models'
@@ -14,6 +22,18 @@ export const AccountListView: React.FC = () => {
   const { queryParams, updateQueryParams, setQueryParams } = useQueryParams<{
     $keywords: string
   }>()
+
+  const pageParams = useMemo(() => ({ pageSize: 10, ...queryParams }), [queryParams])
+
+  const { loading, data: pageResult } = useLoadingData<PageResult<FullAccountModel>>(
+    async () => {
+      const request = MyRequest(Admin_AccountApis.AccountPageDataGet)
+      request.setQueryParams(TableParamsHelper.transferQueryParams(pageParams))
+      return request.quickSend<PageResult<FullAccountModel>>()
+    },
+    [version, pageParams],
+    { offset: 0, length: 20, totalCount: 0, items: [] }
+  )
 
   const keywordsSearchBar = useMemo(() => {
     return (
@@ -64,13 +84,13 @@ export const AccountListView: React.FC = () => {
           创建账号
         </Button>
       </div>
-      <TableView
-        version={version}
+      <TableViewV2
         rowKey={(item: FullAccountModel) => {
           return item.accountUid
         }}
         tableProps={{
           size: 'small',
+          loading: loading,
         }}
         columns={[
           {
@@ -230,16 +250,11 @@ export const AccountListView: React.FC = () => {
             ),
           },
         ]}
-        defaultSettings={{
-          pageSize: 10,
-        }}
-        loadData={async (retainParams) => {
-          const request = MyRequest(Admin_AccountApis.AccountPageDataGet)
-          request.setQueryParams({
-            ...retainParams,
-            ...queryParams,
-          })
-          return request.quickSend<PageResult<FullAccountModel>>()
+        initialSettings={pageParams}
+        pageResult={pageResult}
+        onParamsChanged={(params) => {
+          // console.info('onParamsChanged', params)
+          updateQueryParams(params as any)
         }}
       />
     </div>
